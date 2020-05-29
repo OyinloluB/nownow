@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -10,6 +9,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,24 +51,30 @@ export default function NestedList() {
       </ListItem>
       <Collapse in={openSignup} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Distributor" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Bulb Breaker" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="POC" />
-          </ListItem>
+          <Link to="/distributor/signup">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Distributor" />
+            </ListItem>
+          </Link>
+          <Link to="/bulbbreaker/signup">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Bulb Breaker" />
+            </ListItem>
+          </Link>
+          <Link to="/poc/signup">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="POC" />
+            </ListItem>
+          </Link>
         </List>
       </Collapse>
 
@@ -83,24 +89,30 @@ export default function NestedList() {
       </ListItem>
       <Collapse in={openSignin} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Distributor" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="Bulb Breaker" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <ShoppingCartIcon />
-            </ListItemIcon>
-            <ListItemText primary="POC" />
-          </ListItem>
+          <Link to="/distributor/signin">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Distributor" />
+            </ListItem>
+          </Link>
+          <Link to="/bulbbreaker/signin">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Bulb Breaker" />
+            </ListItem>
+          </Link>
+          <Link to="/poc/signin">
+            <ListItem button className={classes.nested}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="POC" />
+            </ListItem>
+          </Link>
         </List>
       </Collapse>
     </List>
