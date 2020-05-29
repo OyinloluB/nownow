@@ -33,9 +33,6 @@ export default function Navbar() {
 
   return (
     <>
-      {showPrompt ? (
-        <Signupas show={showPrompt} setShowPrompt={setShowPrompt} />
-      ) : null}
       <div className={classes.root}>
         <AppBar position="static" className={classes.appbar}>
           <Toolbar>
@@ -55,6 +52,9 @@ export default function Navbar() {
             </Button>
           </Toolbar>
         </AppBar>
+        {showPrompt ? (
+          <Signupas show={showPrompt} setShowPrompt={setShowPrompt} />
+        ) : null}
       </div>
     </>
   );

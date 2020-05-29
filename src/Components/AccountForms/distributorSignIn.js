@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
-export const pocSignUp = () => {
+export const distributorSignIn = () => {
   return (
     <Container
       maxWidth="sm"
@@ -14,10 +14,6 @@ export const pocSignUp = () => {
       }}
     >
       <Form>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>User ID</Form.Label>
-          <Form.Control type="email" placeholder="User ID" />
-        </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
@@ -31,17 +27,17 @@ export const pocSignUp = () => {
             margin: "10px 0 10px 0",
           }}
         >
-          Sign up
+          Log in
         </Button>
         <p>
-          Aalready have an account?{" "}
-          <Link to="/poc/signin">
+          New user?{" "}
+          <Link to="/distributor/signup">
             <span
               style={{
                 color: "#b11917",
               }}
             >
-              Log in!
+              Sign up!
             </span>
           </Link>
         </p>

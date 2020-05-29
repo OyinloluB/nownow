@@ -10,6 +10,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
+import "./accounts.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NestedList() {
+export default function AccountTypes({ handleClose }) {
   const classes = useStyles();
   const [openSignup, setOpenSignup] = React.useState(true);
   const [openSignin, setOpenSignin] = React.useState(false);

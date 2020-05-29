@@ -1,5 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { distributorSignUp } from "../../Components/AccountForms/distributorSignUp";
+import { distributorSignIn } from "../../Components/AccountForms/distributorSignIn";
 
 const distributorRoute = () => {
   return (
