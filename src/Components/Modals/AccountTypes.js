@@ -24,10 +24,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NestedList() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [openSignup, setOpenSignup] = React.useState(true);
+  const [openSignin, setOpenSignin] = React.useState(false);
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleClickSignin = () => {
+    setOpenSignin(!openSignin);
+  };
+  const handleClickSignup = () => {
+    setOpenSignup(!openSignup);
   };
 
   return (
@@ -38,14 +42,14 @@ export default function NestedList() {
     >
       {/* Sign Up Prompt */}
 
-      <ListItem button onClick={handleClick}>
+      <ListItem button onClick={handleClickSignup}>
         <ListItemIcon>
           <ExitToAppIcon />
         </ListItemIcon>
         <ListItemText primary="Sign up" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {openSignup ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={openSignup} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested}>
             <ListItemIcon>
@@ -67,17 +71,17 @@ export default function NestedList() {
           </ListItem>
         </List>
       </Collapse>
-      <ListItem button onClick={handleClick}>
+
+      {/* Sign In Prompt */}
+
+      <ListItem button onClick={handleClickSignin}>
         <ListItemIcon>
           <ExitToAppIcon />
         </ListItemIcon>
-
-        {/* Sign In Prompt */}
-
         <ListItemText primary="Sign in" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {openSignin ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={openSignin} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested}>
             <ListItemIcon>

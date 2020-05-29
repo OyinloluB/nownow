@@ -7,10 +7,20 @@ export const Signupas = ({ show, setShowPrompt }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body>
+      <Modal.Body closeButton>
         <AccountTypes />
       </Modal.Body>
+      <Modal.Footer>
+        <Button
+          onClick={handleClose}
+          style={{
+            backgroundColor: "#b11917",
+            border: "none",
+          }}
+        >
+          Close
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };
