@@ -40,9 +40,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductsPricing({ setCurrentPage }) {
   const classes = useStyles();
+  const [price, setPrice] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
+    setPricingDetails({
+      price,
+    });
     setCurrentPage(2);
   };
 
@@ -80,7 +85,11 @@ export default function ProductsPricing({ setCurrentPage }) {
               <br />
               <div>
                 <Form.Group controlId="formBasicPrice">
-                  <Form.Control type="number" placeholder="Input Price" />
+                  <Form.Control
+                    type="number"
+                    placeholder="Input Price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </Form.Group>
                 <button
                   style={{
