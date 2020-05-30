@@ -3,14 +3,13 @@ import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
-export const distributorSignIn = () => {
+export const DistributorSignIn = () => {
   return (
     <Container
       maxWidth="sm"
       style={{
-        height: "100vh",
         overflow: "auto",
-        margin: "20vh auto",
+        margin: "20vh auto 0vh auto",
       }}
     >
       <Form>

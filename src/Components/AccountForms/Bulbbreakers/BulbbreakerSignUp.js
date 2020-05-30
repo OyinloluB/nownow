@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
-export const pocSignUp = () => {
+export const BulbbreakerSignUp = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const handleSubmit = () => {
+    console.log("Submitted");
+    setCurrentPage(1);
+  };
+
+  if (currentPage === 1) {
+    return (
+      <Container
+        maxWidth="sm"
+        style={{
+          height: "100vh",
+          overflow: "auto",
+          margin: "20vh auto",
+        }}
+      >
+        <div>Some text</div>
+      </Container>
+    );
+  }
+
   return (
     <Container
       maxWidth="sm"
       style={{
-        height: "100vh",
         overflow: "auto",
-        margin: "20vh auto",
+        margin: "20vh auto 0vh auto",
       }}
     >
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>User ID</Form.Label>
+          <Form.Label>Text</Form.Label>
           <Form.Control type="email" placeholder="User ID" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
@@ -31,11 +52,11 @@ export const pocSignUp = () => {
             margin: "10px 0 10px 0",
           }}
         >
-          Sign up
+          Next
         </Button>
         <p>
           Aalready have an account?{" "}
-          <Link to="/poc/signin">
+          <Link to="/bulbbreaker/signin">
             <span
               style={{
                 color: "#b11917",

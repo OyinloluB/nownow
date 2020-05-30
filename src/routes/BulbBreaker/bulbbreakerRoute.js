@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { bulbbreakerSignUp } from "../../Components/AccountForms/bulbbreakerSignUp";
-import { bulbbreakerSignIn } from "../../Components/AccountForms/bulbbreakerSignIn";
+import { BulbbreakerSignUp } from "../../Components/AccountForms/Bulbbreakers/BulbbreakerSignUp";
+import { BulbbreakerSignIn } from "../../Components/AccountForms/Bulbbreakers/BulbbreakerSignIn";
 
 const bulbbreakerRoute = () => {
   return (
     <Switch>
-      <Route path={"/bulbbreaker/signup"} component={bulbbreakerSignUp} />
-      <Route path={"/bulbbreaker/signin"} component={bulbbreakerSignIn} />
+      <Route path={"/bulbbreaker/signup"} component={BulbbreakerSignUp} />
+      <Route path={"/bulbbreaker/signin"} component={BulbbreakerSignIn} />
     </Switch>
   );
 };

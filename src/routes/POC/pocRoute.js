@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { pocSignUp } from "../../Components/AccountForms/pocSignUp";
-import { pocSignIn } from "../../Components/AccountForms/pocSignIn";
+import { pocSignUp } from "../../Components/AccountForms/POCs/pocSignUp";
+import { pocSignIn } from "../../Components/AccountForms/POCs/pocSignIn";
 
 const pocRoute = () => {
   return (
