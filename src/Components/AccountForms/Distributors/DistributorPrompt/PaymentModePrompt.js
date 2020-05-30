@@ -7,7 +7,7 @@ import PaymentModeOption from "./PaymentModeOption";
 export const PaymentModePrompt = ({ setCurrentPage }) => {
   const handleSubmit = () => {
     console.log("Submitted");
-    setCurrentPage(3);
+    setCurrentPage(4);
   };
 
   return (

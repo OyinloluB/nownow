@@ -6,7 +6,7 @@ import Container from "@material-ui/core/Container";
 export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
   const handleSubmit = () => {
     console.log("Submitted");
-    setCurrentPage(4);
+    setCurrentPage(3);
   };
 
   return (
