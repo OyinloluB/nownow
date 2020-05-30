@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Navbar from "./Components/Layout/Navbar";
 import distributorRoute from "./routes/Distributor/distributorRoute";
 import bulbbreakerRoute from "./routes/BulbBreaker/bulbbreakerRoute";
@@ -16,14 +16,14 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Switch>
         <Route path="/distributor" component={distributorRoute} />
         <Route path="/bulbbreaker" component={bulbbreakerRoute} />
         <Route path="/poc" component={pocRoute} />
       </Switch>
-    </BrowserRouter>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductsPricing({ setCurrentPage }) {
+export default function ProductsPricing({ setCurrentPage, setPricingDetails }) {
   const classes = useStyles();
   const [price, setPrice] = useState("");
 
