@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Link } from "react-router-dom";
-import ProductsPricing from "./ProductsPricing";
+import ProductsPricing from "./DistributorPrompt/ProductsPricing";
+import { HomeDeliveryPrompt } from "./DistributorPrompt/HomeDeliveryPrompt";
+import { PaymentModePrompt } from "./DistributorPrompt/PaymentModePrompt";
+import { ContactModePrompt } from "./DistributorPrompt/ContactModePrompt";
 
 export const DistributorSignUp = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -13,50 +15,24 @@ export const DistributorSignUp = () => {
     setCurrentPage(1);
   };
   if (currentPage === 1) {
+    return <ProductsPricing setCurrentPage={setCurrentPage} />;
+  } else if (currentPage === 2) {
     return (
-      <Container
-        maxWidth="sm"
-        style={{
-          overflow: "auto",
-          margin: "20vh auto 10vh auto",
-        }}
-      >
-        <h5
-          style={{
-            color: "#b11917",
-            textAlign: "center",
-          }}
-        >
-          Select the brand and SKU you sell and set your selling price below
-        </h5>
-        <br />
-        <ProductsPricing />
-        <br />
-        <ProductsPricing />
-        <br />
-        <ProductsPricing />
-        <br />
-        <ProductsPricing />
-        <br />{" "}
-        <p
-          style={{
-            color: "#b11917",
-          }}
-        >
-          View all
-          <NavigateNextIcon />
-        </p>
-        <Button
-          style={{
-            backgroundColor: "#b11917",
-            border: "none",
-            width: "100%",
-            margin: "10px 0 10px 0",
-          }}
-        >
-          Next
-        </Button>
-      </Container>
+      <div>
+        <HomeDeliveryPrompt setCurrentPage={setCurrentPage} />
+      </div>
+    );
+  } else if (currentPage === 3) {
+    return (
+      <div>
+        <PaymentModePrompt setCurrentPage={setCurrentPage} />
+      </div>
+    );
+  } else if (currentPage === 4) {
+    return (
+      <div>
+        <ContactModePrompt setCurrentPage={setCurrentPage} />
+      </div>
     );
   }
 
@@ -65,7 +41,7 @@ export const DistributorSignUp = () => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "20vh auto 0vh auto",
+        margin: "15vh auto 0vh auto",
       }}
     >
       <Form onSubmit={handleSubmit}>

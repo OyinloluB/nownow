@@ -7,7 +7,7 @@ export const Signupas = ({ show, setShowPrompt }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Body closeButton>
+      <Modal.Body>
         <AccountTypes handleClose={handleClose} />
       </Modal.Body>
       <Modal.Footer>

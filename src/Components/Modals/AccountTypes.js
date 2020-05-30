@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AccountTypes({ handleClose }) {
+export default function AccountTypes() {
   const classes = useStyles();
   const [openSignup, setOpenSignup] = React.useState(true);
   const [openSignin, setOpenSignin] = React.useState(false);

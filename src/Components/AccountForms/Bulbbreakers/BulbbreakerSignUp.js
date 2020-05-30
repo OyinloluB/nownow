@@ -31,7 +31,7 @@ export const BulbbreakerSignUp = () => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "20vh auto 0vh auto",
+        margin: "15vh auto 0vh auto",
       }}
     >
       <Form onSubmit={handleSubmit}>
