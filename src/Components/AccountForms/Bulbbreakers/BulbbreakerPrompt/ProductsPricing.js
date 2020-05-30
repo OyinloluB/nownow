@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles, useTheme, withTheme } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -38,12 +38,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductsPricing({ setCurrentPage }) {
+export default function ProductsPricing({ setCurrentPage, setPricingDetails }) {
   const classes = useStyles();
-  const theme = useTheme();
+  const [price, setPrice] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
+    setPricingDetails({
+      price,
+    });
     setCurrentPage(2);
   };
 
@@ -81,7 +85,12 @@ export default function ProductsPricing({ setCurrentPage }) {
               <br />
               <div>
                 <Form.Group controlId="formBasicPrice">
-                  <Form.Control type="number" placeholder="Input Price" />
+                  <Form.Control
+                    type="number"
+                    name="price"
+                    placeholder="Input Price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </Form.Group>
                 <button
                   style={{

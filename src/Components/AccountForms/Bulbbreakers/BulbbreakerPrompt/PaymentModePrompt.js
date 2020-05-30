@@ -1,12 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import PaymentIcon from "@material-ui/icons/Payment";
 import Container from "@material-ui/core/Container";
 import PaymentModeOption from "./PaymentModeOption";
 
-export const PaymentModePrompt = ({ setCurrentPage }) => {
-  const handleSubmit = () => {
+export const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
+  const [checked, setChecked] = useState(["cash"]);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
+    setPaymentModeDetails(checked);
     setCurrentPage(4);
   };
 
@@ -34,7 +51,7 @@ export const PaymentModePrompt = ({ setCurrentPage }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <PaymentModeOption />
+            <PaymentModeOption checked={checked} handleToggle={handleToggle} />
           </Modal.Body>
           <Modal.Footer>
             <Button

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
@@ -9,29 +9,79 @@ import { ContactModePrompt } from "./BulbbreakerPrompt/ContactModePrompt";
 
 export const BulbbreakerSignUp = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [pricingDetails, setPricingDetails] = useState({});
+  const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
+  const [paymentModeDetails, setPaymentModeDetails] = useState([]);
+  const [contactModeDetails, setContactModeDetails] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSignUp = useCallback(
+    (
+      pricingDetails,
+      homeDeliveryDetails,
+      paymentModeDetails,
+      contactModeDetails
+    ) => {
+      if (submitted) {
+        console.log({
+          pricing: pricingDetails,
+          homeDelivery: homeDeliveryDetails,
+          paymentMode: paymentModeDetails,
+          contactMode: contactModeDetails,
+        });
+      }
+    },
+    [submitted]
+  );
+
+  useEffect(() => {
+    handleSignUp(
+      pricingDetails,
+      homeDeliveryDetails,
+      paymentModeDetails,
+      contactModeDetails
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitted]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
     setCurrentPage(1);
   };
+
   if (currentPage === 1) {
-    return <ProductsPricing setCurrentPage={setCurrentPage} />;
+    return (
+      <ProductsPricing
+        setCurrentPage={setCurrentPage}
+        setPricingDetails={setPricingDetails}
+      />
+    );
   } else if (currentPage === 2) {
     return (
       <div>
-        <HomeDeliveryPrompt setCurrentPage={setCurrentPage} />
+        <HomeDeliveryPrompt
+          setCurrentPage={setCurrentPage}
+          setHomeDeliveryDetails={setHomeDeliveryDetails}
+        />
       </div>
     );
   } else if (currentPage === 3) {
     return (
       <div>
-        <PaymentModePrompt setCurrentPage={setCurrentPage} />
+        <PaymentModePrompt
+          setCurrentPage={setCurrentPage}
+          setPaymentModeDetails={setPaymentModeDetails}
+        />
       </div>
     );
   } else if (currentPage === 4) {
     return (
       <div>
-        <ContactModePrompt setCurrentPage={setCurrentPage} />
+        <ContactModePrompt
+          setContactModeDetails={setContactModeDetails}
+          setSubmitted={setSubmitted}
+        />
       </div>
     );
   }

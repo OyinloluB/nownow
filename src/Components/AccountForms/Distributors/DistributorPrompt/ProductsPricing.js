@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, useTheme, withTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductsPricing({ setCurrentPage }) {
   const classes = useStyles();
-  const theme = useTheme();
 
   const handleSubmit = () => {
     console.log("Submitted");
