@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Map from "./Map";
 
 const Home = () => {
@@ -6,6 +7,7 @@ const Home = () => {
     lat: -34.397,
     lng: 150.644,
   });
+  const { loading, pocs } = useSelector((state) => state.map);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -17,7 +19,7 @@ const Home = () => {
       });
     }
   }, []);
-  return <Map center={coordinates} />;
+  return <Map markers={[...pocs]} center={coordinates} />;
 };
 
 export default Home;

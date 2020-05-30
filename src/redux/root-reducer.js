@@ -3,6 +3,7 @@ import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import authReducer from './auth/auth.reducer';
+import mapReducer from './map/map.reducer';
 
 const persistConfig = {
     key: 'root',
@@ -11,7 +12,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    map: mapReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
