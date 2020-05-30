@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+import ProductsPricing from "./BulbbreakerPrompt/ProductsPricing";
+import { HomeDeliveryPrompt } from "./BulbbreakerPrompt/HomeDeliveryPrompt";
+import { PaymentModePrompt } from "./BulbbreakerPrompt/PaymentModePrompt";
+import { ContactModePrompt } from "./BulbbreakerPrompt/ContactModePrompt";
 
 export const BulbbreakerSignUp = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -10,19 +14,25 @@ export const BulbbreakerSignUp = () => {
     console.log("Submitted");
     setCurrentPage(1);
   };
-
   if (currentPage === 1) {
+    return <ProductsPricing setCurrentPage={setCurrentPage} />;
+  } else if (currentPage === 2) {
     return (
-      <Container
-        maxWidth="sm"
-        style={{
-          height: "100vh",
-          overflow: "auto",
-          margin: "20vh auto",
-        }}
-      >
-        <div>Some text</div>
-      </Container>
+      <div>
+        <HomeDeliveryPrompt setCurrentPage={setCurrentPage} />
+      </div>
+    );
+  } else if (currentPage === 3) {
+    return (
+      <div>
+        <PaymentModePrompt setCurrentPage={setCurrentPage} />
+      </div>
+    );
+  } else if (currentPage === 4) {
+    return (
+      <div>
+        <ContactModePrompt setCurrentPage={setCurrentPage} />
+      </div>
     );
   }
 

@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
-export const pocSignIn = () => {
+export const PocSignIn = () => {
   return (
     <Container
       maxWidth="sm"
