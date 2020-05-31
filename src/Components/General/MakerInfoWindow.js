@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 
-import InfoWindowTooltip from './InfoWindowTooltip';
+import InfoWindowTooltip from "./InfoWindowTooltip";
 
 const MarkerInfoWindow = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
