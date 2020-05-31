@@ -17,12 +17,8 @@ const Map = ({ center, users }) => (
   <LoadScript googleMapsApiKey={API_KEY}>
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={
-        users.length > 0
-          ? { lat: users[0].latitude, lng: users[0].longitude }
-          : center
-      }
-      zoom={10}
+      center={center}
+      zoom={15}
     >
       {users.map((user) => (
         <Marker

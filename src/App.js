@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from "react-redux";
 
-import {fetchPocs} from './redux/user/user.actions';
+import {
+  fetchBulkbreakersAndDistributors,
+  fetchPocsAndBulkbreakers,
+  fetchPocsAndDistributors,
+} from "./redux/user/user.actions";
 
 import Navbar from "./Components/Layout/Navbar";
 import distributorRoute from "./routes/Distributor/distributorRoute";
@@ -11,12 +15,11 @@ import pocRoute from "./routes/POC/pocRoute";
 import Home from "./Components/General/Home";
 
 function App() {
+  // const dispatch = useDispatch();
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPocs());  
-  });
+  // useEffect(() => {
+  //   dispatch(fetchPocs());
+  // });
 
   return (
     <>

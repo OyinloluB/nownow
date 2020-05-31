@@ -3,26 +3,23 @@ import { useSelector } from "react-redux";
 import Map from "./Map";
 
 const Home = () => {
-  const [coordinates, setCoordinates] = useState({
-    lat: -34.397,
-    lng: 150.644,
-  });
-  const { pocs } = useSelector(
-    (state) => state.user
-  );
+  const [coordinates, setCoordinates] = useState({ lat: 6.532959, lng: 3.364504 });
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        setCoordinates({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        // setCoordinates({
+        //   lat: position.coords.latitude,
+        //   lng: position.coords.longitude,
+        // });
       });
     }
   }, []);
 
-  return <Map users={[...pocs]} center={coordinates} />
+  return (
+    <Map users={[...pocs, ...distributors, ...bulkbreakers]} center={coordinates} />
+  );
 };
 
 export default Home;
