@@ -1,5 +1,10 @@
-import React from "react";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import React, { useState } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 const containerStyle = {
   width: "100%",
@@ -12,7 +17,11 @@ const Map = ({ center, users }) => (
   <LoadScript googleMapsApiKey={API_KEY}>
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={users.length > 0 ? { lat: users[0].latitude, lng: users[0].longitude } : center}
+      center={
+        users.length > 0
+          ? { lat: users[0].latitude, lng: users[0].longitude }
+          : center
+      }
       zoom={10}
     >
       {users.map((user) => (
