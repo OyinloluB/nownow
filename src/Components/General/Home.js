@@ -7,7 +7,9 @@ const Home = () => {
     lat: -34.397,
     lng: 150.644,
   });
-  const { loading, pocs } = useSelector((state) => state.map);
+  const { pocs } = useSelector(
+    (state) => state.user
+  );
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -19,7 +21,8 @@ const Home = () => {
       });
     }
   }, []);
-  return <Map markers={[...pocs]} center={coordinates} />;
+
+  return <Map users={[...pocs]} center={coordinates} />
 };
 
 export default Home;

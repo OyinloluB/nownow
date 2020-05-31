@@ -8,13 +8,17 @@ const containerStyle = {
 
 const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
-const Map = ({ center, markers }) => (
+const Map = ({ center, users }) => (
   <LoadScript googleMapsApiKey={API_KEY}>
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={20}>
-      {markers.map((marker) => (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={users.length > 0 ? { lat: users[0].latitude, lng: users[0].longitude } : center}
+      zoom={10}
+    >
+      {users.map((user) => (
         <Marker
-          key={marker.id}
-          position={{ lat: marker.lat, lng: marker.lng }}
+          key={user.id}
+          position={{ lat: user.latitude, lng: user.longitude }}
         />
       ))}
     </GoogleMap>

@@ -1,0 +1,7 @@
+const UserActionTypes = {
+  FETCH_POCS_START: "FETCH_POCS_START",
+  FETCH_POCS_SUCCESS: "FETCH_POCS_SUCCESS",
+  FETCH_POCS_FAILURE: "FETCH_POCS_FAILURE",
+};
+
+export default UserActionTypes;
