@@ -97,7 +97,7 @@ export const DistributorSignUp = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Text</Form.Label>
-          <Form.Control type="email" placeholder="User ID" />
+          <Form.Control type="number" placeholder="User ID" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>

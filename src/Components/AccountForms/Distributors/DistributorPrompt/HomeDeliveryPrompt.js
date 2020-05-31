@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
 
-export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
-  const handleSubmit = () => {
+export const HomeDeliveryPrompt = ({
+  setCurrentPage,
+  setHomeDeliveryDetails,
+}) => {
+  const [homeDelivery, setHomeDelivery] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
+    setHomeDeliveryDetails(homeDelivery);
     setCurrentPage(3);
   };
 
@@ -35,6 +42,7 @@ export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
           <Modal.Body>
             <Button
               type="button"
+              onClick={() => setHomeDelivery(true)}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #b11917",
@@ -47,6 +55,7 @@ export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
             </Button>
             <Button
               type="button"
+              onClick={() => setHomeDelivery(false)}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #b11917",

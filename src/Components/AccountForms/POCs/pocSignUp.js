@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
@@ -8,27 +8,60 @@ import { ContactModePrompt } from "./pocPrompt/ContactModePrompt";
 
 export const PocSignUp = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [homeDeliveryDetails, setHomeDeliveryDetails] = useState([]);
+  const [paymentModeDetails, setPaymentModeDetails] = useState([]);
+  const [contactModeDetails, setContactModeDetails] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSignUp = useCallback(
+    (homeDeliveryDetails, paymentModeDetails, contactModeDetails) => {
+      if (submitted) {
+        console.log({
+          homeDelivery: homeDeliveryDetails,
+          paymentMode: paymentModeDetails,
+          contactMode: contactModeDetails,
+        });
+      }
+    },
+    [submitted]
+  );
+
+  useEffect(() => {
+    handleSignUp(homeDeliveryDetails, paymentModeDetails, contactModeDetails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitted]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
     setCurrentPage(1);
   };
+
   if (currentPage === 1) {
     return (
       <div>
-        <HomeDeliveryPrompt setCurrentPage={setCurrentPage} />
+        <HomeDeliveryPrompt
+          setCurrentPage={setCurrentPage}
+          setHomeDeliveryDetails={setHomeDeliveryDetails}
+        />
       </div>
     );
   } else if (currentPage === 2) {
     return (
       <div>
-        <PaymentModePrompt setCurrentPage={setCurrentPage} />
+        <PaymentModePrompt
+          setCurrentPage={setCurrentPage}
+          setPaymentModeDetails={setPaymentModeDetails}
+        />
       </div>
     );
   } else if (currentPage === 3) {
     return (
       <div>
-        <ContactModePrompt setCurrentPage={setCurrentPage} />
+        <ContactModePrompt
+          setContactModeDetails={setContactModeDetails}
+          setSubmitted={setSubmitted}
+        />
       </div>
     );
   }
@@ -42,9 +75,9 @@ export const PocSignUp = () => {
       }}
     >
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>User ID</Form.Label>
-          <Form.Control type="email" placeholder="User ID" />
+        <Form.Group controlId="formBasicNumber">
+          <Form.Label>Text</Form.Label>
+          <Form.Control type="number" placeholder="User ID" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
@@ -59,11 +92,11 @@ export const PocSignUp = () => {
             margin: "10px 0 10px 0",
           }}
         >
-          Sign up
+          Next
         </Button>
         <p>
           Aalready have an account?{" "}
-          <Link to="/poc/signin">
+          <Link to="/bulbbreaker/signin">
             <span
               style={{
                 color: "#b11917",

@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
 import HomeDeliveryOption from "./HomeDeliveryOption";
 
-export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
-  const handleSubmit = () => {
+export const HomeDeliveryPrompt = ({
+  setCurrentPage,
+  setHomeDeliveryDetails,
+}) => {
+  const [checked, setChecked] = useState(["pickup"]);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Submitted");
+    setHomeDeliveryDetails(checked);
     setCurrentPage(2);
   };
 
@@ -34,7 +54,7 @@ export const HomeDeliveryPrompt = ({ setCurrentPage }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <HomeDeliveryOption />
+            <HomeDeliveryOption checked={checked} handleToggle={handleToggle} />
           </Modal.Body>
           <Modal.Footer>
             <Button

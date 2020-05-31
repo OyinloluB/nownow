@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CallIcon from "@material-ui/icons/Call";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
-export const ContactModePrompt = ({ setCurrentPage }) => {
+export const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
+  const [contactDetails, setContactDetails] = useState({});
+
+  const handleChange = (e) => {
+    setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setCurrentPage(4);
+    setContactModeDetails({
+      ...contactDetails,
+    });
+    setSubmitted(true);
   };
 
   return (
@@ -41,14 +50,26 @@ export const ContactModePrompt = ({ setCurrentPage }) => {
                 <CallIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By Phone
               </Form.Label>
-              <Form.Control type="number" placeholder="Phone Number" />
+              <Form.Control
+                type="tel"
+                placeholder="Phone Number"
+                name="phone"
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
             <Form.Group controlId="formBasicNumber">
               <Form.Label>
                 <WhatsAppIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By WhatsApp
               </Form.Label>
-              <Form.Control type="number" placeholder="Phone Number" />
+              <Form.Control
+                type="tel"
+                placeholder="Phone Number"
+                name="whatsapp"
+                onChange={handleChange}
+                required
+              />
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>

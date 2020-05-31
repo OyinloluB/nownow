@@ -1,10 +1,13 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import PaymentIcon from "@material-ui/icons/Payment";
 import Container from "@material-ui/core/Container";
 import PaymentModeOption from "./PaymentModeOption";
 
-export const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
+export const PaymentModePrompt = ({
+  setCurrentPage,
+  setPaymentModeDetails,
+}) => {
   const [checked, setChecked] = useState(["cash"]);
 
   const handleToggle = (value) => () => {
