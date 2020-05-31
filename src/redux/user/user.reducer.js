@@ -18,7 +18,7 @@ const initialState = {
     {
       id: 2,
       userID: "blah blah 2",
-      name: "Mr Blah Blah",
+      name: "Mrs Bleh",
       phone: "07058438285",
       delivery: true,
       longitude: Number.parseFloat("3.362575"),
