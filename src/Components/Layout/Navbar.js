@@ -62,26 +62,25 @@ export default function Navbar() {
               </Typography>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="secondary">
+                <IconButton aria-label="shopping" color="inherit">
+                  <Badge badgeContent={0} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>
                 </IconButton>
-                <IconButton
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="secondary">
+                <IconButton aria-label="delivery" color="inherit">
+                  <Badge badgeContent={0} color="secondary">
                     <LocalShippingIcon />
                   </Badge>
                 </IconButton>
                 <IconButton
                   edge="end"
-                  aria-label="account of current user"
+                  aria-label="chatting"
                   aria-haspopup="true"
                   color="inherit"
                 >
-                  <ChatIcon />
+                  <Badge badgeContent={0} color="secondary">
+                    <ChatIcon />
+                  </Badge>
                 </IconButton>
               </div>
               {/* <div className={classes.sectionMobile}>
@@ -99,7 +98,7 @@ export default function Navbar() {
       ) : (
         <div className={classes.root}>
           <AppBar position="static" className={classes.appbar}>
-            <Toolbar>
+            <Toolbar className={classes.toolbar}>
               <Typography variant="h6" className={classes.title}>
                 <img src={Logo} alt="ibplc-logo" width="30" />
               </Typography>
