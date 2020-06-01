@@ -25,7 +25,7 @@ export const fetchPocs = () => {
     dispatch(fetchPocsStart());
     try {
       const response = await axios.get("/Poc");
-      const data = response.data;
+      const { data } = response;
       dispatch(fetchPocsSuccess(data));
     } catch (error) {
       dispatch(fetchPocsFailure(error));
@@ -55,7 +55,7 @@ export const fetchDistributors = () => {
     dispatch(fetchDistributorsStart());
     try {
       const response = await axios.get("/Distributor");
-      const data = response.data;
+      const { data } = response;
       dispatch(fetchDistributorsSuccess(data));
     } catch (error) {
       dispatch(fetchDistributorsFailure(error));
@@ -85,7 +85,7 @@ export const fetchBulkBreakers = () => {
     dispatch(fetchBulkBreakersStart());
     try {
       const response = await axios.get("/Bulkbreaker");
-      const data = response.data;
+      const { data } = response;
       dispatch(fetchBulkBreakersSuccess(data));
     } catch (error) {
       dispatch(fetchBulkBreakersFailure(error));

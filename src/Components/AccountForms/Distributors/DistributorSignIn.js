@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
+
+import { authenticateDistributor } from "../../../redux/auth/auth.actions";
 
 export const DistributorSignIn = () => {
+  const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(authenticateDistributor(loginDetails.ID, loginDetails.password))
+      .then(() => console.log("Request Done"))
+      .catch((error) => console.error(error.message));
+  };
+
   return (
     <Container
       maxWidth="sm"
@@ -12,14 +28,26 @@ export const DistributorSignIn = () => {
         margin: "15vh auto 0vh auto",
       }}
     >
-      <Form>
-      <Form.Group controlId="formBasicNumber">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formBasicNumber">
           <Form.Label>User ID</Form.Label>
-          <Form.Control type="number" placeholder="User ID" />
+          <Form.Control
+            onChange={handleChange}
+            type="text"
+            name="ID"
+            placeholder="User ID"
+            required
+          />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            onChange={handleChange}
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
         </Form.Group>
         <Button
           type="submit"

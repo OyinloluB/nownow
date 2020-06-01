@@ -22,12 +22,12 @@ const InfoWindowTooltip = ({ user }) => {
         }}
       >
         <p>
-          <a href={`https://wa.me/${user.phone}`} target="_blank">
+          <a href={`https://wa.me/${user.phone}`} target="_blank" rel="noopener noreferrer">
             <WhatsAppIcon style={{ color: "#b11917", fontSize: 20 }} />
           </a>
         </p>
         <p>
-          <a href={`tel:${user.phone}`} target="_blank">
+          <a href={`tel:${user.phone}`} target="_blank" rel="noopener noreferrer">
             <PhoneIcon style={{ color: "#b11917", fontSize: 20 }} />
           </a>
         </p>
