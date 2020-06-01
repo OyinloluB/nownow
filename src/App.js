@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   fetchBulkbreakersAndDistributors,
@@ -15,11 +15,20 @@ import pocRoute from "./routes/POC/pocRoute";
 import Home from "./Components/General/Home";
 
 function App() {
-  // const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchPocs());
-  // });
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user.type === "poc") {
+        dispatch(fetchBulkbreakersAndDistributors());
+      } else if (user.type === "distributor") {
+        dispatch(fetchPocsAndBulkbreakers());
+      } else if (user.type === "bulkbreaker") {
+        dispatch(fetchPocsAndDistributors());
+      }
+    }
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <>

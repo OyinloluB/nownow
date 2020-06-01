@@ -1,14 +1,14 @@
 import UserActionTypes from "./user.types";
 import axios from "../../axios-client";
 
-import { trimUsers } from "./user.helpers";
+import { trimUser } from "./user.helpers";
 
 export const fetchPocsStart = () => ({
   type: UserActionTypes.FETCH_POCS_START,
 });
 
 export const fetchPocsSuccess = (users) => {
-  const trimmedUsers = trimUsers(users);
+  const trimmedUsers = users.map(trimUser);
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
     payload: trimmedUsers,
@@ -38,7 +38,7 @@ export const fetchDistributorsStart = () => ({
 });
 
 export const fetchDistributorsSuccess = (users) => {
-  const trimmedUsers = trimUsers(users);
+  const trimmedUsers = users.map(trimUser);
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
     payload: trimmedUsers,
@@ -68,7 +68,7 @@ export const fetchBulkBreakersStart = () => ({
 });
 
 export const fetchBulkBreakersSuccess = (users) => {
-  const trimmedUsers = trimUsers(users);
+  const trimmedUsers = users.map(trimUser);
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
     payload: trimmedUsers,
