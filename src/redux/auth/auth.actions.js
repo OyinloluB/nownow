@@ -125,12 +125,15 @@ export const signInBulkBreakerFailure = (error) => ({
 });
 
 // Sign In Action Creators
-export const signInPoc = () => {
+export const signInPoc = (ID, password) => {
   return async (dispatch) => {
     dispatch(signInPocStart());
     try {
       // TODO: Make Request for Sign In
-      const data = {};
+      const response = await axios.post("/Poc/login", { ID, password });
+      const data = response.data;
+      console.log(data);
+      // const data = {};
       dispatch(signInPocSuccess(data));
     } catch (error) {
       dispatch(signInPocFailure(error));

@@ -7,7 +7,7 @@ import { HomeDeliveryPrompt } from "./BulbbreakerPrompt/HomeDeliveryPrompt";
 import { PaymentModePrompt } from "./BulbbreakerPrompt/PaymentModePrompt";
 import { ContactModePrompt } from "./BulbbreakerPrompt/ContactModePrompt";
 
-export const BulbbreakerSignUp = () => {
+const BulkbreakerSignUp = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pricingDetails, setPricingDetails] = useState({});
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
@@ -96,11 +96,11 @@ export const BulbbreakerSignUp = () => {
     >
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Text</Form.Label>
+          <Form.Label>User ID</Form.Label>
           <Form.Control type="email" placeholder="User ID" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Create Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Button
@@ -115,8 +115,8 @@ export const BulbbreakerSignUp = () => {
           Next
         </Button>
         <p>
-          Aalready have an account?{" "}
-          <Link to="/bulbbreaker/signin">
+          Already have an account?{" "}
+          <Link to="/bulkbreaker/signin">
             <span
               style={{
                 color: "#b11917",
@@ -130,3 +130,5 @@ export const BulbbreakerSignUp = () => {
     </Container>
   );
 };
+
+export default BulkbreakerSignUp;

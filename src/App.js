@@ -36,7 +36,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/distributor" component={distributorRoute} />
-        <Route path="/bulbbreaker" component={bulbbreakerRoute} />
+        <Route path="/bulkbreaker" component={bulbbreakerRoute} />
         <Route path="/poc" component={pocRoute} />
       </Switch>
     </>

@@ -13,6 +13,10 @@ export const DistributorSignIn = () => {
       }}
     >
       <Form>
+      <Form.Group controlId="formBasicNumber">
+          <Form.Label>User ID</Form.Label>
+          <Form.Control type="number" placeholder="User ID" />
+        </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
@@ -28,7 +32,7 @@ export const DistributorSignIn = () => {
         >
           Log in
         </Button>
-        <p>
+        {/* <p>
           New user?{" "}
           <Link to="/distributor/signup">
             <span
@@ -39,7 +43,7 @@ export const DistributorSignIn = () => {
               Sign up!
             </span>
           </Link>
-        </p>
+        </p> */}
       </Form>
     </Container>
   );

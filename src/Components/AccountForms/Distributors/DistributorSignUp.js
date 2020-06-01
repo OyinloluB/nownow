@@ -96,11 +96,11 @@ export const DistributorSignUp = () => {
     >
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Text</Form.Label>
+          <Form.Label>User ID</Form.Label>
           <Form.Control type="number" placeholder="User ID" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Create Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Button
@@ -115,8 +115,8 @@ export const DistributorSignUp = () => {
           Next
         </Button>
         <p>
-          Aalready have an account?{" "}
-          <Link to="/bulbbreaker/signin">
+          Already have an account?{" "}
+          <Link to="/distributor/signin">
             <span
               style={{
                 color: "#b11917",

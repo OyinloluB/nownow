@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
-export const BulbbreakerSignIn = () => {
+const BulkbreakerSignIn = () => {
   return (
     <Container
       maxWidth="sm"
@@ -13,6 +13,10 @@ export const BulbbreakerSignIn = () => {
       }}
     >
       <Form>
+        <Form.Group controlId="formBasicNumber">
+          <Form.Label>User ID</Form.Label>
+          <Form.Control type="number" placeholder="User ID" />
+        </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
@@ -28,9 +32,9 @@ export const BulbbreakerSignIn = () => {
         >
           Log in
         </Button>
-        <p>
+        {/* <p>
           New user?{" "}
-          <Link to="/bulbbreaker/signup">
+          <Link to="/bulkbreaker/signup">
             <span
               style={{
                 color: "#b11917",
@@ -39,8 +43,10 @@ export const BulbbreakerSignIn = () => {
               Sign up!
             </span>
           </Link>
-        </p>
+        </p> */}
       </Form>
     </Container>
   );
 };
+
+export default BulkbreakerSignIn;
