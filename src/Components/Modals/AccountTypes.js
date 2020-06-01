@@ -60,12 +60,12 @@ export default function AccountTypes() {
               <ListItemText primary="Distributor" />
             </ListItem>
           </Link>
-          <Link to="/bulbbreaker/signup">
+          <Link to="/bulkbreaker/signup">
             <ListItem button className={classes.nested}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
-              <ListItemText primary="Bulb Breaker" />
+              <ListItemText primary="Bulk Breaker" />
             </ListItem>
           </Link>
           <Link to="/poc/signup">
@@ -98,12 +98,12 @@ export default function AccountTypes() {
               <ListItemText primary="Distributor" />
             </ListItem>
           </Link>
-          <Link to="/bulbbreaker/signin">
+          <Link to="/bulkbreaker/signin">
             <ListItem button className={classes.nested}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
-              <ListItemText primary="Bulb Breaker" />
+              <ListItemText primary="Bulk Breaker" />
             </ListItem>
           </Link>
           <Link to="/poc/signin">

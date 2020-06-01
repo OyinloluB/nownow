@@ -6,8 +6,8 @@ import { BulbbreakerSignIn } from "../../Components/AccountForms/Bulbbreakers/Bu
 const bulbbreakerRoute = () => {
   return (
     <Switch>
-      <Route path={"/bulbbreaker/signup"} component={BulbbreakerSignUp} />
-      <Route path={"/bulbbreaker/signin"} component={BulbbreakerSignIn} />
+      <Route path={"/bulkbreaker/signup"} component={BulbbreakerSignUp} />
+      <Route path={"/bulkbreaker/signin"} component={BulbbreakerSignIn} />
     </Switch>
   );
 };
