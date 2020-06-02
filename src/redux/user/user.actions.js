@@ -60,7 +60,7 @@ export const fetchDistributors = () => {
   return async (dispatch) => {
     dispatch(fetchDistributorsStart());
     try {
-      const response = await axios.get("/Distributor");
+      const response = await axios.get("/Distributor/login");
       const { data } = response;
       dispatch(fetchDistributorsSuccess(data));
     } catch (error) {

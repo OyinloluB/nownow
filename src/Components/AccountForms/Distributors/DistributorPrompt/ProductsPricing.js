@@ -1,53 +1,35 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
+import React, { useState, useEffect, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../../../redux/product/product.actions";
 import Container from "@material-ui/core/Container";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+// import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Form, Button } from "react-bootstrap";
-import Trophy from "../../../../assets/TrophyRGB.png";
+import ProductCard from "../../../Layout/ProductCard";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
-  details: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  content: {
-    flex: "1 0 auto",
-  },
-  cover: {
-    width: "55px",
-    marginRight: "10px",
-    objectFit: "cover",
-  },
-  controls: {
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
-  },
-}));
+const ProductsPricing = ({ setCurrentPage, setPricingDetails }) => {
+  const productStore = useSelector((state) => state.product);
+  const [products, setProducts] = useState(productStore.products);
+  const dispatch = useDispatch();
 
-export default function ProductsPricing({ setCurrentPage, setPricingDetails }) {
-  const classes = useStyles();
-  const [price, setPrice] = useState("");
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  console.log("rendering");
+
+  const handleInputChange = (e, productId) => {
+    const updatedProducts = products.map((product) => {
+      if (product._id === productId) {
+        product.price = e.target.value;
+      }
+      return product;
+    });
+    setProducts(updatedProducts);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setPricingDetails({
-      price,
-    });
     setCurrentPage(2);
   };
 
@@ -69,58 +51,24 @@ export default function ProductsPricing({ setCurrentPage, setPricingDetails }) {
           Select the brand and SKU you sell and set your selling price below
         </h5>
         <br />
-        <Card className={classes.root}>
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography component="h5" variant="h5">
-                Trophy{" "}
-                <span
-                  style={{
-                    color: "#b11917",
-                  }}
-                >
-                  (RGB)
-                </span>
-              </Typography>
-              <br />
-              <div>
-                <Form.Group controlId="formBasicPrice">
-                  <Form.Control
-                    type="number"
-                    placeholder="Input Price"
-                    onChange={(e) => setPrice(e.target.value)}
-                  />
-                </Form.Group>
-                <button
-                  style={{
-                    backgroundColor: "#b11917",
-                    color: "white",
-                    border: "none",
-                    width: "100%",
-                    padding: "10px",
-                    margin: "10px 0 10px 0",
-                  }}
-                >
-                  Submit
-                </button>
-              </div>
-            </CardContent>
-          </div>
-          <CardMedia
-            className={classes.cover}
-            image={Trophy}
-            title="Live from space album cover"
-          />
-        </Card>
+        {products.map((product) => {
+          return (
+            <ProductCard
+              product={product}
+              handleInputChange={handleInputChange}
+              key={product._id}
+            />
+          );
+        })}
         <br />
-        <p
+        {/* <p
           style={{
             color: "#b11917",
           }}
         >
           Next Product
           <NavigateNextIcon />
-        </p>
+        </p> */}
         <Button
           type="submit"
           style={{
@@ -135,4 +83,6 @@ export default function ProductsPricing({ setCurrentPage, setPricingDetails }) {
       </Form>
     </Container>
   );
-}
+};
+
+export default memo(ProductsPricing);

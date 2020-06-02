@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
@@ -7,7 +7,7 @@ import { HomeDeliveryPrompt } from "./DistributorPrompt/HomeDeliveryPrompt";
 import { PaymentModePrompt } from "./DistributorPrompt/PaymentModePrompt";
 import { ContactModePrompt } from "./DistributorPrompt/ContactModePrompt";
 
-export const DistributorSignUp = () => {
+const DistributorInfo = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pricingDetails, setPricingDetails] = useState({});
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
@@ -50,15 +50,17 @@ export const DistributorSignUp = () => {
     setCurrentPage(1);
   };
 
+  let currentPageComponent = null;
+
   if (currentPage === 1) {
-    return (
+    currentPageComponent = (
       <ProductsPricing
         setCurrentPage={setCurrentPage}
         setPricingDetails={setPricingDetails}
       />
     );
   } else if (currentPage === 2) {
-    return (
+    currentPageComponent = (
       <div>
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
@@ -67,7 +69,7 @@ export const DistributorSignUp = () => {
       </div>
     );
   } else if (currentPage === 3) {
-    return (
+    currentPageComponent = (
       <div>
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
@@ -76,7 +78,7 @@ export const DistributorSignUp = () => {
       </div>
     );
   } else if (currentPage === 4) {
-    return (
+    currentPageComponent = (
       <div>
         <ContactModePrompt
           setContactModeDetails={setContactModeDetails}
@@ -86,47 +88,7 @@ export const DistributorSignUp = () => {
     );
   }
 
-  return (
-    <Container
-      maxWidth="sm"
-      style={{
-        overflow: "auto",
-        margin: "15vh auto 0vh auto",
-      }}
-    >
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>User ID</Form.Label>
-          <Form.Control type="number" placeholder="User ID" />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Create Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Button
-          type="submit"
-          style={{
-            backgroundColor: "#b11917",
-            border: "none",
-            width: "100%",
-            margin: "10px 0 10px 0",
-          }}
-        >
-          Next
-        </Button>
-        <p>
-          Already have an account?{" "}
-          <Link to="/distributor/signin">
-            <span
-              style={{
-                color: "#b11917",
-              }}
-            >
-              Log in!
-            </span>
-          </Link>
-        </p>
-      </Form>
-    </Container>
-  );
+  return { currentPageComponent ? currentPageComponent : };
 };
+
+export default memo(DistributorInfo);
