@@ -1,5 +1,7 @@
 export const trimUser = (user) => {
+  // console.log(b)
   return {
+    type: user.type,
     id: user._id,
     userID: user.ID,
     name: user.name,

@@ -1,7 +1,7 @@
 import AuthActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   user: {
     id: 1,
     userID: "ID",

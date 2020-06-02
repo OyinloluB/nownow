@@ -7,6 +7,7 @@ const Home = () => {
     lat: 6.591511,
     lng: 3.490115,
   });
+
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { pocs, distributors, bulkbreakers } = useSelector(
     (state) => state.user
@@ -24,11 +25,19 @@ const Home = () => {
   }, []);
 
   return (
-    <Map
+
+    <div>
+      <Map
       users={isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []}
       center={coordinates}
-    />
+      />
+
+    </div>
+
+  
+
   );
+  
 };
 
 export default Home;

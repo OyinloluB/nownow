@@ -24,7 +24,11 @@ export const fetchPocs = () => {
   return async (dispatch) => {
     dispatch(fetchPocsStart());
     try {
-      const response = await axios.get("/Poc");
+      var response = await axios.get("/Poc");
+      for (let i = 0; i < response.data.length; i++) {
+        // red-dot = poc
+        response.data[i].type = "red-dot";
+      }
       const data = response.data;
       dispatch(fetchPocsSuccess(data));
     } catch (error) {
@@ -54,7 +58,11 @@ export const fetchDistributors = () => {
   return async (dispatch) => {
     dispatch(fetchDistributorsStart());
     try {
-      const response = await axios.get("/Distributor");
+      var response = await axios.get("/Distributor");
+      for (let i = 0; i < response.data.length; i++) {
+        // green-dot = distributor
+        response.data[i].type = "green-dot";
+      }
       const data = response.data;
       dispatch(fetchDistributorsSuccess(data));
     } catch (error) {
@@ -85,6 +93,10 @@ export const fetchBulkBreakers = () => {
     dispatch(fetchBulkBreakersStart());
     try {
       const response = await axios.get("/Bulkbreaker");
+      for (let i = 0; i < response.data.length; i++) {
+        // blue-dot = "bulkbreaker"
+        response.data[i].type = "blue-dot";
+      }
       const data = response.data;
       dispatch(fetchBulkBreakersSuccess(data));
     } catch (error) {

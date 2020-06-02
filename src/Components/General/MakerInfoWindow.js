@@ -3,12 +3,17 @@ import { Marker, InfoWindow } from "@react-google-maps/api";
 
 import InfoWindowTooltip from "./InfoWindowTooltip";
 
-const MarkerInfoWindow = ({ user }) => {
-  const [isOpen, setIsOpen] = useState(false);
 
+var MarkerInfoWindow = ({ user }) => {
+ 
+  var [isOpen, setIsOpen] = useState(false);
+  
+  // checking ifuser type to specify marker
   return (
     <Marker
       position={{ lat: user.latitude, lng: user.longitude }}
+      icon = {{url: "http://maps.google.com/mapfiles/ms/icons/"+user.type+".png"}}
+        
       onClick={() => setIsOpen(!isOpen)}
     >
       {isOpen && (
@@ -24,6 +29,8 @@ const MarkerInfoWindow = ({ user }) => {
       )}
     </Marker>
   );
+
+  
 };
 
 export default MarkerInfoWindow;
