@@ -85,7 +85,7 @@ let currentPageComponent = null;
           setSubmitted={setSubmitted}
         />
       </div>
-    );
+    )
   }
 
 return currentPageComponent === null ? (
