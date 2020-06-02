@@ -8,7 +8,10 @@ export const fetchPocsStart = () => ({
 });
 
 export const fetchPocsSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "poc",
+  }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
     payload: trimmedUsers,
@@ -38,7 +41,10 @@ export const fetchDistributorsStart = () => ({
 });
 
 export const fetchDistributorsSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "distributor",
+  }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
     payload: trimmedUsers,
@@ -68,7 +74,10 @@ export const fetchBulkBreakersStart = () => ({
 });
 
 export const fetchBulkBreakersSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "bulkbreaker",
+  }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
     payload: trimmedUsers,
@@ -94,22 +103,22 @@ export const fetchBulkBreakers = () => {
 };
 
 export const fetchPocsAndDistributors = () => {
-    return dispatch => {
-        dispatch(fetchPocs());
-        dispatch(fetchDistributors());
-    }
-}
+  return (dispatch) => {
+    dispatch(fetchPocs());
+    dispatch(fetchDistributors());
+  };
+};
 
 export const fetchBulkbreakersAndDistributors = () => {
-    return dispatch => {
-        dispatch(fetchBulkBreakers());
-        dispatch(fetchDistributors());
-    }
-}
+  return (dispatch) => {
+    dispatch(fetchBulkBreakers());
+    dispatch(fetchDistributors());
+  };
+};
 
 export const fetchPocsAndBulkbreakers = () => {
-    return dispatch => {
-        dispatch(fetchPocs());
-        dispatch(fetchBulkBreakers());
-    }
-}
+  return (dispatch) => {
+    dispatch(fetchPocs());
+    dispatch(fetchBulkBreakers());
+  };
+};

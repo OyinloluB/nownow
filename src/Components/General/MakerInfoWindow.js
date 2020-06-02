@@ -11,15 +11,15 @@ const MarkerInfoWindow = ({ user }) => {
     <Marker
       position={{ lat: user.latitude, lng: user.longitude }}
       onClick={() => setIsOpen(!isOpen)}
-      icon={
-        user.type === "distributor" ? (
-          <RoomIcon style={{ color: green[500] }} />
-        ) : user.type === "bulkbreaker" ? (
-          <RoomIcon color="primary" />
-        ) : (
-          <RoomIcon color="secondary" />
-        )
-      }
+      // icon={
+      //   user.type === "distributor" ? (
+      //     <RoomIcon style={{ color: "green" }} />
+      //   ) : user.type === "bulkbreaker" ? (
+      //     <RoomIcon color="primary" />
+      //   ) : (
+      //     <RoomIcon color="secondary" />
+      //   )
+      // }
     >
       {isOpen && (
         <InfoWindow
