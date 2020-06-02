@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Map from "./Map";
+import List from "./List";
 
 const Home = () => {
   const [coordinates, setCoordinates] = useState({
@@ -22,22 +23,19 @@ const Home = () => {
         // });
       });
     }
+    
   }, []);
 
   return (
-
     <div>
       <Map
       users={isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []}
       center={coordinates}
       />
-
+      <List users={isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []} />
     </div>
-
-  
-
   );
-  
 };
+
 
 export default Home;

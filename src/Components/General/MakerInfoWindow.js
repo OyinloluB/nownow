@@ -24,8 +24,9 @@ var MarkerInfoWindow = ({ user }) => {
             lng: user.longitude,
           }}
         >
-          <InfoWindowTooltip user={user} />
+        <InfoWindowTooltip user={user} />
         </InfoWindow>
+
       )}
     </Marker>
   );
