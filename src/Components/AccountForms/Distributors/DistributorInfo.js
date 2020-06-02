@@ -50,17 +50,17 @@ const DistributorInfo = () => {
     setCurrentPage(1);
   };
 
-  let currentPageComponent = null;
+let currentPageComponent = null;
 
   if (currentPage === 1) {
-    currentPageComponent = (
+  currentPageComponent = (
       <ProductsPricing
         setCurrentPage={setCurrentPage}
         setPricingDetails={setPricingDetails}
       />
     );
   } else if (currentPage === 2) {
-    currentPageComponent = (
+  currentPageComponent = (
       <div>
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
@@ -69,7 +69,7 @@ const DistributorInfo = () => {
       </div>
     );
   } else if (currentPage === 3) {
-    currentPageComponent = (
+  currentPageComponent = (
       <div>
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
@@ -78,7 +78,7 @@ const DistributorInfo = () => {
       </div>
     );
   } else if (currentPage === 4) {
-    currentPageComponent = (
+  currentPageComponent = (
       <div>
         <ContactModePrompt
           setContactModeDetails={setContactModeDetails}
@@ -88,7 +88,51 @@ const DistributorInfo = () => {
     );
   }
 
-  return { currentPageComponent ? currentPageComponent : };
+return currentPageComponent === null ? (
+    <Container
+      maxWidth="sm"
+      style={{
+        overflow: "auto",
+        margin: "15vh auto 0vh auto",
+      }}
+    >
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>User ID</Form.Label>
+          <Form.Control type="number" placeholder="User ID" />
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Create Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+        <Button
+          type="submit"
+          style={{
+            backgroundColor: "#b11917",
+            border: "none",
+            width: "100%",
+            margin: "10px 0 10px 0",
+          }}
+        >
+          Next
+        </Button>
+        <p>
+          Already have an account?{" "}
+          <Link to="/distributor/signin">
+            <span
+              style={{
+                color: "#b11917",
+              }}
+            >
+              Log in!
+            </span>
+          </Link>
+        </p>
+      </Form>
+    </Container>
+  ) : (
+  {currentPageComponent}
+  );
 };
 
 export default memo(DistributorInfo);
