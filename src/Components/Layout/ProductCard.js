@@ -47,7 +47,7 @@ const ProductCard = ({ product, handleInputChange }) => {
             style={{
               width: "100px",
               height: "100px",
-              backgroundImage:"linear-gradient(to right())"
+              backgroundImage: "linear-gradient(to right())",
             }}
           >
             {product.image ? (
@@ -61,10 +61,12 @@ const ProductCard = ({ product, handleInputChange }) => {
             ) : (
               <p
                 style={{
-                  fontSize: "14px",
+                  fontSize: "12px",
+                  color: "#b11917",
+                  textAlign: "center",
                 }}
               >
-                {product.brand}
+                {product.brand}, {product.sku} ({product.volume})
               </p>
             )}
           </CardContent>

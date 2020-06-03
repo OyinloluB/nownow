@@ -40,7 +40,7 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange }) => {
             border: "none",
           }}
         >
-          Close
+          Add Price
         </Button>
       </Modal.Footer>
     </Modal>

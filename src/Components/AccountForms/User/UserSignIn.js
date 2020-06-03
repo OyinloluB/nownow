@@ -9,8 +9,7 @@ import {
   authenticatePoc,
 } from "../../../redux/auth/auth.actions";
 
-import { useHistory } from 'react-router-dom'
-
+import { useHistory } from "react-router-dom";
 
 const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
@@ -19,7 +18,7 @@ const UserSignIn = ({ type }) => {
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let signInPromise;
@@ -38,14 +37,13 @@ const UserSignIn = ({ type }) => {
     } else {
       return;
     }
-    
+
     signInPromise
       .then(() => {
         console.log("Request Done");
-        if(loginDetails.password==='DDLCPD'){
-          history.push("/updateProfile")
-        }
-        else{
+        if (loginDetails.password === "DDLCPD") {
+          history.push(`/${type}/info`);
+        } else {
           history.push("/");
         }
       })

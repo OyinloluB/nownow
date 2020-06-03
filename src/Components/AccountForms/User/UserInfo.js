@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import ProductsPricing from "../Prompts/ProductsPricing";
 import HomeDeliveryPrompt from "../Prompts/HomeDeliveryPrompt";
@@ -16,7 +16,7 @@ import {
 } from "../../../redux/user/user.actions";
 
 const UserInfo = ({ type }) => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [productsDetails, setProductsDetails] = useState([]);
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
   const [paymentModeDetails, setPaymentModeDetails] = useState({});
@@ -25,6 +25,7 @@ const UserInfo = ({ type }) => {
 
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const updateInfo = useCallback(
     (
@@ -65,7 +66,10 @@ const UserInfo = ({ type }) => {
           return;
         }
         updateUserPromise
-          .then(() => console.log("User Updated"))
+          .then(() => {
+            console.log("User Updated");
+            history.push("/");
+          })
           .catch((err) => console.log(err));
       }
     },
@@ -85,20 +89,20 @@ const UserInfo = ({ type }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setCurrentPage(type !== "poc" ? 1 : 2);
+    setCurrentPage(type === "poc" ? 2 : 1);
   };
 
   let currentPageComponent = null;
 
   if (currentPage === 1) {
-    currentPageComponent = (
+    return (
       <ProductsPricing
         setCurrentPage={setCurrentPage}
         setProductsDetails={setProductsDetails}
       />
     );
   } else if (currentPage === 2) {
-    currentPageComponent = (
+    return (
       <div>
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
@@ -107,7 +111,7 @@ const UserInfo = ({ type }) => {
       </div>
     );
   } else if (currentPage === 3) {
-    currentPageComponent = (
+    return (
       <div>
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
@@ -116,7 +120,7 @@ const UserInfo = ({ type }) => {
       </div>
     );
   } else if (currentPage === 4) {
-    currentPageComponent = (
+    return (
       <div>
         <ContactModePrompt
           setContactModeDetails={setContactModeDetails}

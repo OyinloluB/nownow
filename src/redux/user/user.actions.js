@@ -109,7 +109,7 @@ export const fetchBulkBreakers = () => {
 
 export const fetchPocsAndDistributors = () => {
   return (dispatch) => {
-    dispatch(fetchPocs());
+    // dispatch(fetchPocs());
     dispatch(fetchDistributors());
   };
 };

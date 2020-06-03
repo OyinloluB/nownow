@@ -39,18 +39,16 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/updateProfile" component={ContactModePrompt} />
         <Route exact path="/test" component={ProductsPricing} />
         <Route
           exact
           path="/:user/info"
           render={({ match: { params } }) =>
-            !isAuthenticated ? (
-              <Redirect to={`/${params.user}/signin`} />
-            ) : userTypes.includes(params.user) ? (
+            userTypes.includes(params.user) ? (
               <UserInfo type={params.user} />
             ) : null
           }
+        />
         />
         <Route
           exact

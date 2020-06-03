@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { Modal, Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+import { useHistory } from "react-router-dom";
 import CallIcon from "@material-ui/icons/Call";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
 const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
   const [contactDetails, setContactDetails] = useState({});
+  const history = useHistory();
+  // const { user } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
@@ -18,6 +22,7 @@ const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
     setContactModeDetails({
       ...contactDetails,
     });
+    history.push("/");
     setSubmitted(true);
   };
 
