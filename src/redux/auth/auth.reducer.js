@@ -1,7 +1,7 @@
 import AuthActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   user: {
     id: 1,
     userID: "ID",
@@ -40,7 +40,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        isAuthenticated: true,
+        isAuthenticated: false,
         user: action.payload,
         error: null,
       };
