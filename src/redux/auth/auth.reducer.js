@@ -20,36 +20,26 @@ const INITIAL_STATE = {
 
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case AuthActionTypes.SIGN_UP_POC_START:
-    case AuthActionTypes.SIGN_IN_POC_START:
-    case AuthActionTypes.SIGN_UP_DISTRIBUTOR_START:
-    case AuthActionTypes.SIGN_IN_DISTRIBUTOR_START:
-    case AuthActionTypes.SIGN_UP_BULK_BREAKER_START:
-    case AuthActionTypes.SIGN_IN_BULK_BREAKER_START:
+    case AuthActionTypes.AUTHENTICATE_POC_START:
+    case AuthActionTypes.AUTHENTICATE_DISTRIBUTOR_START:
+    case AuthActionTypes.AUTHENTICATE_BULK_BREAKER_START:
       return {
         ...state,
         loading: true,
       };
-    case AuthActionTypes.SIGN_UP_POC_SUCCESS:
-    case AuthActionTypes.SIGN_UP_DISTRIBUTOR_SUCCESS:
-    case AuthActionTypes.SIGN_UP_BULK_BREAKER_SUCCESS:
-      return { ...state, loading: false, error: null };
-    case AuthActionTypes.SIGN_IN_POC_SUCCESS:
-    case AuthActionTypes.SIGN_IN_DISTRIBUTOR_SUCCESS:
-    case AuthActionTypes.SIGN_IN_BULK_BREAKER_SUCCESS:
+    case AuthActionTypes.AUTHENTICATE_POC_SUCCESS:
+    case AuthActionTypes.AUTHENTICATE_DISTRIBUTOR_SUCCESS:
+    case AuthActionTypes.AUTHENTICATE_BULK_BREAKER_SUCCESS:
       return {
         ...state,
         loading: false,
-        isAuthenticated: false,
+        isAuthenticated: true,
         user: action.payload,
         error: null,
       };
-    case AuthActionTypes.SIGN_UP_POC_FAILURE:
-    case AuthActionTypes.SIGN_IN_POC_FAILURE:
-    case AuthActionTypes.SIGN_UP_DISTRIBUTOR_FAILURE:
-    case AuthActionTypes.SIGN_IN_DISTRIBUTOR_FAILURE:
-    case AuthActionTypes.SIGN_UP_BULK_BREAKER_FAILURE:
-    case AuthActionTypes.SIGN_IN_BULK_BREAKER_FAILURE:
+    case AuthActionTypes.AUTHENTICATE_POC_FAILURE:
+    case AuthActionTypes.AUTHENTICATE_DISTRIBUTOR_FAILURE:
+    case AuthActionTypes.AUTHENTICATE_BULK_BREAKER_FAILURE:
       return {
         ...state,
         loading: false,

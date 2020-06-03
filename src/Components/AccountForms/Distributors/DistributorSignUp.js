@@ -51,7 +51,6 @@ export const DistributorSignUp = () => {
   };
 
   if (currentPage === 1) {
-    console.log('here')
     return (
       <ProductsPricing
         setCurrentPage={setCurrentPage}

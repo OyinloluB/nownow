@@ -1,9 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
 
-export const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
+const HomeDeliveryPrompt = ({
+  setCurrentPage,
+  setHomeDeliveryDetails,
+}) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
 
   const handleSubmit = (e) => {
@@ -83,3 +86,5 @@ export const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) =
     </Container>
   );
 };
+
+export default HomeDeliveryPrompt;

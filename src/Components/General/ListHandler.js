@@ -12,8 +12,8 @@ class ListHandler extends Component {
         return ( 
             <React.Fragment>
                 <Modal isOpen = { this.props.myState.modalSwitch } onHide={this.props.closeModal}>
-                    <ModalHeader style={{ color: "white", background: "#b11917" }} className="pl-5">
-                        <AllOutIcon /><AllOutIcon /> Nearby Customers <AllOutIcon /><AllOutIcon />
+                    <ModalHeader style={{ color: "white", background: "#b11917" }} className="p-3 m-1">
+                        <AllOutIcon/><AllOutIcon /> Nearby Customers <AllOutIcon /><AllOutIcon />
                     </ModalHeader>
 
                     <ModalBody style={{'maxHeight': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>

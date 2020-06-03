@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaymentModeOption({ checked, handleToggle}) {
+const PaymentModeOption = ({ checked, handleToggle }) => {
   const classes = useStyles();
 
   return (
@@ -55,3 +55,5 @@ export default function PaymentModeOption({ checked, handleToggle}) {
     </List>
   );
 }
+
+export default PaymentModeOption;

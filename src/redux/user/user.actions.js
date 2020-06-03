@@ -9,7 +9,11 @@ export const fetchPocsStart = () => ({
 });
 
 export const fetchPocsSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "poc",
+    color: "red-dot"
+  }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
     payload: trimmedUsers,
@@ -25,12 +29,8 @@ export const fetchPocs = () => {
   return async (dispatch) => {
     dispatch(fetchPocsStart());
     try {
-      var response = await axios.get("/Poc");
-      for (let i = 0; i < response.data.length; i++) {
-        // red-dot = poc
-        response.data[i].type = "red-dot";
-      }
-      const data = response.data;
+      const response = await axios.get("/Poc");
+      const { data } = response;
       dispatch(fetchPocsSuccess(data));
     } catch (error) {
       dispatch(fetchPocsFailure(error));
@@ -43,7 +43,11 @@ export const fetchDistributorsStart = () => ({
 });
 
 export const fetchDistributorsSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "distributor",
+    colr: "green-dot"
+  }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
     payload: trimmedUsers,
@@ -59,12 +63,9 @@ export const fetchDistributors = () => {
   return async (dispatch) => {
     dispatch(fetchDistributorsStart());
     try {
-      var response = await axios.get("/Distributor");
-      for (let i = 0; i < response.data.length; i++) {
-        // green-dot = distributor
-        response.data[i].type = "green-dot";
-      }
-      const data = response.data;
+      const response = await axios.get("/Distributor/login");
+      const { data } = response;
+      // console.log(data)
       dispatch(fetchDistributorsSuccess(data));
     } catch (error) {
       dispatch(fetchDistributorsFailure(error));
@@ -77,7 +78,11 @@ export const fetchBulkBreakersStart = () => ({
 });
 
 export const fetchBulkBreakersSuccess = (users) => {
-  const trimmedUsers = users.map(trimUser);
+  const trimmedUsers = users.map((user) => ({
+    ...trimUser(user),
+    type: "bulkbreaker",
+    color: "blue-dot",
+  }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
     payload: trimmedUsers,
@@ -94,11 +99,7 @@ export const fetchBulkBreakers = () => {
     dispatch(fetchBulkBreakersStart());
     try {
       const response = await axios.get("/Bulkbreaker");
-      for (let i = 0; i < response.data.length; i++) {
-        // blue-dot = "bulkbreaker"
-        response.data[i].type = "blue-dot";
-      }
-      const data = response.data;
+      const { data } = response;
       dispatch(fetchBulkBreakersSuccess(data));
     } catch (error) {
       dispatch(fetchBulkBreakersFailure(error));
@@ -107,22 +108,115 @@ export const fetchBulkBreakers = () => {
 };
 
 export const fetchPocsAndDistributors = () => {
-    return dispatch => {
-        dispatch(fetchPocs());
-        dispatch(fetchDistributors());
-    }
-}
+  return (dispatch) => {
+    dispatch(fetchPocs());
+    dispatch(fetchDistributors());
+  };
+};
 
 export const fetchBulkbreakersAndDistributors = () => {
-    return dispatch => {
-        dispatch(fetchBulkBreakers());
-        dispatch(fetchDistributors());
-    }
-}
+  return (dispatch) => {
+    dispatch(fetchBulkBreakers());
+    dispatch(fetchDistributors());
+  };
+};
 
 export const fetchPocsAndBulkbreakers = () => {
-    return dispatch => {
-        dispatch(fetchPocs());
-        dispatch(fetchBulkBreakers());
-    }
-}
+  return (dispatch) => {
+    // dispatch(fetchPocs());
+    dispatch(fetchBulkBreakers());
+  };
+};
+
+const updatePocStart = () => ({
+  type: UserActionTypes.UPDATE_POCS_START,
+});
+
+const updateDistributorStart = () => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_START,
+});
+
+const updateBulkbreakerStart = () => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_START,
+});
+
+const updatePocSuccess = () => ({
+  type: UserActionTypes.UPDATE_POCS_SUCCESS,
+});
+
+const updateDistributorSuccess = () => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_SUCCESS,
+});
+
+const updateBulkbreakerSuccess = () => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_SUCCESS,
+});
+
+const updatePocFailure = (error) => ({
+  type: UserActionTypes.UPDATE_POCS_FAILURE,
+  payload: error,
+});
+
+const updateDistributorFailure = (error) => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_FAILURE,
+  payload: error,
+});
+
+const updateBulkbreakerFailure = (error) => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_FAILURE,
+  payload: error,
+});
+
+export const updatePoc = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updatePocStart());
+      try {
+        const response = await axios.patch(`/Poc/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updatePocSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updatePocFailure(error));
+        reject(error);
+      }
+    });
+  };
+};
+
+export const updateDistributor = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updateDistributorStart());
+      try {
+        const response = await axios.patch(`/Distributor/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updateDistributorSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updateDistributorFailure(error));
+        reject(error);
+      }
+    });
+  };
+};
+
+export const updateBulkbreaker = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updateBulkbreakerStart());
+      try {
+        const response = await axios.patch(`/Bulkbreaker/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updateBulkbreakerSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updateBulkbreakerFailure(error));
+        reject(error);
+      }
+    });
+  };
+};

@@ -25,15 +25,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AccountTypes() {
   const classes = useStyles();
-  const [openSignup, setOpenSignup] = React.useState(true);
-  const [openSignin, setOpenSignin] = React.useState(false);
+  // const [openSignup, setOpenSignup] = React.useState(true);
+  const [openSignin, setOpenSignin] = React.useState(true);
 
   const handleClickSignin = () => {
     setOpenSignin(!openSignin);
   };
-  const handleClickSignup = () => {
-    setOpenSignup(!openSignup);
-  };
+  // const handleClickSignup = () => {
+  //   setOpenSignup(!openSignup);
+  // };
 
   return (
     <List
@@ -43,7 +43,7 @@ export default function AccountTypes() {
     >
       {/* Sign Up Prompt */}
 
-      <ListItem button onClick={handleClickSignup}>
+      {/* <ListItem button onClick={handleClickSignup}>
         <ListItemIcon>
           <ExitToAppIcon />
         </ListItemIcon>
@@ -77,7 +77,7 @@ export default function AccountTypes() {
             </ListItem>
           </Link>
         </List>
-      </Collapse>
+      </Collapse> */}
 
       {/* Sign In Prompt */}
 

@@ -5,7 +5,7 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CallIcon from "@material-ui/icons/Call";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 
-export const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
+const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
   const [contactDetails, setContactDetails] = useState({});
 
   const handleChange = (e) => {
@@ -91,3 +91,5 @@ export const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
     </Container>
   );
 };
+
+export default ContactModePrompt;
