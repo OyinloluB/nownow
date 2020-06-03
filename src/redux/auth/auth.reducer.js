@@ -2,18 +2,19 @@ import AuthActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
   isAuthenticated: false,
-  user: {
-    id: 1,
-    userID: "ID",
-    name: "Mr Blih",
-    phone: "+2347056382932",
-    delivery: true,
-    longitude: Number.parseFloat("0"),
-    latitude: Number.parseFloat("0"),
-    payment: { cash: false, pos: true, transfer: true },
-    product: [],
-    type: "poc",
-  },
+  user: {},
+  // user: {
+  //   id: 1,
+  //   userID: "ID",
+  //   name: "Mr Blih",
+  //   phone: "+2347056382932",
+  //   delivery: true,
+  //   longitude: Number.parseFloat("0"),
+  //   latitude: Number.parseFloat("0"),
+  //   payment: { cash: false, pos: true, transfer: true },
+  //   product: [],
+  //   type: "poc",
+  // },
   loading: false,
   error: null,
 };

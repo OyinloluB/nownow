@@ -56,7 +56,7 @@ export const authenticatePoc = (ID, password) => {
       try {
         const response = await axios.post("/Poc/login", { ID, password });
         const { data } = response;
-        console.log(data);
+        // console.log(data);
         dispatch(authenticatePocSuccess(data));
         resolve();
       } catch (error) {
@@ -74,7 +74,7 @@ export const authenticateDistributor = (ID, password) => {
       try {
         const response = await axios.post("/Distributor/login", { ID, password });
         const { data } = response;
-        console.log(data);
+        // console.log(data);
         dispatch(authenticateDistributorSuccess(data));
         resolve();
       } catch (error) {

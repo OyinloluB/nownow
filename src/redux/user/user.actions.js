@@ -123,7 +123,7 @@ export const fetchBulkbreakersAndDistributors = () => {
 
 export const fetchPocsAndBulkbreakers = () => {
   return (dispatch) => {
-    // dispatch(fetchPocs());
+    dispatch(fetchPocs());
     dispatch(fetchBulkBreakers());
   };
 };

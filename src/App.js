@@ -13,6 +13,7 @@ import Home from "./Components/General/Home";
 
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
+import ProductsPricing from "./Components/AccountForms/Prompts/ProductsPricing";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -37,11 +38,14 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/test" component={ProductsPricing} />
         <Route
           exact
           path="/:user/info"
           render={({ match: { params } }) =>
-            userTypes.includes(params.user) ? <UserInfo type={params.user} /> : null
+            userTypes.includes(params.user) ? (
+              <UserInfo type={params.user} />
+            ) : null
           }
         />
         <Route
