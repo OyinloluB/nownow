@@ -32,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appbar: {
     backgroundColor: "#b11917",
-    borderRadius: "10px",
-    boxShadow: "5px 10px 8px 10px #888888"
+    boxShadow: "5px 10px 8px 10px #888888",
   },
   title: {
     display: "block",

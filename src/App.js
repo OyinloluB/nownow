@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -43,7 +43,9 @@ function App() {
           exact
           path="/:user/info"
           render={({ match: { params } }) =>
-            userTypes.includes(params.user) ? (
+            !isAuthenticated ? (
+              <Redirect to={`/${params.user}/signin`} />
+            ) : userTypes.includes(params.user) ? (
               <UserInfo type={params.user} />
             ) : null
           }

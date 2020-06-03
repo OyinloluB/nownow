@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     width: "55px",
     marginRight: "10px",
     objectFit: "cover",
+    // backgroundImage: "url('../../)"
   },
 }));
 
@@ -46,21 +47,26 @@ const ProductCard = ({ product, handleInputChange }) => {
             style={{
               width: "100px",
               height: "100px",
-              objectFit: "cover",
+              backgroundImage:"linear-gradient(to right())"
             }}
           >
-            <img
-              src={product.image}
-              alt={`${product.brand} ${product.sku} Image`}
-              // style={{
-              //   objectFit: "cover",
-              // }}
-            />
-            {/* <CardMedia
-              className={classes.cover}
-              image=
-              title=
-            /> */}
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={`${product.brand} ${product.sku} Image`}
+                style={{
+                  width: "100%",
+                }}
+              />
+            ) : (
+              <p
+                style={{
+                  fontSize: "14px",
+                }}
+              >
+                {product.brand}
+              </p>
+            )}
           </CardContent>
         </div>
       </Card>
