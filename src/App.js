@@ -14,6 +14,7 @@ import Home from "./Components/General/Home";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import ProductsPricing from "./Components/AccountForms/Prompts/ProductsPricing";
+import ContactModePrompt from "./Components/AccountForms/Prompts/ContactModePrompt";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -38,6 +39,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route exact path="/updateProfile" component={ContactModePrompt} />
         <Route exact path="/test" component={ProductsPricing} />
         <Route
           exact

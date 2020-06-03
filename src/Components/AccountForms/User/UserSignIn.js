@@ -42,8 +42,12 @@ const UserSignIn = ({ type }) => {
     signInPromise
       .then(() => {
         console.log("Request Done");
-        
-        history.push("/");
+        if(loginDetails.password==='DDLCPD'){
+          history.push("/updateProfile")
+        }
+        else{
+          history.push("/");
+        }
       })
       .catch((error) => console.error(error.message));
   };

@@ -7,7 +7,6 @@ import InfoWindowTooltip from "./InfoWindowTooltip";
 var MarkerInfoWindow = ({ user }) => {
  
   var [isOpen, setIsOpen] = useState(false);
-  
   return (
     <Marker
       position={{ lat: user.latitude, lng: user.longitude }}
