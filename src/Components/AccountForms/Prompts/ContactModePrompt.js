@@ -22,7 +22,7 @@ const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
     setContactModeDetails({
       ...contactDetails,
     });
-    // history.push("/");
+    history.push("/");
     setSubmitted(true);
   };
 
