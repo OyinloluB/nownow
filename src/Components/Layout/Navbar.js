@@ -84,15 +84,6 @@ export default function Navbar() {
                   </Badge>
                 </IconButton>
               </div>
-              {/* <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label="show more"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </div> */}
             </Toolbar>
           </AppBar>
         </div>

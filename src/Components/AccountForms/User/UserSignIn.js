@@ -16,7 +16,6 @@ const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
   const dispatch = useDispatch();
   const history = useHistory();
-  
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
@@ -43,6 +42,7 @@ const UserSignIn = ({ type }) => {
     signInPromise
       .then(() => {
         console.log("Request Done");
+        
         history.push("/");
       })
       .catch((error) => console.error(error.message));
