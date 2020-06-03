@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
-import RoomIcon from "@material-ui/icons/Room";
 
 import InfoWindowTooltip from "./InfoWindowTooltip";
 
