@@ -56,8 +56,11 @@ export const authenticatePoc = (ID, password) => {
       try {
         const response = await axios.post("/Poc/login", { ID, password });
         const { data } = response;
-        // console.log(data);
-        dispatch(authenticatePocSuccess(data));
+        if(data.success){
+          dispatch(authenticatePocSuccess(data.poc));
+        } else {
+          throw data;
+        }
         resolve();
       } catch (error) {
         dispatch(authenticatePocFailure(error));
@@ -74,8 +77,11 @@ export const authenticateDistributor = (ID, password) => {
       try {
         const response = await axios.post("/Distributor/login", { ID, password });
         const { data } = response;
-        // console.log(data);
-        dispatch(authenticateDistributorSuccess(data));
+        if(data.success){
+          dispatch(authenticateDistributorSuccess(data.distributor));
+        } else {
+          throw data;
+        }
         resolve();
       } catch (error) {
         dispatch(authenticateDistributorFailure(error));
@@ -92,7 +98,11 @@ export const authenticateBulkBreaker = (ID, password) => {
       try {
         const response = await axios.post("/Bulkbreaker/login", { ID, password });
         const { data } = response;
-        dispatch(authenticateBulkBreakerSuccess(data));
+        if(data.success){
+          dispatch(authenticateBulkBreakerSuccess(data.bulkbreaker));
+        } else {
+          throw data;
+        }
         resolve();
       } catch (error) {
         dispatch(authenticateBulkBreakerFailure(error));

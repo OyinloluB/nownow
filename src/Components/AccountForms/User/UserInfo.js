@@ -41,7 +41,7 @@ const UserInfo = ({ type }) => {
             updatePoc(user.id, {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
-              phone: contactModeDetails,
+              phone: contactModeDetails.phone,
             })
           );
         } else if (type === "distributor") {
@@ -50,7 +50,7 @@ const UserInfo = ({ type }) => {
               products: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
-              phone: contactModeDetails,
+              phone: contactModeDetails.phone,
             })
           );
         } else if (type === "bulkbreaker") {
@@ -59,7 +59,7 @@ const UserInfo = ({ type }) => {
               products: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
-              phone: contactModeDetails,
+              phone: contactModeDetails.phone,
             })
           );
         } else {
@@ -73,7 +73,7 @@ const UserInfo = ({ type }) => {
           .catch((err) => console.log(err));
       }
     },
-    [submitted, user, type, dispatch]
+    [submitted, user, type, dispatch, history]
   );
 
   useEffect(() => {
