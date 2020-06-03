@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 
@@ -12,6 +13,7 @@ import {
 const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
@@ -36,7 +38,11 @@ const UserSignIn = ({ type }) => {
       return;
     }
     signInPromise
-      .then(() => console.log("Request Done"))
+      .then(() => {
+        console.log("Request Done");
+        
+        history.push("/");
+      })
       .catch((error) => console.error(error.message));
   };
 

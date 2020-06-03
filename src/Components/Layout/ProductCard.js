@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import { Form } from "react-bootstrap";
+// import Typography from "@material-ui/core/Typography";
+// import { Form } from "react-bootstrap";
+import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "space-between",
-    marginBottom: '10px'
+    marginBottom: "10px",
   },
   details: {
     display: "flex",
@@ -28,39 +29,42 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ product, handleInputChange }) => {
   const classes = useStyles();
+  const [showContent, setShowContent] = useState(false);
   return (
-    <Card className={classes.root}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {`${product.brand} `}
-            <span
-              style={{
-                color: "#b11917",
-              }}
-            >
-              {`${product.volume} (${product.sku})`}
-            </span>
-          </Typography>
-          <br />
-          <div>
-            <Form.Group controlId="formBasicPrice">
-              <Form.Control
-                type="number"
-                placeholder="Input Price"
-                onChange={(e) => handleInputChange(e, product._id)}
-                required
-              />
-            </Form.Group>
-          </div>
-        </CardContent>
-      </div>
-      <CardMedia
-        className={classes.cover}
-        image={product.image}
-        title={`${product.brand} ${product.sku} Image`}
+    <>
+      <ShowPricing
+        show={showContent}
+        setShowContent={setShowContent}
+        product={product}
+        handleInputChange={handleInputChange}
       />
-    </Card>
+
+      <Card className={classes.root} onClick={() => setShowContent(true)}>
+        <div className={classes.details}>
+          <CardContent
+            className={classes.content}
+            style={{
+              width: "100px",
+              height: "100px",
+              objectFit: "cover",
+            }}
+          >
+            <img
+              src={product.image}
+              alt={`${product.brand} ${product.sku} Image`}
+              // style={{
+              //   objectFit: "cover",
+              // }}
+            />
+            {/* <CardMedia
+              className={classes.cover}
+              image=
+              title=
+            /> */}
+          </CardContent>
+        </div>
+      </Card>
+    </>
   );
 };
 

@@ -4,25 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../../redux/product/product.actions";
 import Container from "@material-ui/core/Container";
 // import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import ProductCard from "../../Layout/ProductCard";
 
-const ProductsPricing = ({
-  setCurrentPage,
-  setProductsDetails,
-}) => {
+const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   const { products: serverProducts } = useSelector((state) => state.product);
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() =>{
+  useEffect(() => {
     setProducts([...serverProducts]);
-  },[serverProducts]);
+  }, [serverProducts]);
 
-  useEffect(() => {   
+  useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
-
 
   const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
@@ -46,7 +42,7 @@ const ProductsPricing = ({
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "15vh auto 10vh auto",
+        margin: "15vh auto",
       }}
     >
       <Form onSubmit={handleSubmit}>
@@ -59,24 +55,20 @@ const ProductsPricing = ({
           Select the brand and SKU you sell and set your selling price below
         </h5>
         <br />
-        {products.map((product) => {
-          return (
-            <ProductCard
-              product={product}
-              handleInputChange={handleInputChange}
-              key={product._id}
-            />
-          );
-        })}
+        <Row>
+          {products.map((product) => {
+            return (
+              <Col xs={4} lg={3} md={3}>
+                <ProductCard
+                  product={product}
+                  handleInputChange={handleInputChange}
+                  key={product._id}
+                />
+              </Col>
+            );
+          })}
+        </Row>
         <br />
-        {/* <p
-          style={{
-            color: "#b11917",
-          }}
-        >
-          Next Product
-          <NavigateNextIcon />
-        </p> */}
         <Button
           type="submit"
           style={{

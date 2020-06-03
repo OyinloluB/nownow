@@ -8,6 +8,6 @@ export const trimUser = (user) => {
     longitude: Number.parseFloat(user.longitude),
     latitude: Number.parseFloat(user.latitude),
     payment: { ...user.payment },
-    product: [...user.product],
+    // product: [...user.product],
   };
 };
