@@ -39,7 +39,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/updateProfile" component={Home} />
+        <Route exact path="/updateProfile" component={ContactModePrompt} />
         <Route exact path="/test" component={ProductsPricing} />
         <Route
           exact
