@@ -1,21 +1,28 @@
 import React, { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../../../redux/product/product.actions";
+
+import { fetchProducts } from "../../../redux/product/product.actions";
 import Container from "@material-ui/core/Container";
 // import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Form, Button } from "react-bootstrap";
-import ProductCard from "../../../Layout/ProductCard";
+import ProductCard from "../../Layout/ProductCard";
 
-const ProductsPricing = ({ setCurrentPage, setPricingDetails }) => {
-  const productStore = useSelector((state) => state.product);
-  const [products, setProducts] = useState(productStore.products);
+const ProductsPricing = ({
+  setCurrentPage,
+  setProductsDetails,
+}) => {
+  const { products: serverProducts } = useSelector((state) => state.product);
+  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+  useEffect(() =>{
+    setProducts([...serverProducts]);
+  },[serverProducts]);
 
-  console.log("rendering");
+  useEffect(() => {   
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
 
   const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
@@ -30,6 +37,7 @@ const ProductsPricing = ({ setCurrentPage, setPricingDetails }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
+    setProductsDetails([...products]);
     setCurrentPage(2);
   };
 

@@ -9,10 +9,10 @@ import {
 } from "./redux/user/user.actions";
 
 import Navbar from "./Components/Layout/Navbar";
-import distributorRoute from "./routes/Distributor/distributorRoute";
-import bulbbreakerRoute from "./routes/BulbBreaker/bulbbreakerRoute";
-import pocRoute from "./routes/POC/pocRoute";
 import Home from "./Components/General/Home";
+
+import UserInfo from "./Components/AccountForms/User/UserInfo";
+import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -30,14 +30,29 @@ function App() {
     }
   }, [isAuthenticated, user, dispatch]);
 
+  const userTypes = ["poc", "distributor", "bulkbreaker"];
+
   return (
     <>
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/distributor" component={distributorRoute} />
-        <Route path="/bulkbreaker" component={bulbbreakerRoute} />
-        <Route path="/poc" component={pocRoute} />
+        <Route
+          exact
+          path="/:user/info"
+          render={({ match: { params } }) =>
+            userTypes.includes(params.user) ? <UserInfo type={params.user} /> : null
+          }
+        />
+        <Route
+          exact
+          path="/:user/signin"
+          render={({ match: { params } }) =>
+            userTypes.includes(params.user) ? (
+              <UserSignIn type={params.user} />
+            ) : null
+          }
+        />
       </Switch>
     </>
   );

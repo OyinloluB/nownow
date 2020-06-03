@@ -1,42 +1,80 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
-import ProductsPricing from "./DistributorPrompt/ProductsPricing";
-import { HomeDeliveryPrompt } from "./DistributorPrompt/HomeDeliveryPrompt";
-import { PaymentModePrompt } from "./DistributorPrompt/PaymentModePrompt";
-import { ContactModePrompt } from "./DistributorPrompt/ContactModePrompt";
 
-const DistributorInfo = () => {
+import ProductsPricing from "../Prompts/ProductsPricing";
+import HomeDeliveryPrompt from "../Prompts/HomeDeliveryPrompt";
+import PaymentModePrompt from "../Prompts/PaymentModePrompt";
+import ContactModePrompt from "../Prompts/ContactModePrompt";
+
+import {
+  updateBulkbreaker,
+  updateDistributor,
+  updatePoc,
+} from "../../../redux/user/user.actions";
+
+const UserInfo = ({ type }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [pricingDetails, setPricingDetails] = useState({});
+  const [productsDetails, setProductsDetails] = useState([]);
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
-  const [paymentModeDetails, setPaymentModeDetails] = useState([]);
+  const [paymentModeDetails, setPaymentModeDetails] = useState({});
   const [contactModeDetails, setContactModeDetails] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSignUp = useCallback(
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const updateInfo = useCallback(
     (
-      pricingDetails,
+      productsDetails,
       homeDeliveryDetails,
       paymentModeDetails,
       contactModeDetails
     ) => {
       if (submitted) {
-        console.log({
-          pricing: pricingDetails,
-          homeDelivery: homeDeliveryDetails,
-          paymentMode: paymentModeDetails,
-          contactMode: contactModeDetails,
-        });
+        let updateUserPromise;
+        if (type === "poc") {
+          updateUserPromise = dispatch(
+            updatePoc(user.id, {
+              delivery: homeDeliveryDetails,
+              payment: paymentModeDetails,
+              phone: contactModeDetails,
+            })
+          );
+        } else if (type === "distributor") {
+          updateUserPromise = dispatch(
+            updateDistributor(user.id, {
+              products: productsDetails,
+              delivery: homeDeliveryDetails,
+              payment: paymentModeDetails,
+              phone: contactModeDetails,
+            })
+          );
+        } else if (type === "bulkbreaker") {
+          updateUserPromise = dispatch(
+            updateBulkbreaker(user.id, {
+              products: productsDetails,
+              delivery: homeDeliveryDetails,
+              payment: paymentModeDetails,
+              phone: contactModeDetails,
+            })
+          );
+        } else {
+          return;
+        }
+        updateUserPromise
+          .then(() => console.log("User Updated"))
+          .catch((err) => console.log(err));
       }
     },
-    [submitted]
+    [submitted, user, type, dispatch]
   );
 
   useEffect(() => {
-    handleSignUp(
-      pricingDetails,
+    updateInfo(
+      productsDetails,
       homeDeliveryDetails,
       paymentModeDetails,
       contactModeDetails
@@ -47,20 +85,20 @@ const DistributorInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setCurrentPage(1);
+    setCurrentPage(type !== "poc" ? 1 : 2);
   };
 
-let currentPageComponent = null;
+  let currentPageComponent = null;
 
   if (currentPage === 1) {
-  currentPageComponent = (
+    currentPageComponent = (
       <ProductsPricing
         setCurrentPage={setCurrentPage}
-        setPricingDetails={setPricingDetails}
+        setProductsDetails={setProductsDetails}
       />
     );
   } else if (currentPage === 2) {
-  currentPageComponent = (
+    currentPageComponent = (
       <div>
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
@@ -69,7 +107,7 @@ let currentPageComponent = null;
       </div>
     );
   } else if (currentPage === 3) {
-  currentPageComponent = (
+    currentPageComponent = (
       <div>
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
@@ -78,17 +116,17 @@ let currentPageComponent = null;
       </div>
     );
   } else if (currentPage === 4) {
-  currentPageComponent = (
+    currentPageComponent = (
       <div>
         <ContactModePrompt
           setContactModeDetails={setContactModeDetails}
           setSubmitted={setSubmitted}
         />
       </div>
-    )
+    );
   }
 
-return currentPageComponent === null ? (
+  return currentPageComponent === null ? (
     <Container
       maxWidth="sm"
       style={{
@@ -118,7 +156,7 @@ return currentPageComponent === null ? (
         </Button>
         <p>
           Already have an account?{" "}
-          <Link to="/distributor/signin">
+          <Link to={`/${type}/signin`}>
             <span
               style={{
                 color: "#b11917",
@@ -131,8 +169,8 @@ return currentPageComponent === null ? (
       </Form>
     </Container>
   ) : (
-  {currentPageComponent}
+    currentPageComponent
   );
 };
 
-export default memo(DistributorInfo);
+export default memo(UserInfo);

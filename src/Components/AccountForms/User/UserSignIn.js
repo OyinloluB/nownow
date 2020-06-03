@@ -3,9 +3,13 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 
-import { authenticateDistributor } from "../../../redux/auth/auth.actions";
+import {
+  authenticateDistributor,
+  authenticateBulkBreaker,
+  authenticatePoc,
+} from "../../../redux/auth/auth.actions";
 
-export const DistributorSignIn = () => {
+const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
   const dispatch = useDispatch();
 
@@ -15,7 +19,23 @@ export const DistributorSignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(authenticateDistributor(loginDetails.ID, loginDetails.password))
+    let signInPromise;
+    if (type === "distributor") {
+      signInPromise = dispatch(
+        authenticateDistributor(loginDetails.ID, loginDetails.password)
+      );
+    } else if (type === "bulkbreaker") {
+      signInPromise = dispatch(
+        authenticateBulkBreaker(loginDetails.ID, loginDetails.password)
+      );
+    } else if (type === "poc") {
+      signInPromise = dispatch(
+        authenticatePoc(loginDetails.ID, loginDetails.password)
+      );
+    } else {
+      return;
+    }
+    signInPromise
       .then(() => console.log("Request Done"))
       .catch((error) => console.error(error.message));
   };
@@ -76,3 +96,5 @@ export const DistributorSignIn = () => {
     </Container>
   );
 };
+
+export default UserSignIn;

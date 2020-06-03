@@ -4,12 +4,13 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "space-between",
+    marginBottom: '10px'
   },
   details: {
     display: "flex",
@@ -48,6 +49,7 @@ const ProductCard = ({ product, handleInputChange }) => {
                 type="number"
                 placeholder="Input Price"
                 onChange={(e) => handleInputChange(e, product._id)}
+                required
               />
             </Form.Group>
           </div>
@@ -56,7 +58,7 @@ const ProductCard = ({ product, handleInputChange }) => {
       <CardMedia
         className={classes.cover}
         image={product.image}
-        title="Live from space album cover"
+        title={`${product.brand} ${product.sku} Image`}
       />
     </Card>
   );

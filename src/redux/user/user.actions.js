@@ -122,3 +122,96 @@ export const fetchPocsAndBulkbreakers = () => {
     dispatch(fetchBulkBreakers());
   };
 };
+
+const updatePocStart = () => ({
+  type: UserActionTypes.UPDATE_POCS_START,
+});
+
+const updateDistributorStart = () => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_START,
+});
+
+const updateBulkbreakerStart = () => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_START,
+});
+
+const updatePocSuccess = () => ({
+  type: UserActionTypes.UPDATE_POCS_SUCCESS,
+});
+
+const updateDistributorSuccess = () => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_SUCCESS,
+});
+
+const updateBulkbreakerSuccess = () => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_SUCCESS,
+});
+
+const updatePocFailure = (error) => ({
+  type: UserActionTypes.UPDATE_POCS_FAILURE,
+  payload: error,
+});
+
+const updateDistributorFailure = (error) => ({
+  type: UserActionTypes.UPDATE_DISTRIBUTORS_FAILURE,
+  payload: error,
+});
+
+const updateBulkbreakerFailure = (error) => ({
+  type: UserActionTypes.UPDATE_BULK_BREAKERS_FAILURE,
+  payload: error,
+});
+
+export const updatePoc = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updatePocStart());
+      try {
+        const response = await axios.patch(`/Poc/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updatePocSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updatePocFailure(error));
+        reject(error);
+      }
+    });
+  };
+};
+
+export const updateDistributor = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updateDistributorStart());
+      try {
+        const response = await axios.patch(`/Distributor/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updateDistributorSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updateDistributorFailure(error));
+        reject(error);
+      }
+    });
+  };
+};
+
+export const updateBulkbreaker = (ID, details) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(updateBulkbreakerStart());
+      try {
+        const response = await axios.patch(`/Bulkbreaker/${ID}`, details);
+        const {data} = response;
+        console.log(data);
+        dispatch(updateBulkbreakerSuccess());
+        resolve();
+      } catch (error) {
+        dispatch(updateBulkbreakerFailure(error));
+        reject(error);
+      }
+    });
+  };
+};

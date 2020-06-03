@@ -4,7 +4,7 @@ import PaymentIcon from "@material-ui/icons/Payment";
 import Container from "@material-ui/core/Container";
 import PaymentModeOption from "./PaymentModeOption";
 
-export const PaymentModePrompt = ({
+const PaymentModePrompt = ({
   setCurrentPage,
   setPaymentModeDetails,
 }) => {
@@ -26,8 +26,12 @@ export const PaymentModePrompt = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setPaymentModeDetails(checked);
-    setCurrentPage(3);
+    setPaymentModeDetails({
+      cash: checked.includes('cash') ? true : false,
+      pos: checked.includes('pos') ? true : false,
+      transfer: checked.includes('transfer') ? true : false,
+    });
+    setCurrentPage(4);
   };
 
   return (
@@ -75,3 +79,6 @@ export const PaymentModePrompt = ({
     </Container>
   );
 };
+
+export default PaymentModePrompt;
+

@@ -50,16 +50,20 @@ export const authenticateBulkBreakerFailure = (error) => ({
 
 // Sign In Action Creators
 export const authenticatePoc = (ID, password) => {
-  return async (dispatch) => {
-    dispatch(authenticatePocStart());
-    try {
-      const response = await axios.post("/Poc/login", { ID, password });
-      const { data } = response;
-      console.log(data);
-      // dispatch(authenticatePocSuccess(data));
-    } catch (error) {
-      dispatch(authenticatePocFailure(error));
-    }
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(authenticatePocStart());
+      try {
+        const response = await axios.post("/Poc/login", { ID, password });
+        const { data } = response;
+        console.log(data);
+        dispatch(authenticatePocSuccess(data));
+        resolve();
+      } catch (error) {
+        dispatch(authenticatePocFailure(error));
+        reject(error);
+      }
+    });
   };
 };
 
@@ -68,11 +72,11 @@ export const authenticateDistributor = (ID, password) => {
     return new Promise(async (resolve, reject) => {
       dispatch(authenticateDistributorStart());
       try {
-        const response = await axios.post("/Distributor", { ID, password });
+        const response = await axios.post("/Distributor/login", { ID, password });
         const { data } = response;
         console.log(data);
-        resolve('Success');
-        // dispatch(authenticateDistributorSuccess(data));
+        dispatch(authenticateDistributorSuccess(data));
+        resolve();
       } catch (error) {
         dispatch(authenticateDistributorFailure(error));
         reject(error);
@@ -86,7 +90,7 @@ export const authenticateBulkBreaker = (ID, password) => {
     return new Promise(async (resolve, reject) => {
       dispatch(authenticateBulkBreakerStart());
       try {
-        const response = await axios.post("/Distributor", { ID, password });
+        const response = await axios.post("/Bulkbreaker/login", { ID, password });
         const { data } = response;
         dispatch(authenticateBulkBreakerSuccess(data));
         resolve();
