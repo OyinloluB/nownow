@@ -47,6 +47,10 @@ export const ViewBasket = ({ show, setViewBasket }) => {
 
   const { items } = useSelector((state) => state.cart);
 
+  const handleSubmit = () => {
+    fetch('')
+  }
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Body>
@@ -86,6 +90,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                   display: "flex",
                   justifyContent: "space-around",
                 }}
+                // onClick={handleRemoveFromCart}
               >
                 <RemoveShoppingCartIcon
                   style={{ color: "#b11917", fontSize: "20" }}
@@ -117,7 +122,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
           Close
         </Button>
         <Button
-          onClick={handleClose}
+          onClick = {handleSubmit}
           style={{
             backgroundColor: "#b11917",
             border: "none",

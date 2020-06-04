@@ -49,17 +49,19 @@ const ListHandler = ({ show, closeModal, users }) => {
                         display: "flex",
                         justifyContent: "space-between",
                         width: "100%",
+                        padding: "1rem",
+                        borderBottom: "1px solid #f7f7f7",
                       }}
                     >
                       {user.name}
-                      <div>
-                        <span
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-around",
-                            width: "20%",
-                          }}
-                        >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                          width: "20%",
+                        }}
+                      >
+                        <span>
                           <a
                             href={`https://wa.me/${user.phone}`}
                             target="_blank"

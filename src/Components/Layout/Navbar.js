@@ -66,11 +66,21 @@ export default function Navbar() {
         <div className={classes.grow}>
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
-              <Typography variant="h6" className={classes.title}>
+              <Typography
+                variant="h6"
+                className={classes.title}
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <img src={Logo} alt="ibplc-logo" width="30" />
-              </Typography>
-              <Typography variant="h6" className={classes.title}>
-                {user.name}
+                <p
+                  style={{
+                    paddingLeft: "10px",
+                    marginBottom: "0rem",
+                    fontSize: "14px",
+                  }}
+                >
+                  Hello {user.name}
+                </p>
               </Typography>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
