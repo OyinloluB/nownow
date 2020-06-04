@@ -50,7 +50,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                         justifyContent: "space-between",
                         width: "100%",
                         padding: "1rem",
-                        borderBottom: "1px solid #f7f7f7",
+                        borderBottom: "1 px solid #f7f7f7",
                       }}
                     >
                       {user.name}
