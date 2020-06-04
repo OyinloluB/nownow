@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,11 +9,11 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
-import ChatIcon from "@material-ui/icons/Chat";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
+import { ViewBasket } from "./ViewBasket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const [showPrompt, setShowPrompt] = useState(false);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [viewBasket, setViewBasket] = useState(false);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const cartItemsCount = useSelector((state) => {
     return state.cart.items.reduce((accumulator, item) => {
       return accumulator + item.quantity;
@@ -50,10 +52,16 @@ export default function Navbar() {
     setShowPrompt(true);
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   const classes = useStyles();
 
   return (
     <>
+      <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
           <AppBar position="static" className={classes.appbar}>
@@ -63,26 +71,34 @@ export default function Navbar() {
               </Typography>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <IconButton aria-label="shopping" color="inherit">
-                  <Badge badgeContent={cartItemsCount} color="secondary">
-                    <ShoppingCartIcon />
-                  </Badge>
-                </IconButton>
+                {user.type !== "distributor" ? (
+                  <IconButton
+                    aria-label="shopping"
+                    color="inherit"
+                    onClick={() => setViewBasket(true)}
+                  >
+                    <Badge badgeContent={cartItemsCount} color="secondary">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                ) : null}
                 <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={0} color="secondary">
                     <LocalShippingIcon />
                   </Badge>
                 </IconButton>
-                <IconButton
-                  edge="end"
-                  aria-label="chatting"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <Badge badgeContent={0} color="secondary">
-                    <ChatIcon />
-                  </Badge>
-                </IconButton>
+                <Button color="inherit" onClick={logOut}>
+                  <IconButton
+                    edge="end"
+                    aria-label="chatting"
+                    aria-haspopup="true"
+                    color="inherit"
+                    className={classes.menuButton}
+                  >
+                    <ExitToAppIcon />
+                  </IconButton>
+                  Logout
+                </Button>
               </div>
             </Toolbar>
           </AppBar>

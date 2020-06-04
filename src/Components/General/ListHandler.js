@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
@@ -11,6 +12,8 @@ import ShoppingBasket from "../Layout/ShoppingBasket";
 const ListHandler = ({ show, closeModal, users }) => {
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [showBasket, setShowBasket] = useState(false);
+
+  const { user: loggedInUser } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -29,7 +32,9 @@ const ListHandler = ({ show, closeModal, users }) => {
           <AllOutIcon />
         </ModalHeader>
 
-        <ModalBody style={{ maxHeight: "calc(100vh - 210px)", overflowY: "auto" }}>
+        <ModalBody
+          style={{ maxHeight: "calc(100vh - 210px)", overflowY: "auto" }}
+        >
           <table className="table table-borderless text-justify col-12">
             {users
               .filter((user) => user.products.length > 0)
@@ -52,7 +57,9 @@ const ListHandler = ({ show, closeModal, users }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <WhatsAppIcon style={{ color: "lemon", fontSize: 20 }} />
+                        <WhatsAppIcon
+                          style={{ color: "lemon", fontSize: 20 }}
+                        />
                       </a>
                     </td>
                     <td>
@@ -64,20 +71,22 @@ const ListHandler = ({ show, closeModal, users }) => {
                         <PhoneIcon style={{ color: "blue", fontSize: 20 }} />
                       </a>
                     </td>
-                    <td>
-                      <ShoppingCartIcon
-                        style={{
-                          color: "#b11917",
-                          fontSize: 20,
-                          cursor: "pointer",
-                        }}
-                        onClick={() => {
-                          closeModal();
-                          setSelectedUser(user);
-                          setShowBasket(true);
-                        }}
-                      />
-                    </td>
+                    {loggedInUser.type !== "distributor" ? (
+                      <td>
+                        <ShoppingCartIcon
+                          style={{
+                            color: "#b11917",
+                            fontSize: 20,
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            closeModal();
+                            setSelectedUser(user);
+                            setShowBasket(true);
+                          }}
+                        />
+                      </td>
+                    ) : null}
                   </tr>
                 );
               })}

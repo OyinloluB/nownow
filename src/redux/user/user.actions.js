@@ -42,10 +42,33 @@ export const fetchDistributorsStart = () => ({
 });
 
 export const fetchDistributorsSuccess = (users) => {
-  const trimmedUsers = users.map((user) => ({
+  const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "distributor",
-    colr: "green-dot",
+    color: "green-dot",
+    products:
+    i < 4
+      ? [
+          {
+            _id: "5ed60085bd17c98e30928924",
+            brand: "Budweiser",
+            sku: "CAN",
+            volume: "330ml",
+            image:
+              "https://res.cloudinary.com/mckorr/image/upload/v1591083139/Bud_Can2_xg5hog.png",
+            price: 200,
+          },
+          {
+            _id: "5ed6022bbd17c98e30928925",
+            brand: "Castle Lite",
+            sku: "RGB",
+            volume: "375ml",
+            image:
+              "https://res.cloudinary.com/mckorr/image/upload/v1590594136/Castle_Lite_ecsmyj.png",
+            price: 100,
+          },
+        ]
+      : [],
   }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,

@@ -25,7 +25,7 @@ const ShoppingBasket = ({ user, show, setShowBasket }) => {
   }, []);
 
   return (
-    <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
       <Modal.Body>
         {user.products.map((product, i) => (
           <StoreItem

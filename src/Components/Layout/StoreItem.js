@@ -98,7 +98,7 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
             {`Volume: ${product.volume}`}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {`Price: $${product.price}`}
+            Price: &#8358;{product.price}
           </Typography>
         </CardContent>
         <div className={classes.controls}>
