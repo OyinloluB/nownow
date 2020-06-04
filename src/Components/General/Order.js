@@ -24,6 +24,15 @@ export default function Order() {
 
     console.log(user)
 
+    
+    fetch('http://jsonplaceholder.typicode.com/users')
+    .then(res => res.json())
+    .then((data) => {
+        this.setState({ contacts: data })
+    })
+    .catch(console.log)
+      
+
     // dropdwn methods
     const handleFilter = (x) => {
         switch (x) {
@@ -66,7 +75,7 @@ export default function Order() {
         return (
             <React.Fragment>
             {
-                // isAuthenticated ? (
+                isAuthenticated ? (
                  <>   
                     <div className='mt-4' style={{background: '#b11917'}}>
             
@@ -104,7 +113,7 @@ export default function Order() {
             
                     </div>
                 </>
-                // ) : ('history.push('/)')
+                ) : (history.push('/'))
             }
     
             </React.Fragment>
@@ -116,7 +125,7 @@ export default function Order() {
         return (
             <React.Fragment>
             {
-                // isAuthenticated ? (
+                isAuthenticated ? (
                  <>   
                     <div className='mt-4' style={{background: '#b11917'}}>
             
@@ -158,7 +167,7 @@ export default function Order() {
             
                     </div>
                 </>
-                // ) : ('history.push('/)')
+                ) : (history.push('/'))
             }
     
             </React.Fragment>

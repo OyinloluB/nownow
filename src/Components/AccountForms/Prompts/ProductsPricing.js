@@ -31,12 +31,13 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   };
 
   const handleSubmit = (e) => {
-    if (products === []) {
+    e.preventDefault();
+    const selectedProducts = products.filter(product => Boolean(product.price));
+    if (selectedProducts.length < 1) {
       alert("Please select a product");
     } else {
-      e.preventDefault();
       console.log("Submitted");
-      setProductsDetails([...products]);
+      setProductsDetails([...selectedProducts]);
       setCurrentPage(2);
     }
   };

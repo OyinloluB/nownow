@@ -42,8 +42,8 @@ const UserSignIn = ({ type }) => {
       .then(() => {
         console.log("Request Done");
         if (loginDetails.password === "DDLCPD") {
-          // history.push(`/${type}/info`);
-          history.push("/");  
+          history.push(`/${type}/info`);
+          // history.push("/");  
         } else {
           history.push("/");
         }

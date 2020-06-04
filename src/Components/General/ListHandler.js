@@ -1,38 +1,125 @@
-import React, { Component } from 'react';
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Modal } from "react-bootstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
-import AllOutIcon from '@material-ui/icons/AllOut';
-import BlurOffRoundedIcon from '@material-ui/icons/BlurOffRounded';
+import AllOutIcon from "@material-ui/icons/AllOut";
+import BlurOffRoundedIcon from "@material-ui/icons/BlurOffRounded";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
-class ListHandler extends Component {
-    
-    render() { 
-        return ( 
-            <React.Fragment>
-                <Modal isOpen = { this.props.myState.modalSwitch } onHide={this.props.closeModal}>
-                    <ModalHeader style={{ color: "white", background: "#b11917" }} className="p-3 m-1">
-                        <AllOutIcon/><AllOutIcon /> Nearby Customers <AllOutIcon /><AllOutIcon />
-                    </ModalHeader>
+import ShoppingBasket from "../Layout/ShoppingBasket";
 
-                    <ModalBody style={{'maxHeight': 'calc(100vh - 210px)', 'overflow-y': 'auto'}}>
-                    <table className="table table-borderless text-justify col-12">
-                        {    
-                            this.props.myState.user_data.slice(1, 20).map(function (data, index) {
-                                return <tr key={index} className="row" style={{ borderBottom: "1px solid grey"}}><td style={{ color: "grey", fontSize:"14px" }} className="mb-1 pb-1 col-8">{data.name}</td><td><a href={`https://wa.me/${data.phone}`} target="_blank"><WhatsAppIcon style={{ color: "grey", fontSize: 20 }} /></a></td><td><a href={`tel:${data.phone}`} target="_blank"><PhoneIcon style={{ color: "grey", fontSize: 20 }} /></a></td></tr>
-                            })
-                        }
-                        </table>
-                    </ModalBody>     
+const ListHandler = ({ show, closeModal, users }) => {
+  const [selectedUser, setSelectedUser] = useState({ products: [] });
+  const [showBasket, setShowBasket] = useState(false);
 
-                    <ModalFooter>
-                        <button className="btn" style={{ background: "#b11917", color: "white" }} onClick={this.props.closeModal}><BlurOffRoundedIcon /> Away</button>
-                    </ModalFooter>
-                </Modal>
-            </React.Fragment>
-         );
-    }
+  const { user: loggedInUser } = useSelector((state) => state.auth);
 
-}
- 
+  return (
+    <>
+      <ShoppingBasket
+        user={selectedUser}
+        show={showBasket}
+        setShowBasket={setShowBasket}
+      />
+      <Modal show={show} onHide={closeModal}>
+        <Modal.Header style={{ color: "white", background: "#b11917" }}>
+          <h5>Nearby Customers </h5>
+        </Modal.Header>
+
+        <Modal.Body>
+          <ul
+            style={{
+              paddingLeft: "0rem",
+            }}
+          >
+            {users
+              .filter((user) => user.products.length > 0)
+              .map((user) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <li
+                      key={user.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                        padding: "1rem",
+                        borderBottom: "1px solid #f7f7f7",
+                      }}
+                    >
+                      {user.name}
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                          width: "20%",
+                        }}
+                      >
+                        <span>
+                          <a
+                            href={`https://wa.me/${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <WhatsAppIcon
+                              style={{ color: "lemon", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+                        <span>
+                          {" "}
+                          <a
+                            href={`tel:${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <PhoneIcon
+                              style={{ color: "blue", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+                        {loggedInUser.type !== "distributor" ? (
+                          <span>
+                            <ShoppingCartIcon
+                              style={{
+                                color: "#b11917",
+                                fontSize: 20,
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                closeModal();
+                                setSelectedUser(user);
+                                setShowBasket(true);
+                              }}
+                            />
+                          </span>
+                        ) : null}
+                      </div>
+                    </li>
+                  </div>
+                );
+              })}
+          </ul>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <button
+            className="btn"
+            style={{ background: "#b11917", color: "white" }}
+            onClick={closeModal}
+          >
+            <BlurOffRoundedIcon /> Away
+          </button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 export default ListHandler;

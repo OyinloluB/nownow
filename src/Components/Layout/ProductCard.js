@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+// import CardMedia from "@material-ui/core/CardMedia";
 // import Typography from "@material-ui/core/Typography";
 // import { Form } from "react-bootstrap";
 import ShowPricing from "../AccountForms/Prompts/ShowPricing";
@@ -53,7 +53,7 @@ const ProductCard = ({ product, handleInputChange }) => {
             {product.image ? (
               <img
                 src={product.image}
-                alt={`${product.brand} ${product.sku} Image`}
+                alt={`${product.brand} ${product.sku}`}
                 style={{
                   width: "100%",
                 }}

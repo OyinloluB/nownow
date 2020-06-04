@@ -1,5 +1,6 @@
 import React, { useState, Fragment } from "react";
 import { useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,14 +9,13 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
-import ChatIcon from "@material-ui/icons/Chat";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import ArrowBackSharpIcon from '@material-ui/icons/ArrowBackSharp';
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
+import { ViewBasket } from "./ViewBasket";
 
-import { useHistory, useLocation } from "react-router-dom";
 
 
 
@@ -32,12 +32,8 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(0),
   },
-  title: {
-    flexGrow: 1,
-  },
   appbar: {
     backgroundColor: "#b11917",
-    boxShadow: "5px 10px 8px 10px #888888",
   },
   title: {
     display: "block",
@@ -47,15 +43,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({user}) {
+export default function Navbar() {
   
-  
-  console.log(user)
-  const [showPrompt, setShowPrompt] = useState(false);
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const history = useHistory();
-  let location = useLocation();
-
+  const location = useLocation();
+  const [showPrompt, setShowPrompt] = useState(false);
+  const [viewBasket, setViewBasket] = useState(false);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const cartItemsCount = useSelector((state) => {
+    return state.cart.items.reduce((accumulator, item) => {
+      return accumulator + item.quantity;
+    }, 0);
+  });
   const handleModalPrompt = () => {
     setShowPrompt(true);
   };
@@ -66,46 +65,68 @@ export default function Navbar({user}) {
     history.push('/orders');
   }
 
-  const backFunc = () => {
-    history.push('/');
-  }
-  
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   const classes = useStyles();
   return (
     
     <>
-     
+      <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
           
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
-              <Typography variant="h6" className={classes.title}>
+              <Typography
+                variant="h6"
+                className={classes.title}
+                style={{ display: "flex", alignItems: "center" }}
+              >
                 <img src={Logo} alt="ibplc-logo" width="30" />
+                <p
+                  style={{
+                    paddingLeft: "10px",
+                    marginBottom: "0rem",
+                    fontSize: "14px",
+                  }}
+                >
+                  Hello {user.name}
+                </p>
               </Typography>
-              {location.pathname=='/orders' ? (<React.Fragment className="row"><ArrowBackSharpIcon onClick={ backFunc }  style={{border: '1px solid white', cursor: 'pointer'}} /><div className='p-2 text-justify offset-1'>All Orders</div></React.Fragment>):(<div></div>)}
+              {location.pathname=='/orders' ? (<React.Fragment className="row"><div className='p-2 text-justify offset-1'>All Orders</div></React.Fragment>):(<div></div>)}
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
-                <IconButton aria-label="shopping" color="inherit">
+                {user.type !== "distributor" ? (
+                  <IconButton
+                    aria-label="shopping"
+                    color="inherit"
+                    onClick={() => setViewBasket(true)}
+                  >
+                    <Badge badgeContent={cartItemsCount} color="secondary">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                ) : null}
+                <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={0} color="secondary">
-                    <ShoppingCartIcon />
+                    <LocalShippingIcon onClick = { handleOrderRout } />
                   </Badge>
                 </IconButton>
-                <IconButton onClick={ handleOrderRout }  aria-label="delivery" color="inherit">
-                  <Badge badgeContent={3} color="secondary">
-                    <LocalShippingIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  aria-label="chatting"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <Badge badgeContent={0} color="secondary">
-                    <ChatIcon />
-                  </Badge>
-                </IconButton>
+                <Button color="inherit" onClick={logOut}>
+                  <IconButton
+                    edge="end"
+                    aria-label="chatting"
+                    aria-haspopup="true"
+                    color="inherit"
+                    className={classes.menuButton}
+                  >
+                    <ExitToAppIcon />
+                  </IconButton>
+                  Logout
+                </Button>
               </div>
             </Toolbar>
           </AppBar>
