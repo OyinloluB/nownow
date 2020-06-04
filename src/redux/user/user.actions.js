@@ -50,7 +50,7 @@ export const fetchDistributorsSuccess = (users) => {
       i < 4
         ? [
             {
-              _id: "5ed60085bd17c98e30928924",
+              _id: `5ed60085bd17c98e3092891${i+8}`,
               brand: "Budweiser",
               sku: "CAN",
               volume: "330ml",
@@ -59,7 +59,7 @@ export const fetchDistributorsSuccess = (users) => {
               price: 200,
             },
             {
-              _id: "5ed6022bbd17c98e30928925",
+              _id: `5ed6022bbd17c98e3092891${i+9}`,
               brand: "Castle Lite",
               sku: "RGB",
               volume: "375ml",
@@ -108,7 +108,7 @@ export const fetchBulkBreakersSuccess = (users) => {
       i < 4
         ? [
             {
-              _id: "5ed60085bd17c98e30928924",
+              _id: `5ed60085bd17c98e3092892${i+8}`,
               brand: "Budweiser",
               sku: "CAN",
               volume: "330ml",
@@ -117,7 +117,7 @@ export const fetchBulkBreakersSuccess = (users) => {
               price: 200,
             },
             {
-              _id: "5ed6022bbd17c98e30928925",
+              _id: `5ed6022bbd17c98e3092892${i+9}`,
               brand: "Castle Lite",
               sku: "RGB",
               volume: "375ml",

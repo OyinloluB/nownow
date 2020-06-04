@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,12 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import Snackbar from "@material-ui/core/Snackbar";
+
+import {
+  removeFromCart,
+  addToCart,
+  clearFromCart,
+} from "../../redux/cart/cart.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +51,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
     vertical: "top",
     horizontal: "center",
   });
+  const dispatch = useDispatch();
 
   const { vertical, horizontal, open } = state;
 
@@ -58,7 +65,26 @@ export const ViewBasket = ({ show, setViewBasket }) => {
 
   const handleClose = () => setViewBasket(false);
 
-  const { items } = useSelector((state) => state.cart);
+  const { items, total } = useSelector((state) => {
+    return {
+      items: state.cart.items,
+      total: state.cart.items.reduce((currentTotal, item) => {
+        return currentTotal + item.price * item.quantity;
+      }, 0),
+    };
+  });
+
+  const handleIncrement = (item) => {
+    dispatch(addToCart(item));
+  };
+
+  const handleDecrement = (item) => {
+    dispatch(removeFromCart(item));
+  };
+
+  const handleRemoveFromCart = (item) => {
+    dispatch(clearFromCart(item));
+  };
 
   // const handleSubmit = () => {
   //   console.log(items);
@@ -112,15 +138,21 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                     Price: &#8358;{product.price}
                   </Typography>
                 </CardContent>
-                {/* <div className={classes.controls}>
-                  <IconButton aria-label="remove">
+                <div className={classes.controls}>
+                  <IconButton
+                    aria-label="remove"
+                    onClick={() => handleDecrement(product)}
+                  >
                     <RemoveIcon className={classes.icon} />
                   </IconButton>
-                  <span>number</span>
-                  <IconButton aria-label="add">
+                  <span>{product.quantity}</span>
+                  <IconButton
+                    aria-label="add"
+                    onClick={() => handleIncrement(product)}
+                  >
                     <AddIcon className={classes.icon} />
                   </IconButton>
-                </div> */}
+                </div>
                 <Button
                   style={{
                     backgroundColor: "#f7f7f7",
@@ -129,7 +161,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                     display: "flex",
                     justifyContent: "space-around",
                   }}
-                  // onClick={handleRemoveFromCart}
+                  onClick={() => handleRemoveFromCart(product)}
                 >
                   <RemoveShoppingCartIcon
                     style={{ color: "#b11917", fontSize: "20" }}
@@ -146,7 +178,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             }}
           >
             <h5>
-              Total: <span>&#8358;300</span>
+              Total: <span>&#8358;{total}</span>
             </h5>
           </div>
         </Modal.Body>
