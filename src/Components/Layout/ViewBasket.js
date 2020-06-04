@@ -146,7 +146,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             }}
           >
             <h5>
-              Total: <span>&#8358;500</span>
+              Total: <span>&#8358;300</span>
             </h5>
           </div>
         </Modal.Body>

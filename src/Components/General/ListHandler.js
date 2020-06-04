@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
-import AllOutIcon from "@material-ui/icons/AllOut";
 import BlurOffRoundedIcon from "@material-ui/icons/BlurOffRounded";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
 import ShoppingBasket from "../Layout/ShoppingBasket";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
 const ListHandler = ({ show, closeModal, users }) => {
   const [selectedUser, setSelectedUser] = useState({ products: [] });
@@ -22,9 +22,34 @@ const ListHandler = ({ show, closeModal, users }) => {
         show={showBasket}
         setShowBasket={setShowBasket}
       />
-      <Modal show={show} onHide={closeModal}>
-        <Modal.Header style={{ color: "white", background: "#b11917" }}>
-          <h5>Nearby Customers </h5>
+      <Modal
+        show={show}
+        onHide={closeModal}
+        style={{ bottom: "0px", position: "fixed" }}
+      >
+        <Modal.Header
+          style={{
+            color: "black",
+            background: "#f7f7f7",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <ArrowBackIcon
+            style={{
+              color: "#b11917",
+              fontSize: 20,
+              cursor: "pointer",
+            }}
+            onClick={closeModal}
+          />
+          <h6
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Distributors nearby
+          </h6>
         </Modal.Header>
 
         <Modal.Body>
@@ -50,7 +75,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                         justifyContent: "space-between",
                         width: "100%",
                         padding: "1rem",
-                        borderBottom: "1 px solid #f7f7f7",
+                        borderBottom: "1px solid #f7f7f7",
                       }}
                     >
                       {user.name}
@@ -68,7 +93,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             rel="noopener noreferrer"
                           >
                             <WhatsAppIcon
-                              style={{ color: "lemon", fontSize: 20 }}
+                              style={{ color: "grey", fontSize: 20 }}
                             />
                           </a>
                         </span>
@@ -80,7 +105,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             rel="noopener noreferrer"
                           >
                             <PhoneIcon
-                              style={{ color: "blue", fontSize: 20 }}
+                              style={{ color: "grey", fontSize: 20 }}
                             />
                           </a>
                         </span>
@@ -88,7 +113,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                           <span>
                             <ShoppingCartIcon
                               style={{
-                                color: "#b11917",
+                                color: "grey",
                                 fontSize: 20,
                                 cursor: "pointer",
                               }}
@@ -108,7 +133,7 @@ const ListHandler = ({ show, closeModal, users }) => {
           </ul>
         </Modal.Body>
 
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <button
             className="btn"
             style={{ background: "#b11917", color: "white" }}
@@ -116,7 +141,7 @@ const ListHandler = ({ show, closeModal, users }) => {
           >
             <BlurOffRoundedIcon /> Away
           </button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </>
   );

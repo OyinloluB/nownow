@@ -32,7 +32,9 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedProducts = products.filter(product => Boolean(product.price));
+    const selectedProducts = products.filter((product) =>
+      Boolean(product.price)
+    );
     if (selectedProducts.length < 1) {
       alert("Please select a product");
     } else {
@@ -57,7 +59,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
             textAlign: "center",
           }}
         >
-          Select the brand and SKU you sell and set your selling price below
+          Select the Brand/SKU you sell and set your Selling Price
         </h5>
         <br />
         <Row>

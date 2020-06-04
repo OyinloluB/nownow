@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Eligible from "./Components/Modals/Eligible";
+import Privacy from "./Components/Legal/Privacy";
+import Terms from "./Components/Legal/Terms";
 
 import {
   fetchBulkbreakersAndDistributors,
@@ -19,7 +22,7 @@ import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     if (isAuthenticated) {
       if (user.type === "poc") {
@@ -37,9 +40,11 @@ function App() {
   return (
     <>
       <Navbar />
+      {isAuthenticated ? null : <Eligible />}
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/test" component={ProductsPricing} /> */}
+        <Route exact path="/terms" component={Terms} />
+        <Route exact path="/privacy" component={Privacy} />
         <Route exact path="/orders" component={Order} />
         <Route exact path="/orderdetail" component={OrderDetails} />
         <Route
@@ -54,7 +59,11 @@ function App() {
               )
             ) : (
               <Redirect
-                to={userTypes.includes(params.user) ? `/${params.type}/signin` : "/"}
+                to={
+                  userTypes.includes(params.user)
+                    ? `/${params.type}/signin`
+                    : "/"
+                }
               />
             )
           }

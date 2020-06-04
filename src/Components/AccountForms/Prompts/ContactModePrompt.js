@@ -41,21 +41,28 @@ const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
               backgroundColor: "#b11917",
             }}
           >
-            <Modal.Title>
+            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
               <ContactPhoneIcon style={{ color: "white", fontSize: 30 }} />
-              <p style={{ color: "white", fontSize: "18px" }}>
-                How would you like your customers to contact you?
-              </p>
+              &nbsp; How can customers contact you?
             </Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <Form.Group controlId="formBasicNumber">
+            <Form.Group
+              controlId="formBasicNumber"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <Form.Label>
                 <CallIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By Phone
               </Form.Label>
               <Form.Control
+                style={{
+                  width: "50%",
+                }}
                 type="tel"
                 placeholder="Phone Number"
                 name="phone"
@@ -64,12 +71,21 @@ const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
                 required
               />
             </Form.Group>
-            <Form.Group controlId="formBasicNumber">
+            <Form.Group
+              controlId="formBasicNumber"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <Form.Label>
                 <WhatsAppIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By WhatsApp
               </Form.Label>
               <Form.Control
+                style={{
+                  width: "50%",
+                }}
                 type="tel"
                 placeholder="Phone Number"
                 name="whatsapp"

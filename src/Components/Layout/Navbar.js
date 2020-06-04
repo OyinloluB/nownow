@@ -85,18 +85,10 @@ export default function Navbar() {
                     fontSize: "14px",
                   }}
                 >
-                  Hello {user.name}
+                  {user.name}
                 </p>
               </Typography>
-              {location.pathname === "/orders" ? (
-                <React.Fragment className="row">
-                  <div className="p-2 text-justify offset-1">All Orders</div>
-                </React.Fragment>
-              ) : (
-                <div></div>
-              )}
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
+              <div style={{ display: "flex" }}>
                 {user.type !== "distributor" ? (
                   <IconButton
                     aria-label="shopping"
