@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Modal } from "react-bootstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 import AllOutIcon from "@material-ui/icons/AllOut";
@@ -22,78 +22,91 @@ const ListHandler = ({ show, closeModal, users }) => {
         show={showBasket}
         setShowBasket={setShowBasket}
       />
-      <Modal isOpen={show} onHide={closeModal}>
-        <ModalHeader
-          style={{ color: "white", background: "#b11917" }}
-          className="p-3 m-1"
-        >
-          <AllOutIcon />
-          <AllOutIcon /> Nearby Customers <AllOutIcon />
-          <AllOutIcon />
-        </ModalHeader>
+      <Modal show={show} onHide={closeModal}>
+        <Modal.Header style={{ color: "white", background: "#b11917" }}>
+          <h5>Nearby Customers </h5>
+        </Modal.Header>
 
-        <ModalBody
-          style={{ maxHeight: "calc(100vh - 210px)", overflowY: "auto" }}
-        >
-          <table className="table table-borderless text-justify col-12">
+        <Modal.Body>
+          <ul
+            style={{
+              paddingLeft: "0rem",
+            }}
+          >
             {users
               .filter((user) => user.products.length > 0)
               .map((user) => {
                 return (
-                  <tr
-                    key={user.id}
-                    className="row"
-                    style={{ borderBottom: "1px solid grey" }}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    <td
-                      style={{ color: "grey", fontSize: "14px" }}
-                      className="mb-1 pb-1 col-8"
+                    <li
+                      key={user.id}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "100%",
+                      }}
                     >
                       {user.name}
-                    </td>
-                    <td>
-                      <a
-                        href={`https://wa.me/${user.phone}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <WhatsAppIcon
-                          style={{ color: "lemon", fontSize: 20 }}
-                        />
-                      </a>
-                    </td>
-                    <td>
-                      <a
-                        href={`tel:${user.phone}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <PhoneIcon style={{ color: "blue", fontSize: 20 }} />
-                      </a>
-                    </td>
-                    {loggedInUser.type !== "distributor" ? (
-                      <td>
-                        <ShoppingCartIcon
+                      <div>
+                        <span
                           style={{
-                            color: "#b11917",
-                            fontSize: 20,
-                            cursor: "pointer",
+                            display: "flex",
+                            justifyContent: "space-around",
+                            width: "20%",
                           }}
-                          onClick={() => {
-                            closeModal();
-                            setSelectedUser(user);
-                            setShowBasket(true);
-                          }}
-                        />
-                      </td>
-                    ) : null}
-                  </tr>
+                        >
+                          <a
+                            href={`https://wa.me/${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <WhatsAppIcon
+                              style={{ color: "lemon", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+                        <span>
+                          {" "}
+                          <a
+                            href={`tel:${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <PhoneIcon
+                              style={{ color: "blue", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+                        {loggedInUser.type !== "distributor" ? (
+                          <span>
+                            <ShoppingCartIcon
+                              style={{
+                                color: "#b11917",
+                                fontSize: 20,
+                                cursor: "pointer",
+                              }}
+                              onClick={() => {
+                                closeModal();
+                                setSelectedUser(user);
+                                setShowBasket(true);
+                              }}
+                            />
+                          </span>
+                        ) : null}
+                      </div>
+                    </li>
+                  </div>
                 );
               })}
-          </table>
-        </ModalBody>
+          </ul>
+        </Modal.Body>
 
-        <ModalFooter>
+        <Modal.Footer>
           <button
             className="btn"
             style={{ background: "#b11917", color: "white" }}
@@ -101,7 +114,7 @@ const ListHandler = ({ show, closeModal, users }) => {
           >
             <BlurOffRoundedIcon /> Away
           </button>
-        </ModalFooter>
+        </Modal.Footer>
       </Modal>
     </>
   );

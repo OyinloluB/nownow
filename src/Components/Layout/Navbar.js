@@ -69,6 +69,9 @@ export default function Navbar() {
               <Typography variant="h6" className={classes.title}>
                 <img src={Logo} alt="ibplc-logo" width="30" />
               </Typography>
+              <Typography variant="h6" className={classes.title}>
+                {user.name}
+              </Typography>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 {user.type !== "distributor" ? (
