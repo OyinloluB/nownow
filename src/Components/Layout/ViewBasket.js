@@ -112,7 +112,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                     Price: &#8358;{product.price}
                   </Typography>
                 </CardContent>
-                <div className={classes.controls}>
+                {/* <div className={classes.controls}>
                   <IconButton aria-label="remove">
                     <RemoveIcon className={classes.icon} />
                   </IconButton>
@@ -120,7 +120,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                   <IconButton aria-label="add">
                     <AddIcon className={classes.icon} />
                   </IconButton>
-                </div>
+                </div> */}
                 <Button
                   style={{
                     backgroundColor: "#f7f7f7",
