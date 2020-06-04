@@ -27,12 +27,8 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(0),
   },
-  title: {
-    flexGrow: 1,
-  },
   appbar: {
     backgroundColor: "#b11917",
-    boxShadow: "5px 10px 8px 10px #888888",
   },
   title: {
     display: "block",
@@ -45,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const [showPrompt, setShowPrompt] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const cartItemsCount = useSelector((state) => {
+    return state.cart.items.reduce((accumulator, item) => {
+      return accumulator + item.quantity;
+    }, 0);
+  });
   const handleModalPrompt = () => {
     setShowPrompt(true);
   };
@@ -63,7 +64,7 @@ export default function Navbar() {
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 <IconButton aria-label="shopping" color="inherit">
-                  <Badge badgeContent={0} color="secondary">
+                  <Badge badgeContent={cartItemsCount} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>
                 </IconButton>

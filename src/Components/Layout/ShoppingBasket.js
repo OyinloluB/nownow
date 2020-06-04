@@ -1,18 +1,45 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
-import BasketContent from "./BasketContent";
+import StoreItem from "./StoreItem";
 
-export const ShoppingBasket = ({ show, setShowBasket }) => {
+import { addToCart } from "../../redux/cart/cart.actions";
+
+const ShoppingBasket = ({ user, show, setShowBasket }) => {
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const dispacth = useDispatch();
+
   const handleClose = () => setShowBasket(false);
+
+  const handleAddToCart = () => {
+    selectedProducts.forEach((product) => {
+      dispacth(addToCart(product));
+    });
+    setSelectedProducts([]);
+    handleClose();
+  };
+
+  const memoSetProducts = useCallback((products) => {
+    setSelectedProducts(products);
+  }, []);
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Body>
-        <BasketContent />
+        {user.products.map((product, i) => (
+          <StoreItem
+            key={i}
+            product={product}
+            userId={user.userID}
+            selectedProducts={selectedProducts}
+            setProducts={memoSetProducts}
+          />
+        ))}
       </Modal.Body>
       <Modal.Footer>
         <Button
-          onClick={handleClose}
+          onClick={handleAddToCart}
           style={{
             backgroundColor: "#b11917",
             border: "none",
@@ -24,3 +51,5 @@ export const ShoppingBasket = ({ show, setShowBasket }) => {
     </Modal>
   );
 };
+
+export default ShoppingBasket;

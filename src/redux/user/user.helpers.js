@@ -1,5 +1,4 @@
 export const trimUser = (user) => {
-  // console.log(b)
   return {
     type: user.type,
     color: user.color,
@@ -11,6 +10,6 @@ export const trimUser = (user) => {
     longitude: Number.parseFloat(user.longitude),
     latitude: Number.parseFloat(user.latitude),
     payment: { ...user.payment },
-    // product: [...user.product],
+    products: Array.isArray(user.product) ? [...user.product] : [],
   };
 };

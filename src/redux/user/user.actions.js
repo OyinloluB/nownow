@@ -3,7 +3,6 @@ import axios from "../../axios-client";
 
 import { trimUser } from "./user.helpers";
 
-
 export const fetchPocsStart = () => ({
   type: UserActionTypes.FETCH_POCS_START,
 });
@@ -12,7 +11,7 @@ export const fetchPocsSuccess = (users) => {
   const trimmedUsers = users.map((user) => ({
     ...trimUser(user),
     type: "poc",
-    color: "red-dot"
+    color: "red-dot",
   }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
@@ -46,7 +45,7 @@ export const fetchDistributorsSuccess = (users) => {
   const trimmedUsers = users.map((user) => ({
     ...trimUser(user),
     type: "distributor",
-    colr: "green-dot"
+    colr: "green-dot",
   }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
@@ -78,10 +77,33 @@ export const fetchBulkBreakersStart = () => ({
 });
 
 export const fetchBulkBreakersSuccess = (users) => {
-  const trimmedUsers = users.map((user) => ({
+  const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "bulkbreaker",
     color: "blue-dot",
+    products:
+      i < 4
+        ? [
+            {
+              _id: "5ed60085bd17c98e30928924",
+              brand: "Budweiser",
+              sku: "CAN",
+              volume: "330ml",
+              image:
+                "https://res.cloudinary.com/mckorr/image/upload/v1591083139/Bud_Can2_xg5hog.png",
+              price: 200,
+            },
+            {
+              _id: "5ed6022bbd17c98e30928925",
+              brand: "Castle Lite",
+              sku: "RGB",
+              volume: "375ml",
+              image:
+                "https://res.cloudinary.com/mckorr/image/upload/v1590594136/Castle_Lite_ecsmyj.png",
+              price: 100,
+            },
+          ]
+        : [],
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
@@ -173,7 +195,7 @@ export const updatePoc = (ID, details) => {
       dispatch(updatePocStart());
       try {
         const response = await axios.patch(`/Poc/${ID}`, details);
-        const {data} = response;
+        const { data } = response;
         console.log(data);
         dispatch(updatePocSuccess());
         resolve();
@@ -191,7 +213,7 @@ export const updateDistributor = (ID, details) => {
       dispatch(updateDistributorStart());
       try {
         const response = await axios.patch(`/Distributor/${ID}`, details);
-        const {data} = response;
+        const { data } = response;
         console.log(data);
         dispatch(updateDistributorSuccess());
         resolve();
@@ -209,7 +231,7 @@ export const updateBulkbreaker = (ID, details) => {
       dispatch(updateBulkbreakerStart());
       try {
         const response = await axios.patch(`/Bulkbreaker/${ID}`, details);
-        const {data} = response;
+        const { data } = response;
         console.log(data);
         dispatch(updateBulkbreakerSuccess());
         resolve();

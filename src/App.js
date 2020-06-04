@@ -13,8 +13,6 @@ import Home from "./Components/General/Home";
 
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
-import ProductsPricing from "./Components/AccountForms/Prompts/ProductsPricing";
-import ContactModePrompt from "./Components/AccountForms/Prompts/ContactModePrompt";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -39,14 +37,21 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/test" component={ProductsPricing} />
         <Route
           exact
           path="/:user/info"
           render={({ match: { params } }) =>
-            userTypes.includes(params.user) ? (
-              <UserInfo type={params.user} />
-            ) : null
+            isAuthenticated ? (
+              userTypes.includes(params.user) ? (
+                <UserInfo type={params.user} />
+              ) : (
+                <Redirect to="/" />
+              )
+            ) : (
+              <Redirect
+                to={userTypes.includes(params.user) ? `/${params.type}/signin` : "/"}
+              />
+            )
           }
         />
         />
@@ -56,7 +61,9 @@ function App() {
           render={({ match: { params } }) =>
             userTypes.includes(params.user) ? (
               <UserSignIn type={params.user} />
-            ) : null
+            ) : (
+              <Redirect to="/" />
+            )
           }
         />
       </Switch>
