@@ -10,16 +10,17 @@ import {
 
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
+import OrderDetails from "./Components/General/OrderDetails";
+import Order from "./Components/General/Order";
 
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import ProductsPricing from "./Components/AccountForms/Prompts/ProductsPricing";
-import ContactModePrompt from "./Components/AccountForms/Prompts/ContactModePrompt";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     if (isAuthenticated) {
       if (user.type === "poc") {
@@ -36,10 +37,12 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user}/>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/test" component={ProductsPricing} />
+        <Route exact path="/orders" component={Order} />
+        <Route exact path="/orderdetail" component={OrderDetails} />
         <Route
           exact
           path="/:user/info"

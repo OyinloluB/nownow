@@ -6,8 +6,7 @@ import AllOutIcon from '@material-ui/icons/AllOut';
 import BlurOffRoundedIcon from '@material-ui/icons/BlurOffRounded';
 
 class ListHandler extends Component {
-    state = {  }
-
+    
     render() { 
         return ( 
             <React.Fragment>

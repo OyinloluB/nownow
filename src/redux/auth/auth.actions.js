@@ -24,7 +24,7 @@ export const authenticatePocSuccess = (user) => ({
 
 export const authenticateDistributorSuccess = (user) => ({
   type: AuthActionTypes.AUTHENTICATE_DISTRIBUTOR_SUCCESS,
-  payload: { ...trimUser(user), type: "distributor" },
+  payload: { ...trimUser(user), type: "distributor", },
 });
 
 export const authenticateBulkBreakerSuccess = (user) => ({

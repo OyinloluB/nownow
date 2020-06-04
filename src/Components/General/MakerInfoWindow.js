@@ -11,9 +11,12 @@ var MarkerInfoWindow = ({ user }) => {
       position={{ lat: user.latitude, lng: user.longitude }}
       icon={{
         url: "http://maps.google.com/mapfiles/ms/icons/" + user.color + ".png",
+        scaledSize:  new window.google.maps.Size(40,50)
       }}
+      style={{fontSize: '100px'}}
       onClick={() => setIsOpen(!isOpen)}
     >
+      
       {isOpen && (
         <InfoWindow
           onCloseClick={() => setIsOpen(false)}

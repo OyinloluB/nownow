@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,8 +11,13 @@ import Badge from "@material-ui/core/Badge";
 import ChatIcon from "@material-ui/icons/Chat";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import ArrowBackSharpIcon from '@material-ui/icons/ArrowBackSharp';
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
+
+import { useHistory, useLocation } from "react-router-dom";
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,24 +47,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({user}) {
+  
+  
+  console.log(user)
   const [showPrompt, setShowPrompt] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const history = useHistory();
+  let location = useLocation();
+
   const handleModalPrompt = () => {
     setShowPrompt(true);
   };
+  
+  
+  // handling routing into order page
+  const handleOrderRout=()=>{
+    history.push('/orders');
+  }
 
+  const backFunc = () => {
+    history.push('/');
+  }
+  
   const classes = useStyles();
-
   return (
+    
     <>
+     
       {isAuthenticated ? (
         <div className={classes.grow}>
+          
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
               <Typography variant="h6" className={classes.title}>
                 <img src={Logo} alt="ibplc-logo" width="30" />
               </Typography>
+              {location.pathname=='/orders' ? (<React.Fragment className="row"><ArrowBackSharpIcon onClick={ backFunc }  style={{border: '1px solid white', cursor: 'pointer'}} /><div className='p-2 text-justify offset-1'>All Orders</div></React.Fragment>):(<div></div>)}
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 <IconButton aria-label="shopping" color="inherit">
@@ -67,8 +91,8 @@ export default function Navbar() {
                     <ShoppingCartIcon />
                   </Badge>
                 </IconButton>
-                <IconButton aria-label="delivery" color="inherit">
-                  <Badge badgeContent={0} color="secondary">
+                <IconButton onClick={ handleOrderRout }  aria-label="delivery" color="inherit">
+                  <Badge badgeContent={3} color="secondary">
                     <LocalShippingIcon />
                   </Badge>
                 </IconButton>
@@ -112,5 +136,7 @@ export default function Navbar() {
         </div>
       )}
     </>
+
   );
+
 }
