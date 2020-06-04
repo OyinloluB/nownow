@@ -162,7 +162,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
           </Button>
           <Button
             onClick={
-              handleClick({ vertical: "top", horizontal: "right" });
+              handleClick({ vertical: "top", horizontal: "right" })
               // setViewBasket(false);
             }
             // onClick={handleClose}
