@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,13 +11,9 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import ArrowBackSharpIcon from '@material-ui/icons/ArrowBackSharp';
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
 import { ViewBasket } from "./ViewBasket";
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
-  
   const history = useHistory();
   const location = useLocation();
   const [showPrompt, setShowPrompt] = useState(false);
@@ -58,12 +53,11 @@ export default function Navbar() {
   const handleModalPrompt = () => {
     setShowPrompt(true);
   };
-  
-  
+
   // handling routing into order page
-  const handleOrderRout=()=>{
-    history.push('/orders');
-  }
+  const handleOrderRout = () => {
+    history.push("/orders");
+  };
 
   const logOut = () => {
     localStorage.clear();
@@ -72,12 +66,10 @@ export default function Navbar() {
 
   const classes = useStyles();
   return (
-    
     <>
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
-          
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
               <Typography
@@ -96,7 +88,13 @@ export default function Navbar() {
                   Hello {user.name}
                 </p>
               </Typography>
-              {location.pathname=='/orders' ? (<React.Fragment className="row"><div className='p-2 text-justify offset-1'>All Orders</div></React.Fragment>):(<div></div>)}
+              {location.pathname === "/orders" ? (
+                <React.Fragment className="row">
+                  <div className="p-2 text-justify offset-1">All Orders</div>
+                </React.Fragment>
+              ) : (
+                <div></div>
+              )}
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 {user.type !== "distributor" ? (
@@ -112,7 +110,7 @@ export default function Navbar() {
                 ) : null}
                 <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={0} color="secondary">
-                    <LocalShippingIcon onClick = { handleOrderRout } />
+                    <LocalShippingIcon onClick={handleOrderRout} />
                   </Badge>
                 </IconButton>
                 <Button color="inherit" onClick={logOut}>
@@ -157,7 +155,5 @@ export default function Navbar() {
         </div>
       )}
     </>
-
   );
-
 }

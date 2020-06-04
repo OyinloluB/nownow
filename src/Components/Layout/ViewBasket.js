@@ -161,7 +161,11 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             Close
           </Button>
           <Button
-            onClick={handleClick({ vertical: "top", horizontal: "right" })}
+            onClick={
+              handleClick({ vertical: "top", horizontal: "right" });
+              // setViewBasket(false);
+            }
+            // onClick={handleClose}
             style={{
               backgroundColor: "#b11917",
               border: "none",
