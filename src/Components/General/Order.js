@@ -186,7 +186,7 @@ export default function Order() {
             border: "1px solid #b11917",
           }}
         />
-        <OrderItem />
+        <OrderItem receivedOrders={receivedOrders} />
       </Container>
     </>
   );
