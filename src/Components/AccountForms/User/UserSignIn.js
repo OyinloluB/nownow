@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import Container from "@material-ui/core/Container";
 
 import {
@@ -10,11 +10,14 @@ import {
 } from "../../../redux/auth/auth.actions";
 
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
   const dispatch = useDispatch();
   const history = useHistory();
+
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
@@ -39,11 +42,13 @@ const UserSignIn = ({ type }) => {
     }
 
     signInPromise
-      .then(() => {
+      .then((userProducts) => {
         console.log("Request Done");
-        if (loginDetails.password === "DDLCPD") {
+        if (
+          userProducts.length < 1 ||
+          JSON.stringify(userProducts[0]) === JSON.stringify({ 0: "0" })
+        ) {
           history.push(`/${type}/info`);
-          // history.push("/");  
         } else {
           history.push("/");
         }
@@ -103,6 +108,7 @@ const UserSignIn = ({ type }) => {
             </span>
           </Link>
         </p> */}
+        <Link to="/" style={{color: '#b11917'}}>Forgot Password?</Link> Click to retrieve your password.
       </Form>
     </Container>
   );

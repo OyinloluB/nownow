@@ -109,6 +109,7 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
           <IconButton aria-label="add" onClick={increaseQuantity}>
             <AddIcon className={classes.icon} />
           </IconButton>
+          (Cases)
         </div>
       </div>
     </Card>

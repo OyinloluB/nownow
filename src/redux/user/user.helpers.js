@@ -1,9 +1,5 @@
 export const trimUser = (user) => {
 
-  fetch("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mongolian%20grill&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:2000@6.591511,3.490115&key=AIzaSyBneTry7a6XDjUjSBLISxx7Fr6s0AePqVM")
-      .then(res => console.log(res.json))
-
-
   return {
     id: user._id,
     userID: user.ID,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,13 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import Snackbar from "@material-ui/core/Snackbar";
+
+import {
+  removeFromCart,
+  addToCart,
+  clearFromCart,
+  makeOrder,
+} from "../../redux/cart/cart.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +52,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
     vertical: "top",
     horizontal: "center",
   });
+  const dispatch = useDispatch();
 
   const { vertical, horizontal, open } = state;
 
@@ -58,29 +66,35 @@ export const ViewBasket = ({ show, setViewBasket }) => {
 
   const handleClose = () => setViewBasket(false);
 
-  const { items } = useSelector((state) => state.cart);
+  const { items, total } = useSelector((state) => {
+    return {
+      items: state.cart.items,
+      total: state.cart.items.reduce((currentTotal, item) => {
+        return currentTotal + item.price * item.quantity;
+      }, 0),
+    };
+  });
 
-  // const handleSubmit = () => {
-  //   console.log(items);
-  //   fetch("https://shop-nownow.herokuapp.com/Distributor/Order", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(items),
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //       console.log(JSON.stringify(res));
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       alert("Request Successful!");
-  //       console.log(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const handleIncrement = (item) => {
+    dispatch(addToCart(item));
+  };
+
+  const handleDecrement = (item) => {
+    dispatch(removeFromCart(item));
+  };
+
+  const handleRemoveFromCart = (item) => {
+    dispatch(clearFromCart(item));
+  };
+
+  const handleSubmit = () => {
+    dispatch(makeOrder())
+      .then(() => {
+        console.log("Order Made");
+        handleClick({ vertical: "top", horizontal: "right" });
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -113,11 +127,17 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                   </Typography>
                 </CardContent>
                 <div className={classes.controls}>
-                  <IconButton aria-label="remove">
+                  <IconButton
+                    aria-label="remove"
+                    onClick={() => handleDecrement(product)}
+                  >
                     <RemoveIcon className={classes.icon} />
                   </IconButton>
-                  <span>number</span>
-                  <IconButton aria-label="add">
+                  <span>{product.quantity}</span>
+                  <IconButton
+                    aria-label="add"
+                    onClick={() => handleIncrement(product)}
+                  >
                     <AddIcon className={classes.icon} />
                   </IconButton>
                 </div>
@@ -129,7 +149,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                     display: "flex",
                     justifyContent: "space-around",
                   }}
-                  // onClick={handleRemoveFromCart}
+                  onClick={() => handleRemoveFromCart(product)}
                 >
                   <RemoveShoppingCartIcon
                     style={{ color: "#b11917", fontSize: "20" }}
@@ -146,7 +166,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             }}
           >
             <h5>
-              Total: <span>&#8358;500</span>
+              Total: <span>&#8358;{total}</span>
             </h5>
           </div>
         </Modal.Body>
@@ -161,7 +181,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             Close
           </Button>
           <Button
-            onClick={handleClick({ vertical: "top", horizontal: "right" })}
+            onClick={handleSubmit}
             style={{
               backgroundColor: "#b11917",
               border: "none",

@@ -61,7 +61,7 @@ export const authenticatePoc = (ID, password) => {
         } else {
           throw data;
         }
-        resolve();
+        resolve(data.poc.product);
       } catch (error) {
         dispatch(authenticatePocFailure(error));
         reject(error);
@@ -82,7 +82,7 @@ export const authenticateDistributor = (ID, password) => {
         } else {
           throw data;
         }
-        resolve();
+        resolve(data.distributor.product);
       } catch (error) {
         dispatch(authenticateDistributorFailure(error));
         reject(error);
@@ -103,7 +103,7 @@ export const authenticateBulkBreaker = (ID, password) => {
         } else {
           throw data;
         }
-        resolve();
+        resolve(data.bulkBreaker.product);
       } catch (error) {
         dispatch(authenticateBulkBreakerFailure(error));
         reject(error);
@@ -111,3 +111,8 @@ export const authenticateBulkBreaker = (ID, password) => {
     });
   };
 };
+
+export const setEligibility = (status) => ({
+  type: AuthActionTypes.SET_ELIGIBILITY,
+  payload: status
+});

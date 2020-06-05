@@ -4,10 +4,7 @@ import PaymentIcon from "@material-ui/icons/Payment";
 import Container from "@material-ui/core/Container";
 import PaymentModeOption from "./PaymentModeOption";
 
-const PaymentModePrompt = ({
-  setCurrentPage,
-  setPaymentModeDetails,
-}) => {
+const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
   const [checked, setChecked] = useState(["cash"]);
 
   const handleToggle = (value) => () => {
@@ -27,9 +24,9 @@ const PaymentModePrompt = ({
     e.preventDefault();
     console.log("Submitted");
     setPaymentModeDetails({
-      cash: checked.includes('cash') ? true : false,
-      pos: checked.includes('pos') ? true : false,
-      transfer: checked.includes('transfer') ? true : false,
+      cash: checked.includes("cash") ? true : false,
+      pos: checked.includes("pos") ? true : false,
+      transfer: checked.includes("transfer") ? true : false,
     });
     setCurrentPage(4);
   };
@@ -49,11 +46,9 @@ const PaymentModePrompt = ({
               backgroundColor: "#b11917",
             }}
           >
-            <Modal.Title>
+            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
               <PaymentIcon style={{ color: "white", fontSize: 30 }} />
-              <p style={{ color: "white", fontSize: "18px" }}>
-                Select your mode of payment
-              </p>
+              &nbsp; Confirm your mode of receiving payment
             </Modal.Title>
           </Modal.Header>
 
@@ -81,4 +76,3 @@ const PaymentModePrompt = ({
 };
 
 export default PaymentModePrompt;
-

@@ -3,11 +3,10 @@ import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
 
-const HomeDeliveryPrompt = ({
-  setCurrentPage,
-  setHomeDeliveryDetails,
-}) => {
+const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
+  // const [yesColor, setYesColor] = useState("#f7f7f7");
+  // const [noColor, setNoColor] = useState("#f7f7f7");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,22 +30,23 @@ const HomeDeliveryPrompt = ({
               backgroundColor: "#b11917",
             }}
           >
-            <Modal.Title>
+            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
               <LocalShippingIcon style={{ color: "white", fontSize: 30 }} />
-              <p style={{ color: "white", fontSize: "18px" }}>
-                Do you do home delivery?
-              </p>
+              &nbsp;
+              Do you deliver products to buyers?
             </Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
             <Button
               type="button"
-              onClick={() => setHomeDelivery(true)}
+              onClick={() => {
+                setHomeDelivery(true);
+              }}
               style={{
-                backgroundColor: "#fff",
-                border: "1px solid #b11917",
-                color: "#b11917",
+                backgroundColor: "#00FF00",
+                border: "1px solid #00FF00",
+                color: "white",
                 width: "30%",
                 marginRight: "10px",
               }}
@@ -55,11 +55,13 @@ const HomeDeliveryPrompt = ({
             </Button>
             <Button
               type="button"
-              onClick={() => setHomeDelivery(false)}
+              onClick={() => {
+                setHomeDelivery(false);
+              }}
               style={{
-                backgroundColor: "#fff",
+                backgroundColor: "#b11917",
                 border: "1px solid #b11917",
-                color: "#b11917",
+                color: "white",
                 width: "30%",
                 marginRight: "10px",
               }}

@@ -1,6 +1,6 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,13 +11,9 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import ArrowBackSharpIcon from '@material-ui/icons/ArrowBackSharp';
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
 import { ViewBasket } from "./ViewBasket";
-
-
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
-  
   const history = useHistory();
-  const location = useLocation();
   const [showPrompt, setShowPrompt] = useState(false);
   const [viewBasket, setViewBasket] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -58,12 +52,11 @@ export default function Navbar() {
   const handleModalPrompt = () => {
     setShowPrompt(true);
   };
-  
-  
+
   // handling routing into order page
-  const handleOrderRout=()=>{
-    history.push('/orders');
-  }
+  const handleOrderRout = () => {
+    history.push("/orders");
+  };
 
   const logOut = () => {
     localStorage.clear();
@@ -72,12 +65,10 @@ export default function Navbar() {
 
   const classes = useStyles();
   return (
-    
     <>
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
-          
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
               <Typography
@@ -85,7 +76,12 @@ export default function Navbar() {
                 className={classes.title}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <img src={Logo} alt="ibplc-logo" width="30" />
+                <img
+                  src={Logo}
+                  alt="ibplc-logo"
+                  width="30"
+                  onClick={() => history.push("/")}
+                />
                 <p
                   style={{
                     paddingLeft: "10px",
@@ -93,12 +89,10 @@ export default function Navbar() {
                     fontSize: "14px",
                   }}
                 >
-                  Hello {user.name}
+                  {user.name}
                 </p>
               </Typography>
-              {location.pathname=='/orders' ? (<React.Fragment className="row"><div className='p-2 text-justify offset-1'>All Orders</div></React.Fragment>):(<div></div>)}
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
+              <div style={{ display: "flex" }}>
                 {user.type !== "distributor" ? (
                   <IconButton
                     aria-label="shopping"
@@ -112,7 +106,7 @@ export default function Navbar() {
                 ) : null}
                 <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={0} color="secondary">
-                    <LocalShippingIcon onClick = { handleOrderRout } />
+                    <LocalShippingIcon onClick={handleOrderRout} />
                   </Badge>
                 </IconButton>
                 <Button color="inherit" onClick={logOut}>
@@ -157,7 +151,5 @@ export default function Navbar() {
         </div>
       )}
     </>
-
   );
-
 }
