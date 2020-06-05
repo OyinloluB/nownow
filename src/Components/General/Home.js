@@ -37,8 +37,8 @@ const Home = () => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         setCoordinates({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
+          lat: 7.3775,
+          lng: 3.9470
         });
       });
     }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
@@ -13,6 +14,10 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
     console.log("Submitted");
     setHomeDeliveryDetails(homeDelivery);
     setCurrentPage(3);
+  };
+
+  const previous = () => {
+    setCurrentPage(1);
   };
 
   return (
@@ -31,6 +36,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
             }}
           >
             <Modal.Title style={{ color: "white", fontSize: "18px" }}>
+              <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <LocalShippingIcon style={{ color: "white", fontSize: 30 }} />
               &nbsp;
               Do you deliver products to buyers?

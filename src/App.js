@@ -15,7 +15,6 @@ import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
 // import OrderDetails from "./Components/General/OrderDetails";
 import Order from "./Components/General/Order";
-import List from "./Components/General/List";
 
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";

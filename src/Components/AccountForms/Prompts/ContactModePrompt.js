@@ -5,13 +5,19 @@ import Container from "@material-ui/core/Container";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CallIcon from "@material-ui/icons/Call";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
+
+const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted }) => {
   const [contactDetails, setContactDetails] = useState({});
   const { user } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+  };
+
+  const previous = () => {
+    setCurrentPage(3);
   };
 
   const handleSubmit = (e) => {
@@ -39,6 +45,7 @@ const ContactModePrompt = ({ setContactModeDetails, setSubmitted }) => {
             }}
           >
             <Modal.Title style={{ color: "white", fontSize: "18px" }}>
+            <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <ContactPhoneIcon style={{ color: "white", fontSize: 30 }} />
               &nbsp; How can customers contact you?
             </Modal.Title>

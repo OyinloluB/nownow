@@ -3,6 +3,8 @@ import { Modal, Form, Button } from "react-bootstrap";
 import PaymentIcon from "@material-ui/icons/Payment";
 import Container from "@material-ui/core/Container";
 import PaymentModeOption from "./PaymentModeOption";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 
 const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
   const [checked, setChecked] = useState(["cash"]);
@@ -18,6 +20,10 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
     }
 
     setChecked(newChecked);
+  };
+
+  const previous = () => {
+    setCurrentPage(2);
   };
 
   const handleSubmit = (e) => {
@@ -47,6 +53,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
             }}
           >
             <Modal.Title style={{ color: "white", fontSize: "18px" }}>
+              <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <PaymentIcon style={{ color: "white", fontSize: 30 }} />
               &nbsp; Confirm your mode of receiving payment
             </Modal.Title>

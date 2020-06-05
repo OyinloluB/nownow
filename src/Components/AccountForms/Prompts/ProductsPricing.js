@@ -52,6 +52,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         margin: "15vh auto",
       }}
     >
+     
       <Form onSubmit={handleSubmit}>
         <h5
           style={{
