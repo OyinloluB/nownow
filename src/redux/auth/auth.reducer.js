@@ -1,6 +1,7 @@
 import AuthActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
+  eligible: true,
   isAuthenticated: false,
   user: {},
   loading: false,
@@ -33,6 +34,11 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case AuthActionTypes.SET_ELIGIBILITY:
+      return {
+        ...state,
+        eligible: action.payload,
       };
     default:
       return state;

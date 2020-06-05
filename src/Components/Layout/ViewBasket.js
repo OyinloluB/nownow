@@ -16,6 +16,7 @@ import {
   removeFromCart,
   addToCart,
   clearFromCart,
+  makeOrder,
 } from "../../redux/cart/cart.actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,27 +87,14 @@ export const ViewBasket = ({ show, setViewBasket }) => {
     dispatch(clearFromCart(item));
   };
 
-  // const handleSubmit = () => {
-  //   console.log(items);
-  //   fetch("https://shop-nownow.herokuapp.com/Distributor/Order", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(items),
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //       console.log(JSON.stringify(res));
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       alert("Request Successful!");
-  //       console.log(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const handleSubmit = () => {
+    dispatch(makeOrder())
+      .then(() => {
+        console.log("Order Made");
+        handleClick({ vertical: "top", horizontal: "right" });
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>
@@ -193,11 +181,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             Close
           </Button>
           <Button
-            onClick={
-              handleClick({ vertical: "top", horizontal: "right" })
-              // setViewBasket(false);
-            }
-            // onClick={handleClose}
+            onClick={handleSubmit}
             style={{
               backgroundColor: "#b11917",
               border: "none",

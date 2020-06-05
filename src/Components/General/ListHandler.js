@@ -63,6 +63,7 @@ const ListHandler = ({ show, closeModal, users }) => {
               .map((user) => {
                 return (
                   <div
+                    key={user.id}
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -92,9 +93,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <WhatsAppIcon
-                              style={{ color: "grey", fontSize: 20 }}
-                            />
+                            <WhatsAppIcon style={{ color: "grey", fontSize: 20 }} />
                           </a>
                         </span>
                         <span>
@@ -104,9 +103,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <PhoneIcon
-                              style={{ color: "grey", fontSize: 20 }}
-                            />
+                            <PhoneIcon style={{ color: "grey", fontSize: 20 }} />
                           </a>
                         </span>
                         {loggedInUser.type !== "distributor" ? (

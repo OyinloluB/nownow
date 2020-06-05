@@ -1,4 +1,5 @@
 import CartActionTypes from './cart.types';
+import axios from '../../axios-client';
 
 export const addToCart = (item) => ({
     type: CartActionTypes.ADD_TO_CART,
@@ -15,6 +16,40 @@ export const clearFromCart = (item) => ({
     payload: item
 });
 
-export const clearCart = () => ({
-    type: CartActionTypes.CLEAR_CART
+const makeOrderStart = () => ({
+    type: CartActionTypes.MAKE_ORDER_START
 });
+
+const makeOrderSuccess = () => ({
+    type: CartActionTypes.MAKE_ORDER_SUCCESS
+});
+
+const makeOrderFailure = (error) => ({
+    type: CartActionTypes.MAKE_ORDER_FAILURE,
+    payload: error
+});
+
+export const makeOrder = () => {
+    return (dispatch, getState) => {
+        return new Promise(async (resolve, reject) => {
+            dispatch(makeOrderStart());
+            try{
+                const { auth, cart} = getState();
+                const response = await axios.post('/Order', {
+                    userType: auth.user.type, 
+                    products: [...cart.items], 
+                    total: cart.items.reduce((currentTotal, item) => {
+                        return currentTotal + item.price * item.quantity;
+                      }, 0), 
+                    requesterID: auth.user.id
+                });
+                const { data } = response;
+                dispatch(makeOrderSuccess());
+                resolve(data.success);
+            } catch(error){
+                dispatch(makeOrderFailure(error));
+                reject(error);
+            }
+       })
+    }
+}

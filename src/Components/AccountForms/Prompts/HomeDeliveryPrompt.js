@@ -5,8 +5,8 @@ import Container from "@material-ui/core/Container";
 
 const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
-  const [yesColor, setYesColor] = useState("#f7f7f7");
-  const [noColor, setNoColor] = useState("#f7f7f7");
+  // const [yesColor, setYesColor] = useState("#f7f7f7");
+  // const [noColor, setNoColor] = useState("#f7f7f7");
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -47,7 +47,7 @@ const UserInfo = ({ type }) => {
         } else if (type === "distributor") {
           updateUserPromise = dispatch(
             updateDistributor(user.id, {
-              products: productsDetails,
+              product: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
@@ -56,7 +56,7 @@ const UserInfo = ({ type }) => {
         } else if (type === "bulkbreaker") {
           updateUserPromise = dispatch(
             updateBulkbreaker(user.id, {
-              products: productsDetails,
+              product: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,

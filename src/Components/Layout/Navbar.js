@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const history = useHistory();
-  const location = useLocation();
   const [showPrompt, setShowPrompt] = useState(false);
   const [viewBasket, setViewBasket] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);

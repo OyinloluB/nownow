@@ -46,29 +46,6 @@ export const fetchDistributorsSuccess = (users) => {
     ...trimUser(user),
     type: "distributor",
     color: "green-dot",
-    products:
-      i < 4
-        ? [
-            {
-              _id: `5ed60085bd17c98e3092891${i+8}`,
-              brand: "Budweiser",
-              sku: "CAN",
-              volume: "330ml",
-              image:
-                "https://res.cloudinary.com/mckorr/image/upload/v1591083139/Bud_Can2_xg5hog.png",
-              price: 200,
-            },
-            {
-              _id: `5ed6022bbd17c98e3092891${i+9}`,
-              brand: "Castle Lite",
-              sku: "RGB",
-              volume: "375ml",
-              image:
-                "https://res.cloudinary.com/mckorr/image/upload/v1590594136/Castle_Lite_ecsmyj.png",
-              price: 100,
-            },
-          ]
-        : [],
   }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
@@ -104,29 +81,6 @@ export const fetchBulkBreakersSuccess = (users) => {
     ...trimUser(user),
     type: "bulkbreaker",
     color: "blue-dot",
-    products:
-      i < 4
-        ? [
-            {
-              _id: `5ed60085bd17c98e3092892${i+8}`,
-              brand: "Budweiser",
-              sku: "CAN",
-              volume: "330ml",
-              image:
-                "https://res.cloudinary.com/mckorr/image/upload/v1591083139/Bud_Can2_xg5hog.png",
-              price: 200,
-            },
-            {
-              _id: `5ed6022bbd17c98e3092892${i+9}`,
-              brand: "Castle Lite",
-              sku: "RGB",
-              volume: "375ml",
-              image:
-                "https://res.cloudinary.com/mckorr/image/upload/v1590594136/Castle_Lite_ecsmyj.png",
-              price: 100,
-            },
-          ]
-        : [],
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
@@ -149,27 +103,6 @@ export const fetchBulkBreakers = () => {
     } catch (error) {
       dispatch(fetchBulkBreakersFailure(error));
     }
-  };
-};
-
-export const fetchPocsAndDistributors = () => {
-  return (dispatch) => {
-    // dispatch(fetchPocs());
-    dispatch(fetchDistributors());
-  };
-};
-
-export const fetchBulkbreakersAndDistributors = () => {
-  return (dispatch) => {
-    dispatch(fetchBulkBreakers());
-    dispatch(fetchDistributors());
-  };
-};
-
-export const fetchPocsAndBulkbreakers = () => {
-  return (dispatch) => {
-    // dispatch(fetchPocs());
-    dispatch(fetchBulkBreakers());
   };
 };
 
@@ -217,9 +150,7 @@ export const updatePoc = (ID, details) => {
     return new Promise(async (resolve, reject) => {
       dispatch(updatePocStart());
       try {
-        const response = await axios.patch(`/Poc/${ID}`, details);
-        const { data } = response;
-        console.log(data);
+        await axios.patch(`/Poc/${ID}`, details);
         dispatch(updatePocSuccess());
         resolve();
       } catch (error) {
@@ -235,9 +166,7 @@ export const updateDistributor = (ID, details) => {
     return new Promise(async (resolve, reject) => {
       dispatch(updateDistributorStart());
       try {
-        const response = await axios.patch(`/Distributor/${ID}`, details);
-        const { data } = response;
-        console.log(data);
+        await axios.patch(`/Distributor/${ID}`, details);
         dispatch(updateDistributorSuccess());
         resolve();
       } catch (error) {
@@ -253,9 +182,7 @@ export const updateBulkbreaker = (ID, details) => {
     return new Promise(async (resolve, reject) => {
       dispatch(updateBulkbreakerStart());
       try {
-        const response = await axios.patch(`/Bulkbreaker/${ID}`, details);
-        const { data } = response;
-        console.log(data);
+        await axios.patch(`/Bulkbreaker/${ID}`, details);
         dispatch(updateBulkbreakerSuccess());
         resolve();
       } catch (error) {

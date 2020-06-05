@@ -1,17 +1,23 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
 
 //Bootstrap
 import { Modal, Button } from "react-bootstrap";
+
+import {setEligibility} from '../../redux/auth/auth.actions';
 
 function Eligible() {
   const [show, setShow] = useState(true);
   const [warning, setWarning] = useState("");
 
+  const dispatch = useDispatch();
+
   const handleClose = () => setShow(false);
 
-  const handleNotEligible = () =>
+  const handleNotEligible = () => {
+    dispatch(setEligibility(false));
     setWarning("You are not eligible to proceed!");
-
+  }
   return (
     <>
       <Modal show={show} onHide={handleClose} backdrop="static">
@@ -19,7 +25,7 @@ function Eligible() {
           <Modal.Title>Please confirm your age</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you 18 and above?</Modal.Body>
-        <p style={{ color: "red", fontSize: "12" }}>{warning}</p>
+        <p style={{ color: "red", fontSize: "12", textAlign: "center" }}>{warning}</p>
         <Modal.Footer>
           <Button
             onClick={handleClose}
