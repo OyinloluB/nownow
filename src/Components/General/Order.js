@@ -43,7 +43,6 @@ export default function Order() {
   useEffect(() => {
     if (user.type === "distributor") {
       dispatch(fetchReceivedOrders());
-      console.log(receivedOrders);
     } else {
       dispatch(fetchReceivedOrders());
       dispatch(fetchSentOrders());
@@ -187,8 +186,10 @@ export default function Order() {
             border: "1px solid #b11917",
           }}
         />
-        <EachOrder receivedOrders={receivedOrders} />
-        {/* <OrderItem receivedOrders={receivedOrders} /> */}
+        {/* <EachOrder receivedOrders={receivedOrders} /> */}
+        {receivedOrders.length > 0 ? receivedOrders[1].items.map(item => {
+          return <OrderItem item={item} />
+        }) : null}
       </Container>
     </>
   );
