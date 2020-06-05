@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 
 const Home = () => {
   const classes = useStyles();
-  const [coordinates] = useState({
+  const [coordinates, setCoordinates] = useState({
     lat: 6.591511,
     lng: 3.490115,
   });
@@ -32,10 +32,10 @@ const Home = () => {
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        // setCoordinates({
-        //   lat: position.coords.latitude,
-        //   lng: position.coords.longitude,
-        // });
+        setCoordinates({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       });
     }
   }, []);

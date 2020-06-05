@@ -12,6 +12,7 @@ import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
 import OrderDetails from "./Components/General/OrderDetails";
 import Order from "./Components/General/Order";
+import List from "./Components/General/List";
 
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
@@ -39,7 +40,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/test" component={ProductsPricing} /> */}
+        <Route exact path="/test" component={List} />
         <Route exact path="/orders" component={Order} />
         <Route exact path="/orderdetail" component={OrderDetails} />
         <Route

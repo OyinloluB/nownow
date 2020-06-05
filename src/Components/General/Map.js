@@ -14,8 +14,8 @@ const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 const Map = ({ center, users }) => {
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
-        {users.slice(1,20).map((user) => (
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+        {users.map((user) => (
           <MarkerInfoWindow key={user.id} user={user} />
         ))}
       </GoogleMap>

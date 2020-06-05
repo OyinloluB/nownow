@@ -12,27 +12,15 @@ import CachedIcon from '@material-ui/icons/Cached';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
 export default function Order() {
-  
+    
     const { user, isAuthenticated } = useSelector((state) => state.auth);
     const history = useHistory();
-
+  
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [orderType, setOrderType] = useState('Newly Received');
     const [switchReceived, setSwitchReceived] = useState('d-block');
     const [switchSent, setSwitchSent] = useState('d-none');
     const toggle = () => setDropdownOpen(prevState => !prevState);
-
-    console.log(user)
-
-    
-    fetch('http://jsonplaceholder.typicode.com/users')
-    .then(res => res.json())
-    .then((data) => {
-        this.setState({ contacts: data })
-    })
-    .catch(console.log)
-      
-
     // dropdwn methods
     const handleFilter = (x) => {
         switch (x) {
@@ -77,17 +65,16 @@ export default function Order() {
             {
                 isAuthenticated ? (
                  <>   
-                    <div className='mt-4' style={{background: '#b11917'}}>
+                    <div className='mt-4' >
             
                         <div className="container" style={{border: '2px solid #b11917', height: '80vh', width: '80%', background:'white'}}>
                             {/* <ArrowBackSharpIcon style={{border: '1px solid #b11917', cursor: 'pointer'}} onClick={this.goBack} /> */}
                             <div className="row p-1 pl-md-3 pr-md-3">
                                 <button className="btn btn-info col-12"><GetAppIcon /> Received Orders</button>
                             </div>
-                            
-                            <div className="row mt-1 text-justify" style={{borderBottom: '1px solid grey'}}>
+                            <div className="row mt-1 text-justify">
                                 <div className="col-8 offset-2 font-weight-bold">{orderType}</div>
-                                
+                          
                                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>
                                     <DropdownToggle style={{ border:"1px solid #b11917", borderRadius:"3px", background: 'white' }}>
                                         <FilterListIcon  style={{ color: '#b11017' }}/>
@@ -108,6 +95,7 @@ export default function Order() {
                                     </DropdownMenu>
                                 </Dropdown>
                             </div>
+                         
 
                         </div>
             
@@ -127,7 +115,7 @@ export default function Order() {
             {
                 isAuthenticated ? (
                  <>   
-                    <div className='mt-4' style={{background: '#b11917'}}>
+                    <div className='mt-4'>
             
                         <div className="container" style={{border: '2px solid #b11917', height: '80vh', width: '80%', background:'white'}}>
                             {/* <ArrowBackSharpIcon style={{border: '1px solid #b11917', cursor: 'pointer'}} onClick={this.goBack} /> */}
@@ -136,8 +124,9 @@ export default function Order() {
                                 <button className="btn btn-warning col-md-6" onClick={() => switchOrder('sent')}><PublishIcon /> Sent Orders</button>
                             </div>
 
+
                             {/* Received Order Template */}
-                            <div className="row mt-1 text-justify" style={{borderBottom: '1px solid grey'}}>
+                            <div className="row mt-1 text-justify">
                                 <div className="col-8 offset-2 font-weight-bold">{orderType}</div>
                                 
                                 <Dropdown isOpen={dropdownOpen} toggle={toggle}>

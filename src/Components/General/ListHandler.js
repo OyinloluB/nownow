@@ -7,6 +7,7 @@ import AllOutIcon from "@material-ui/icons/AllOut";
 import BlurOffRoundedIcon from "@material-ui/icons/BlurOffRounded";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
+
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
 const ListHandler = ({ show, closeModal, users }) => {
@@ -16,6 +17,7 @@ const ListHandler = ({ show, closeModal, users }) => {
   const { user: loggedInUser } = useSelector((state) => state.auth);
 
   return (
+    
     <>
       <ShoppingBasket
         user={selectedUser}
@@ -35,7 +37,7 @@ const ListHandler = ({ show, closeModal, users }) => {
           >
             {users
               .filter((user) => user.products.length > 0)
-              .map((user) => {
+              .map((user, data) => {
                 return (
                   <div
                     style={{
