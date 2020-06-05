@@ -76,7 +76,12 @@ export default function Navbar() {
                 className={classes.title}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <img src={Logo} alt="ibplc-logo" width="30" />
+                <img
+                  src={Logo}
+                  alt="ibplc-logo"
+                  width="30"
+                  onClick={() => history.push("/")}
+                />
                 <p
                   style={{
                     paddingLeft: "10px",

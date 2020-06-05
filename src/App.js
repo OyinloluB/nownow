@@ -22,7 +22,9 @@ import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import { ProtectedRoute } from "./routes";
 
 function App() {
-  const { user, isAuthenticated, eligible } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, eligible } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,10 +45,10 @@ function App() {
 
   const userTypes = ["poc", "distributor", "bulkbreaker"];
 
-  return eligible ? (
+  return (
     <>
       <Navbar />
-      {isAuthenticated ? null : <Eligible />}
+      {/* {isAuthenticated ? null : <Eligible />} */}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />
@@ -75,7 +77,11 @@ function App() {
               )
             ) : (
               <Redirect
-                to={userTypes.includes(params.user) ? `/${params.type}/signin` : "/"}
+                to={
+                  userTypes.includes(params.user)
+                    ? `/${params.type}/signin`
+                    : "/"
+                }
               />
             )
           }
@@ -94,8 +100,6 @@ function App() {
         />
       </Switch>
     </>
-  ) : (
-    <div> You are not eligible </div>
   );
 }
 

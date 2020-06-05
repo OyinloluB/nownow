@@ -4,13 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import Container from "@material-ui/core/Container";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
-import OrderItem from '../Layout/OrderItem';
+import OrderItem from "../Layout/OrderItem";
 
 import {
   fetchReceivedOrders,
@@ -36,6 +42,7 @@ export default function Order() {
   useEffect(() => {
     if (user.type === "distributor") {
       dispatch(fetchReceivedOrders());
+      console.log(receivedOrders);
     } else {
       dispatch(fetchReceivedOrders());
       dispatch(fetchSentOrders());
@@ -87,16 +94,13 @@ export default function Order() {
 
   return (
     <>
-      <div
+      <Container
         className="container"
+        maxWidth="sm"
         style={{
-          marginTop: "20px",
-          border: "2px solid #b11917",
-          height: "90vh",
-          width: "85%",
-          background: "white",
-          borderRadius: "4px",
-          padding: ".9rem",
+          overflow: "auto",
+          margin: "10vh auto 0vh auto",
+          height: "100vh",
         }}
       >
         <div
@@ -128,7 +132,7 @@ export default function Order() {
             marginTop: ".8rem",
           }}
         >
-          <div className="col-8 offset-2 font-weight-bold">{orderType}</div>
+          <div className="col-8 offset-1 font-weight-bold">{orderType}</div>
 
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle
@@ -183,7 +187,7 @@ export default function Order() {
           }}
         />
         <OrderItem />
-      </div>
+      </Container>
     </>
   );
 }
