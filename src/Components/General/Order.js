@@ -22,6 +22,7 @@ import {
   fetchReceivedOrders,
   fetchSentOrders,
 } from "../../redux/order/order.actions";
+import { EachOrder } from "../Layout/EachOrder";
 
 export default function Order() {
   const { user, receivedOrders, sentOrders } = useSelector((state) => {
@@ -186,7 +187,8 @@ export default function Order() {
             border: "1px solid #b11917",
           }}
         />
-        <OrderItem receivedOrders={receivedOrders} />
+        <EachOrder receivedOrders={receivedOrders} />
+        {/* <OrderItem receivedOrders={receivedOrders} /> */}
       </Container>
     </>
   );
