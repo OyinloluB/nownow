@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
-const OrderItem = ({ receivedOrders }) => {
+const OrderIntro = ({ receivedOrders }) => {
   console.log(receivedOrders);
   return (
     <div>
@@ -58,7 +58,7 @@ const OrderItem = ({ receivedOrders }) => {
                   >
                     <button
                       style={{
-                        backgroundColor: "#00FF00",
+                        backgroundColor: "rgb(9, 89, 9)",
                         border: "1px solid #00FF00",
                         color: "white",
                         padding: "8px",
@@ -90,4 +90,4 @@ const OrderItem = ({ receivedOrders }) => {
   );
 };
 
-export default OrderItem;
+export default OrderIntro;

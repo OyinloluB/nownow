@@ -16,13 +16,13 @@ import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
-import OrderItem from "../Layout/OrderItem";
+import OrderIntro from "../Layout/OrderIntro";
+import EachOrderContent from "../Layout/EachOrderContent";
 
 import {
   fetchReceivedOrders,
   fetchSentOrders,
 } from "../../redux/order/order.actions";
-import { EachOrder } from "../Layout/EachOrder";
 
 export default function Order() {
   const { user, receivedOrders, sentOrders } = useSelector((state) => {
@@ -100,7 +100,7 @@ export default function Order() {
         maxWidth="sm"
         style={{
           overflow: "auto",
-          margin: "10vh auto 0vh auto",
+          margin: "5vh auto 0vh auto",
           height: "100vh",
         }}
       >
@@ -131,9 +131,12 @@ export default function Order() {
           className="row text-justify"
           style={{
             marginTop: ".8rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
           }}
         >
-          <div className="col-8 offset-1 font-weight-bold">{orderType}</div>
+          <div className="col-8  font-weight-bold">{orderType}</div>
 
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle
@@ -184,11 +187,11 @@ export default function Order() {
         </div>
         <hr
           style={{
-            border: "1px solid #b11917",
+            border: "1px solid rgb(223, 223, 223)",
           }}
         />
-        <EachOrder receivedOrders={receivedOrders} />
-        {/* <OrderItem receivedOrders={receivedOrders} /> */}
+        <EachOrderContent receivedOrders={receivedOrders} />
+        {/* <OrderIntro receivedOrders={receivedOrders} /> */}
       </Container>
     </>
   );
