@@ -1,8 +1,13 @@
 import React from "react";
+import {useDispatch } from 'react-redux';
 import { Row, Col, Card } from "react-bootstrap";
 
-const OrderIntro = ({ receivedOrders }) => {
-  console.log(receivedOrders);
+import { updateOrderStatus } from '../../redux/order/order.actions';
+
+const OrderIntro = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const updateStatus = (status) => {};
   return (
     <div>
       <Card style={{ width: "100" }}>
@@ -86,7 +91,6 @@ const OrderIntro = ({ receivedOrders }) => {
               </Card.Text>
             </Col>
           </Row>
-          ) : ( "" ) )}
         </Card.Body>
       </Card>
     </div>

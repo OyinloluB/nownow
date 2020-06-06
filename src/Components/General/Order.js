@@ -5,12 +5,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
@@ -34,6 +29,7 @@ export default function Order() {
   });
   const dispatch = useDispatch();
 
+  const [currentItems, setCurrentItems] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [orderType, setOrderType] = useState("Newly Received");
   const [switchReceived, setSwitchReceived] = useState("d-block");
@@ -189,8 +185,19 @@ export default function Order() {
             border: "1px solid rgb(223, 223, 223)",
           }}
         />
-        <EachOrderContent receivedOrders={receivedOrders} />
-        {/* <OrderIntro receivedOrders={receivedOrders} /> */}
+        {currentItems.length > 0
+          ? currentItems.map((item) => {
+              return <OrderIntro key={item._id} item={item} />;
+            })
+          : receivedOrders.map((order) => {
+              return (
+                <EachOrderContent
+                  key={order._id}
+                  order={order}
+                  setItems={setCurrentItems}
+                />
+              );
+            })}
       </Container>
     </>
   );
