@@ -6,18 +6,29 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
-  // const [yesColor, setYesColor] = useState("#f7f7f7");
-  // const [noColor, setNoColor] = useState("#f7f7f7");
+  const [noColor, setNoColor] = useState("white");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
     setHomeDeliveryDetails(homeDelivery);
-    setCurrentPage(5);
+    setCurrentPage(3);
   };
 
+   const toggleColorYes = (e) =>{
+     e.target.style.backgroundColor = "#28A745";
+     e.target.style.color = "white";
+      setHomeDelivery(true)
+  };
+  const toggleColorNo = (e) =>{
+    e.preventDefault();
+    e.target.style.backgroundColor = "#b11917";
+     e.target.style.color = "white";
+    setHomeDelivery(false)
+  }
+
   const previous = () => {
-    setCurrentPage(3);
+    setCurrentPage(1);
   };
 
   return (
@@ -34,7 +45,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
             style={{
               backgroundColor: "#b11917",
             }}
-          >
+          > 
             <Modal.Title style={{ color: "white", fontSize: "18px" }}>
               <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <LocalShippingIcon style={{ color: "white", fontSize: 30 }} />
@@ -44,36 +55,44 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <Button
+            <button
               type="button"
-              onClick={() => {
-                setHomeDelivery(true);
-              }}
+              className={'btn'}
               style={{
-                backgroundColor: "#00FF00",
-                border: "1px solid #00FF00",
-                color: "white",
+                backgroundColor: "white",
+                paddding: "25px",
+                padddingBottom: "25px",
+                border: "1px solid #28A745",
+                borderRadius: "5px",
+                fontWeight: "bold",
+                color: "#28A745",
                 width: "30%",
                 marginRight: "10px",
               }}
+              onClick = {
+                toggleColorYes
+                // setHomeDelivery(true)
+              }
             >
               Yes
-            </Button>
-            <Button
+            </button>
+            <button
               type="button"
-              onClick={() => {
-                setHomeDelivery(false);
-              }}
+              className={'btn offset-3'}
+              onClick={
+                // setHomeDelivery(false),
+                toggleColorNo
+              }
               style={{
-                backgroundColor: "#b11917",
+                backgroundColor: "white",
                 border: "1px solid #b11917",
-                color: "white",
+                color: "#b11917",
                 width: "30%",
                 marginRight: "10px",
               }}
             >
               No
-            </Button>
+            </button>
           </Modal.Body>
           <Modal.Footer>
             <Button

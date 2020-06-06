@@ -9,21 +9,21 @@ import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "space-between",
+    // display: "flex",
+    // justifyContent: "space-between",
     marginBottom: "10px",
   },
   details: {
-    display: "flex",
-    flexDirection: "column",
+    // display: "flex",
+    // flexDirection: "column",
   },
   content: {
-    flex: "1 0 auto",
+    // flex: "1 0 auto",
   },
   cover: {
-    width: "55px",
-    marginRight: "10px",
-    objectFit: "cover",
+    // width: "55px",
+    // marginRight: "10px",
+    // objectFit: "cover",
     // backgroundImage: "url('../../)"
   },
 }));
@@ -43,18 +43,18 @@ const ProductCard = ({ product, handleInputChange }) => {
       <Card className={classes.root} onClick={() => setShowContent(true)}>
         <div className={classes.details}>
           <CardContent
-            className={classes.content}
+            className={ classes.content}
             style={{
-              width: "100px",
-              height: "100px",
-              backgroundImage: "linear-gradient(to right())",
+              width: "100%",
+              height: "100%",
+              // backgroundImage: "linear-gradient(to right())",
             }}
           >
             {product.image ? (
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.sku}`}
-                className="" width="60" height="80"
+                className="" style={{height: '100%', width: '100%'}}
               />
             ) : (
               <p

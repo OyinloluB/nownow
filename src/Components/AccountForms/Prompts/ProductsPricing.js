@@ -40,7 +40,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     } else {
       console.log("Submitted");
       setProductsDetails([...selectedProducts]);
-      setCurrentPage(4);
+      setCurrentPage(2);
     }
   };
 

@@ -10,17 +10,47 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted }) => {
   const [contactDetails, setContactDetails] = useState({});
+  const [readOnly, setReadonly] = useState(true);
+  const [readOnly_, setReadonly_] = useState(true);
+  const [phnCheckVal, setphnCheckVal] = useState(true);
+  const [whatsappCheckVal, setWhatsappCheckVal] = useState(true);
   const { user } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
   };
 
+  const callCheckPhone = (e) => {
+    if(phnCheckVal===true) {
+      setphnCheckVal(false)
+      setReadonly(false)
+      console.log({readOnly})
+    }
+    else {
+      setphnCheckVal(true)
+      setReadonly(true)
+    }
+    console.log(e.target.value)
+  }
+  const callCheckWhatsapp = (e) => {
+    if(whatsappCheckVal===true) {
+      setWhatsappCheckVal(false)
+      setReadonly_(false)
+      // console.log({readOnly})
+    }
+    else {
+      setWhatsappCheckVal(true)
+      setReadonly_(true)
+    }
+    console.log(e.target.value)
+  }
+
   const previous = () => {
     setCurrentPage(3);
   };
 
   const handleSubmit = (e) => {
+    // console.log(contactDetails)
     e.preventDefault();
     console.log("Submitted");
     setContactModeDetails({
@@ -59,7 +89,8 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 justifyContent: "space-between",
               }}
             >
-              <Form.Label>
+              <Form.Label className={'row ml-2'}>
+                <Form.Check type="checkbox"  value={phnCheckVal} onChange={callCheckPhone} />
                 <CallIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By Phone
               </Form.Label>
@@ -72,7 +103,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 name="phone"
                 defaultValue={`${user.phone}`}
                 onChange={handleChange}
-                required
+                readOnly={readOnly}
               />
             </Form.Group>
             <Form.Group
@@ -82,7 +113,8 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 justifyContent: "space-between",
               }}
             >
-              <Form.Label>
+              <Form.Label className={'row ml-2'}>
+              <Form.Check type="checkbox"  value="whatsappTrue" onChange={callCheckWhatsapp} /> 
                 <WhatsAppIcon style={{ color: "#b11917", fontSize: 20 }} />
                 &nbsp; By WhatsApp
               </Form.Label>
@@ -94,7 +126,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 placeholder="Phone Number"
                 name="whatsapp"
                 onChange={handleChange}
-                required
+                readOnly={readOnly}
               />
             </Form.Group>
           </Modal.Body>

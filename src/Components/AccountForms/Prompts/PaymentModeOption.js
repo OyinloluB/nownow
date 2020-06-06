@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const PaymentModeOption = ({ checked, handleToggle }) => {
   const classes = useStyles();
-
+  console.log(handleToggle)
   return (
     <List className={classes.root}>
       <ListItem>
@@ -27,6 +28,7 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
             onChange={handleToggle("cash")}
             checked={checked.indexOf("cash") !== -1}
             inputProps={{ "aria-labelledby": "switch-list-label-cash" }}
+            style = {{color: '#b11917'}}
           />
         </ListItemSecondaryAction>
       </ListItem>
@@ -38,17 +40,20 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
             onChange={handleToggle("pos")}
             checked={checked.indexOf("pos") !== -1}
             inputProps={{ "aria-labelledby": "switch-list-label-pos" }}
+            style = {{color: '#b11917'}}
           />
         </ListItemSecondaryAction>
       </ListItem>
       <ListItem>
         <ListItemText id="switch-list-label-transfer" primary="Transfer" />
         <ListItemSecondaryAction>
+    
           <Switch
             edge="end"
             onChange={handleToggle("transfer")}
             checked={checked.indexOf("transfer") !== -1}
             inputProps={{ "aria-labelledby": "switch-list-label-transfer" }}
+            style = {{color: '#b11917'}}
           />
         </ListItemSecondaryAction>
       </ListItem>

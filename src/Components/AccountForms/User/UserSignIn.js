@@ -16,12 +16,19 @@ const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
   const dispatch = useDispatch();
   const history = useHistory();
+  const [showUserId, setShowUserId] = useState('d-block');
+    const [showUserPas, setShowUserPas] =  useState('d-none');
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
   const [showPrompt, setShowPrompt] = useState(true);
+
+  const toggler = () => {
+    setShowUserId('d-none');
+    setShowUserPas('d-block');
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,9 +78,9 @@ const UserSignIn = ({ type }) => {
       >
         
         <Form onSubmit={handleSubmit}>
-          <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}}>Welcome</div>
-          <Form.Group controlId="formBasicNumber" className="mt-3">
-            <Form.Label style={{color: 'grey'}}>Enter Your Customer Code</Form.Label>
+          <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserId}>Confirm Your Code</div>
+          <Form.Group controlId="formBasicNumber" className={showUserId}>
+            <Form.Label style={{color: 'grey'}} className={'mt-4'}>Enter Your Customer Code</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="text"
@@ -82,8 +89,20 @@ const UserSignIn = ({ type }) => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+          <Button className={showUserId}
+            onClick={toggler}
+            style={{
+              backgroundColor: "#b11917",
+              border: "none",
+              width: "100%",
+              margin: "40px 0 10px 0",
+            }}
+          >Next</Button>
+
+        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserPas}>Set your PIN</div>
+
+          <Form.Group controlId="formBasicPassword" className={showUserPas}>
+            <Form.Label className={'mt-4'}>Password</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="password"
@@ -94,7 +113,7 @@ const UserSignIn = ({ type }) => {
           </Form.Group>
           <div style={{color: 'grey', marginTop: '30px'}}><PersonIcon style={{fontSize: '18px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>
           
-          <Button
+          <Button className={showUserPas}
             type="submit"
             style={{
               backgroundColor: "#b11917",

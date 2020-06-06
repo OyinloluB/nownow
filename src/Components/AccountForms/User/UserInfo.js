@@ -8,8 +8,6 @@ import ProductsPricing from "../Prompts/ProductsPricing";
 import HomeDeliveryPrompt from "../Prompts/HomeDeliveryPrompt";
 import PaymentModePrompt from "../Prompts/PaymentModePrompt";
 import ContactModePrompt from "../Prompts/ContactModePrompt";
-import UserId from "../Prompts/UserId";
-import PasswordUpdate from "../Prompts/PasswordUpdate";
 
 import {
   updateBulkbreaker,
@@ -23,7 +21,6 @@ const UserInfo = ({ type }) => {
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
   const [paymentModeDetails, setPaymentModeDetails] = useState({});
   const [contactModeDetails, setContactModeDetails] = useState({});
-  const [userPassword, setUserPassword] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
@@ -99,53 +96,37 @@ const UserInfo = ({ type }) => {
 
   if (currentPage === 1) {
     return (
-     
-      <UserId
-        setCurrentPage={setCurrentPage}
-        type={type}
-      />
-    );
-  } else if (currentPage === 2) {
-    return (
-      <div>
-        <PasswordUpdate setCurrentPage={setCurrentPage}  />
-        type={type}
-        userId={user.id}
-      </div>
-    );
-  } else if (currentPage === 3) {
-    return (
-      <div>
-         <ProductsPricing
+      <ProductsPricing
         setCurrentPage={setCurrentPage}
         setProductsDetails={setProductsDetails}
       />
-        
-        
-      </div>
     );
-  } else if (currentPage === 4) {
+  } else if (currentPage === 2) {
     return (
       <div>
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
           setHomeDeliveryDetails={setHomeDeliveryDetails}
         />
-        
       </div>
     );
-  }
-  else if (currentPage === 5) {
+  } else if (currentPage === 3) {
     return (
-
-          <div>
-            <PaymentModePrompt
-              setCurrentPage={setCurrentPage}
-              setPaymentModeDetails={setPaymentModeDetails}
-            />
-            
-          </div>
-      
+      <div>
+        <PaymentModePrompt
+          setCurrentPage={setCurrentPage}
+          setPaymentModeDetails={setPaymentModeDetails}
+        />
+      </div>
+    );
+  } else if (currentPage === 4) {
+    return (
+      <div>
+        <ContactModePrompt
+          setContactModeDetails={setContactModeDetails}
+          setSubmitted={setSubmitted}
+        />
+      </div>
     );
   }
 
