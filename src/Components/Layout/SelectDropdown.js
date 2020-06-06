@@ -21,8 +21,6 @@ export const SelectDropdown = () => {
           }}
         >
           <option>Select</option>
-          <option>Accepted</option>
-          <option>Declined</option>
           <option>Delivered</option>
         </Form.Control>
       </Form.Group>
