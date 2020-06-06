@@ -23,7 +23,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
   };
 
   const previous = () => {
-    setCurrentPage(2);
+    setCurrentPage(3);
   };
 
   const handleSubmit = (e) => {
@@ -34,7 +34,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
       pos: checked.includes("pos") ? true : false,
       transfer: checked.includes("transfer") ? true : false,
     });
-    setCurrentPage(4);
+    setCurrentPage(5);
   };
 
   return (

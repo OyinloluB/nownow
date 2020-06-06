@@ -11,6 +11,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import RemoveShoppingCartIcon from "@material-ui/icons/RemoveShoppingCart";
 import Snackbar from "@material-ui/core/Snackbar";
+// import * as Datetime from 'react-datetime';
 
 import {
   removeFromCart,
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ViewBasket = ({ show, setViewBasket }) => {
+  let newDate = new Date()
+
   const classes = useStyles();
   const [state, setState] = useState({
     open: false,
@@ -67,6 +70,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   const handleClose = () => setViewBasket(false);
 
   const { items, total } = useSelector((state) => {
+    console.log(state.cart.items)
     return {
       items: state.cart.items,
       total: state.cart.items.reduce((currentTotal, item) => {
@@ -117,30 +121,33 @@ export const ViewBasket = ({ show, setViewBasket }) => {
               <div className={classes.details}>
                 <CardContent className={classes.content}>
                   <Typography component="h5" variant="h5">
-                    {product.brand} ({product.sku})
+                    {product.brand} ({product.sku}) {product.volume}
                   </Typography>
+                  <div className="mt-3">
                   <Typography variant="subtitle1" color="textSecondary">
-                    {product.volume}
+                    <span className="font-weight-bold">Unit Price:</span> &#8358;{product.price}
                   </Typography>
+                  </div>
                   <Typography variant="subtitle1" color="textSecondary">
-                    Price: &#8358;{product.price}
-                  </Typography>
-                </CardContent>
-                <div className={classes.controls}>
-                  <IconButton
-                    aria-label="remove"
-                    onClick={() => handleDecrement(product)}
-                  >
+                    <span className="font-weight-bold">Quantity:</span> 
+                    <IconButton aria-label="remove" onClick={() => handleDecrement(product)} >
                     <RemoveIcon className={classes.icon} />
                   </IconButton>
                   <span>{product.quantity}</span>
-                  <IconButton
-                    aria-label="add"
-                    onClick={() => handleIncrement(product)}
-                  >
+                  <IconButton aria-label="add" onClick={() => handleIncrement(product)} >
                     <AddIcon className={classes.icon} />
                   </IconButton>
-                </div>
+                  </Typography>
+
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span className="font-weight-bold">Cost:</span> &#8358;{product.price * product.quantity}
+                  </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span className="font-weight-bold">Placed On:</span> {newDate.getDate()}-{newDate.getMonth()+1}-{newDate.getFullYear()};
+                  </Typography>
+                </CardContent>
+            
+                
                 <Button
                   style={{
                     backgroundColor: "#f7f7f7",

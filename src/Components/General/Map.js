@@ -15,7 +15,7 @@ const Map = ({ center, users }) => {
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-        {users.map((user) => (
+        {users.slice(1,4).map((user) => (
           <MarkerInfoWindow key={user.id} user={user} />
         ))}
       </GoogleMap>

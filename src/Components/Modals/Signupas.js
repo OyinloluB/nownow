@@ -24,3 +24,5 @@ export const Signupas = ({ show, setShowPrompt }) => {
     </Modal>
   );
 };
+
+export default Signupas;

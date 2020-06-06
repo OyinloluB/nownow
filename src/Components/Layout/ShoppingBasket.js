@@ -1,16 +1,23 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Alert } from "react-bootstrap";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import StoreItem from "./StoreItem";
-
+import ClearIcon from '@material-ui/icons/Clear';
 import { addToCart } from "../../redux/cart/cart.actions";
-
-const ShoppingBasket = ({ user, show, setShowBasket }) => {
+import InfoIcon from '@material-ui/icons/Info';
+import WhatsAppIcon from "@material-ui/icons/WhatsApp";
+import PhoneIcon from "@material-ui/icons/Phone";
+const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
+  const [showAlert, setShowAlert] = useState({alertShow});
   const [selectedProducts, setSelectedProducts] = useState([]);
   const dispacth = useDispatch();
 
-  const handleClose = () => setShowBasket(false);
+  
+  const handleClose = () => {
+    setShowBasket(false);
+    setShowAlert('d-block')
+  }
 
   const handleAddToCart = () => {
     selectedProducts.forEach((product) => {
@@ -19,35 +26,78 @@ const ShoppingBasket = ({ user, show, setShowBasket }) => {
     setSelectedProducts([]);
     handleClose();
   };
-
+  
   const memoSetProducts = useCallback((products) => {
     setSelectedProducts(products);
   }, []);
+  
+  
 
   return (
       <Modal show={show} onHide={handleClose}>
-      <Modal.Body>
-        {user.products.map((product, i) => (
-          <StoreItem
-            key={i}
-            product={product}
-            userId={user.userID}
-            selectedProducts={selectedProducts}
-            setProducts={memoSetProducts}
-          />
-        ))}
-      </Modal.Body>
-      <Modal.Footer>
+        <div className="row offset-1 text-justify font-weight-bold">
+          <p className="col-10" style={{fontSize: '13px'}}>Buy from {user.name} </p>
+          <ClearIcon className={showAlert} onClick={() => {setShowAlert('d-none')}} />
+        </div>
+          <Modal.Header className={showAlert} style={{backgroundColor: '#AADAFF', fontSize: '11px', fontWeight: 'bold'}}>
+            <InfoIcon style={{fontSize: '14px'}}/> Note that the empties for all Returnable Glass Bottled Brands attract an extra cost of &#8358; 1,000 per case, if you do not purchase the item with your own empty case. Empty cost not applicable to cans. 
+          </Modal.Header>
+
+          <Modal.Body>
+            {user.products.map((product, i) => (
+              <StoreItem
+                key={i}
+                product={product}
+                userId={user.userID}
+                selectedProducts={selectedProducts}
+                setProducts={memoSetProducts}
+              />
+            ))}
+          </Modal.Body>
+          <Modal.Footer>
+          <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                          width: "20%"
+                        }}
+                      >
+                        <span className="offset-3">
+                          <a
+                            href={`https://wa.me/${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <WhatsAppIcon
+                              style={{ color: "grey", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+                        <span>
+                          {" "}
+                          <a
+                            href={`tel:${user.phone}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <PhoneIcon
+                              style={{ color: "grey", fontSize: 20 }}
+                            />
+                          </a>
+                        </span>
+      </div>
         <Button
           onClick={handleAddToCart}
           style={{
-            backgroundColor: "#b11917",
+            backgroundColor: "green",
             border: "none",
           }}
         >
           Add <AddShoppingCartIcon />
         </Button>
+       
       </Modal.Footer>
+      
     </Modal>
   );
 };

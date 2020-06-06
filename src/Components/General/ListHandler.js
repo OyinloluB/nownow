@@ -17,6 +17,22 @@ const ListHandler = ({ show, closeModal, users }) => {
 
   const { user: loggedInUser } = useSelector((state) => state.auth);
 
+  // fetch("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mongolian%20grill&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:2000@47.6918452,-122.2226413&key=AIzaSyBneTry7a6XDjUjSBLISxx7Fr6s0AePqVM")
+  // .then(res => res.json())
+  // .then(
+  //   (result) => {
+  //     console.log(result)
+  //   },
+  //   // Note: it's important to handle errors here
+  //   // instead of a catch() block so that we don't swallow
+  //   // exceptions from actual bugs in components.
+  //   (error) => {
+      
+  //   })
+
+
+  
+
   return (
     
     <>
@@ -24,6 +40,7 @@ const ListHandler = ({ show, closeModal, users }) => {
         user={selectedUser}
         show={showBasket}
         setShowBasket={setShowBasket}
+        alertShow='d-block'
       />
       <Modal
         show={show}

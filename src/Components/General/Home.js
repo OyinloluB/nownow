@@ -22,23 +22,24 @@ const useStyles = makeStyles(() => ({
 const Home = () => {
   const classes = useStyles();
   const history = useHistory();
-  const [coordinates, setCoordinates] = useState({
-    lat: 6.591511,
-    lng: 3.490115,
-  });
   const [showCustomerModal, setShowCustomerModal] = useState(false);
-
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const { pocs, distributors, bulkbreakers } = useSelector(
     (state) => state.user
-  );
+    );
+
+  const [coordinates, setCoordinates] = useState({
+    lat: user.latitude,
+    lng: user.longitude,
+  });
 
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         setCoordinates({
-          lat: 7.3775,
-          lng: 3.9470
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         });
       });
     }

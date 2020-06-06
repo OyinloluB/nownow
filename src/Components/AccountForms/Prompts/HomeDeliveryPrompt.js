@@ -13,11 +13,11 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
     e.preventDefault();
     console.log("Submitted");
     setHomeDeliveryDetails(homeDelivery);
-    setCurrentPage(3);
+    setCurrentPage(5);
   };
 
   const previous = () => {
-    setCurrentPage(1);
+    setCurrentPage(3);
   };
 
   return (

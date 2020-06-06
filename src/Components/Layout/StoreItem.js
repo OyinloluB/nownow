@@ -81,7 +81,7 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity, product, setProducts, userId]);
-
+  console.log(product)
   return (
     <Card className={classes.root}>
       <img
@@ -91,26 +91,27 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {product.brand} ({product.sku})
+          <Typography component="h5" variant="h5" style={{fontSize:'13px'}}>
+            <div style={{color: '#b11917', fontWeight: 'bold'}}>Brand</div>
+            {product.brand} ({product.sku}) {product.volume}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {`Volume: ${product.volume}`}
+      
+          <Typography variant="subtitle1" color="textSecondary" style={{fontSize:'13px'}}>
+            <div style={{color: '#b11917', fontWeight: 'bold'}}>Suggested Price per Case</div>
+               &#8358;{product.price}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Price: &#8358;{product.price}
-          </Typography>
+
+          <div className={classes.controls}>
+            <IconButton aria-label="remove" onClick={reduceQuantity}>
+              <RemoveIcon className={classes.icon} />
+            </IconButton>
+            <span style={{border: '1px solid black', paddingLeft: '15px', paddingRight: '15px'}}>{Number(quantity)}</span>
+            <IconButton aria-label="add" onClick={increaseQuantity}>
+              <AddIcon className={classes.icon} />
+            </IconButton>
+            (Cases)
+          </div>
         </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="remove" onClick={reduceQuantity}>
-            <RemoveIcon className={classes.icon} />
-          </IconButton>
-          <span>{Number(quantity)}</span>
-          <IconButton aria-label="add" onClick={increaseQuantity}>
-            <AddIcon className={classes.icon} />
-          </IconButton>
-          (Cases)
-        </div>
       </div>
     </Card>
   );
