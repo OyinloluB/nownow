@@ -3,13 +3,11 @@ import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
-import BlurOffRoundedIcon from "@material-ui/icons/BlurOffRounded";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 
 import ShoppingBasket from "../Layout/ShoppingBasket";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 
 const ListHandler = ({ show, closeModal, users }) => {
   const [selectedUser, setSelectedUser] = useState({ products: [] });

@@ -7,7 +7,7 @@ const fetchReceivedOrdersStart = () => ({
 
 const fetchReceivedOrdersSuccess = (orders) => ({
   type: OrderActionTypes.FETCH_RECEIVED_ORDERS_SUCCESS,
-  payload: orders,
+  payload: orders.filter(Boolean),
 });
 
 const fetchReceivedOrdersFailure = (error) => ({
@@ -39,7 +39,7 @@ const fetchSentOrdersStart = () => ({
 
 const fetchSentOrdersSuccess = (orders) => ({
   type: OrderActionTypes.FETCH_RECEIVED_ORDERS_SUCCESS,
-  payload: orders,
+  payload: orders.filter(Boolean),
 });
 
 const fetchSentOrdersFailure = (error) => ({

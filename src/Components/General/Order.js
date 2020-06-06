@@ -5,24 +5,19 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
-import OrderItem from "../Layout/OrderItem";
+import OrderIntro from "../Layout/OrderIntro";
+import EachOrderContent from "../Layout/EachOrderContent";
 
 import {
   fetchReceivedOrders,
   fetchSentOrders,
 } from "../../redux/order/order.actions";
-import { EachOrder } from "../Layout/EachOrder";
 
 export default function Order() {
   const { user, receivedOrders, sentOrders } = useSelector((state) => {
@@ -34,6 +29,7 @@ export default function Order() {
   });
   const dispatch = useDispatch();
 
+  const [currentItems, setCurrentItems] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [orderType, setOrderType] = useState("Newly Received");
   const [switchReceived, setSwitchReceived] = useState("d-block");
@@ -43,7 +39,6 @@ export default function Order() {
   useEffect(() => {
     if (user.type === "distributor") {
       dispatch(fetchReceivedOrders());
-      console.log(receivedOrders);
     } else {
       dispatch(fetchReceivedOrders());
       dispatch(fetchSentOrders());
@@ -100,7 +95,7 @@ export default function Order() {
         maxWidth="sm"
         style={{
           overflow: "auto",
-          margin: "10vh auto 0vh auto",
+          margin: "5vh auto 0vh auto",
           height: "100vh",
         }}
       >
@@ -131,9 +126,12 @@ export default function Order() {
           className="row text-justify"
           style={{
             marginTop: ".8rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
           }}
         >
-          <div className="col-8 offset-1 font-weight-bold">{orderType}</div>
+          <div className="col-8  font-weight-bold">{orderType}</div>
 
           <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle
@@ -184,11 +182,22 @@ export default function Order() {
         </div>
         <hr
           style={{
-            border: "1px solid #b11917",
+            border: "1px solid rgb(223, 223, 223)",
           }}
         />
-        <EachOrder receivedOrders={receivedOrders} />
-        {/* <OrderItem receivedOrders={receivedOrders} /> */}
+        {currentItems.length > 0
+          ? currentItems.map((item) => {
+              return <OrderIntro key={item._id} item={item} />;
+            })
+          : receivedOrders.map((order) => {
+              return (
+                <EachOrderContent
+                  key={order._id}
+                  order={order}
+                  setItems={setCurrentItems}
+                />
+              );
+            })}
       </Container>
     </>
   );
