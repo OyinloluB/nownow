@@ -12,31 +12,6 @@ const OrderIntro = ({ item }) => {
   const updateStatus = (status) => {};
   return (
     <div>
-      <Row>
-        <Col
-          xs={12}
-          md={12}
-          lg={12}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "30px",
-          }}
-        >
-          <CancelIcon style={{ color: "#b11917", cursor: "pointer" }} />
-          <p
-            style={{
-              marginBottom: "0px",
-            }}
-          >
-            Bar Name
-          </p>
-        </Col>
-        <Col xs={12} md={12} lg={12}>
-          <SelectDropdown />
-        </Col>
-      </Row>
       <Card style={{ width: "100" }}>
         <Card.Body>
           <Row
@@ -51,7 +26,7 @@ const OrderIntro = ({ item }) => {
                 <img src={item.details.image} width="30px" alt="Item" />
               </Card.Text>
             </Col>
-            <Col xs={3} md={6} lg={6}>
+            <Col xs={8} md={6} lg={6}>
               <Card.Text>
                 <h6>{item.details.brand}</h6>
                 <ul
