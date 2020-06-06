@@ -43,7 +43,6 @@ export default function Order() {
   useEffect(() => {
     if (user.type === "distributor") {
       dispatch(fetchReceivedOrders());
-      console.log(receivedOrders);
     } else {
       dispatch(fetchReceivedOrders());
       dispatch(fetchSentOrders());
