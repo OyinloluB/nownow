@@ -88,36 +88,6 @@ const OrderIntro = ({ item }) => {
                 </ul>
               </Card.Text>
             </Col>
-            <Col xs={3} md={3} lg={3}>
-              <Card.Text
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <button
-                  style={{
-                    backgroundColor: "rgb(9, 89, 9)",
-                    border: "1px solid #00FF00",
-                    color: "white",
-                    padding: "8px",
-                  }}
-                >
-                  Accept
-                </button>
-                <br />
-                <button
-                  style={{
-                    backgroundColor: "#b11917",
-                    border: "1px solid #b11917",
-                    color: "white",
-                    padding: "8px",
-                  }}
-                >
-                  Decline
-                </button>
-              </Card.Text>
-            </Col>
           </Row>
         </Card.Body>
       </Card>
