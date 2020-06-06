@@ -1,15 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Row, Col, Card } from "react-bootstrap";
 
-import { updateOrderStatus } from "../../redux/order/order.actions";
-import { SelectDropdown } from "./SelectDropdown";
-import CancelIcon from "@material-ui/icons/Cancel";
-
 const OrderIntro = ({ item }) => {
-  const dispatch = useDispatch();
-
-  const updateStatus = (status) => {};
   return (
     <div>
       <Card style={{ width: "100" }}>

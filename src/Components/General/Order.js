@@ -1,47 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Row, Col, Card } from "react-bootstrap";
-import { SelectDropdown } from "../Layout/SelectDropdown";
-import CancelIcon from "@material-ui/icons/Cancel";
+import { useLocation } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
 
+import CancelIcon from "@material-ui/icons/Cancel";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
+import { SelectDropdown } from "../Layout/SelectDropdown";
 import OrderIntro from "../Layout/OrderIntro";
 import EachOrderContent from "../Layout/EachOrderContent";
 
 import {
   fetchReceivedOrders,
   fetchSentOrders,
+  updateOrderStatus,
 } from "../../redux/order/order.actions";
 
 export default function Order() {
-  const { user, receivedOrders, sentOrders } = useSelector((state) => {
+  const { user, receivedOrders } = useSelector((state) => {
     return {
       user: state.auth.user,
       receivedOrders: state.order.receivedOrders,
       sentOrders: state.order.sentOrders,
     };
   });
+  const location = useLocation();
   const dispatch = useDispatch();
 
-  const [currentItems, setCurrentItems] = useState([]);
+  const [currentOrder, setCurrentOrder] = useState({ items: [] });
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [orderType, setOrderType] = useState("Newly Received");
+  const [orderStatus, setOrderStatus] = useState({
+    type: "Newly Received",
+    status: "new",
+  });
   const [switchReceived, setSwitchReceived] = useState("d-block");
   const [switchSent, setSwitchSent] = useState("d-none");
+
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   useEffect(() => {
@@ -53,27 +55,12 @@ export default function Order() {
     }
   }, [user, dispatch]);
 
-  // dropdwn methods
-  const handleFilter = (x) => {
-    switch (x) {
-      case "new_received":
-        setOrderType("Newly Received");
-        break;
-      case "all_received":
-        setOrderType("All Received");
-        break;
-      case "delivered":
-        setOrderType("Delivered");
-        break;
-      case "processing":
-        setOrderType("Processing");
-        break;
-      case "declined":
-        setOrderType("Declined");
-        break;
-      default:
-        return;
-    }
+  const handleStatusUpdate = (status) => {
+    dispatch(updateOrderStatus(currentOrder._id, status))
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   // handling button switch order
@@ -82,14 +69,14 @@ export default function Order() {
       case "received":
         setSwitchReceived("d-block");
         setSwitchSent("d-none");
-        setOrderType("Newly Received");
+        setOrderStatus({ type: "Newly Received", status: "new" });
         break;
 
       case "sent":
         setSwitchReceived("d-none");
         setSwitchSent("d-block");
         setSwitchSent("d-block");
-        setOrderType("Delivered");
+        setOrderStatus({ type: "Delivered", status: "delivered" });
         break;
       default:
         return;
@@ -113,7 +100,7 @@ export default function Order() {
             flexWrap: "wrap",
           }}
         >
-          {currentItems.length > 0 ? null : (
+          {currentOrder.items.length > 0 ? null : (
             <button
               className={`btn btn-info col-md-${
                 user.type !== "distributor" ? "6" : "12"
@@ -133,7 +120,7 @@ export default function Order() {
           ) : null}
         </div>
         <br />
-        {currentItems.length > 0 ? (
+        {currentOrder.items.length > 0 ? (
           <Row>
             <Col
               xs={12}
@@ -146,13 +133,16 @@ export default function Order() {
                 marginBottom: "30px",
               }}
             >
-              <CancelIcon style={{ color: "#b11917", cursor: "pointer" }} />
+              <CancelIcon
+                style={{ color: "#b11917", cursor: "pointer" }}
+                onClick={() => setCurrentOrder({ items: [] })}
+              />
               <p
                 style={{
                   marginBottom: "0px",
                 }}
               >
-                Bar Name
+                {currentOrder.user.name}
               </p>
             </Col>
             <Col xs={12} md={12} lg={12}>
@@ -161,7 +151,7 @@ export default function Order() {
           </Row>
         ) : null}
 
-        {currentItems.length > 0 ? null : (
+        {currentOrder.items.length > 0 ? null : (
           <div
             className="row text-justify"
             style={{
@@ -171,7 +161,7 @@ export default function Order() {
               justifyContent: "space-around",
             }}
           >
-            <div className="col-8  font-weight-bold">{orderType}</div>
+            <div className="col-8  font-weight-bold">{orderStatus.type}</div>
 
             <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle
@@ -183,35 +173,51 @@ export default function Order() {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem header className="font-weight-bold">
-                  <FilterListIcon style={{ color: "#b11017" }} /> Filter
-                  Received Orders by:
+                  <FilterListIcon style={{ color: "#b11017" }} /> Filter Received
+                  Orders by:
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
-                  onClick={() => handleFilter("new_received")}
+                  onClick={() =>
+                    setOrderStatus({ type: "Newly Received", status: "new" })
+                  }
                   className={(switchSent, switchReceived)}
                 >
                   <ReceiptIcon className="mr-3" />
                   Newly Received
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => handleFilter("delivered")}>
+                <DropdownItem
+                  onClick={() =>
+                    setOrderStatus({ type: "Delivered", status: "delivered" })
+                  }
+                >
                   <DoneIcon className="mr-3" />
                   Delivered
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => handleFilter("processing")}>
+                <DropdownItem
+                  onClick={() =>
+                    setOrderStatus({ type: "Processing", status: "processing" })
+                  }
+                >
                   <CachedIcon className="mr-3" />
                   Processing
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={() => handleFilter("declined")}>
+                <DropdownItem
+                  onClick={() =>
+                    setOrderStatus({ type: "Declined", status: "declined" })
+                  }
+                >
                   <NotInterestedIcon className="mr-3" />
                   Declined
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
-                  onClick={() => handleFilter("all_received")}
+                  onClick={() =>
+                    setOrderStatus({ type: "All Received", status: "all" })
+                  }
                   className={(switchSent, switchReceived)}
                 >
                   <FilterListIcon className="mr-3" />
@@ -226,20 +232,26 @@ export default function Order() {
             border: "1px solid rgb(223, 223, 223)",
           }}
         />
-        {currentItems.length > 0
-          ? currentItems.map((item) => {
+        {currentOrder.items.length > 0
+          ? currentOrder.items.map((item) => {
               return <OrderIntro key={item._id} item={item} />;
             })
-          : receivedOrders.map((order) => {
-              return (
-                <EachOrderContent
-                  key={order._id}
-                  order={order}
-                  setItems={setCurrentItems}
-                />
-              );
-            })}
-        {currentItems.length > 0 ? (
+          : receivedOrders
+              .filter((order) =>
+                orderStatus.status === "all"
+                  ? true
+                  : orderStatus.status === order.status
+              )
+              .map((order) => {
+                return (
+                  <EachOrderContent
+                    key={order._id}
+                    order={order}
+                    setOrder={setCurrentOrder}
+                  />
+                );
+              })}
+        {currentOrder.items.length > 0 && currentOrder.status === 'new' ? (
           <div
             style={{
               display: "flex",
@@ -249,6 +261,7 @@ export default function Order() {
             }}
           >
             <button
+              onClick={() => handleStatusUpdate("processing")}
               style={{
                 color: "white",
                 fontWeight: "bold",
@@ -262,6 +275,7 @@ export default function Order() {
               Accept
             </button>
             <button
+              onClick={() => handleStatusUpdate("declined")}
               style={{
                 color: "white",
                 fontWeight: "bold",
