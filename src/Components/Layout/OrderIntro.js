@@ -1,8 +1,10 @@
 import React from "react";
-import {useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { Row, Col, Card } from "react-bootstrap";
 
-import { updateOrderStatus } from '../../redux/order/order.actions';
+import { updateOrderStatus } from "../../redux/order/order.actions";
+import { SelectDropdown } from "./SelectDropdown";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const OrderIntro = ({ item }) => {
   const dispatch = useDispatch();
@@ -10,11 +12,36 @@ const OrderIntro = ({ item }) => {
   const updateStatus = (status) => {};
   return (
     <div>
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "30px",
+          }}
+        >
+          <CancelIcon style={{ color: "#b11917", cursor: "pointer" }} />
+          <p
+            style={{
+              marginBottom: "0px",
+            }}
+          >
+            Bar Name
+          </p>
+        </Col>
+        <Col xs={12} md={12} lg={12}>
+          <SelectDropdown />
+        </Col>
+      </Row>
       <Card style={{ width: "100" }}>
         <Card.Body>
           <Row
             style={{
-              borderBottom: "1px solid rgb(223, 223, 223)",
+              // borderBottom: "1px solid rgb(223, 223, 223)",
               paddingBottom: "9px",
               padding: "9px",
             }}
@@ -31,6 +58,7 @@ const OrderIntro = ({ item }) => {
                   style={{
                     listStyle: "none",
                     paddingLeft: "0rem",
+                    fontSize: "14px",
                   }}
                 >
                   <li>
@@ -42,7 +70,7 @@ const OrderIntro = ({ item }) => {
                     {item.quantity}
                   </li>
                   <li>
-                    <b>Cost:</b>
+                    <b>Cost: </b>
                     {`${item.quantity * item.details.price}`}
                   </li>
                   <li>
