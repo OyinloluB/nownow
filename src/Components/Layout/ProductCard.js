@@ -54,9 +54,7 @@ const ProductCard = ({ product, handleInputChange }) => {
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.sku}`}
-                style={{
-                  width: "100%",
-                }}
+                className="" width="60" height="80"
               />
             ) : (
               <p
