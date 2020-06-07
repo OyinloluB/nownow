@@ -62,25 +62,25 @@ export default function Navbar(type) {
   const logOut = () => {
     if(window.confirm("Do you want Customers to still see your store open after login out?")){
 
-      if(type=='distributor'){
+      if(type==='distributor'){
         axios.patch(`/Distributor/${user._id}`, { confirmed: true }).then(list=>{})
       }
-      else if(type=='bulkbreaker'){
+      else if(type==='bulkbreaker'){
         axios.patch(`/BulkBreaker/${user._id}`, { confirmed: true }).then(list=>{})
       }
-      else if(type=='poc'){
+      else if(type==='poc'){
         axios.patch(`/Poc/${user._id}`, { confirmed: true }).then(list=>{})
       }
     }
 
     else {
-      if(type=='distributor'){
+      if(type==='distributor'){
         axios.patch(`/Distributor/${user._id}`, { confirmed: false }).then(list=>{})
       }
-      else if(type=='bulkbreaker'){
+      else if(type==='bulkbreaker'){
         axios.patch(`/BulkBreaker/${user._id}`, { confirmed: false }).then(list=>{})
       }
-      else if(type=='poc'){
+      else if(type==='poc'){
         axios.patch(`/Poc/${user._id}`, { confirmed: false }).then(list=>{})
       }
     }

@@ -39,6 +39,7 @@ const UserInfo = ({ type }) => {
         if (type === "poc") {
           updateUserPromise = dispatch(
             updatePoc(user.id, {
+              product: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
@@ -123,6 +124,7 @@ const UserInfo = ({ type }) => {
     return (
       <div>
         <ContactModePrompt
+          setCurrentPage={setCurrentPage}
           setContactModeDetails={setContactModeDetails}
           setSubmitted={setSubmitted}
         />

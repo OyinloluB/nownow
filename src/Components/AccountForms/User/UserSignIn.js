@@ -37,7 +37,7 @@ const UserSignIn = ({ type }) => {
     const password = 'DDLCPD';
 console.log(type)
     if(type==="distributor") {
-      axios.get(`/Distributor/User/${ID}`).then(list=>{console.log(list)
+      axios.get(`/Distributor/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);
         
         if(list.data[0].password===password){

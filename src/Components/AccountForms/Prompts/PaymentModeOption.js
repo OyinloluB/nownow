@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PaymentModeOption = ({ checked, handleToggle }) => {
   const classes = useStyles();
-  console.log(handleToggle)
+  // console.log(handleToggle)
   return (
     <List className={classes.root}>
       <ListItem>

@@ -55,37 +55,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
             ))}
           </Modal.Body>
           <Modal.Footer>
-          <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-around",
-                          width: "20%"
-                        }}
-                      >
-                        <span className="offset-3">
-                          <a
-                            href={`https://wa.me/${user.phone}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <WhatsAppIcon
-                              style={{ color: "grey", fontSize: 20 }}
-                            />
-                          </a>
-                        </span>
-                        <span>
-                          {" "}
-                          <a
-                            href={`tel:${user.phone}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <PhoneIcon
-                              style={{ color: "grey", fontSize: 20 }}
-                            />
-                          </a>
-                        </span>
-      </div>
+         
         <Button
           onClick={handleAddToCart}
           style={{
