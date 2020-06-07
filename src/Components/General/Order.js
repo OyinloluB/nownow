@@ -8,7 +8,12 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
@@ -17,6 +22,7 @@ import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { SelectDropdown } from "../Layout/SelectDropdown";
 import OrderIntro from "../Layout/OrderIntro";
 import EachOrderContent from "../Layout/EachOrderContent";
+import Spinner from "../Loaders/Spinner";
 
 import {
   fetchReceivedOrders,
@@ -173,8 +179,8 @@ export default function Order() {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem header className="font-weight-bold">
-                  <FilterListIcon style={{ color: "#b11017" }} /> Filter Received
-                  Orders by:
+                  <FilterListIcon style={{ color: "#b11017" }} /> Filter
+                  Received Orders by:
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
@@ -251,7 +257,7 @@ export default function Order() {
                   />
                 );
               })}
-        {currentOrder.items.length > 0 && currentOrder.status === 'new' ? (
+        {currentOrder.items.length > 0 && currentOrder.status === "new" ? (
           <div
             style={{
               display: "flex",
