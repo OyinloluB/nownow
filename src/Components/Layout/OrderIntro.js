@@ -1,20 +1,14 @@
 import React from "react";
-import {useDispatch } from 'react-redux';
 import { Row, Col, Card } from "react-bootstrap";
 
-import { updateOrderStatus } from '../../redux/order/order.actions';
-
-const OrderIntro = ({ item }) => {
-  const dispatch = useDispatch();
-
-  const updateStatus = (status) => {};
+const OrderIntro = ({ item, status }) => {
   return (
     <div>
       <Card style={{ width: "100" }}>
         <Card.Body>
           <Row
             style={{
-              borderBottom: "1px solid rgb(223, 223, 223)",
+              // borderBottom: "1px solid rgb(223, 223, 223)",
               paddingBottom: "9px",
               padding: "9px",
             }}
@@ -24,13 +18,14 @@ const OrderIntro = ({ item }) => {
                 <img src={item.details.image} width="30px" alt="Item" />
               </Card.Text>
             </Col>
-            <Col xs={3} md={6} lg={6}>
+            <Col xs={8} md={6} lg={6}>
               <Card.Text>
                 <h6>{item.details.brand}</h6>
                 <ul
                   style={{
                     listStyle: "none",
                     paddingLeft: "0rem",
+                    fontSize: "14px",
                   }}
                 >
                   <li>
@@ -42,7 +37,7 @@ const OrderIntro = ({ item }) => {
                     {item.quantity}
                   </li>
                   <li>
-                    <b>Cost:</b>
+                    <b>Cost: </b>
                     {`${item.quantity * item.details.price}`}
                   </li>
                   <li>
@@ -55,39 +50,10 @@ const OrderIntro = ({ item }) => {
                     })}
                   </li>
                   <li>
-                    <b>Delivered On: </b>
+                    <b>Status: </b>
+                    {status}
                   </li>
                 </ul>
-              </Card.Text>
-            </Col>
-            <Col xs={3} md={3} lg={3}>
-              <Card.Text
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <button
-                  style={{
-                    backgroundColor: "rgb(9, 89, 9)",
-                    border: "1px solid #00FF00",
-                    color: "white",
-                    padding: "8px",
-                  }}
-                >
-                  Accept
-                </button>
-                <br />
-                <button
-                  style={{
-                    backgroundColor: "#b11917",
-                    border: "1px solid #b11917",
-                    color: "white",
-                    padding: "8px",
-                  }}
-                >
-                  Decline
-                </button>
               </Card.Text>
             </Col>
           </Row>

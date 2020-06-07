@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 
-const EachOrderContent = ({ order, setItems }) => {
+const EachOrderContent = ({ order, setOrder }) => {
   const generateTimeDifference = (createdAt) => {
     let delta =
       Math.abs(new Date().getTime() - new Date(createdAt).getTime()) / 1000;
@@ -42,8 +42,13 @@ const EachOrderContent = ({ order, setItems }) => {
         padding: "9px",
       }}
     >
-      <p style={{ cursor: "pointer" }} onClick={() => setItems(order.items)}>
-        {`${order.user.name} `}
+      <p
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          setOrder(order);
+        }}
+      >
+        {`${order.user ? order.user.name : 'Your Order '}`}
         <Badge style={{ backgroundColor: "#b11917", color: "white" }}>
           {order.items.length}
         </Badge>
