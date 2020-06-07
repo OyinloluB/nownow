@@ -48,7 +48,7 @@ const EachOrderContent = ({ order, setOrder }) => {
           setOrder(order);
         }}
       >
-        {`${order.user.name} `}
+        {`${order.user ? order.user.name : 'Your Order '}`}
         <Badge style={{ backgroundColor: "#b11917", color: "white" }}>
           {order.items.length}
         </Badge>

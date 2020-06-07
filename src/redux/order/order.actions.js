@@ -34,16 +34,16 @@ export const fetchReceivedOrders = () => {
 };
 
 const fetchSentOrdersStart = () => ({
-  type: OrderActionTypes.FETCH_RECEIVED_ORDERS_START,
+  type: OrderActionTypes.FETCH_SENT_ORDERS_START,
 });
 
 const fetchSentOrdersSuccess = (orders) => ({
-  type: OrderActionTypes.FETCH_RECEIVED_ORDERS_SUCCESS,
+  type: OrderActionTypes.FETCH_SENT_ORDERS_SUCCESS,
   payload: orders.filter(Boolean),
 });
 
 const fetchSentOrdersFailure = (error) => ({
-  type: OrderActionTypes.FETCH_RECEIVED_ORDERS_FAILURE,
+  type: OrderActionTypes.FETCH_SENT_ORDERS_FAILURE,
   payload: error,
 });
 

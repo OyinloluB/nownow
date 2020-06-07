@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -8,12 +7,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
@@ -31,14 +25,13 @@ import {
 } from "../../redux/order/order.actions";
 
 export default function Order() {
-  const { user, receivedOrders } = useSelector((state) => {
+  const { user, receivedOrders, sentOrders } = useSelector((state) => {
     return {
       user: state.auth.user,
       receivedOrders: state.order.receivedOrders,
       sentOrders: state.order.sentOrders,
     };
   });
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const [currentOrder, setCurrentOrder] = useState({ items: [] });
@@ -64,7 +57,7 @@ export default function Order() {
   const handleStatusUpdate = (status) => {
     dispatch(updateOrderStatus(currentOrder._id, status))
       .then(() => {
-        location.reload();
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -81,8 +74,7 @@ export default function Order() {
       case "sent":
         setSwitchReceived("d-none");
         setSwitchSent("d-block");
-        setSwitchSent("d-block");
-        setOrderStatus({ type: "Delivered", status: "delivered" });
+        setOrderStatus({ type: "Newly Sent", status: "new" });
         break;
       default:
         return;
@@ -126,7 +118,7 @@ export default function Order() {
           ) : null}
         </div>
         <br />
-        {currentOrder.items.length > 0 ? (
+        {switchSent === 'd-none' && currentOrder.items.length > 0 ? (
           <Row>
             <Col
               xs={12}
@@ -179,18 +171,21 @@ export default function Order() {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem header className="font-weight-bold">
-                  <FilterListIcon style={{ color: "#b11017" }} /> Filter
-                  Received Orders by:
+                  <FilterListIcon style={{ color: "#b11017" }} /> Filter{" "}
+                  {`${switchSent === "d-none" ? "Received" : "Sent"}`}
+                  Orders by:
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() =>
-                    setOrderStatus({ type: "Newly Received", status: "new" })
+                    setOrderStatus({
+                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
+                      status: "new",
+                    })
                   }
-                  className={(switchSent, switchReceived)}
                 >
                   <ReceiptIcon className="mr-3" />
-                  Newly Received
+                  {`Newly ${switchSent === "d-none" ? "Received" : "Sent"}`}
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
@@ -224,10 +219,9 @@ export default function Order() {
                   onClick={() =>
                     setOrderStatus({ type: "All Received", status: "all" })
                   }
-                  className={(switchSent, switchReceived)}
                 >
                   <FilterListIcon className="mr-3" />
-                  All Received
+                  {`All ${switchSent === "d-none" ? "Received" : "Sent"}`}
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -238,64 +232,116 @@ export default function Order() {
             border: "1px solid rgb(223, 223, 223)",
           }}
         />
-        {currentOrder.items.length > 0
-          ? currentOrder.items.map((item) => {
-              return <OrderIntro key={item._id} item={item} />;
-            })
-          : receivedOrders
-              .filter((order) =>
-                orderStatus.status === "all"
-                  ? true
-                  : orderStatus.status === order.status
-              )
-              .map((order) => {
-                return (
-                  <EachOrderContent
-                    key={order._id}
-                    order={order}
-                    setOrder={setCurrentOrder}
-                  />
-                );
-              })}
-        {currentOrder.items.length > 0 && currentOrder.status === "new" ? (
-          <div
-            style={{
-              display: "flex",
-              alignContent: "center",
-              justifyContent: "space-between",
-              marginBottom: "35px",
-            }}
-          >
-            <button
-              onClick={() => handleStatusUpdate("processing")}
+        <div className={switchReceived}>
+          {currentOrder.items.length > 0
+            ? currentOrder.items.map((item) => {
+                return <OrderIntro key={item._id} item={item} />;
+              })
+            : receivedOrders.length > 0
+            ? receivedOrders
+                .filter((order) =>
+                  orderStatus.status === "all"
+                    ? true
+                    : orderStatus.status === order.status
+                )
+                .map((order) => {
+                  return (
+                    <EachOrderContent
+                      key={order._id}
+                      order={order}
+                      setOrder={setCurrentOrder}
+                    />
+                  );
+                })
+            : null}
+          {currentOrder.items.length > 0 && currentOrder.status === "new" ? (
+            <div
               style={{
-                color: "white",
-                fontWeight: "bold",
-                padding: "10px",
-                marginTop: "20px",
-                width: "40%",
-                border: "none",
-                background: "green",
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "space-between",
+                marginBottom: "35px",
               }}
             >
-              Accept
-            </button>
-            <button
-              onClick={() => handleStatusUpdate("declined")}
+              <button
+                onClick={() => handleStatusUpdate("processing")}
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  marginTop: "20px",
+                  width: "40%",
+                  border: "none",
+                  background: "green",
+                }}
+              >
+                Accept
+              </button>
+              <button
+                onClick={() => handleStatusUpdate("declined")}
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  marginTop: "20px",
+                  width: "40%",
+                  border: "none",
+                  background: "#b11917",
+                }}
+              >
+                Decline
+              </button>
+            </div>
+          ) : null}
+        </div>
+        <div className={switchSent}>
+          {currentOrder.items.length > 0
+            ? currentOrder.items.map((item) => {
+                return <OrderIntro key={item._id} item={item} />;
+              })
+            : sentOrders.length > 0
+            ? sentOrders
+                .filter((order) =>
+                  orderStatus.status === "all"
+                    ? true
+                    : orderStatus.status === order.status
+                )
+                .map((order) => {
+                  return (
+                    <EachOrderContent
+                      key={order._id}
+                      order={order}
+                      setOrder={setCurrentOrder}
+                    />
+                  );
+                })
+            : null}
+          {currentOrder.items.length > 0 && currentOrder.status === "new" ? (
+            <div
               style={{
-                color: "white",
-                fontWeight: "bold",
-                padding: "10px",
-                marginTop: "20px",
-                width: "40%",
-                border: "none",
-                background: "#b11917",
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "space-between",
+                marginBottom: "35px",
               }}
             >
-              Decline
-            </button>
-          </div>
-        ) : null}
+              <button
+                onClick={() => handleStatusUpdate("cancelled")}
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  marginTop: "20px",
+                  width: "100%",
+                  border: "none",
+                  background: "#b11917",
+                }}
+              >
+                Cancel Order
+              </button>
+            </div>
+          ) : null}
+        </div>
       </Container>
     </>
   );

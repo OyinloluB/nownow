@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
-const OrderIntro = ({ item }) => {
+const OrderIntro = ({ item, status }) => {
   return (
     <div>
       <Card style={{ width: "100" }}>
@@ -50,7 +50,7 @@ const OrderIntro = ({ item }) => {
                     })}
                   </li>
                   <li>
-                    <b>Delivered On: </b>
+                    <b>Status: </b>
                   </li>
                 </ul>
               </Card.Text>
