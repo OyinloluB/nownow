@@ -51,6 +51,7 @@ const OrderIntro = ({ item, status }) => {
                   </li>
                   <li>
                     <b>Status: </b>
+                    {status}
                   </li>
                 </ul>
               </Card.Text>

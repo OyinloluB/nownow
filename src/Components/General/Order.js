@@ -235,7 +235,7 @@ export default function Order() {
         <div className={switchReceived}>
           {currentOrder.items.length > 0
             ? currentOrder.items.map((item) => {
-                return <OrderIntro key={item._id} item={item} />;
+                return <OrderIntro key={item._id} item={item} status={currentOrder.status} />;
               })
             : receivedOrders.length > 0
             ? receivedOrders
@@ -297,7 +297,7 @@ export default function Order() {
         <div className={switchSent}>
           {currentOrder.items.length > 0
             ? currentOrder.items.map((item) => {
-                return <OrderIntro key={item._id} item={item} />;
+                return <OrderIntro key={item._id} item={item} status={currentOrder.status} />;
               })
             : sentOrders.length > 0
             ? sentOrders
