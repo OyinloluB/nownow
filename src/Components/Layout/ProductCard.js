@@ -77,3 +77,5 @@ const ProductCard = ({ product, handleInputChange }) => {
 };
 
 export default ProductCard;
+
+
