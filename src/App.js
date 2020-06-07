@@ -47,7 +47,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar type={user.type}/>
       {/* {isAuthenticated ? null : <Eligible />} */}
       <Switch>
         <Route exact path="/" component={Home} />

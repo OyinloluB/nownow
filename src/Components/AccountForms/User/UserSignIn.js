@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch} from "react-redux";
 import Container from "@material-ui/core/Container";
+import axios from "../../../axios-client";
 
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersonIcon from '@material-ui/icons/Person';
+import UserId from '../Prompts/UserId';
+import ResetPassword from "../Prompts/ResetPassword";
+
 import {
   authenticateDistributor,
   authenticateBulkBreaker,
@@ -17,17 +21,72 @@ const UserSignIn = ({ type }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showUserId, setShowUserId] = useState('d-block');
-    const [showUserPas, setShowUserPas] =  useState('d-none');
+  const [showUserPas, setShowUserPas] =  useState('d-none');
+  const [resetPassword, setResetPassword] = useState('d-none');
+  const [userPassword, setUserPassword] = useState({});
+  const [_id, _setId] = useState('');
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
   const [showPrompt, setShowPrompt] = useState(true);
-
+  
   const toggler = () => {
-    setShowUserId('d-none');
-    setShowUserPas('d-block');
+    const ID = loginDetails.ID;
+    const password = 'DDLCPD';
+console.log(type)
+    if(type==="distributor") {
+      axios.get(`/Distributor/User/${ID}`).then(list=>{console.log(list)
+        _setId(list.data[0]._id);
+        
+        if(list.data[0].password===password){
+          setShowUserId('d-none');
+          setShowUserPas('d-none');
+          setResetPassword('d-block');
+        }
+        else {
+          setResetPassword('d-none');
+          setShowUserId('d-none');
+          setShowUserPas('d-block');
+        }
+      })
+    }
+    else if(type==="bulkbreaker") {
+      axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
+
+        _setId(list.data[0]._id);
+        if(list.data[0].password===password){
+          setShowUserId('d-none');
+          setShowUserPas('d-none');
+          setResetPassword('d-block');
+        }
+        else {
+          setResetPassword('d-none');
+          setShowUserId('d-none');
+          setShowUserPas('d-block');
+        }
+      })
+    }
+
+    else if(type==="poc") {
+      axios.get(`/Poc/User/${ID}`).then(list=>{
+
+        _setId(list.data[0]._id);
+        if(list.data[0].password===password){
+          setShowUserId('d-none');
+          setShowUserPas('d-none');
+          setResetPassword('d-block');
+        }
+        else {
+          setResetPassword('d-none');
+          setShowUserId('d-none');
+          setShowUserPas('d-block');
+        }
+      })
+    }
+    // setShowUserId('d-none');
+    // setShowUserPas('d-block');
   }
 
   const handleSubmit = (e) => {
@@ -99,7 +158,14 @@ const UserSignIn = ({ type }) => {
             }}
           >Next</Button>
 
-        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserPas}>Set your PIN</div>
+
+        {/* resetPassword */}
+        <div className={ resetPassword }>
+          <ResetPassword userID={_id} setUserPassword={setUserPassword} type={type}/>
+        </div>
+
+
+        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserPas}>Input your Password</div>
 
           <Form.Group controlId="formBasicPassword" className={showUserPas}>
             <Form.Label className={'mt-4'}>Password</Form.Label>
@@ -142,8 +208,6 @@ const UserSignIn = ({ type }) => {
       </React.Fragment>
     );
   };
-  
-
 
 export default UserSignIn;
 

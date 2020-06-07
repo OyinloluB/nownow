@@ -14,6 +14,7 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Logo from "../../assets/logo.png";
 import { Signupas } from "../Modals/Signupas";
 import { ViewBasket } from "./ViewBasket";
+import axios from "../../axios-client";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(type) {
   const history = useHistory();
   const [showPrompt, setShowPrompt] = useState(false);
   const [viewBasket, setViewBasket] = useState(false);
@@ -59,6 +60,31 @@ export default function Navbar() {
   };
 
   const logOut = () => {
+    if(window.confirm("Do you want Customers to still see your store open after login out?")){
+
+      if(type=='distributor'){
+        axios.patch(`/Distributor/${user._id}`, { confirmed: true }).then(list=>{})
+      }
+      else if(type=='bulkbreaker'){
+        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: true }).then(list=>{})
+      }
+      else if(type=='poc'){
+        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then(list=>{})
+      }
+    }
+
+    else {
+      if(type=='distributor'){
+        axios.patch(`/Distributor/${user._id}`, { confirmed: false }).then(list=>{})
+      }
+      else if(type=='bulkbreaker'){
+        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: false }).then(list=>{})
+      }
+      else if(type=='poc'){
+        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then(list=>{})
+      }
+    }
+
     localStorage.clear();
     window.location.reload();
   };

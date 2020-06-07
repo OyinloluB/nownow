@@ -23,7 +23,19 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
       if (product._id === productId) {
-        product.price = e.target.value;
+        // product_ = product_.substring(2)
+        let product_ = product.recommendedPrice.split(',')
+
+        product_ = product_.join('')
+        product_ = product_.substring(1);
+// str.splice(3, 1)
+        // console.log(product_)
+        // if(product_ < e.target.value){
+          product.price = e.target.value;  
+        // }
+        // else{
+        //   alert("Your price is beyond the Recommended Price!")
+        // }
       }
       return product;
     });

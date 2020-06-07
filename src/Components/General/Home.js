@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
-
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
+import { Modal, Button } from "react-bootstrap";
+import axios from "../../axios-client";
+
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -28,13 +30,42 @@ const Home = () => {
   const { pocs, distributors, bulkbreakers } = useSelector(
     (state) => state.user
     );
-
+// console.log(pocs)
   const [coordinates, setCoordinates] = useState({
     lat: user.latitude,
     lng: user.longitude,
   });
 
+  const [show, setShow] = useState(true);
+
   useEffect(() => {
+
+    if(isAuthenticated) {
+      if(window.confirm("Do you want Customers to see your store open?")){
+
+        if(user.type==='distributor'){
+          axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
+        }
+        else if(user.type==='bulkbreaker'){console.log(user.id)
+          axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
+        }
+        else if(user.type=='poc'){
+          axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
+        }
+      }
+      else {
+        if(user.type=='distributor'){
+          axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
+        }
+        else if(user.type=='bulkbreaker'){
+          axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
+        }
+        else if(user.type=='poc'){
+          axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
+        }
+      }
+    }
+
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
         setCoordinates({
