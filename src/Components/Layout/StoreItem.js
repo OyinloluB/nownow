@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   icon: { color: "red", fontSize: "15" },
 }));
 
-const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
+const StoreItem = ({ userId, product, setProducts, selectedProducts, userName }) => {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(null);
 
@@ -74,13 +74,13 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
       } else {
         updatedProducts = [
           ...selectedProducts,
-          { ...product, userID: userId, quantity },
+          { ...product, userID: userId, quantity, userName: userName },
         ];
       }
       setProducts(updatedProducts);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity, product, setProducts, userId]);
+  }, [quantity, product, setProducts, userId, userName]);
   console.log(product)
   return (
     <Card className={classes.root}>

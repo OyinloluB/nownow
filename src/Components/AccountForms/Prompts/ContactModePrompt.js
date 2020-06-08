@@ -6,9 +6,12 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CallIcon from "@material-ui/icons/Call";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted }) => {
+  const [checked, setChecked] = React.useState(true);
+
   const [contactDetails, setContactDetails] = useState({});
   const [readOnly, setReadonly] = useState(true);
   const [readOnly_, setReadonly_] = useState(true);
@@ -19,6 +22,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
   };
+
 
   const callCheckPhone = (e) => {
     if(phnCheckVal===true) {
@@ -90,9 +94,14 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
               }}
             >
               <Form.Label className={'row ml-2'}>
-                <Form.Check type="checkbox"  value={phnCheckVal} onChange={callCheckPhone} />
-                <CallIcon style={{ color: "#b11917", fontSize: 20 }} />
-                &nbsp; By Phone
+              <Checkbox
+                size="small"
+                color="default"
+                inputProps={{ 'aria-label': 'Phone' }}
+                onClick={callCheckPhone}
+              />
+                <CallIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
+                <span className={'mt-2'}> &nbsp; By Phone</span>
               </Form.Label>
               <Form.Control
                 style={{
@@ -114,11 +123,17 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
               }}
             >
               <Form.Label className={'row ml-2'}>
-              <Form.Check type="checkbox"  value="whatsappTrue" onChange={callCheckWhatsapp} /> 
-                <WhatsAppIcon style={{ color: "#b11917", fontSize: 20 }} />
-                &nbsp; By WhatsApp
+              <Checkbox
+                  size="small"
+                  color="default"
+                  inputProps={{ 'aria-label': 'Whatsapp' }}
+                  onClick={callCheckWhatsapp}
+                />
+                <WhatsAppIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
+                <span className={'mt-2'}> &nbsp; By WhatsApp</span>
               </Form.Label>
               <Form.Control
+              
                 style={{
                   width: "50%",
                 }}
@@ -126,7 +141,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 placeholder="Phone Number"
                 name="whatsapp"
                 onChange={handleChange}
-                readOnly={readOnly}
+                readOnly={readOnly_}
               />
             </Form.Group>
           </Modal.Body>

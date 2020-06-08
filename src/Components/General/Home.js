@@ -49,18 +49,18 @@ const Home = () => {
         else if(user.type==='bulkbreaker'){console.log(user.id)
           axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
         }
-        else if(user.type=='poc'){
+        else if(user.type==='poc'){
           axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
         }
       }
       else {
-        if(user.type=='distributor'){
+        if(user.type==='distributor'){
           axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
         }
-        else if(user.type=='bulkbreaker'){
+        else if(user.type==='bulkbreaker'){
           axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
         }
-        else if(user.type=='poc'){
+        else if(user.type==='poc'){
           axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
         }
       }

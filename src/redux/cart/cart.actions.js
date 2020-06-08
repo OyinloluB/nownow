@@ -44,6 +44,7 @@ export const makeOrder = () => {
                     requesterID: auth.user.id
                 });
                 const { data } = response;
+                // console.log(data)
                 dispatch(makeOrderSuccess());
                 resolve(data.success);
             } catch(error){

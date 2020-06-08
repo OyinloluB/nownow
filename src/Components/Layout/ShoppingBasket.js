@@ -13,7 +13,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const dispacth = useDispatch();
 
-  
+  // console.log(user)
   const handleClose = () => {
     setShowBasket(false);
     setShowAlert('d-block')
@@ -49,6 +49,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
                 key={i}
                 product={product}
                 userId={user.userID}
+                userName={user.name}
                 selectedProducts={selectedProducts}
                 setProducts={memoSetProducts}
               />

@@ -7,7 +7,6 @@ import axios from "../../../axios-client";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersonIcon from '@material-ui/icons/Person';
-import UserId from '../Prompts/UserId';
 import ResetPassword from "../Prompts/ResetPassword";
 
 import {
@@ -35,7 +34,7 @@ const UserSignIn = ({ type }) => {
   const toggler = () => {
     const ID = loginDetails.ID;
     const password = 'DDLCPD';
-console.log(type)
+    
     if(type==="distributor") {
       axios.get(`/Distributor/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);

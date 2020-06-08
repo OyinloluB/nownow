@@ -51,9 +51,10 @@ const ListHandler = ({ show, closeModal, users }) => {
             color: "black",
             background: "#f7f7f7",
             display: "flex",
-            alignItems: "center",
+            // alignItems: "center",
           }}
         >
+          <div className={'row'}>
           <ArrowBackIcon
             style={{
               color: "#b11917",
@@ -61,12 +62,11 @@ const ListHandler = ({ show, closeModal, users }) => {
               cursor: "pointer",
             }}
             onClick={closeModal}
+            className={'col-5'}
           />
-          <h6
-            style={{
-              textAlign: "center",
-            }}
-          ></h6>
+          
+          <span className={'offset-3 col-4 font-weight-bold'} style={{whiteSpace: 'nowrap'}}>Nearby Customers</span>
+          </div>
         </Modal.Header>
 
         <Modal.Body>
@@ -94,7 +94,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                       key={user.id}
                       style={{
                         display: "flex",
-                        justifyContent: "space-between",
+                        // justifyContent: "space-between",
                         width: "100%",
                         padding: "1rem",
                         borderBottom: "1px solid #f7f7f7",
@@ -112,7 +112,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                     </span>
                         }
                 
-                      {user.name}
+                      <span class={'offset-1 mr-auto'}> {user.name}</span>
                       <div
                         style={{
                           display: "flex",
