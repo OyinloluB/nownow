@@ -62,11 +62,6 @@ const ListHandler = ({ show, closeModal, users }) => {
             }}
             onClick={closeModal}
           />
-          <h6
-            style={{
-              textAlign: "center",
-            }}
-          ></h6>
         </Modal.Header>
 
         <Modal.Body>

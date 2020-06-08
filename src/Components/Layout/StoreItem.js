@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
+  console.log("Rendering Store Item");
   const classes = useStyles();
   const [quantity, setQuantity] = useState(null);
 
@@ -80,8 +81,8 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
       setProducts(updatedProducts);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity, product, setProducts, userId]);
-  console.log(product)
+  }, [quantity, setProducts, userId]);
+  
   return (
     <Card className={classes.root}>
       <img
@@ -117,4 +118,4 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
   );
 };
 
-export default StoreItem;
+export default React.memo(StoreItem);

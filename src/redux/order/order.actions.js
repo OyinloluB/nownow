@@ -52,7 +52,7 @@ export const fetchSentOrders = () => {
     dispatch(fetchSentOrdersStart());
     try {
       const { auth } = getState();
-      const response = await axios.get(`/Order?userID=${auth.user.id}&userType=${auth.user.type}`);
+      const response = await axios.get(`/Order?ID=${auth.user.id}&userType=${auth.user.type}`);
       const { data } = response;
       if (data.success) {
         dispatch(fetchSentOrdersSuccess(data.orders));
