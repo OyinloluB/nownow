@@ -70,7 +70,6 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   const handleClose = () => setViewBasket(false);
 
   const { items, total } = useSelector((state) => {
-    console.log(state.cart.items)
     return {
       items: state.cart.items,
       total: state.cart.items.reduce((currentTotal, item) => {

@@ -36,6 +36,7 @@ const EachOrderContent = ({ order, setOrder }) => {
   }, []);
 
   const { timeString } = generateTimeDifference(order.createdAt);
+
   let deliveryDate;
   let timeDiff;
 
@@ -43,6 +44,16 @@ const EachOrderContent = ({ order, setOrder }) => {
     deliveryDate = new Date(order.updatedAt);
     deliveryDate.setHours(deliveryDate.getHours() + 24);
     timeDiff = deliveryDate.getTime() - new Date().getTime();
+  }
+
+  let orderReceiverName;
+
+  if(order.bulkbreakerId){
+    orderReceiverName = order.bulkbreakerId.name;
+  } else if (order.pocId) {
+    orderReceiverName = order.pocId.name;
+  } else if(order.distributorId){
+    orderReceiverName = order.distributorId.name;
   }
 
   return (
@@ -62,8 +73,8 @@ const EachOrderContent = ({ order, setOrder }) => {
           setOrder(order);
         }}
       >
-        {`${order.user ? order.user.name : "Your Order "}`}
-        <Badge style={{ backgroundColor: "#b11917", color: "white" }}>
+        {order.user ? order.user.name : orderReceiverName}
+        <Badge style={{ backgroundColor: "#b11917", color: "white", marginLeft: "5px" }}>
           {order.items.length}
         </Badge>
       </p>
@@ -92,4 +103,4 @@ const EachOrderContent = ({ order, setOrder }) => {
   );
 };
 
-export default EachOrderContent;
+export default React.memo(EachOrderContent);
