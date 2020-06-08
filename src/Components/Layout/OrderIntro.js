@@ -63,4 +63,4 @@ const OrderIntro = ({ item, status }) => {
   );
 };
 
-export default OrderIntro;
+export default React.memo(OrderIntro);

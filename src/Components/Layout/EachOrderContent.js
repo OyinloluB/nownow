@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Badge } from "react-bootstrap";
+import DateCountdown from "react-date-countdown-timer";
 
 const EachOrderContent = ({ order, setOrder }) => {
-  const generateTimeDifference = (createdAt) => {
+  const generateTimeDifference = useCallback((dateString) => {
     let delta =
-      Math.abs(new Date().getTime() - new Date(createdAt).getTime()) / 1000;
+      Math.abs(new Date().getTime() - new Date(dateString).getTime()) / 1000;
     const result = {};
     const structure = {
       year: 31536000,
@@ -25,12 +26,36 @@ const EachOrderContent = ({ order, setOrder }) => {
     for (let i = 0; i < resultKeys.length; i++) {
       const time = resultKeys[i];
       if (result[time] > 0) {
-        timeString = `${result[time]} ${time}${result[time] > 1 ? "s" : ""} ago`;
+        timeString = `${result[time]} ${time}${
+          result[time] > 1 ? "s" : ""
+        } ago`;
         break;
       }
     }
-    return timeString;
-  };
+    return { result, timeString };
+  }, []);
+
+  const { timeString } = generateTimeDifference(order.createdAt);
+
+  let deliveryDate;
+  let timeDiff;
+
+  if (order.status === "processing") {
+    deliveryDate = new Date(order.updatedAt);
+    deliveryDate.setHours(deliveryDate.getHours() + 24);
+    timeDiff = deliveryDate.getTime() - new Date().getTime();
+  }
+
+  let orderReceiverName;
+
+  if(order.bulkbreakerId){
+    orderReceiverName = order.bulkbreakerId.name;
+  } else if (order.pocId) {
+    orderReceiverName = order.pocId.name;
+  } else if(order.distributorId){
+    orderReceiverName = order.distributorId.name;
+  }
+
   return (
     <div
       style={{
@@ -48,16 +73,34 @@ const EachOrderContent = ({ order, setOrder }) => {
           setOrder(order);
         }}
       >
-        {`${order.user ? order.user.name : 'Your Order '}`}
-        <Badge style={{ backgroundColor: "#b11917", color: "white" }}>
+        {order.user ? order.user.name : orderReceiverName}
+        <Badge style={{ backgroundColor: "#b11917", color: "white", marginLeft: "5px" }}>
           {order.items.length}
         </Badge>
       </p>
-      <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
-        {generateTimeDifference(order.createdAt)}
-      </p>
+      <div>
+        <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
+          {timeString}
+        </p>
+        <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
+          {order.status === "processing" && timeDiff > 0 ? (
+            <DateCountdown
+              dateTo={deliveryDate}
+              locales={["year", "month", "day", "hr", "min", "sec"]}
+              locales_plural={[
+                "years",
+                "months",
+                "days",
+                "hrs",
+                "mins",
+                "secs",
+              ]}
+            />
+          ) : null}
+        </p>
+      </div>
     </div>
   );
 };
 
-export default EachOrderContent;
+export default React.memo(EachOrderContent);
