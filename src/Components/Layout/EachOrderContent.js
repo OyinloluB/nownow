@@ -26,7 +26,9 @@ const EachOrderContent = ({ order, setOrder }) => {
     for (let i = 0; i < resultKeys.length; i++) {
       const time = resultKeys[i];
       if (result[time] > 0) {
-        timeString = `${result[time]} ${time}${result[time] > 1 ? "s" : ""} ago`;
+        timeString = `${result[time]} ${time}${
+          result[time] > 1 ? "s" : ""
+        } ago`;
         break;
       }
     }
@@ -65,14 +67,27 @@ const EachOrderContent = ({ order, setOrder }) => {
           {order.items.length}
         </Badge>
       </p>
-      {order.status === "processing" && timeDiff > 0 ? (
-        <DateCountdown
-          dateTo={deliveryDate}
-          locales={["year", "month", "day", "hr", "min", "sec"]}
-          locales_plural={["years", "months", "days", "hrs", "mins", "secs"]}
-        />
-      ) : null}
-      <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>{timeString}</p>
+      <div>
+        <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
+          {timeString}
+        </p>
+        <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
+          {order.status === "processing" && timeDiff > 0 ? (
+            <DateCountdown
+              dateTo={deliveryDate}
+              locales={["year", "month", "day", "hr", "min", "sec"]}
+              locales_plural={[
+                "years",
+                "months",
+                "days",
+                "hrs",
+                "mins",
+                "secs",
+              ]}
+            />
+          ) : null}
+        </p>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,12 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
@@ -98,23 +103,31 @@ export default function Order() {
             flexWrap: "wrap",
           }}
         >
-          {currentOrder.items.length > 0 ? null : (
-            <button
-              className={`btn btn-info col-md-${
-                user.type !== "distributor" ? "6" : "12"
-              }`}
-              onClick={() => switchOrder("received")}
-            >
-              <GetAppIcon /> Received Orders
-            </button>
-          )}
+          <h5
+            className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
+            style={{
+              textAlign: "center",
+              backgroundColor: "#f7f7f7",
+              padding: "10px",
+            }}
+            onClick={() => switchOrder("received")}
+          >
+            <GetAppIcon /> Received Orders
+          </h5>
+
           {user.type !== "distributor" ? (
-            <button
-              className="btn btn-warning col-md-6"
+            <h5
+              className="col-md-6"
               onClick={() => switchOrder("sent")}
+              style={{
+                textAlign: "center",
+                backgroundColor: "rgb(215, 215, 215)",
+                cursor:"pointer",
+                padding: "10px",
+              }}
             >
               <PublishIcon /> Sent Orders
-            </button>
+            </h5>
           ) : null}
         </div>
         <br />
@@ -179,7 +192,9 @@ export default function Order() {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
+                      type: `Newly ${
+                        switchSent === "d-none" ? "Received" : "Sent"
+                      }`,
                       status: "new",
                     })
                   }
