@@ -22,15 +22,12 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.CLEAR_FROM_CART:
       return {
         ...state,
-        items: state.items.filter(
-          (item) => {
-            return !(
-              item._id === action.payload._id &&
-              item.userID === action.payload.userID
-            )
-          }
-            
-        ),
+        items: state.items.filter((item) => {
+          return !(
+            item._id === action.payload._id &&
+            item.userID === action.payload.userID
+          );
+        }),
       };
     case CartActionTypes.MAKE_ORDER_START:
       return {
