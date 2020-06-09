@@ -16,26 +16,6 @@ const ListHandler = ({ show, closeModal, users }) => {
   const { user: loggedInUser } = useSelector((state) => state.auth);
   const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
-  // Reverse Geolacation
-  // Geocoder.init(API_KEY);
-  // Geocoder.from(8.64516,3.3999 ).then(json => {
-  //   var addressComponent = json.results[0].address_components[0];
-  //   console.log(addressComponent);
-  // }).catch(error => console.warn(error));
-
-  fetch(
-    "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-      8.64516 +
-      "," +
-      3.3999 +
-      "&key=" +
-      API_KEY
-  )
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(JSON.stringify(responseJson.results[0].formatted_address));
-    });
-
   return (
     <>
       <ShoppingBasket
@@ -85,25 +65,43 @@ const ListHandler = ({ show, closeModal, users }) => {
           >
             {users
               .filter((user) => user.products.length > 0)
-              .map((user) => {
+              .map((user, i) => {
+                    if(user.latitude === 0) {
+                      user.address = 'Not Available, contact through mobile number'
+                    }
+
+                    else { 
+                      fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                        user.latitude +
+                        "," +
+                        user.longitude +
+                        "&key=" +
+                        API_KEY
+                    )
+                      .then((response) => response.json())
+                      .then((responseJson) => {
+                        // forcing the fetched address into the users data
+                          user.address = responseJson.results[0].formatted_address;
+                      });
+                    }
+
                 return (
                   <div
                     key={user.id}
                     style={{
-                      display: "flex",
                       justifyContent: "space-between",
                     }}
                   >
                     <li
                       key={user.id}
+                      className={'list-group'}
                       style={{
-                        display: "flex",
-                        // justifyContent: "space-between",
                         width: "100%",
-                        padding: "1rem",
+                        padding: "10px",
                         borderBottom: "1px solid #f7f7f7",
                       }}
                     >
+                      <div className={'d-flex'}>
                       {user.confirmed === true ? (
                         <span
                           style={{
@@ -129,7 +127,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                       <span class={"offset-1 mr-auto"}> {user.name}</span>
                       <div
                         style={{
-                          display: "flex",
+                          // display: "flex",
                           justifyContent: "space-around",
                           width: "20%",
                         }}
@@ -149,12 +147,13 @@ const ListHandler = ({ show, closeModal, users }) => {
                             href={`tel:${user.phone}`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            className={'ml-2'}
                           >
                             <PhoneIcon style={{ color: "black", fontSize: 20 }} />
                           </a>
                         </span>
                         {loggedInUser.type !== "distributor" ? (
-                          <span>
+                          <span className={'ml-2'}>
                             <ShoppingCartIcon
                               style={{
                                 color: "red",
@@ -169,6 +168,10 @@ const ListHandler = ({ show, closeModal, users }) => {
                             />
                           </span>
                         ) : null}
+                      </div>
+                      </div>
+                      <div className={'col-10 text-justify d-block'}>
+                        <span style={{fontSize: '12px', color: '#B11917'}} className={'col-12 ml-2 ml-md-3 d-block'}>{user.address}</span>
                       </div>
                     </li>
                   </div>

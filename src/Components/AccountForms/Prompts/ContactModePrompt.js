@@ -13,45 +13,32 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
   const [checked, setChecked] = React.useState(true);
 
   const [contactDetails, setContactDetails] = useState({});
-  const [readOnly, setReadonly] = useState(true);
-  const [readOnly_, setReadonly_] = useState(true);
-  const [phnCheckVal, setphnCheckVal] = useState(true);
-  const [whatsappCheckVal, setWhatsappCheckVal] = useState(true);
+  const [phoneCall, setPhoneCall] = useState(true);
+  const [whatsapp, setWhatsapp] = useState(true);
   const { user } = useSelector((state) => state.auth);
 
+  
+  const handleChangeWhatsapp = (e) => {
+    setWhatsapp(!whatsapp)
+    setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+    console.log(contactDetails)
+  }
+
+  const handleChangePhone = (e) => {
+    setPhoneCall(!phoneCall)
+    setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+    console.log(contactDetails)
+  }
+  
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
+    console.log(contactDetails)
   };
-
-
-  const callCheckPhone = (e) => {
-    if(phnCheckVal===true) {
-      setphnCheckVal(false)
-      setReadonly(false)
-      console.log({readOnly})
-    }
-    else {
-      setphnCheckVal(true)
-      setReadonly(true)
-    }
-    console.log(e.target.value)
-  }
-  const callCheckWhatsapp = (e) => {
-    if(whatsappCheckVal===true) {
-      setWhatsappCheckVal(false)
-      setReadonly_(false)
-      // console.log({readOnly})
-    }
-    else {
-      setWhatsappCheckVal(true)
-      setReadonly_(true)
-    }
-    console.log(e.target.value)
-  }
 
   const previous = () => {
     setCurrentPage(3);
   };
+
 
   const handleSubmit = (e) => {
     // console.log(contactDetails)
@@ -98,7 +85,9 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 size="small"
                 color="default"
                 inputProps={{ 'aria-label': 'Phone' }}
-                onClick={callCheckPhone}
+                name="viaPhoneCall"
+                value = { phoneCall }
+                onChange={handleChangePhone}
               />
                 <CallIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
                 <span className={'mt-2'}> &nbsp; By Phone</span>
@@ -112,7 +101,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 name="phone"
                 defaultValue={`${user.phone}`}
                 onChange={handleChange}
-                readOnly={readOnly}
+                // readOnly={readOnly}
               />
             </Form.Group>
             <Form.Group
@@ -127,7 +116,9 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                   size="small"
                   color="default"
                   inputProps={{ 'aria-label': 'Whatsapp' }}
-                  onClick={callCheckWhatsapp}
+                  name = "viaWhatsapp"
+                  value = { whatsapp }
+                  onChange={ handleChangeWhatsapp }
                 />
                 <WhatsAppIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
                 <span className={'mt-2'}> &nbsp; By WhatsApp</span>
@@ -141,7 +132,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 placeholder="Phone Number"
                 name="whatsapp"
                 onChange={handleChange}
-                readOnly={readOnly_}
+                // readOnly={readOnly_}
               />
             </Form.Group>
           </Modal.Body>
@@ -156,7 +147,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 margin: "10px 0 10px 0",
               }}
             >
-              Next
+              Submit
             </Button>
           </Modal.Footer>
         </Modal.Dialog>

@@ -37,12 +37,16 @@ const UserInfo = ({ type }) => {
       if (submitted) {
         let updateUserPromise;
         if (type === "poc") {
+          // console.log(contactModeDetails.phone)
           updateUserPromise = dispatch(
             updatePoc(user.id, {
               product: productsDetails,
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viaWhatsapp: contactModeDetails.viaWhatsapp,
+              viaPhoneCall: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (type === "distributor") {
@@ -52,6 +56,9 @@ const UserInfo = ({ type }) => {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viaWhatsapp: contactModeDetails.viaWhatsapp,
+              viaPhoneCall: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (type === "bulkbreaker") {
@@ -61,6 +68,9 @@ const UserInfo = ({ type }) => {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viaWhatsapp: contactModeDetails.viaWhatsapp,
+              viaPhoneCall: contactModeDetails.viaPhoneCall,
             })
           );
         } else {
@@ -77,7 +87,7 @@ const UserInfo = ({ type }) => {
     [submitted, user, type, dispatch, history]
   );
 
-  useEffect(() => {
+  useEffect(() => {console.log(contactModeDetails)
     updateInfo(
       productsDetails,
       homeDeliveryDetails,
