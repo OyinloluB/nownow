@@ -38,7 +38,7 @@ const UserSignIn = () => {
     const ID = loginDetails.ID;
     const password = 'DDLCPD';
     
-    if(ID.slice(0,1) === '6C') {
+    if(ID.slice(0,2) === '6C') {
       axios.get(`/Distributor/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);
         setType('distributor');
@@ -53,8 +53,7 @@ const UserSignIn = () => {
           setShowUserPas('d-block');
         }
       })
-    }
-    else if(ID.slice(0,1) === 'BB') {
+    } else if(ID.slice(0,2) === 'BB') {
       axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);
         setType('bulkbreaker');
@@ -69,9 +68,7 @@ const UserSignIn = () => {
           setShowUserPas('d-block');
         }
       })
-    }
-
-    else if(ID.slice(0,1) === 'RT') {
+    } else if(ID.slice(0,2) === 'RT') {
       axios.get(`/Poc/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);
         setType('poc');
