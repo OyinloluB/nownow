@@ -15,7 +15,7 @@ import {
   updatePoc,
 } from "../../../redux/user/user.actions";
 
-const UserInfo = ({ type }) => {
+const UserInfo = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsDetails, setProductsDetails] = useState([]);
   const [homeDeliveryDetails, setHomeDeliveryDetails] = useState(false);
@@ -36,7 +36,7 @@ const UserInfo = ({ type }) => {
     ) => {
       if (submitted) {
         let updateUserPromise;
-        if (type === "poc") {
+        if (user.type === "poc") {
           updateUserPromise = dispatch(
             updatePoc(user.id, {
               product: productsDetails,
@@ -45,7 +45,7 @@ const UserInfo = ({ type }) => {
               phone: contactModeDetails.phone,
             })
           );
-        } else if (type === "distributor") {
+        } else if (user.type === "distributor") {
           updateUserPromise = dispatch(
             updateDistributor(user.id, {
               product: productsDetails,
@@ -54,7 +54,7 @@ const UserInfo = ({ type }) => {
               phone: contactModeDetails.phone,
             })
           );
-        } else if (type === "bulkbreaker") {
+        } else if (user.type === "bulkbreaker") {
           updateUserPromise = dispatch(
             updateBulkbreaker(user.id, {
               product: productsDetails,
@@ -74,7 +74,7 @@ const UserInfo = ({ type }) => {
           .catch((err) => console.log(err));
       }
     },
-    [submitted, user, type, dispatch, history]
+    [submitted, user, dispatch, history]
   );
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const UserInfo = ({ type }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setCurrentPage(type === "poc" ? 2 : 1);
+    setCurrentPage(user.type === "poc" ? 2 : 1);
   };
 
   let currentPageComponent = null;
@@ -162,7 +162,7 @@ const UserInfo = ({ type }) => {
         </Button>
         <p>
           Already have an account?{" "}
-          <Link to={`/${type}/signin`}>
+          <Link to={`/signin`}>
             <span
               style={{
                 color: "#b11917",

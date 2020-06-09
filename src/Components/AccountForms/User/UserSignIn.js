@@ -16,15 +16,17 @@ import {
 } from "../../../redux/auth/auth.actions";
 import LockIcon from '@material-ui/icons/Lock';
 
-const UserSignIn = ({ type }) => {
+const UserSignIn = () => {
+  const [type, setType] = useState('');
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
-  const dispatch = useDispatch();
-  const history = useHistory();
   const [showUserId, setShowUserId] = useState('d-block');
   const [showUserPas, setShowUserPas] =  useState('d-none');
   const [resetPassword, setResetPassword] = useState('d-none');
   const [userPassword, setUserPassword] = useState({});
   const [_id, _setId] = useState('');
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
@@ -36,10 +38,10 @@ const UserSignIn = ({ type }) => {
     const ID = loginDetails.ID;
     const password = 'DDLCPD';
     
-    if(type==="distributor") {
+    if(ID.slice(0,1) === '6C') {
       axios.get(`/Distributor/User/${ID}`).then(list=>{
         _setId(list.data[0]._id);
-        
+        setType('distributor');
         if(list.data[0].password===password){
           setShowUserId('d-none');
           setShowUserPas('d-none');
@@ -52,10 +54,10 @@ const UserSignIn = ({ type }) => {
         }
       })
     }
-    else if(type==="bulkbreaker") {
+    else if(ID.slice(0,1) === 'BB') {
       axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
-
         _setId(list.data[0]._id);
+        setType('bulkbreaker');
         if(list.data[0].password===password){
           setShowUserId('d-none');
           setShowUserPas('d-none');
@@ -69,10 +71,10 @@ const UserSignIn = ({ type }) => {
       })
     }
 
-    else if(type==="poc") {
+    else if(ID.slice(0,1) === 'RT') {
       axios.get(`/Poc/User/${ID}`).then(list=>{
-
         _setId(list.data[0]._id);
+        setType('poc');
         if(list.data[0].password===password){
           setShowUserId('d-none');
           setShowUserPas('d-none');
@@ -115,7 +117,7 @@ const UserSignIn = ({ type }) => {
           userProducts.length < 1 ||
           JSON.stringify(userProducts[0]) === JSON.stringify({ 0: "0" })
         ) {
-          history.push(`/${type}/info`);
+          history.push(`/info`);
         } else {
           history.push("/");
         }

@@ -11,10 +11,7 @@ import {
   fetchDistributors,
 } from "./redux/user/user.actions";
 
-import {
-  fetchReceivedOrders,
-  fetchSentOrders,
-} from "./redux/order/order.actions";
+import { fetchReceivedOrders, fetchSentOrders } from "./redux/order/order.actions";
 
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
@@ -27,9 +24,7 @@ import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import { ProtectedRoute } from "./routes";
 
 function App() {
-  const { user, isAuthenticated, eligible } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isAuthenticated, eligible } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,11 +48,9 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
-  const userTypes = ["poc", "distributor", "bulkbreaker"];
-
   return (
     <>
-      <Navbar type={user.type}/>
+      <Navbar />
       {/* {isAuthenticated ? null : <Eligible />} */}
       <Switch>
         <Route exact path="/" component={Home} />
@@ -75,39 +68,14 @@ function App() {
           isAuthenticated={isAuthenticated}
           component={OrderDetails}
         /> */}
-        <Route
+        <ProtectedRoute
           exact
-          path="/:user/info"
-          render={({ match: { params } }) =>
-            isAuthenticated ? (
-              userTypes.includes(params.user) ? (
-                <UserInfo type={params.user} />
-              ) : (
-                <Redirect to="/" />
-              )
-            ) : (
-              <Redirect
-                to={
-                  userTypes.includes(params.user)
-                    ? `/${params.type}/signin`
-                    : "/"
-                }
-              />
-            )
-          }
+          path="/info"
+          isAuthenticated={isAuthenticated}
+          component={UserInfo}
         />
         />
-        <Route
-          exact
-          path="/:user/signin"
-          render={({ match: { params } }) =>
-            userTypes.includes(params.user) ? (
-              <UserSignIn type={params.user} />
-            ) : (
-              <Redirect to="/" />
-            )
-          }
-        />
+        <Route exact path="/signin" component={UserSignIn} />
       </Switch>
     </>
   );
