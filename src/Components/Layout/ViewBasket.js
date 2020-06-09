@@ -103,6 +103,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   const handleClose = () => {
     setSuccess('d-none')
     setViewBasket(false);
+    setToggleChekoutOption('d-block');
   }
 
   const handleChange = (e) => {
