@@ -45,10 +45,13 @@ export default function Navbar(type) {
   const [showPrompt, setShowPrompt] = useState(false);
   const [viewBasket, setViewBasket] = useState(false);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const cartItemsCount = useSelector((state) => {
-    return state.cart.items.reduce((accumulator, item) => {
-      return accumulator + item.quantity;
-    }, 0);
+  const { cartItemsCount, receivedOrdersCount } = useSelector((state) => {
+    return {
+      cartItemsCount: state.cart.items.reduce((accumulator, item) => {
+        return accumulator + item.quantity;
+      }, 0),
+      receivedOrdersCount: state.order.receivedOrders.length,
+    };
   });
   const handleModalPrompt = () => {
     setShowPrompt(true);
@@ -60,28 +63,33 @@ export default function Navbar(type) {
   };
 
   const logOut = () => {
-    if(window.confirm("Do you want Customers to still see your store open after login out?")){
-
-      if(type==='distributor'){
-        axios.patch(`/Distributor/${user._id}`, { confirmed: true }).then(list=>{})
+    if (
+      window.confirm(
+        "Do you want Customers to still see your store open after login out?"
+      )
+    ) {
+      if (type === "distributor") {
+        axios
+          .patch(`/Distributor/${user._id}`, { confirmed: true })
+          .then((list) => {});
+      } else if (type === "bulkbreaker") {
+        axios
+          .patch(`/BulkBreaker/${user._id}`, { confirmed: true })
+          .then((list) => {});
+      } else if (type === "poc") {
+        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then((list) => {});
       }
-      else if(type==='bulkbreaker'){
-        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: true }).then(list=>{})
-      }
-      else if(type==='poc'){
-        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then(list=>{})
-      }
-    }
-
-    else {
-      if(type==='distributor'){
-        axios.patch(`/Distributor/${user._id}`, { confirmed: false }).then(list=>{})
-      }
-      else if(type==='bulkbreaker'){
-        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: false }).then(list=>{})
-      }
-      else if(type==='poc'){
-        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then(list=>{})
+    } else {
+      if (type === "distributor") {
+        axios
+          .patch(`/Distributor/${user._id}`, { confirmed: false })
+          .then((list) => {});
+      } else if (type === "bulkbreaker") {
+        axios
+          .patch(`/BulkBreaker/${user._id}`, { confirmed: false })
+          .then((list) => {});
+      } else if (type === "poc") {
+        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then((list) => {});
       }
     }
 
@@ -131,7 +139,7 @@ export default function Navbar(type) {
                   </IconButton>
                 ) : null}
                 <IconButton aria-label="delivery" color="inherit">
-                  <Badge badgeContent={0} color="secondary">
+                  <Badge badgeContent={receivedOrdersCount} color="secondary">
                     <LocalShippingIcon onClick={handleOrderRout} />
                   </Badge>
                 </IconButton>
