@@ -11,7 +11,7 @@ import orderReducer from './order/order.reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth']
+    whitelist: ['auth', 'cart']
 };
 
 const rootReducer = combineReducers({

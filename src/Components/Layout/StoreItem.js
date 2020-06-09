@@ -58,7 +58,6 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts, userName })
     if (quantity === null) {
       return;
     } else if (quantity === 0) {
-      console.log("Ki lo n sele");
       const filteredProducts = selectedProducts.filter(
         (selectedProduct) => selectedProduct._id !== product._id
       );
@@ -83,8 +82,8 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts, userName })
       setProducts(updatedProducts);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity, product, setProducts, userId, userName]);
-  console.log(product)
+  }, [quantity, setProducts, userId, userName]);
+
   return (
     <li className={'list-group-item row'}>
       <div className={'d-flex'}>

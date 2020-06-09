@@ -10,7 +10,6 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 
 const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
-  console.log("Rednering Shopping Basket");
   const [showAlert, setShowAlert] = useState({ alertShow });
   const [selectedProducts, setSelectedProducts] = useState([]);
   const dispacth = useDispatch();
@@ -49,7 +48,6 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
               <StoreItem
                 key={i}
                 product={{ ...product, ownerType: user.type }}
-                product={product}
                 userId={user.userID}
                 userName={user.name}
                 selectedProducts={selectedProducts}
