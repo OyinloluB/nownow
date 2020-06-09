@@ -61,12 +61,12 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label className={'mt-4 font-weight-bold'}>Confirmed Password</Form.Label>
+            <Form.Label className={'mt-4 font-weight-bold'}>Confirm Password</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="password"
               name="cpassword"
-              placeholder="Confirmed Enter New Password"
+              placeholder="Confirm New Password"
             />
           </Form.Group>
 

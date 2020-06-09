@@ -66,14 +66,14 @@ const Home = () => {
       }
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-        setCoordinates({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        });
-      });
-    }
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.watchPosition(function (position) {
+    //     setCoordinates({
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude
+    //     });
+    //   });
+    // }
   }, []);
 
   return (

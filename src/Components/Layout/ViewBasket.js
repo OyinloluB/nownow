@@ -17,6 +17,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import { green } from '@material-ui/core/colors';
+import { withStyles } from '@material-ui/core/styles';
 // import * as Datetime from 'react-datetime';
 
 import {
@@ -25,6 +27,16 @@ import {
   clearFromCart,
   makeOrder,
 } from "../../redux/cart/cart.actions";
+
+const GreenRadio = withStyles({
+  root: {
+    color: green[400],
+    '&$checked': {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,7 +107,6 @@ export const ViewBasket = ({ show, setViewBasket }) => {
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    alert(e.target.value);
   }
 
   const handleToggle = () => {
@@ -190,7 +201,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                         </span>
                       </div>
                       <div className={'d-flex'} style={{fontSize: '12px'}}>
-                          <span className={'mr-auto'} onClick={() => handleRemoveFromCart(product)} style={{cursor: 'pointer'}}><CloseIcon className={classes.icon} style={{color: 'grey', fontSize: '11px'}}/> Remove </span>
+                          <span className={'mr-auto'} onClick={() => handleRemoveFromCart(product)} style={{cursor: 'pointer', color: '#b11917', fontWeight: 'bold'}}><CloseIcon className={classes.icon} style={{fontSize: '11px', color: '#b11917', fontWeight: 'bold'}}/> Remove </span>
                           <span style={{color: "grey", fontSize: "10px"}}>
                             <IconButton aria-label="remove" onClick={() => handleDecrement(product)} style={{ padding: '0px', borderRadius: '0px', border: '1px solid #b11917'}}>
                             <RemoveIcon className={classes.icon} />
@@ -231,14 +242,14 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             <div className={togglePaymentOption}>
               <Card className={classes.root}>
                 <CardContent className={classes.content}>
+                  <span className={'font-weight-bold mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Note: </span><span className={'mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Your payment option would be sent to the seller</span>
                   <li className={'list-group-item m-0 p-2'} style={{color: "grey", fontSize: "14px"}}>
-
                   <FormControl component="fieldset">
-                  <FormLabel component="legend">Please Select Mode of Payment</FormLabel>
+                  <FormLabel component="legend" className={'mt-1'}>Please Select Mode of Payment</FormLabel>
                     <RadioGroup aria-label="paymentMethod" name="paymentMethod" value={value} onChange={handleChange}>
-                      <FormControlLabel value="cash" control={<Radio />} label="Pay by Cash" />
-                      <FormControlLabel value="pos" control={<Radio />} label="Pay by POS" />
-                      <FormControlLabel value="transfer" control={<Radio />} label="Pay br Transfer" />
+                      <FormControlLabel value="cash" control={<GreenRadio />} label="Cash on Delivery" />
+                      <FormControlLabel value="transfer" control={<GreenRadio />} label="Transfer on Delivery" />
+                      <FormControlLabel value="pos" control={<GreenRadio />} label="Debit Card on Delivery" />
                       
                     </RadioGroup>
                   </FormControl>

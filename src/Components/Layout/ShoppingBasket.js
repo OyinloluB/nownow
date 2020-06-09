@@ -35,15 +35,16 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
 
   return (
       <Modal show={show} onHide={handleClose}>
-        <div className="row offset-1 text-justify font-weight-bold">
-          <p className="col-10" style={{fontSize: '13px'}}>Buy from {user.name} </p>
-          <ClearIcon className={showAlert} onClick={() => {setShowAlert('d-none')}} />
+        <div className="d-flex  text-justify font-weight-bold">
+          <p className="mr-auto m-2" style={{fontSize: '15px'}}>Buy from {user.name} </p>
+          <ClearIcon className={showAlert} style={{margin: '10px'}} onClick={() => {setShowAlert('d-none')}} />
         </div>
           <Modal.Header className={showAlert} style={{backgroundColor: '#AADAFF', fontSize: '11px', fontWeight: 'bold'}}>
             <InfoIcon style={{fontSize: '14px'}}/> Note that the empties for all Returnable Glass Bottled Brands attract an extra cost of &#8358; 1,000 per case, if you do not purchase the item with your own empty case. Empty cost not applicable to cans. 
           </Modal.Header>
 
           <Modal.Body>
+            <ul className={'list-group'}>
             {user.products.map((product, i) => (
               <StoreItem
                 key={i}
@@ -54,6 +55,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
                 setProducts={memoSetProducts}
               />
             ))}
+            </ul>
           </Modal.Body>
           <Modal.Footer>
          

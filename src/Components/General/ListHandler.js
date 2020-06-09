@@ -5,32 +5,28 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
-
+import Geocoder from 'react-native-geocoding';
 import ShoppingBasket from "../Layout/ShoppingBasket";
+import axios from '../../axios-client';
 
 const ListHandler = ({ show, closeModal, users }) => {
-  const [selectedUser, setSelectedUser] = useState({ products: [] });
-  const [confirm, setConfirm] = useState('');
-  const [showBasket, setShowBasket] = useState(false);
+const [selectedUser, setSelectedUser] = useState({ products: [] });
+const [confirm, setConfirm] = useState('');
+const [showBasket, setShowBasket] = useState(false);
 
-  const { user: loggedInUser } = useSelector((state) => state.auth);
+const { user: loggedInUser } = useSelector((state) => state.auth);
+const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
-  // fetch("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=mongolian%20grill&inputtype=textquery&fields=photos,formatted_address,name,opening_hours,rating&locationbias=circle:2000@47.6918452,-122.2226413&key=AIzaSyBneTry7a6XDjUjSBLISxx7Fr6s0AePqVM")
-  // .then(res => res.json())
-  // .then(
-  //   (result) => {
-  //     console.log(result)
-  //   },
-  //   // Note: it's important to handle errors here
-  //   // instead of a catch() block so that we don't swallow
-  //   // exceptions from actual bugs in components.
-  //   (error) => {
-      
-  //   })
+// Reverse Geolacation
+  // Geocoder.init(API_KEY);
+  // Geocoder.from(8.64516,3.3999 ).then(json => {
+  //   var addressComponent = json.results[0].address_components[0];
+  //   console.log(addressComponent);
+  // }).catch(error => console.warn(error));
 
-
-  
+  fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + 8.64516 + ',' + 3.3999 + '&key=' + API_KEY).then((response) => response.json()).then((responseJson) => {
+    console.log(JSON.stringify(responseJson.results[0].formatted_address));
+  })
 
   return (
     
@@ -127,7 +123,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             rel="noopener noreferrer"
                           >
                             <WhatsAppIcon
-                              style={{ color: "grey", fontSize: 20 }}
+                              style={{ color: "green", fontSize: 20 }}
                             />
                           </a>
                         </span>
@@ -139,7 +135,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             rel="noopener noreferrer"
                           >
                             <PhoneIcon
-                              style={{ color: "grey", fontSize: 20 }}
+                              style={{ color: "black", fontSize: 20 }}
                             />
                           </a>
                         </span>
@@ -147,7 +143,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                           <span>
                             <ShoppingCartIcon
                               style={{
-                                color: "grey",
+                                color: "red",
                                 fontSize: 20,
                                 cursor: "pointer",
                               }}

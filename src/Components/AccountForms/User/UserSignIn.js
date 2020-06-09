@@ -14,6 +14,7 @@ import {
   authenticateBulkBreaker,
   authenticatePoc,
 } from "../../../redux/auth/auth.actions";
+import LockIcon from '@material-ui/icons/Lock';
 
 const UserSignIn = ({ type }) => {
   const [loginDetails, setLoginDetails] = useState({ ID: "", password: "" });
@@ -147,15 +148,6 @@ const UserSignIn = ({ type }) => {
               required
             />
           </Form.Group>
-          <Button className={showUserId}
-            onClick={toggler}
-            style={{
-              backgroundColor: "#b11917",
-              border: "none",
-              width: "100%",
-              margin: "40px 0 10px 0",
-            }}
-          >Next</Button>
 
 
         {/* resetPassword */}
@@ -176,7 +168,17 @@ const UserSignIn = ({ type }) => {
               required
             />
           </Form.Group>
-          <div style={{color: 'grey', marginTop: '30px'}}><PersonIcon style={{fontSize: '18px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>
+
+          <div style={{color: 'grey', marginTop: '30px', fontSize: '14px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>
+          <Button className={showUserId}
+            onClick={toggler}
+            style={{
+              backgroundColor: "#b11917",
+              border: "none",
+              width: "100%",
+              margin: "10px 0 10px 0",
+            }}
+          >Next</Button>
           
           <Button className={showUserPas}
             type="submit"
@@ -189,6 +191,8 @@ const UserSignIn = ({ type }) => {
           >
             Log in
           </Button>
+
+          <div style={{color: 'grey', marginTop: '10px', fontSize: '14px'}}><LockIcon style={{fontSize: '16px'}} />Forgot Password? <Link to="/" style={{color: '#B11917'}}> click here. </Link></div>
           {/* <p>
             New user?{" "}
             <Link to="/distributor/signup">
