@@ -14,7 +14,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
-class OrderDetails extends Component {alert()
+class OrderDetails extends Component {
   render() {
     return (
       <React.Fragment>

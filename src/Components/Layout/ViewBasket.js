@@ -134,7 +134,6 @@ export const ViewBasket = ({ show, setViewBasket }) => {
         setSuccess('d-block');
         setToggleChekoutOption('d-none');
         setTogglePaymentOption('d-none');
-        handleClose();
       })
       .catch((err) => console.log(err));
   };
