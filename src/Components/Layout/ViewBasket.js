@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const ViewBasket = ({ show, setViewBasket }) => {
-  let newDate = new Date();
+  let newDate = new Date()
 
   const classes = useStyles();
   const [state, setState] = useState({
@@ -123,39 +123,30 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                     {product.brand} ({product.sku}) {product.volume}
                   </Typography>
                   <div className="mt-3">
-                    <Typography variant="subtitle1" color="textSecondary">
-                      <span className="font-weight-bold">Unit Price:</span>{" "}
-                      &#8358;{product.price}
-                    </Typography>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    <span className="font-weight-bold">Unit Price:</span> &#8358;{product.price}
+                  </Typography>
                   </div>
                   <Typography variant="subtitle1" color="textSecondary">
-                    <span className="font-weight-bold">Quantity:</span>
-                    <IconButton
-                      aria-label="remove"
-                      onClick={() => handleDecrement(product)}
-                    >
-                      <RemoveIcon className={classes.icon} />
-                    </IconButton>
-                    <span>{product.quantity}</span>
-                    <IconButton
-                      aria-label="add"
-                      onClick={() => handleIncrement(product)}
-                    >
-                      <AddIcon className={classes.icon} />
-                    </IconButton>
+                    <span className="font-weight-bold">Quantity:</span> 
+                    <IconButton aria-label="remove" onClick={() => handleDecrement(product)} >
+                    <RemoveIcon className={classes.icon} />
+                  </IconButton>
+                  <span>{product.quantity}</span>
+                  <IconButton aria-label="add" onClick={() => handleIncrement(product)} >
+                    <AddIcon className={classes.icon} />
+                  </IconButton>
                   </Typography>
 
                   <Typography variant="subtitle1" color="textSecondary">
-                    <span className="font-weight-bold">Cost:</span> &#8358;
-                    {product.price * product.quantity}
+                    <span className="font-weight-bold">Cost:</span> &#8358;{product.price * product.quantity}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
-                    <span className="font-weight-bold">Placed On:</span>{" "}
-                    {newDate.getDate()}-{newDate.getMonth() + 1}-
-                    {newDate.getFullYear()};
+                    <span className="font-weight-bold">Placed On:</span> {newDate.getDate()}-{newDate.getMonth()+1}-{newDate.getFullYear()};
                   </Typography>
                 </CardContent>
-
+            
+                
                 <Button
                   style={{
                     backgroundColor: "#f7f7f7",

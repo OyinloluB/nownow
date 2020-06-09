@@ -10,7 +10,7 @@ import ShoppingBasket from "../Layout/ShoppingBasket";
 
 const ListHandler = ({ show, closeModal, users }) => {
   const [selectedUser, setSelectedUser] = useState({ products: [] });
-  const [confirm, setConfirm] = useState("");
+  const [confirm, setConfirm] = useState('');
   const [showBasket, setShowBasket] = useState(false);
 
   const { user: loggedInUser } = useSelector((state) => state.auth);
@@ -25,16 +25,20 @@ const ListHandler = ({ show, closeModal, users }) => {
   //   // instead of a catch() block so that we don't swallow
   //   // exceptions from actual bugs in components.
   //   (error) => {
-
+      
   //   })
 
+
+  
+
   return (
+    
     <>
       <ShoppingBasket
         user={selectedUser}
         show={showBasket}
         setShowBasket={setShowBasket}
-        alertShow="d-block"
+        alertShow='d-block'
       />
       <Modal
         show={show}
@@ -68,14 +72,18 @@ const ListHandler = ({ show, closeModal, users }) => {
             {users
               .filter((user) => user.products.length > 0)
               .map((user) => {
+                
+                
+                  
                 return (
                   <div
-                    key={user.id}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
+                  key={user.id}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
                   >
+                    
                     <li
                       key={user.id}
                       style={{
@@ -85,29 +93,19 @@ const ListHandler = ({ show, closeModal, users }) => {
                         padding: "1rem",
                         borderBottom: "1px solid #f7f7f7",
                       }}
-                    >
+                      > 
+                    
+                    
                       {user.confirmed === true ? (
-                        <span
-                          style={{
-                            backgroundColor: "green",
-                            maxHeight: "6px",
-                            minWidth: "7px",
-                            borderRadius: "15px",
-                            marginTop: "8px",
-                          }}
-                        ></span>
-                      ) : (
-                        <span
-                          style={{
-                            backgroundColor: "#b11917",
-                            maxHeight: "6px",
-                            minWidth: "7px",
-                            borderRadius: "15px",
-                            marginTop: "8px",
-                          }}
-                        ></span>
-                      )}
-
+                        <span style={{backgroundColor: 'green', maxHeight: '6px', minWidth: '7px', borderRadius: '15px', marginTop: '8px'}}>
+                          
+                        </span>
+                      ) : 
+                      <span style={{backgroundColor: '#b11917', maxHeight: '6px', minWidth:'7px', borderRadius: '15px', marginTop: '8px'}}>
+                      
+                    </span>
+                        }
+                
                       {user.name}
                       <div
                         style={{

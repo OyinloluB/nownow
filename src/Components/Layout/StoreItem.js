@@ -82,7 +82,6 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity, setProducts, userId]);
-
   return (
     <Card className={classes.root}>
       <img
