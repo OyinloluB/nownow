@@ -23,8 +23,13 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         items: state.items.filter(
-          (item) =>
-            item._id !== action.payload._id && item.userID !== action.payload.userID
+          (item) => {
+            return !(
+              item._id === action.payload._id &&
+              item.userID === action.payload.userID
+            )
+          }
+            
         ),
       };
     case CartActionTypes.MAKE_ORDER_START:

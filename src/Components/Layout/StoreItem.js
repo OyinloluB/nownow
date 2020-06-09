@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StoreItem = ({ userId, product, setProducts, selectedProducts, userName }) => {
+  console.log("Rendering Store Item");
   const classes = useStyles();
   const [quantity, setQuantity] = useState(null);
 
@@ -149,4 +150,4 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts, userName })
   );
 };
 
-export default StoreItem;
+export default React.memo(StoreItem);

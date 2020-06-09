@@ -3,21 +3,23 @@ import { useDispatch } from "react-redux";
 import { Modal, Button, Alert } from "react-bootstrap";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import StoreItem from "./StoreItem";
-import ClearIcon from '@material-ui/icons/Clear';
+import ClearIcon from "@material-ui/icons/Clear";
 import { addToCart } from "../../redux/cart/cart.actions";
-import InfoIcon from '@material-ui/icons/Info';
+import InfoIcon from "@material-ui/icons/Info";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
-const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
-  const [showAlert, setShowAlert] = useState({alertShow});
+
+const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
+  console.log("Rednering Shopping Basket");
+  const [showAlert, setShowAlert] = useState({ alertShow });
   const [selectedProducts, setSelectedProducts] = useState([]);
   const dispacth = useDispatch();
 
   // console.log(user)
   const handleClose = () => {
     setShowBasket(false);
-    setShowAlert('d-block')
-  }
+    setShowAlert("d-block");
+  };
 
   const handleAddToCart = () => {
     selectedProducts.forEach((product) => {
@@ -26,12 +28,10 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
     setSelectedProducts([]);
     handleClose();
   };
-  
+
   const memoSetProducts = useCallback((products) => {
     setSelectedProducts(products);
   }, []);
-  
-  
 
   return (
       <Modal show={show} onHide={handleClose}>
@@ -68,11 +68,9 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow}) => {
         >
           Add <AddShoppingCartIcon />
         </Button>
-       
       </Modal.Footer>
-      
     </Modal>
   );
 };
 
-export default ShoppingBasket;
+export default React.memo(ShoppingBasket);
