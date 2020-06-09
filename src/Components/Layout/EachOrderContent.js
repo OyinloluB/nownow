@@ -34,9 +34,7 @@ const EachOrderContent = ({ order, setOrder }) => {
     for (let i = 0; i < resultKeys.length; i++) {
       const time = resultKeys[i];
       if (result[time] > 0) {
-        timeString = `${result[time]} ${time}${
-          result[time] > 1 ? "s" : ""
-        } ago`;
+        timeString = `${result[time]} ${time}${result[time] > 1 ? "s" : ""} ago`;
         break;
       }
     }
@@ -62,7 +60,7 @@ const EachOrderContent = ({ order, setOrder }) => {
               Math.sin(difflon / 2)
         )
       );
-    return d;
+    return Math.floor(d);
   }, []);
 
   const { timeString } = generateTimeDifference(order.createdAt);
@@ -125,18 +123,13 @@ const EachOrderContent = ({ order, setOrder }) => {
         </p>
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           {order.status === "processing" && timeDiff > 0 ? (
-            <><b>Time left: </b> <DateCountdown
-              dateTo={deliveryDate}
-              locales={["year", "month", "day", "hr", "min", "sec"]}
-              locales_plural={[
-                "years",
-                "months",
-                "days",
-                "hrs",
-                "mins",
-                "secs",
-              ]}
-            />
+            <>
+              <b>Time left: </b>{" "}
+              <DateCountdown
+                dateTo={deliveryDate.toISOString()}
+                locales={["year", "month", "day", "hr", "min", "sec"]}
+                locales_plural={["years", "months", "days", "hrs", "mins", "secs"]}
+              />
             </>
           ) : null}
         </p>
