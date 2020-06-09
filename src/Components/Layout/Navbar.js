@@ -50,7 +50,7 @@ export default function Navbar(type) {
       cartItemsCount: state.cart.items.reduce((accumulator, item) => {
         return accumulator + item.quantity;
       }, 0),
-      receivedOrdersCount: state.order.receivedOrders.length,
+      receivedOrdersCount: state.order.receivedOrders.filter(order => order.status === 'new').length,
     };
   });
   const handleModalPrompt = () => {
