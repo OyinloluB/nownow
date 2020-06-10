@@ -124,7 +124,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                         ></span>
                       )}
 
-                      <span class={"offset-1 mr-auto"}> {user.name}</span>
+                      <span class={"offset-1 mr-auto font-weight-bold"} style={{color: 'grey'}}> {user.name}</span>
                       <div
                         style={{
                           // display: "flex",
@@ -134,7 +134,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                       >
                         <span>
                           <a
-                            href={`https://wa.me/${user.phone}`}
+                            href={`https://wa.me/${user.whatsapp}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -170,8 +170,8 @@ const ListHandler = ({ show, closeModal, users }) => {
                         ) : null}
                       </div>
                       </div>
-                      <div className={'col-10 text-justify d-block'}>
-                        <span style={{fontSize: '12px', color: '#B11917'}} className={'col-12 ml-2 ml-md-3 d-block'}>{user.address}</span>
+                      <div className={'col-8 text-justify d-block'}>
+                        <span style={{fontSize: '12px', color: '#B11917', fontWeight: 'bold'}} className={'col-12 ml-2 ml-md-3 d-block'}>{user.address}</span>
                       </div>
                     </li>
                   </div>

@@ -173,14 +173,15 @@ const UserSignIn = () => {
             />
           </Form.Group>
 
-          <div style={{color: 'grey', marginTop: '25px', fontSize: '14px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>
+          <div style={{color: 'grey', marginTop: '10px', fontSize: '14px'}} className={showUserPas}><LockIcon style={{fontSize: '16px'}} />Forgot Password? <Link to="/" style={{color: '#B11917'}}> click here. </Link></div>
+          
           <Button className={showUserId}
             onClick={toggler}
             style={{
               backgroundColor: "#b11917",
               border: "none",
               width: "100%",
-              margin: "10px 0 10px 0",
+              margin: "20px 0 10px 0",
             }}
           >Next</Button>
           
@@ -196,7 +197,8 @@ const UserSignIn = () => {
             Log in
           </Button>
 
-          <div style={{color: 'grey', marginTop: '10px', fontSize: '14px'}} className={showUserPas}><LockIcon style={{fontSize: '16px'}} />Forgot Password? <Link to="/" style={{color: '#B11917'}}> click here. </Link></div>
+          <div style={{color: 'grey', marginTop: '25px', fontSize: '14px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
+         
           {/* <p>
             New user?{" "}
             <Link to="/distributor/signup">

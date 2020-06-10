@@ -1,6 +1,7 @@
 import UserActionTypes from "./user.types";
 import axios from "../../axios-client";
 import { trimUser } from "./user.helpers";
+import marker from "../../assets/marker.png";
 
 export const fetchPocsStart = () => ({
   type: UserActionTypes.FETCH_POCS_START,
@@ -10,7 +11,7 @@ export const fetchPocsSuccess = (users) => {
   const trimmedUsers = users.map((user) => ({
     ...trimUser(user),
     type: "poc",
-    color: "red-dot",
+    mapUrl: "https://cdn0.iconfinder.com/data/icons/contact-us-21/512/Location-512.png",
   }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
@@ -27,7 +28,7 @@ export const fetchPocs = () => {
   return async (dispatch) => {
     dispatch(fetchPocsStart());
     try {
-      const response = await axios.get("/Bulkbreaker");
+      const response = '';
       // const response = await axios.get("/Poc");
       const { data } = response;
       
@@ -46,7 +47,7 @@ export const fetchDistributorsSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "distributor",
-    color: "green-dot",
+    mapUrl: "https://cdn2.iconfinder.com/data/icons/seo-flat-6/128/15_Place_Optimization-512.png",
   }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
@@ -81,7 +82,9 @@ export const fetchBulkBreakersSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "bulkbreaker",
-    color: "blue-dot",
+    mapUrl:"https://cdn4.iconfinder.com/data/icons/iconsimple-places/512/pin_2-512.png",
+    // https://cdn4.iconfinder.com/data/icons/location-flat/64/Location-map-pin-marker-flag-512.png
+    // https://cdn2.iconfinder.com/data/icons/vivid/48/map-marker-512.png
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,

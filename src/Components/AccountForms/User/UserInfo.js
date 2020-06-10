@@ -44,8 +44,8 @@ const UserInfo = () => {
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
               whatsapp: contactModeDetails.whatsapp,
-              viaWhatsapp: contactModeDetails.viaWhatsapp,
-              viaPhoneCall: contactModeDetails.viaPhoneCall,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (user.type === "distributor") {
@@ -56,8 +56,8 @@ const UserInfo = () => {
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
               whatsapp: contactModeDetails.whatsapp,
-              viaWhatsapp: contactModeDetails.viaWhatsapp,
-              viaPhoneCall: contactModeDetails.viaPhoneCall,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (user.type === "bulkbreaker") {
@@ -68,8 +68,8 @@ const UserInfo = () => {
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
               whatsapp: contactModeDetails.whatsapp,
-              viaWhatsapp: contactModeDetails.viaWhatsapp,
-              viaPhoneCall: contactModeDetails.viaPhoneCall,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else {

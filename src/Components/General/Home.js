@@ -46,7 +46,7 @@ const Home = () => {
         if(user.type==='distributor'){
           axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
         }
-        else if(user.type==='bulkbreaker'){console.log(user.id)
+        else if(user.type==='bulkbreaker'){
           axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
         }
         else if(user.type==='poc'){
@@ -66,14 +66,18 @@ const Home = () => {
       }
     }
 
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.watchPosition(function (position) {
-    //     setCoordinates({
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude
-    //     });
-    //   });
-    // }
+    else {
+       if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        setCoordinates({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      });
+    }
+    }
+
+   
   }, []);
 
   return (

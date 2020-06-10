@@ -68,7 +68,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
             <Modal.Title style={{ color: "white", fontSize: "18px" }}>
             <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <ContactPhoneIcon style={{ color: "white", fontSize: 30 }} />
-              &nbsp; How can customers contact you?
+              &nbsp; What is your preferred mode of contact?
             </Modal.Title>
           </Modal.Header>
 
