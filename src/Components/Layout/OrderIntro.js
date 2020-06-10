@@ -14,9 +14,15 @@ const OrderIntro = ({ item, status }) => {
             }}
           >
             <Col xs={3} md={3} lg={3}>
-              <Card.Text>
-                <img src={item.details.image} width="30px" alt="Item" />
-              </Card.Text>
+              <img
+                src={item.details.image}
+                style={{
+                  width: "20%",
+                  height: "70px",
+                  objectFit: "contain",
+                }}
+                alt="Item"
+              />
             </Col>
             <Col xs={8} md={6} lg={6}>
               <Card.Text>
