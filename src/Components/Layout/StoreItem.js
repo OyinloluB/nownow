@@ -134,7 +134,7 @@ const StoreItem = ({
                 <RemoveIcon className={classes.icon} />
               </IconButton>
               <span style={{ padding: "7px", fontSize: "14px" }} className={''}>
-                  <input type="number" value={Number(quantity)} className={'col-4 col-md-5 p-0 mt-2'} name="qty" onChange={handleChange} style={{maxHeight: '20px'}}/>
+                  <input type="number" value={Number(quantity)==0? (''):Number(quantity) } className={'col-4 col-md-5 p-0 mt-2'} name="qty" onChange={handleChange} style={{maxHeight: '20px'}}/>
               </span>
               <IconButton
                 aria-label="add"

@@ -1,7 +1,6 @@
 import UserActionTypes from "./user.types";
 import axios from "../../axios-client";
 import { trimUser } from "./user.helpers";
-import marker from "../../assets/marker.png";
 
 export const fetchPocsStart = () => ({
   type: UserActionTypes.FETCH_POCS_START,
@@ -28,8 +27,7 @@ export const fetchPocs = () => {
   return async (dispatch) => {
     dispatch(fetchPocsStart());
     try {
-      const response = '';
-      // const response = await axios.get("/Poc");
+      const response = await axios.get("/Poc");
       const { data } = response;
       
       dispatch(fetchPocsSuccess(data));
