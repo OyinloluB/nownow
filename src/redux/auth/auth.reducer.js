@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   eligible: true,
   isAuthenticated: false,
   user: {},
+  coordinates: { lat: 0, lng: 0},
   loading: false,
   error: null,
 };
@@ -39,6 +40,11 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         eligible: action.payload,
+      };
+    case AuthActionTypes.SET_COORDINATES:
+      return {
+        ...state,
+        coordinates: {...action.payload}
       };
     default:
       return state;

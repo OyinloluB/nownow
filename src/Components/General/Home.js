@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
+
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
-import { Modal, Button } from "react-bootstrap";
-import axios from "../../axios-client";
 
+import axios from "../../axios-client";
+import {setCoordinates} from '../../redux/auth/auth.actions';
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -22,21 +23,16 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Home = () => {
-  const classes = useStyles();
-  const history = useHistory();
   const [showCustomerModal, setShowCustomerModal] = useState(false);
   
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
   const { pocs, distributors, bulkbreakers } = useSelector(
     (state) => state.user
     );
-// console.log(pocs)
-  const [coordinates, setCoordinates] = useState({
-    lat: user.latitude,
-    lng: user.longitude,
-  });
 
-  const [show, setShow] = useState(true);
+  const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
@@ -66,15 +62,15 @@ const Home = () => {
       }
     }
 
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.watchPosition(function (position) {
-    //     setCoordinates({
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude
-    //     });
-    //   });
-    // }
-  }, []);
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function (position) {
+        dispatch(setCoordinates({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }));
+      });
+    }
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <div>

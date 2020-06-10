@@ -116,3 +116,8 @@ export const setEligibility = (status) => ({
   type: AuthActionTypes.SET_ELIGIBILITY,
   payload: status
 });
+
+export const setCoordinates = (coordinates) => ({
+  type: AuthActionTypes.SET_COORDINATES,
+  payload: coordinates
+});

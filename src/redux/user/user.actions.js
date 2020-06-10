@@ -27,10 +27,8 @@ export const fetchPocs = () => {
   return async (dispatch) => {
     dispatch(fetchPocsStart());
     try {
-      const response = await axios.get("/Bulkbreaker");
-      // const response = await axios.get("/Poc");
+      const response = await axios.get("/Poc");
       const { data } = response;
-      
       dispatch(fetchPocsSuccess(data));
     } catch (error) {
       dispatch(fetchPocsFailure(error));
