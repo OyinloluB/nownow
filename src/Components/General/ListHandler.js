@@ -27,7 +27,7 @@ const ListHandler = ({ show, closeModal, users }) => {
       <Modal
         show={show}
         onHide={closeModal}
-        style={{ bottom: "0px", position: "fixed" }}
+        style={{ bottom: "0px", position: "fixed",  }}
       >
         <Modal.Header
           style={{
@@ -57,7 +57,7 @@ const ListHandler = ({ show, closeModal, users }) => {
           </div>
         </Modal.Header>
 
-        <Modal.Body>
+        <Modal.Body style={{maxHeight: '80vh', overflowY: 'scroll'}}>
           <ul
             style={{
               paddingLeft: "0rem",

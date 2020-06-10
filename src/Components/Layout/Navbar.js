@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,10 +12,10 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import Logo from "../../assets/logo.png";
-import { Signupas } from "../Modals/Signupas";
+
 import { ViewBasket } from "./ViewBasket";
 import axios from "../../axios-client";
+import Logo from "../../assets/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,48 +41,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar(type) {
+export default function Navbar() {
   const history = useHistory();
-  const [showPrompt, setShowPrompt] = useState(false);
   const [viewBasket, setViewBasket] = useState(false);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const cartItemsCount = useSelector((state) => {
-    return state.cart.items.reduce((accumulator, item) => {
-      return accumulator + item.quantity;
-    }, 0);
-  });
-  const handleModalPrompt = () => {
-    setShowPrompt(true);
-  };
-
-  // handling routing into order page
-  const handleOrderRout = () => {
-    history.push("/orders");
-  };
+  const { isAuthenticated, user, cartItemsCount, receivedOrdersCount } = useSelector(
+    (state) => {
+      return {
+        isAuthenticated: state.auth.isAuthenticated,
+        user: state.auth.user,
+        cartItemsCount: state.cart.items.reduce((accumulator, item) => {
+          return accumulator + item.quantity;
+        }, 0),
+        receivedOrdersCount: state.order.receivedOrders.filter(
+          (order) => order.status === "new"
+        ).length,
+      };
+    }
+  );
 
   const logOut = () => {
-    if(window.confirm("Do you want Customers to still see your store open after login out?")){
-
-      if(type==='distributor'){
-        axios.patch(`/Distributor/${user._id}`, { confirmed: true }).then(list=>{})
+    if (
+      window.confirm(
+        "Do you want Customers to still see your store open after login out?"
+      )
+    ) {
+      if (user.type === "distributor") {
+        axios
+          .patch(`/Distributor/${user._id}`, { confirmed: true })
+          .then((list) => {});
+      } else if (user.type === "bulkbreaker") {
+        axios
+          .patch(`/BulkBreaker/${user._id}`, { confirmed: true })
+          .then((list) => {});
+      } else if (user.type === "poc") {
+        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then((list) => {});
       }
-      else if(type==='bulkbreaker'){
-        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: true }).then(list=>{})
-      }
-      else if(type==='poc'){
-        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then(list=>{})
-      }
-    }
-
-    else {
-      if(type==='distributor'){
-        axios.patch(`/Distributor/${user._id}`, { confirmed: false }).then(list=>{})
-      }
-      else if(type==='bulkbreaker'){
-        axios.patch(`/BulkBreaker/${user._id}`, { confirmed: false }).then(list=>{})
-      }
-      else if(type==='poc'){
-        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then(list=>{})
+    } else {
+      if (user.type === "distributor") {
+        axios
+          .patch(`/Distributor/${user._id}`, { confirmed: false })
+          .then((list) => {});
+      } else if (user.type === "bulkbreaker") {
+        axios
+          .patch(`/BulkBreaker/${user._id}`, { confirmed: false })
+          .then((list) => {});
+      } else if (user.type === "poc") {
+        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then((list) => {});
       }
     }
 
@@ -131,8 +136,8 @@ export default function Navbar(type) {
                   </IconButton>
                 ) : null}
                 <IconButton aria-label="delivery" color="inherit">
-                  <Badge badgeContent={0} color="secondary">
-                    <LocalShippingIcon onClick={handleOrderRout} />
+                  <Badge badgeContent={receivedOrdersCount} color="secondary">
+                    <LocalShippingIcon onClick={() => history.push('/orders')} />
                   </Badge>
                 </IconButton>
                 <Button color="inherit" onClick={logOut}>
@@ -158,7 +163,7 @@ export default function Navbar(type) {
               <Typography variant="h6" className={classes.title}>
                 <img src={Logo} alt="ibplc-logo" width="30" />
               </Typography>
-              <Button color="inherit" onClick={handleModalPrompt}>
+              <Button color="inherit" onClick={() => history.push("/signin")}>
                 <IconButton
                   edge="start"
                   className={classes.menuButton}
@@ -171,9 +176,6 @@ export default function Navbar(type) {
               </Button>
             </Toolbar>
           </AppBar>
-          {showPrompt ? (
-            <Signupas show={showPrompt} setShowPrompt={setShowPrompt} />
-          ) : null}
         </div>
       )}
     </>
