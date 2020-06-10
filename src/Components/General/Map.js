@@ -25,7 +25,7 @@ const Map = ({ center, users }) => {
                 lng: user.longitude,
               }) <= 2
           )
-          .slice(0, 30)
+          .slice(0, 300)
           .map((user) => (
             <MarkerInfoWindow key={user.userID} user={user} />
           ))}

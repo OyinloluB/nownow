@@ -46,7 +46,6 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
         setPwd({ ...pwd, [e.target.name]: e.target.value });
       };
 
-    console.log({userID});
     return(
         <div>
         <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} >Set your Password</div>
@@ -61,7 +60,7 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
-            <Form.Label className={'mt-4 font-weight-bold'}>Confirm Password</Form.Label>
+            <Form.Label className={'mt-3 font-weight-bold'}>Confirm Password</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="password"

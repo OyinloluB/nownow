@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import { Form, Button } from "react-bootstrap";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     padding: "0px",
     margin: "0px",
-    // marginBottom: "20px",
   },
   details: {
     display: "flex",
@@ -54,6 +54,10 @@ const StoreItem = ({
   const increaseQuantity = () => {
     setQuantity(Number(quantity) + 1);
   };
+
+  const handleChange = (e) => {
+    setQuantity(Number(e.target.value))
+  }
 
   useEffect(() => {
     if (quantity === null) {
@@ -110,8 +114,14 @@ const StoreItem = ({
             Price per Case{" "}
             <span className={"ml-auto"}>&#8358; {product.price}</span>
           </div>
-          <div className={"d-flex"} style={{ fontSize: "12px" }}>
-            <span style={{ color: "grey", fontSize: "8px" }}>
+          <div
+            style={{ color: "grey", fontWeight: "bold" }}
+            className={"d-flex mt-1"}
+          >
+            Quantity{" "}
+            
+            
+            <span style={{ color: "grey", fontSize: "8px" }} className={'offset-1 offset-md-5'}>
               <IconButton
                 aria-label="remove"
                 onClick={reduceQuantity}
@@ -123,8 +133,8 @@ const StoreItem = ({
               >
                 <RemoveIcon className={classes.icon} />
               </IconButton>
-              <span style={{ padding: "7px", fontSize: "14px" }}>
-                {Number(quantity)}
+              <span style={{ padding: "7px", fontSize: "14px" }} className={''}>
+                  <input type="number" value={Number(quantity)==0? (''):Number(quantity) } className={'col-4 col-md-5 p-0 mt-2'} name="qty" onChange={handleChange} style={{maxHeight: '20px'}}/>
               </span>
               <IconButton
                 aria-label="add"
