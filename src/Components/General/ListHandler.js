@@ -76,7 +76,17 @@ const ListHandler = ({ show, closeModal, users }) => {
             </span>
           </div>
         </Modal.Header>
-
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            color:"white"
+          }}
+        >
+          <div style={{width:"50%", textAlign:"center", padding:"10px", cursor:"pointer"}} className={"bg-info"}>Bulkbreakers</div>
+          <div style={{width:"50%", textAlign:"center", padding:"10px", cursor:"pointer"}} className={"bg-warning"}>Pocs</div>
+        </div>
         <Modal.Body>
           <ul
             style={{
@@ -140,7 +150,9 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <WhatsAppIcon style={{ color: "green", fontSize: 20 }} />
+                            <WhatsAppIcon
+                              style={{ color: "green", fontSize: 20 }}
+                            />
                           </a>
                         </span>
                         <span>
@@ -150,7 +162,9 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <PhoneIcon style={{ color: "black", fontSize: 20 }} />
+                            <PhoneIcon
+                              style={{ color: "black", fontSize: 20 }}
+                            />
                           </a>
                         </span>
                         {loggedInUser.type !== "distributor" ? (
