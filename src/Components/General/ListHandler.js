@@ -118,7 +118,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                     lng: user.longitude,
                   }) <= 2
               )
-              .map((user, i) => {
+              .map((user, i) => {console.log(user.latitude)
                 if(user.latitude === 0) {
                   user.address = 'Not Available, contact through mobile number'
                 }
