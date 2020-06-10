@@ -39,7 +39,7 @@ const Home = () => {
   const [show, setShow] = useState(true);
 
   useEffect(() => {
-
+ 
     if(isAuthenticated) {
       if(window.confirm("Do you want Customers to see your store open?")){
 
