@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Row, Col } from "react-bootstrap";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 // import CardMedia from "@material-ui/core/CardMedia";
@@ -9,13 +10,13 @@ import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    justifyContent: "space-between",
+    // display: "flex",
+    justifyContent: "center",
     marginBottom: "10px",
   },
   details: {
     display: "flex",
-    flexDirection: "column",
+    justifyContent: "center",
   },
   content: {
     flex: "1 0 auto",
@@ -40,42 +41,51 @@ const ProductCard = ({ product, handleInputChange }) => {
         handleInputChange={handleInputChange}
       />
 
-      <Card className={classes.root} onClick={() => setShowContent(true)}>
-        <div className={classes.details}>
-          <CardContent
-            className={classes.content}
-            style={{
-              width: "100px",
-              height: "100px",
-              backgroundImage: "linear-gradient(to right())",
-            }}
-          >
-            {product.image ? (
+      <div className={classes.root} onClick={() => setShowContent(true)}>
+        <Row className={classes.details}>
+          {product.image ? (
+            <>
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.sku}`}
                 style={{
                   width: "100%",
+                  height: "100px",
+                  objectFit: "contain",
                 }}
               />
-            ) : (
               <p
                 style={{
                   fontSize: "12px",
-                  color: "#b11917",
                   textAlign: "center",
                 }}
               >
-                {product.brand}, {product.sku} ({product.volume})
+                {" "}
+                {`${product.brand} `}
+                <span
+                  style={{
+                    color: "#b11917",
+                  }}
+                >
+                  {`${product.volume} (${product.sku})`}
+                </span>
               </p>
-            )}
-          </CardContent>
-        </div>
-      </Card>
+            </>
+          ) : (
+            <p
+              style={{
+                fontSize: "12px",
+                color: "#b11917",
+                textAlign: "center",
+              }}
+            >
+              {product.brand}, {product.sku} ({product.volume})
+            </p>
+          )}
+        </Row>
+      </div>
     </>
   );
 };
 
 export default ProductCard;
-
-

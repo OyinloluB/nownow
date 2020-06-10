@@ -78,7 +78,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         <Row>
           {products.map((product) => {
             return (
-              <Col xs={4} lg={3} md={3}>
+              <Col xs={4} lg={4} md={4}>
                 <ProductCard
                   product={product}
                   handleInputChange={handleInputChange}
