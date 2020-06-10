@@ -29,7 +29,6 @@ export const fetchPocs = () => {
     try {
       const response = await axios.get("/Poc");
       const { data } = response;
-      
       dispatch(fetchPocsSuccess(data));
     } catch (error) {
       dispatch(fetchPocsFailure(error));

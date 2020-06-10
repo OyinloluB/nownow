@@ -5,16 +5,36 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Geocoder from "react-native-geocoding";
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
+import { calcDistanceInKm } from "../../utility";
+
 const ListHandler = ({ show, closeModal, users }) => {
+  const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
+
+  const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
+    (userType) => !(loggedInUser.type === userType)
+  );
+
+  const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
 
-  const { user: loggedInUser } = useSelector((state) => state.auth);
   const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
+
+  // fetch(
+  //   "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+  //     8.64516 +
+  //     "," +
+  //     3.3999 +
+  //     "&key=" +
+  //     API_KEY
+  // )
+  //   .then((response) => response.json())
+  //   .then((responseJson) => {
+  //     console.log(JSON.stringify(responseJson.results[0].formatted_address));
+  //   });
 
   return (
     <>
@@ -56,34 +76,68 @@ const ListHandler = ({ show, closeModal, users }) => {
             </span>
           </div>
         </Modal.Header>
-
-        <Modal.Body style={{maxHeight: '80vh', overflowY: 'scroll'}}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            color: "white",
+          }}
+        >
+          {userTypes.map((userType, i) => {
+            return (
+              <div
+                key={userType}
+                style={{
+                  width: "50%",
+                  textAlign: "center",
+                  padding: "10px",
+                  cursor: "pointer",
+                }}
+                onClick={() => setUserType(userType)}
+                className={i === 0 ? "bg-info" : "bg-warning"}
+              >
+                {`${userType[0].toUpperCase() + userType.slice(1)}s`}
+              </div>
+            );
+          })}
+        </div>
+        <Modal.Body>
           <ul
             style={{
               paddingLeft: "0rem",
             }}
           >
             {users
-              .filter((user) => user.products.length > 0)
+              .filter(
+                (user) =>
+                  user.products.length > 0 &&
+                  user.type === userType &&
+                  calcDistanceInKm(coordinates, {
+                    lat: user.latitude,
+                    lng: user.longitude,
+                  }) <= 2
+              )
               .map((user, i) => {
-                    if(user.latitude === 0) {
-                      user.address = 'Not Available, contact through mobile number'
-                    }
+                if(user.latitude === 0) {
+                  user.address = 'Not Available, contact through mobile number'
+                }
 
-                    else { 
-                      fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                        user.latitude +
-                        "," +
-                        user.longitude +
-                        "&key=" +
-                        API_KEY
-                    )
-                      .then((response) => response.json())
-                      .then((responseJson) => {
-                        // forcing the fetched address into the users data
-                          user.address = responseJson.results[0].formatted_address;
-                      });
-                    }
+                else { 
+                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    user.latitude +
+                    "," +
+                    user.longitude +
+                    "&key=" +
+                    API_KEY
+                )
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    // forcing the fetched address into the users data
+                      user.address = responseJson.results[0].formatted_address;
+                  });
+                }
+
 
                 return (
                   <div
@@ -111,7 +165,7 @@ const ListHandler = ({ show, closeModal, users }) => {
                             borderRadius: "15px",
                             marginTop: "8px",
                           }}
-                        ></span>
+                        />
                       ) : (
                         <span
                           style={{
@@ -121,10 +175,16 @@ const ListHandler = ({ show, closeModal, users }) => {
                             borderRadius: "15px",
                             marginTop: "8px",
                           }}
-                        ></span>
+                        />
                       )}
 
-                      <span class={"offset-1 mr-auto font-weight-bold"} style={{color: 'grey'}}> {user.name}</span>
+                  <span class={"offset-1 mr-auto font-weight-bold"} style={{color: 'grey'}}> {user.name}</span>
+                      <span>
+                        {` Distance: ${calcDistanceInKm(coordinates, {
+                          lat: user.latitude,
+                          lng: user.longitude,
+                        })} km`}
+                      </span>
                       <div
                         style={{
                           // display: "flex",
@@ -194,4 +254,4 @@ const ListHandler = ({ show, closeModal, users }) => {
   );
 };
 
-export default ListHandler;
+export default React.memo(ListHandler);
