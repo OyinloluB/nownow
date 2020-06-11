@@ -90,12 +90,14 @@ const Order = () => {
           }}
         >
           <h5
-            className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
+            className={`bg-info col-md-${
+              user.type !== "distributor" ? "6" : "12"
+            }`}
             style={{
               textAlign: "center",
               backgroundColor: "#f7f7f7",
               padding: "10px",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
@@ -107,7 +109,7 @@ const Order = () => {
 
           {user.type !== "distributor" ? (
             <h5
-              className="col-md-6"
+              className="bg-warning col-md-6"
               onClick={() => {
                 setCurrentOrder({ items: [] });
                 switchOrder("sent");
@@ -185,7 +187,9 @@ const Order = () => {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
+                      type: `Newly ${
+                        switchSent === "d-none" ? "Received" : "Sent"
+                      }`,
                       status: "new",
                     })
                   }

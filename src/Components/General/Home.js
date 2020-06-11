@@ -35,7 +35,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+ 
     if(isAuthenticated) {
       if(window.confirm("Do you want Customers to see your store open?")){
 
@@ -62,19 +62,15 @@ const Home = () => {
       }
     }
 
-    else {
-       if (navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        setCoordinates({
+        dispatch(setCoordinates({
           lat: position.coords.latitude,
           lng: position.coords.longitude
-        });
+        }));
       });
     }
-    }
-
-   
-  }, []);
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <div>

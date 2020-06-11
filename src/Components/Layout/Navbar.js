@@ -110,7 +110,8 @@ export default function Navbar() {
                 <img
                   src={Logo}
                   alt="ibplc-logo"
-                  width="30"
+                  style={{ cursor: "pointer" }}
+                  width="100"
                   onClick={() => history.push("/")}
                 />
                 <p
@@ -137,7 +138,9 @@ export default function Navbar() {
                 ) : null}
                 <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={receivedOrdersCount} color="secondary">
-                    <LocalShippingIcon onClick={() => history.push('/orders')} />
+                    <LocalShippingIcon
+                      onClick={() => history.push("/orders")}
+                    />
                   </Badge>
                 </IconButton>
                 <Button color="inherit" onClick={logOut}>
@@ -161,7 +164,12 @@ export default function Navbar() {
           <AppBar position="static" className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
               <Typography variant="h6" className={classes.title}>
-                <img src={Logo} alt="ibplc-logo" width="30" />
+                <img
+                  src={Logo}
+                  alt="ibplc-logo"
+                  style={{ cursor: "pointer" }}
+                  width="100"
+                />
               </Typography>
               <Button color="inherit" onClick={() => history.push("/signin")}>
                 <IconButton
