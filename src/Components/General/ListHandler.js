@@ -10,7 +10,9 @@ import ShoppingBasket from "../Layout/ShoppingBasket";
 import { calcDistanceInKm } from "../../utility";
 
 const ListHandler = ({ show, closeModal, users }) => {
-  const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
+  const { user: loggedInUser, coordinates } = useSelector(
+    (state) => state.auth
+  );
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
     (userType) => !(loggedInUser.type === userType)
@@ -111,7 +113,7 @@ const ListHandler = ({ show, closeModal, users }) => {
             {users
               .filter(
                 (user) =>
-                  user.products.length > 0 &&
+                  // user.products.length > 0 &&
                   user.type === userType &&
                   calcDistanceInKm(coordinates, {
                     lat: user.latitude,
@@ -159,13 +161,17 @@ const ListHandler = ({ show, closeModal, users }) => {
                         />
                       )}
 
-                      <span class={"offset-1 mr-auto"}> {user.name}</span>
-                      <span>
-                        {` Distance: ${calcDistanceInKm(coordinates, {
-                          lat: user.latitude,
-                          lng: user.longitude,
-                        })} km`}
+                      <span class={"offset-1 mr-auto"}>
+                        {" "}
+                        {user.name}<br />
+                        <span style={{ fontSize: "12px", color: "#000" }}>
+                          {`Distance: ${calcDistanceInKm(coordinates, {
+                            lat: user.latitude,
+                            lng: user.longitude,
+                          })} km`}
+                        </span>
                       </span>
+
                       <div
                         style={{
                           display: "flex",
@@ -179,7 +185,9 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <WhatsAppIcon style={{ color: "green", fontSize: 20 }} />
+                            <WhatsAppIcon
+                              style={{ color: "green", fontSize: 20 }}
+                            />
                           </a>
                         </span>
                         <span>
@@ -189,7 +197,9 @@ const ListHandler = ({ show, closeModal, users }) => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <PhoneIcon style={{ color: "black", fontSize: 20 }} />
+                            <PhoneIcon
+                              style={{ color: "black", fontSize: 20 }}
+                            />
                           </a>
                         </span>
                         {loggedInUser.type !== "distributor" ? (

@@ -19,6 +19,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { green } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
+import icon1 from "../../assets/icon1.JPG";
+import icon2 from "../../assets/icon2.JPG";
+
 // import * as Datetime from 'react-datetime';
 
 import {
@@ -62,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
-  icon: { color: "red", fontSize: "13px" },
+  icon: { color: "red", fontSize: "14px", fontWeight: 'bold' },
   header: { fontSize: "18px", fontWeight: "bold" },
 }));
 
@@ -103,6 +106,8 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   const handleClose = () => {
     setSuccess('d-none')
     setViewBasket(false);
+    setToggleChekoutOption('d-block');
+    setTogglePaymentOption('d-none');
   }
 
   const handleChange = (e) => {
@@ -127,6 +132,11 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   };
 
   const handleSubmit = () => {
+
+    // inserting mode of payment
+    items.map((modeOfPayment)=>{
+        return modeOfPayment.paymentMode = value;
+    })
     dispatch(makeOrder())
       .then(() => {
         console.log("Order Made");
@@ -135,7 +145,12 @@ export const ViewBasket = ({ show, setViewBasket }) => {
         setToggleChekoutOption('d-none');
         setTogglePaymentOption('d-none');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setSuccess('d-none');
+        setToggleChekoutOption('d-block');
+        setTogglePaymentOption('d-none');
+        console.log(err)
+      });
   };
 
   return (
@@ -152,7 +167,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
 
         <div className={toggleCheckoutOption}>
               <div className={'d-flex'}>
-                <span className={'mr-auto'} style={{fontWeight: "bold", color: '#B11917'}} >Review Cart</span>
+                <span className={'mr-auto offset-4 offset-md-5'} style={{fontWeight: "bold", color: '#B11917'}} >Review Cart</span>
                 <CloseIcon onClick={handleClose} />
               </div>
           </div>
@@ -173,7 +188,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                 <CardContent className={classes.content}>
                   <ul className={'list-group'}>
                   <li className={'list-group-item m-0 p-1'} style={{color: "grey", fontSize: "12px"}}>
-                      <div className={'d-flex'}>
+                      <div className={'d-flex font-weight-bold'}>
                         <span className={'mr-auto'}>
                           Estimated Delivery Time
                         </span>
@@ -202,9 +217,9 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                       </div>
                       <div className={'d-flex'} style={{fontSize: '12px'}}>
                           <span className={'mr-auto'} onClick={() => handleRemoveFromCart(product)} style={{cursor: 'pointer', color: '#b11917', fontWeight: 'bold'}}><CloseIcon className={classes.icon} style={{fontSize: '11px', color: '#b11917', fontWeight: 'bold'}}/> Remove </span>
-                          <span style={{color: "grey", fontSize: "10px"}}>
+                          <span style={{color: "grey", fontSize: "12px"}}>
                             <IconButton aria-label="remove" onClick={() => handleDecrement(product)} style={{ padding: '0px', borderRadius: '0px', border: '1px solid #b11917'}}>
-                            <RemoveIcon className={classes.icon} />
+                            <RemoveIcon className={classes.icon} style={{fontSize: "13px", fontWeight: 'bold'}}/>
                             </IconButton>
                             <span style={{padding: '7px'}}>{product.quantity}</span>
                             <IconButton aria-label="add" onClick={() => handleIncrement(product)} style={{ padding: '0px', borderRadius: '0px', border: '1px solid #b11917'}}>
@@ -226,7 +241,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             </Card>
             <div className={toggleCheckoutOption}>
               
-              <li className={'list-group-item m-0 p-2'} style={{color: "grey", fontSize: "14px"}}>
+              <li className={'list-group-item m-0 p-2'} style={{color: "black", fontSize: "14px"}}>
                   <div className={'d-flex font-weight-bold'}>
                     <span className={'mr-auto'}>
                         Total
@@ -247,10 +262,17 @@ export const ViewBasket = ({ show, setViewBasket }) => {
                   <FormControl component="fieldset">
                   <FormLabel component="legend" className={'mt-1'}>Please Select Mode of Payment</FormLabel>
                     <RadioGroup aria-label="paymentMethod" name="paymentMethod" value={value} onChange={handleChange}>
-                      <FormControlLabel value="cash" control={<GreenRadio />} label="Cash on Delivery" />
-                      <FormControlLabel value="transfer" control={<GreenRadio />} label="Transfer on Delivery" />
-                      <FormControlLabel value="pos" control={<GreenRadio />} label="Debit Card on Delivery" />
-                      
+                      <div className={'row'}>
+                        <FormControlLabel className={'col-7'} value="cash" control={<GreenRadio />} label="Cash on Delivery" /> <img src={icon2} width="50" height="40"  className={'offset-1 offset-md-2 col-3 col-md-2'}/>
+                      </div>
+                      <div className={'row'}>
+                        <FormControlLabel className={'col-7'} value="transfer" control={<GreenRadio />} label="Transfer on Delivery" />
+                        <img src={icon1} width="50" height="35"  className={'offset-1 offset-md-2 col-3 col-md-2'}/>
+                      </div>
+                      <div className={'row'}>
+                        <FormControlLabel className={'col-7'} value="pos" control={<GreenRadio />} label="Debit Card on Delivery" />
+                        <img src="https://image.flaticon.com/icons/svg/81/81230.svg" width="50" height="40"  className={'offset-1 offset-md-2 col-3 col-md-2'}/>
+                      </div>
                     </RadioGroup>
                   </FormControl>
                     

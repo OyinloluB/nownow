@@ -46,7 +46,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
             <ul className={'list-group'}>
             {user.products.map((product, i) => (
               <StoreItem
-                key={product._id}
+                key={i}
                 product={{ ...product, ownerType: user.type }}
                 userId={user.userID}
                 userName={user.name}

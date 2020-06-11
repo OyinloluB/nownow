@@ -43,6 +43,9 @@ const UserInfo = () => {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (user.type === "distributor") {
@@ -52,6 +55,9 @@ const UserInfo = () => {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else if (user.type === "bulkbreaker") {
@@ -61,6 +67,9 @@ const UserInfo = () => {
               delivery: homeDeliveryDetails,
               payment: paymentModeDetails,
               phone: contactModeDetails.phone,
+              whatsapp: contactModeDetails.whatsapp,
+              viawhatsapp: contactModeDetails.viaWhatsapp,
+              viaphone: contactModeDetails.viaPhoneCall,
             })
           );
         } else {
@@ -77,7 +86,7 @@ const UserInfo = () => {
     [submitted, user, dispatch, history]
   );
 
-  useEffect(() => {
+  useEffect(() => {console.log(contactModeDetails)
     updateInfo(
       productsDetails,
       homeDeliveryDetails,
