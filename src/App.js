@@ -134,6 +134,7 @@ function App() {
           timeout: 5000,
         }}
       >
+        
         <Fade in={open}>
       <div className={classes.paper}>
         <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome {user.name}, Do you want customers to see your store open?</div>
