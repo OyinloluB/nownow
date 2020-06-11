@@ -27,7 +27,7 @@ const Map = ({ center, users }) => {
           )
           // .slice(0, 300)
           .map((user) => (
-            <MarkerInfoWindow key={user.userID} user={user} />
+            <MarkerInfoWindow key={`${user.userID}--${user.id}`} user={user} />
           ))}
       </GoogleMap>
     </LoadScript>

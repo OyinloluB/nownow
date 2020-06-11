@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
@@ -7,23 +7,54 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
+import axios from "axios";
 import { calcDistanceInKm } from "../../utility";
 
-const ListHandler = ({ show, closeModal, users }) => {
-  const { user: loggedInUser, coordinates } = useSelector(
-    (state) => state.auth
-  );
+const ListHandler = ({ show, closeModal, users: propUsers }) => {
+  const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
     (userType) => !(loggedInUser.type === userType)
   );
 
+  const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
 
   const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
+
+  useEffect(() => {
+    setUsers([...propUsers]);
+  }, [propUsers]);
+
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const updatedUsers = [];
+        for await (const user of users) {
+          if (user.latitude === 0) {
+            user.address = "Not Available, contact through mobile number";
+          } else {
+            const response = await axios.get(
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
+            );
+            const { data: responseJson } = response;
+            if (responseJson.results.length > 0) {
+              user.address = responseJson.results[0].formatted_address;
+            }
+          }
+          updatedUsers.push(user);
+        }
+        setUsers([...updatedUsers]);
+      } catch (error) {
+        console.log("Error Fetching Addresses: ", error);
+      }
+    };
+    fetchAddresses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -36,7 +67,7 @@ const ListHandler = ({ show, closeModal, users }) => {
       <Modal
         show={show}
         onHide={closeModal}
-        style={{ bottom: "0px", position: "fixed",  }}
+        style={{ bottom: "0px", position: "fixed" }}
       >
         <Modal.Header
           style={{
@@ -91,7 +122,7 @@ const ListHandler = ({ show, closeModal, users }) => {
             );
           })}
         </div>
-        <Modal.Body style={{maxHeight: '80vh', overflowY: 'scroll'}}>
+        <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
           <ul
             style={{
               paddingLeft: "0rem",
@@ -100,33 +131,14 @@ const ListHandler = ({ show, closeModal, users }) => {
             {users
               .filter(
                 (user) =>
-                  // user.products.length > 0 &&
-                  user.type === userType &&
-                  calcDistanceInKm(coordinates, {
-                    lat: user.latitude,
-                    lng: user.longitude,
-                  }) <= 2
+                  user.products.length > 0 &&
+                  user.type === userType && true
+                  // calcDistanceInKm(coordinates, {
+                  //   lat: user.latitude,
+                  //   lng: user.longitude,
+                  // }) <= 2
               )
               .map((user) => {
-                    if(user.latitude === 0) {
-                      user.address = 'Not Available, contact through mobile number'
-                    }
-
-                    else { 
-                      fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                        user.latitude +
-                        "," +
-                        user.longitude +
-                        "&key=" +
-                        API_KEY
-                    )
-                      .then((response) => response.json())
-                      .then((responseJson) => {
-                        // forcing the fetched address into the users data
-                          user.address = responseJson.results[0].formatted_address;
-                      });
-                    }
-
                 return (
                   <div
                     key={user.id}
@@ -136,98 +148,106 @@ const ListHandler = ({ show, closeModal, users }) => {
                   >
                     <li
                       key={user.id}
-                      className={'list-group'}
+                      className={"list-group"}
                       style={{
                         width: "100%",
                         padding: "10px",
                         borderBottom: "1px solid #f7f7f7",
                       }}
                     >
-                      <div className={'d-flex'}>
-                      {user.confirmed === true ? (
-                        <span
-                          style={{
-                            backgroundColor: "green",
-                            maxHeight: "6px",
-                            minWidth: "7px",
-                            borderRadius: "15px",
-                            marginTop: "8px",
-                          }}
-                        />
-                      ) : (
-                        <span
-                          style={{
-                            backgroundColor: "#b11917",
-                            maxHeight: "6px",
-                            minWidth: "7px",
-                            borderRadius: "15px",
-                            marginTop: "8px",
-                          }}
-                        />
-                      )}
+                      <div className={"d-flex"}>
+                        {user.confirmed === true ? (
+                          <span
+                            style={{
+                              backgroundColor: "green",
+                              maxHeight: "6px",
+                              minWidth: "7px",
+                              borderRadius: "15px",
+                              marginTop: "8px",
+                            }}
+                          />
+                        ) : (
+                          <span
+                            style={{
+                              backgroundColor: "#b11917",
+                              maxHeight: "6px",
+                              minWidth: "7px",
+                              borderRadius: "15px",
+                              marginTop: "8px",
+                            }}
+                          />
+                        )}
 
-                      <span class={"offset-1 mr-auto"}>
-                        {" "}
-                        {user.name}<br />
-                        <span style={{ fontSize: "12px", color: "#000" }}>
-                          {`Distance: ${calcDistanceInKm(coordinates, {
-                            lat: user.latitude,
-                            lng: user.longitude,
-                          })} km`}
-                        </span>
-                      </span>
-
-                      <div
-                        style={{
-                          // display: "flex",
-                          justifyContent: "space-around",
-                          width: "20%",
-                        }}
-                      >
-                        <span>
-                          <a
-                            href={`https://wa.me/${user.whatsapp}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <WhatsAppIcon
-                              style={{ color: "green", fontSize: 20 }}
-                            />
-                          </a>
-                        </span>
-                        <span>
+                        <span class={"offset-1 mr-auto"}>
                           {" "}
-                          <a
-                            href={`tel:${user.phone}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={'ml-2'}
-                          >
-                            <PhoneIcon
-                              style={{ color: "black", fontSize: 20 }}
-                            />
-                          </a>
-                        </span>
-                        {loggedInUser.type !== "distributor" ? (
-                          <span className={'ml-2'}>
-                            <ShoppingCartIcon
-                              style={{
-                                color: "red",
-                                fontSize: 20,
-                                cursor: "pointer",
-                              }}
-                              onClick={() => {
-                                closeModal();
-                                setSelectedUser(user);
-                                setShowBasket(true);
-                              }}
-                            />
+                          {user.name}
+                          <br />
+                          <span style={{ fontSize: "12px", color: "#000" }}>
+                            {`Distance: ${calcDistanceInKm(coordinates, {
+                              lat: user.latitude,
+                              lng: user.longitude,
+                            })} km`}
                           </span>
-                        ) : null}
+                        </span>
+
+                        <div
+                          style={{
+                            // display: "flex",
+                            justifyContent: "space-around",
+                            width: "20%",
+                          }}
+                        >
+                          <span>
+                            <a
+                              href={`https://wa.me/${user.whatsapp}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <WhatsAppIcon
+                                style={{ color: "green", fontSize: 20 }}
+                              />
+                            </a>
+                          </span>
+                          <span>
+                            {" "}
+                            <a
+                              href={`tel:${user.phone}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={"ml-2"}
+                            >
+                              <PhoneIcon style={{ color: "black", fontSize: 20 }} />
+                            </a>
+                          </span>
+                          {loggedInUser.type !== "distributor" ? (
+                            <span className={"ml-2"}>
+                              <ShoppingCartIcon
+                                style={{
+                                  color: "red",
+                                  fontSize: 20,
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => {
+                                  closeModal();
+                                  setSelectedUser(user);
+                                  setShowBasket(true);
+                                }}
+                              />
+                            </span>
+                          ) : null}
+                        </div>
                       </div>
-                      </div>
-                      <div className={'col-8 text-justify d-block'}>
-                        <span style={{fontSize: '12px', color: '#B11917', fontWeight: 'bold'}} className={'col-12 ml-2 ml-md-3 d-block'}>{user.address}</span>
+                      <div className={"col-8 text-justify d-block"}>
+                        <span
+                          style={{
+                            fontSize: "12px",
+                            color: "#B11917",
+                            fontWeight: "bold",
+                          }}
+                          className={"col-12 ml-2 ml-md-3 d-block"}
+                        >
+                          {user.address}
+                        </span>
                       </div>
                     </li>
                   </div>
