@@ -51,7 +51,7 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  console.log(user)
+  
   useEffect(() => {
     if (isAuthenticated) {
       if (user.type === "poc") {
@@ -59,18 +59,30 @@ function App() {
         dispatch(fetchDistributors());
         dispatch(fetchReceivedOrders());
         dispatch(fetchSentOrders());
+
+        axios.get(`/Poc/User/${user.userID}`).then(list=>{
+          (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
+       })
       } else if (user.type === "distributor") {
         dispatch(fetchPocs());
         dispatch(fetchBulkBreakers());
         dispatch(fetchReceivedOrders());
+
+        axios.get(`/Distributor/User/${user.userID}`).then(list=>{
+          (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
+       })
+
       } else if (user.type === "bulkbreaker") {
         dispatch(fetchPocs());
         dispatch(fetchDistributors());
         dispatch(fetchReceivedOrders());
         dispatch(fetchSentOrders());
+
+        axios.get(`/BulkBreaker/User/${user.userID}`).then(list=>{
+            (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
+       })
       }
       
-      (user.confirmed===true)? setOpen(false) : setOpen(true);
 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,14 +92,14 @@ function App() {
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: true })
-        .then((list) => {setOpen(false); user.confirmed=true});
+        .then((list) => {setOpen(false) })
     } else if (user.type === "bulkbreaker") {
       axios
         .patch(`/BulkBreaker/${user.id}`, { confirmed: true })
-        .then((list) => {setOpen(false); user.confirmed=true});
+        .then((list) => {setOpen(false); })
     } else if (user.type === "poc") {
       axios.patch(`/Poc/${user.id}`, { confirmed: true })
-      .then((list) => {setOpen(false); user.confirmed=true});
+      .then((list) => {setOpen(false); })
     }
   } 
   
@@ -95,14 +107,14 @@ function App() {
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: false })
-        .then((list) => {setOpen(false); user.confirmed=false});
+        .then((list) => {setOpen(false); })
     } else if (user.type === "bulkbreaker") {
       axios
         .patch(`/BulkBreaker/${user.id}`, { confirmed: false })
-        .then((list) => {setOpen(false); user.confirmed=false});
+        .then((list) => {setOpen(false); })
     } else if (user.type === "poc") {
       axios.patch(`/Poc/${user.id}`, { confirmed: false })
-      .then((list) => {setOpen(false); user.confirmed=false});
+      .then((list) => {setOpen(false); })
     }
   }
 
