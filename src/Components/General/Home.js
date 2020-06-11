@@ -36,31 +36,31 @@ const Home = () => {
 
   useEffect(() => {
  
-    if(isAuthenticated) {
-      if(window.confirm("Do you want Customers to see your store open?")){
+    // if(isAuthenticated) {
+    //   if(window.confirm("Do you want Customers to see your store open?")){
 
-        if(user.type==='distributor'){
-          axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
-        }
-        else if(user.type==='bulkbreaker'){
-          axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
-        }
-        else if(user.type==='poc'){
-          axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
-        }
-      }
-      else {
-        if(user.type==='distributor'){
-          axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
-        }
-        else if(user.type==='bulkbreaker'){
-          axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
-        }
-        else if(user.type==='poc'){
-          axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
-        }
-      }
-    }
+    //     if(user.type==='distributor'){
+    //       axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
+    //     }
+    //     else if(user.type==='bulkbreaker'){
+    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
+    //     }
+    //     else if(user.type==='poc'){
+    //       axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
+    //     }
+    //   }
+    //   else {
+    //     if(user.type==='distributor'){
+    //       axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
+    //     }
+    //     else if(user.type==='bulkbreaker'){
+    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
+    //     }
+    //     else if(user.type==='poc'){
+    //       axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
+    //     }
+    //   }
+    // }
 
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
