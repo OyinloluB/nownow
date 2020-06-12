@@ -27,7 +27,6 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
   useEffect(() => {
     setUsers([...propUsers]);
-    
   }, [propUsers]);
 
   // useEffect(() => {
