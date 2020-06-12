@@ -93,7 +93,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             />
 
             <span
-              className={"offset-3 col-4 font-weight-bold"}
+              className={"offset-3 offset-md-1 col-4 font-weight-bold"}
               style={{ whiteSpace: "nowrap" }}
             >
               Nearby Customers
@@ -115,19 +115,25 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 style={{
                   width: "50%",
                   textAlign: "center",
-                  padding: "10px",
                   cursor: "pointer",
                   backgroundColor: i === 0 ? "Green" : "#B11917"
                 }}
+                className={'p-1 pt-3 pb-3 p-md-3'}
                 onClick={() => setUserType(userType)}
                 // className={i === 0 ? "bg-info" : "bg-warning"}
               >
-                {`${userType[0].toUpperCase() + userType.slice(1)}s`}
+
+                { `${userType[0] + userType.slice(1)}`==='distributor' ? 'Buy from Distributors' : 
+                   `${userType[0] + userType.slice(1)}`==='bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
+                   `${userType[0] + userType.slice(1)}`==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
+                   `${userType[0] + userType.slice(1)}`==='poc' ? 'Sell to Retail Stores' : ''
+                } 
               </div>
             );
           })}
         </div>
         <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
+        
           <ul
             style={{
               paddingLeft: "0rem",
@@ -141,8 +147,8 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                   calcDistanceInKm(coordinates, {
                     lat: user.latitude,
                     lng: user.longitude,
-                  }) <= 2
-              )
+                  }) <= 6
+              ).slice(0,60)
               .map((user, i) => {
                 if(user.latitude === 0) {
                   user.address = 'Not Available, contact through mobile number'
@@ -163,7 +169,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                         user.address = responseJson.results[0].formatted_address;
                     }
                     else {
-                      user.address = 'Loading'
+                      user.address = 'Loading...'
                     }
                   }).catch(error=>console.log('error'))
                 }
@@ -171,9 +177,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                   <div
                     key={user.id}
                     style={{
-                      justifyContent: "space-between",
+                      justifyContent: "space-between", fontSize: '14px'
                     }}
-                  >
+                  > 
                     <li
                       key={user.id}
                       className={"list-group"}
@@ -206,11 +212,11 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           />
                         )}
 
-                        <span class={"offset-1 mr-auto"}>
+                        <span class={"offset-1 mr-auto font-weight-bold"}>
                           {" "}
                           {user.name}
                           <br />
-                          <span style={{ fontSize: "12px", color: "#000" }}>
+                          <span style={{ fontSize: "11px", color: "#000" }}>
                             {`Distance: ${calcDistanceInKm(coordinates, {
                               lat: user.latitude,
                               lng: user.longitude,
@@ -222,7 +228,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           style={{
                             // display: "flex",
                             justifyContent: "space-around",
-                            width: "27%",
+                            width: "30%",
                           }}
                         >
                           <span>

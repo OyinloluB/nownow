@@ -161,8 +161,9 @@ export default function Navbar() {
                 <p
                   style={{
                     paddingLeft: "10px",
+                    // whiteSpace: "nowrap",
                     marginBottom: "0rem",
-                    fontSize: "14px",
+                    fontSize: "15px",
                   }}
                 >
                   {user.name}
@@ -187,7 +188,7 @@ export default function Navbar() {
                     />
                   </Badge>
                 </IconButton>
-                <Button color="inherit" onClick={logOut}>
+                <Button color="inherit" onClick={logOut} className={'d-none d-md-block'}>
                   <IconButton
                     edge="end"
                     aria-label="chatting"
@@ -199,6 +200,7 @@ export default function Navbar() {
                   </IconButton>
                   Logout
                 </Button>
+                <ExitToAppIcon onClick={logOut} className={'d-block d-md-none mt-2'}/>
               </div>
             </Toolbar>
           </AppBar>
