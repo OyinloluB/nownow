@@ -131,12 +131,12 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             {users
               .filter(
                 (user) =>
-                  user.products.length > 0 &&
-                  user.type === userType && true
-                  // calcDistanceInKm(coordinates, {
-                  //   lat: user.latitude,
-                  //   lng: user.longitude,
-                  // }) <= 2
+                  // user.products.length > 0 &&
+                  user.type === userType && true &&
+                  calcDistanceInKm(coordinates, {
+                    lat: user.latitude,
+                    lng: user.longitude,
+                  }) <= 2
               )
               .map((user) => {
                 return (
