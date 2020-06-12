@@ -52,10 +52,10 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
               backgroundColor: "#b11917",
             }}
           >
-            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
+            <Modal.Title style={{ color: "white", fontSize: "18px" }} className={'text-center'}>
               <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <PaymentIcon style={{ color: "white", fontSize: 30 }} />
-              &nbsp; Confirm your mode of receiving payment
+              &nbsp; How can your customers pay you?
             </Modal.Title>
           </Modal.Header>
 
@@ -76,6 +76,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
               Next
             </Button>
           </Modal.Footer>
+        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 3 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>

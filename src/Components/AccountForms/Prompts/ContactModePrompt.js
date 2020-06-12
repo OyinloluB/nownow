@@ -65,9 +65,9 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
               backgroundColor: "#b11917",
             }}
           >
-            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
-            <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
-              <ContactPhoneIcon style={{ color: "white", fontSize: 30 }} />
+            <Modal.Title style={{ color: "white", fontSize: "16px" }} className={'text-center'}>
+            <KeyboardBackspaceIcon className="mr-2 mr-md-4" style={{cursor: "pointer"}} onClick={previous} />
+              <ContactPhoneIcon style={{ color: "white", fontSize: 24 }} />
               &nbsp; What is your preferred mode of contact?
             </Modal.Title>
           </Modal.Header>
@@ -80,7 +80,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 justifyContent: "space-between",
               }}
             >
-              <Form.Label className={'row ml-2'}>
+              <Form.Label className={'row ml-md-2'}>
               <Checkbox
                 size="small"
                 color="default"
@@ -111,7 +111,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 justifyContent: "space-between",
               }}
             >
-              <Form.Label className={'row ml-2'}>
+              <Form.Label className={'row ml-md-2'}>
               <Checkbox
                   size="small"
                   color="default"
@@ -147,9 +147,11 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 margin: "10px 0 10px 0",
               }}
             >
-              Submit
+                Finish Setup
             </Button>
+            <span> { setCurrentPage } </span>
           </Modal.Footer>
+        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 4 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>

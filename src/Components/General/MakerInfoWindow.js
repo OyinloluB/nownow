@@ -8,6 +8,7 @@ var MarkerInfoWindow = ({ user }) => {
   return (
     <Marker
       position={{ lat: user.latitude, lng: user.longitude }}
+    
       icon={{
         url: user.mapUrl,
         scaledSize:  new window.google.maps.Size(30,30)

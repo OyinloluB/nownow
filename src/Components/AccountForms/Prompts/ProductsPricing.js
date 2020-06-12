@@ -10,7 +10,8 @@ import ProductCard from "../../Layout/ProductCard";
 const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   const { products: serverProducts } = useSelector((state) => state.product);
   const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();   
+  const [maxPriceAlert,setMaxPriceAlert] = useState('')
 
   useEffect(() => {
     setProducts([...serverProducts]);
@@ -22,23 +23,13 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
 
   const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
-      if (product._id === productId) {
-        // product_ = product_.substring(2)
-        let product_ = product.recommendedPrice.split(',')
 
-        product_ = product_.join('')
-        product_ = product_.substring(1);
-// str.splice(3, 1)
-        // console.log(product_)
-        // if(product_ < e.target.value){
-          product.price = e.target.value;  
-        // }
-        // else{
-        //   alert("Your price is beyond the Recommended Price!")
-        // }
-      }
+      (e.target.value > Number(product.recommendedPrice.substring(1).replace(",","")))? setMaxPriceAlert('Your Product Price is beyond the Recommended Price!') : setMaxPriceAlert('')
+    
+
       return product;
     });
+
     setProducts(updatedProducts);
   };
 
@@ -61,19 +52,22 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "15vh auto",
+        margin: "5vh auto",
       }}
     >
      
       <Form onSubmit={handleSubmit}>
-        <h5
+        <h6
           style={{
             color: "#b11917",
             textAlign: "center",
+            border: '1px solid grey',
+            padding: '4px',
+            borderRadius: '4px',
           }}
         >
           Select the Brand/SKU you sell and set your Selling Price
-        </h5>
+        </h6>
         <br />
         <Row>
           {products.map((product) => {
@@ -83,6 +77,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
                   product={product}
                   handleInputChange={handleInputChange}
                   key={product._id}
+                  setMaxPriceAlert = {maxPriceAlert}
                 />
               </Col>
             );
@@ -101,6 +96,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
           Next
         </Button>
       </Form>
+      <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 1 of 4</span>
     </Container>
   );
 };
