@@ -28,8 +28,8 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
             <Form.Group controlId="formBasicPrice">
               <Form.Control
                 type="number"
-                placeholder="Input Price"
-                defaultValue={Number(product.recommendedPrice.substring(1).replace(",",""))}
+                placeholder={Number(product.recommendedPrice.substring(1).replace(",",""))}
+                // defaultValue={Number(product.recommendedPrice.substring(1).replace(",",""))}
                 onChange={(e) => handleInputChange(e, product._id)}
                 className={'font-weight-bold'}
                 required

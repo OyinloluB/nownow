@@ -24,7 +24,11 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
 
-      (e.target.value > Number(product.recommendedPrice.substring(1).replace(",","")))? setMaxPriceAlert('Your Product Price is beyond the Recommended Price!') : setMaxPriceAlert('')
+      (e.target.value > Number(product.recommendedPrice.substring(1).replace(",","")))? setMaxPriceAlert('Your Product Price is beyond the Recommended Price!') : setMaxPriceAlert('');
+      
+      if (product._id === productId) {
+        product.price = e.target.value; 
+      }
     
 
       return product;

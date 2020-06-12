@@ -85,9 +85,11 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 color: "#b11917",
                 fontSize: 20,
                 cursor: "pointer",
+                border: '1px solid #b11917',
+                borderRadius: '2px'
               }}
+              className={"col-3"}
               onClick={closeModal}
-              className={"col-5"}
             />
 
             <span
@@ -115,9 +117,10 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                   textAlign: "center",
                   padding: "10px",
                   cursor: "pointer",
+                  backgroundColor: i === 0 ? "Green" : "#B11917"
                 }}
                 onClick={() => setUserType(userType)}
-                className={i === 0 ? "bg-info" : "bg-warning"}
+                // className={i === 0 ? "bg-info" : "bg-warning"}
               >
                 {`${userType[0].toUpperCase() + userType.slice(1)}s`}
               </div>
@@ -155,9 +158,14 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 )
                   .then((response) => response.json())
                   .then((responseJson) => {
-                    // forcing the fetched address into the users data
-                      user.address = responseJson.results[0].formatted_address;
-                  });
+                    if(responseJson.results.length > 1){
+                      // forcing the fetched address into the users data
+                        user.address = responseJson.results[0].formatted_address;
+                    }
+                    else {
+                      user.address = 'Loading'
+                    }
+                  }).catch(error=>console.log('error'))
                 }
                 return (
                   <div
@@ -214,7 +222,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           style={{
                             // display: "flex",
                             justifyContent: "space-around",
-                            width: "20%",
+                            width: "27%",
                           }}
                         >
                           <span>

@@ -62,14 +62,24 @@ const Home = () => {
     //   }
     // }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
-        dispatch(setCoordinates({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }));
-      });
+    if(isAuthenticated) {
+      dispatch(setCoordinates({
+        lat: user.latitude,
+        lng: user.longitude
+      }));
     }
+
+    else {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(function (position) {
+          dispatch(setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }));
+        });
+      }
+    }
+
   }, [isAuthenticated, user, dispatch]);
 
   return (

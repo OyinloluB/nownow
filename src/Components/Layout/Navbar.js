@@ -129,7 +129,7 @@ export default function Navbar() {
       >
         <Fade in={open}>
       <div className={classes.paper}>
-        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome {user.name}, Do you want customers to see your store open?</div>
+        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Do you want customers to still see your store open after log-out?</div>
             <div className={'row mt-4'}>
               <div className={'container offset-1 offset-md-2'}>
                 <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid white'}} onClick={handleYes}>Yes, I do!</button>
