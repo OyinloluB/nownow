@@ -16,6 +16,9 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import { ViewBasket } from "./ViewBasket";
 import axios from "../../axios-client";
 import Logo from "../../assets/logo.png";
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0),
   },
   appbar: {
-    backgroundColor: "#b11917",
+    backgroundColor: "grey",
   },
   title: {
     display: "block",
@@ -39,9 +42,25 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '1px solid #b11917',
+    borderRadius: '5px'
+  },
+  paper: {
+    backgroundColor: "#b11917",
+    border: '1px solid white',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    borderRadius: '5px', 
+  },
 }));
 
 export default function Navbar() {
+  const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const [viewBasket, setViewBasket] = useState(false);
   const { isAuthenticated, user, cartItemsCount, receivedOrdersCount } = useSelector(
@@ -60,43 +79,68 @@ export default function Navbar() {
   );
 
   const logOut = () => {
-    if (
-      window.confirm(
-        "Do you want Customers to still see your store open after login out?"
-      )
-    ) {
-      if (user.type === "distributor") {
-        axios
-          .patch(`/Distributor/${user._id}`, { confirmed: true })
-          .then((list) => {});
-      } else if (user.type === "bulkbreaker") {
-        axios
-          .patch(`/BulkBreaker/${user._id}`, { confirmed: true })
-          .then((list) => {});
-      } else if (user.type === "poc") {
-        axios.patch(`/Poc/${user._id}`, { confirmed: true }).then((list) => {});
-      }
-    } else {
-      if (user.type === "distributor") {
-        axios
-          .patch(`/Distributor/${user._id}`, { confirmed: false })
-          .then((list) => {});
-      } else if (user.type === "bulkbreaker") {
-        axios
-          .patch(`/BulkBreaker/${user._id}`, { confirmed: false })
-          .then((list) => {});
-      } else if (user.type === "poc") {
-        axios.patch(`/Poc/${user._id}`, { confirmed: false }).then((list) => {});
-      }
-    }
-
-    localStorage.clear();
-    window.location.reload();
+    setOpen(true);
   };
+
+  const handleYes = () => {
+    if (user.type === "distributor") {
+      axios
+        .patch(`/Distributor/${user.id}`, { confirmed: true })
+        .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    } else if (user.type === "bulkbreaker") {
+      axios
+        .patch(`/BulkBreaker/${user.id}`, { confirmed: true })
+        .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    } else if (user.type === "poc") {
+      axios.patch(`/Poc/${user.id}`, { confirmed: true })
+      .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    }
+  } 
+  
+  const handleNo = () => {
+    if (user.type === "distributor") {
+      axios
+        .patch(`/Distributor/${user.id}`, { confirmed: false })
+        .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    } else if (user.type === "bulkbreaker") {
+      axios
+        .patch(`/BulkBreaker/${user.id}`, { confirmed: false })
+        .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    } else if (user.type === "poc") {
+      axios.patch(`/Poc/${user.id}`, { confirmed: false })
+      .then((list) => {setOpen(false);localStorage.clear(); window.location.reload();});
+    }
+  }
 
   const classes = useStyles();
   return (
     <>
+
+<Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 5000,
+        }}
+      >
+        <Fade in={open}>
+      <div className={classes.paper}>
+        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome {user.name}, Do you want customers to see your store open?</div>
+            <div className={'row mt-4'}>
+              <div className={'container offset-1 offset-md-2'}>
+                <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid white'}} onClick={handleYes}>Yes, I do!</button>
+                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white'}} onClick={handleNo}>No, I don't!</button>
+              </div>
+            </div>
+            
+          </div>
+        </Fade>
+      </Modal>
+      
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>

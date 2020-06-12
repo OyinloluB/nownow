@@ -101,6 +101,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
           Next
         </Button>
       </Form>
+      <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 1 of 4</span>
     </Container>
   );
 };

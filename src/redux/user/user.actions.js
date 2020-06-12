@@ -44,7 +44,7 @@ export const fetchDistributorsSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "distributor",
-    mapUrl: "https://cdn2.iconfinder.com/data/icons/seo-flat-6/128/15_Place_Optimization-512.png",
+    mapUrl: "https://cdn4.iconfinder.com/data/icons/location-flat/64/Location-map-pin-marker-flag-512.png",
   }));
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,

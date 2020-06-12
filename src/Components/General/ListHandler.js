@@ -27,34 +27,36 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
   useEffect(() => {
     setUsers([...propUsers]);
+    
   }, [propUsers]);
 
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const updatedUsers = [];
-        for await (const user of users) {
-          if (user.latitude === 0) {
-            user.address = "Not Available, contact through mobile number";
-          } else {
-            const response = await axios.get(
-              `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
-            );
-            const { data: responseJson } = response;
-            if (responseJson.results.length > 0) {
-              user.address = responseJson.results[0].formatted_address;
-            }
-          }
-          updatedUsers.push(user);
-        }
-        setUsers([...updatedUsers]);
-      } catch (error) {
-        console.log("Error Fetching Addresses: ", error);
-      }
-    };
-    fetchAddresses();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   const fetchAddresses = async () => {
+  //     try {
+  //       const updatedUsers = [];
+  //       for await (const user of users) {
+  //         if (user.latitude === 0) {
+  //           user.address = "Not Available, contact through mobile number";
+  //         } else {
+  //           const response = await axios.get(
+  //             `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
+  //           );
+  //           const { data: responseJson } = response;
+  //           if (responseJson.results.length > 0) {
+  //             user.address = responseJson.results[0].formatted_address;
+  //             console.log(user)
+  //           }
+  //         }
+  //         updatedUsers.push(user);
+  //       }
+  //       setUsers([...updatedUsers]);
+  //     } catch (error) {
+  //       console.log("Error Fetching Addresses: ", error);
+  //     }
+  //   };
+  //   fetchAddresses();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
@@ -138,7 +140,25 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                     lng: user.longitude,
                   }) <= 2
               )
-              .map((user) => {
+              .map((user, i) => {
+                if(user.latitude === 0) {
+                  user.address = 'Not Available, contact through mobile number'
+                }
+      
+                else { 
+                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    user.latitude +
+                    "," +
+                    user.longitude +
+                    "&key=" +
+                    API_KEY
+                )
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    // forcing the fetched address into the users data
+                      user.address = responseJson.results[0].formatted_address;
+                  });
+                }
                 return (
                   <div
                     key={user.id}

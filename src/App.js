@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Eligible from "./Components/Modals/Eligible";
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import axios from "./axios-client";
 
 import {
   fetchBulkBreakers,
@@ -23,10 +28,30 @@ import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 
 import { ProtectedRoute } from "./routes";
 
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '1px solid #b11917',
+    borderRadius: '5px'
+  },
+  paper: {
+    backgroundColor: "#b11917",
+    border: '1px solid white',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    borderRadius: '5px', 
+  },
+}));
+
 function App() {
   const { user, isAuthenticated, eligible } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  console.log(user)
   useEffect(() => {
     if (isAuthenticated) {
       if (user.type === "poc") {
@@ -44,13 +69,74 @@ function App() {
         dispatch(fetchReceivedOrders());
         dispatch(fetchSentOrders());
       }
+      
+      (user.confirmed===true)? setOpen(false) : setOpen(true);
+
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
+  const handleYes = () => {
+    if (user.type === "distributor") {
+      axios
+        .patch(`/Distributor/${user.id}`, { confirmed: true })
+        .then((list) => {setOpen(false); user.confirmed=true});
+    } else if (user.type === "bulkbreaker") {
+      axios
+        .patch(`/BulkBreaker/${user.id}`, { confirmed: true })
+        .then((list) => {setOpen(false); user.confirmed=true});
+    } else if (user.type === "poc") {
+      axios.patch(`/Poc/${user.id}`, { confirmed: true })
+      .then((list) => {setOpen(false); user.confirmed=true});
+    }
+  } 
+  
+  const handleNo = () => {
+    if (user.type === "distributor") {
+      axios
+        .patch(`/Distributor/${user.id}`, { confirmed: false })
+        .then((list) => {setOpen(false); user.confirmed=false});
+    } else if (user.type === "bulkbreaker") {
+      axios
+        .patch(`/BulkBreaker/${user.id}`, { confirmed: false })
+        .then((list) => {setOpen(false); user.confirmed=false});
+    } else if (user.type === "poc") {
+      axios.patch(`/Poc/${user.id}`, { confirmed: false })
+      .then((list) => {setOpen(false); user.confirmed=false});
+    }
+  }
+
   return (
     <>
       <Navbar />
+
+      {/* promp to set your store open/close */}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 5000,
+        }}
+      >
+        <Fade in={open}>
+      <div className={classes.paper}>
+        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome {user.name}, Do you want customers to see your store open?</div>
+            <div className={'row mt-4'}>
+              <div className={'container offset-1 offset-md-2'}>
+                <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid white'}} onClick={handleYes}>Yes, I do!</button>
+                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white'}} onClick={handleNo}>No, I don't!</button>
+              </div>
+            </div>
+            
+          </div>
+        </Fade>
+      </Modal>
+      
+
       {/* {isAuthenticated ? null : <Eligible />} */}
       <Switch>
         <Route exact path="/" component={Home} />
