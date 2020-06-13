@@ -8,7 +8,6 @@ import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
 
-import axios from "../../axios-client";
 import { setCoordinates } from "../../redux/auth/auth.actions";
 
 const useStyles = makeStyles(() => ({

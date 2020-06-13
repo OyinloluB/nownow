@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 import { ViewBasket } from "./ViewBasket";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 import Logo from "../../assets/logo3.png";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';

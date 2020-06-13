@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
 import { useDispatch} from "react-redux";
-import Container from "@material-ui/core/Container";
-import axios from "../../../axios-client";
+import { useHistory, Link } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import Container from "@material-ui/core/Container";
 import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
+
 import ResetPassword from "../Prompts/ResetPassword";
 
+import axios from "../../../helpers/axios-client";
 import {
   authenticateDistributor,
   authenticateBulkBreaker,
@@ -18,8 +19,6 @@ import {
 import {
   checkDistributor,
 } from "../../../redux/user/user.actions";
-
-import LockIcon from '@material-ui/icons/Lock';
 
 const UserSignIn = () => {
   const [type, setType] = useState('');

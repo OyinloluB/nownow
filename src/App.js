@@ -29,7 +29,7 @@ import Order from "./Components/General/Order";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 
-import { ProtectedRoute } from "./routes";
+import { ProtectedRoute } from "./helpers/routes";
 
 
 const useStyles = makeStyles((theme) => ({
