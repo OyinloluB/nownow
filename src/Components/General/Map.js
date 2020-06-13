@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 import MarkerInfoWindow from "./MakerInfoWindow";
@@ -14,19 +14,26 @@ const containerStyle = {
 const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
 const Map = ({ center, users }) => {
-  const closeUsers = Object.keys(users)
-    .map((userType) =>
-      users[userType]
-        .filter(
-          (user) =>
-            calcDistanceInKm(center, {
-              lat: user.latitude,
-              lng: user.longitude,
-            }) <= 2
+  const [closeUsers, setCloseUsers] = useState([]);
+
+  useEffect(() => {
+    setCloseUsers([
+      ...Object.keys(users)
+        .map((userType) =>
+          users[userType]
+            .filter(
+              (user) =>
+                calcDistanceInKm(center, {
+                  lat: user.latitude,
+                  lng: user.longitude,
+                }) <= 2
+            )
+            .slice(0, 30)
         )
-        .slice(0, 30)
-    )
-    .flat();
+        .flat(),
+    ]);
+  }, [center, users]);
+
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>

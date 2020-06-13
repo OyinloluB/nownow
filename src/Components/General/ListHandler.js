@@ -63,9 +63,11 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
           console.log("Error Fetching Addresses: ", error);
         }
       };
+      console.log("Yooo");
       fetchAddresses(users);
     }
-  }, [users]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users.length]);
 
   return (
     <>
