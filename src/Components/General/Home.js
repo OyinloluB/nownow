@@ -10,6 +10,7 @@ import SearchLocation from "../Layout/SearchLocation";
 
 import axios from "../../axios-client";
 import {setCoordinates} from '../../redux/auth/auth.actions';
+import UserSignIn from "../AccountForms/User/UserSignIn";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -83,13 +84,28 @@ const Home = () => {
   }, [isAuthenticated, user, dispatch]);
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Map
         users={
           isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
         }
         center={coordinates}
       />
+
+      {isAuthenticated ? null : ( <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-around",
+            position: "fixed",
+            top: "10%",
+            width: "100%",
+            fontSize: "13px",
+          }}>
+            <UserSignIn />
+          </div>
+          )}
+
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
@@ -97,6 +113,8 @@ const Home = () => {
           isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
         }
       />
+      
+      
       {isAuthenticated ? (
         <button
           className={["btn", classes.btn].join(" ")}

@@ -226,9 +226,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
                         <div
                           style={{
-                            // display: "flex",
+                            display: "flex",
                             justifyContent: "space-around",
-                            width: "30%",
+                            width: "25%",
                           }}
                         >
                           <span>
@@ -238,7 +238,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                               rel="noopener noreferrer"
                             >
                               <WhatsAppIcon
-                                style={{ color: "green", fontSize: 20 }}
+                                style={{ color: "green", fontSize: 17 }}
                               />
                             </a>
                           </span>
@@ -250,15 +250,15 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                               rel="noopener noreferrer"
                               className={"ml-2"}
                             >
-                              <PhoneIcon style={{ color: "black", fontSize: 20 }} />
+                              <PhoneIcon style={{ color: "black", fontSize: 17 }} />
                             </a>
                           </span>
                           {loggedInUser.type !== "distributor" ? (
-                            <span className={"ml-2"}>
+                            <span className={"ml-2 mt-1"}>
                               <ShoppingCartIcon
                                 style={{
                                   color: "red",
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   cursor: "pointer",
                                 }}
                                 onClick={() => {

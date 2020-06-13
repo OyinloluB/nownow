@@ -128,7 +128,7 @@ const UserSignIn = () => {
   };
 
   return (
-      <React.Fragment style={{background: '#E5E3DF', padding: '10px', minHeight: '90vh', minWidth: '100%'}}>
+      // <React.Fragment style={{background: '#E5E3DF', padding: '10px', minHeight: '90vh', minWidth: '100%'}}>
       <Container
         maxWidth="sm"
         style={{
@@ -141,9 +141,9 @@ const UserSignIn = () => {
       >
         
         <Form onSubmit={handleSubmit}>
-          <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserId}>Confirm Your Code</div>
+          <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={["text-center", showUserId].join(" ")} >Confirm Your Code</div>
           <Form.Group controlId="formBasicNumber" className={showUserId}>
-            <Form.Label style={{color: 'grey'}} className={'mt-4'}>Enter Your Customer Code</Form.Label>
+            <Form.Label style={{color: 'grey'}} className={'mt-4 font-weight-bold'}>Enter Your Customer Code</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="text"
@@ -160,10 +160,10 @@ const UserSignIn = () => {
         </div>
 
 
-        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserPas}>Input your Password</div>
+        <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={['text-center', showUserPas].join(" ")}>Input your Password</div>
 
           <Form.Group controlId="formBasicPassword" className={showUserPas}>
-            <Form.Label className={'mt-4'}>Password</Form.Label>
+            <Form.Label className={'mt-4 font-weight-bold'}>Password</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="password"
@@ -197,7 +197,7 @@ const UserSignIn = () => {
             Log in
           </Button>
 
-          <div style={{color: 'grey', marginTop: '25px', fontSize: '14px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
+          <div style={{color: 'grey', marginTop: '25px', fontSize: '13px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
          
           {/* <p>
             New user?{" "}
@@ -214,7 +214,6 @@ const UserSignIn = () => {
           
         </Form>
       </Container>
-      </React.Fragment>
     );
   };
 

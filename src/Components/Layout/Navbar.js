@@ -20,6 +20,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -63,6 +64,9 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
   const [viewBasket, setViewBasket] = useState(false);
+  const [ yesColor, setYesColor ] = useState('green');
+  const [ noColor, setNoColor ] = useState('#B11917');
+
   const { isAuthenticated, user, cartItemsCount, receivedOrdersCount } = useSelector(
     (state) => {
       return {
@@ -83,6 +87,7 @@ export default function Navbar() {
   };
 
   const handleYes = () => {
+    setYesColor('#B11917');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: true })
@@ -98,6 +103,7 @@ export default function Navbar() {
   } 
   
   const handleNo = () => {
+    setNoColor('green');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: false })
@@ -132,8 +138,8 @@ export default function Navbar() {
         <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Do you want customers to still see your store open after log-out?</div>
             <div className={'row mt-4'}>
               <div className={'container offset-1 offset-md-2'}>
-                <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid white'}} onClick={handleYes}>Yes, I do!</button>
-                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white'}} onClick={handleNo}>No, I don't!</button>
+                <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid green', backgroundColor: yesColor }} onClick={handleYes}>Yes, I do!</button>
+                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white', backgroundColor: noColor }} onClick={handleNo}>No, I don't!</button>
               </div>
             </div>
             
