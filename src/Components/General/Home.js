@@ -34,7 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function (position) {
+      navigator.geolocation.getCurrentPosition(function (position) {
         dispatch(
           setCoordinates({
             lat: position.coords.latitude,
@@ -62,7 +62,13 @@ const Home = () => {
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
-        users={isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []}
+        users={isAuthenticated
+          ? {
+              pocs: [...pocs],
+              distributors: [...distributors],
+              bulkbreakers: [...bulkbreakers],
+            }
+          : []}
       />
       {isAuthenticated ? (
         <button

@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript } from "@react-google-maps/api";
 
 import MarkerInfoWindow from "./MakerInfoWindow";
 
-import { calcDistanceInKm } from "../../utility";
+import { calcDistanceInKm } from "../../helpers/utility";
 
 const containerStyle = {
   width: "100%",

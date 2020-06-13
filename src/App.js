@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Eligible from "./Components/Modals/Eligible";
-import Privacy from "./Components/Legal/Privacy";
-import Terms from "./Components/Legal/Terms";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import axios from "./axios-client";
+
+import Eligible from "./Components/Modals/Eligible";
+import Privacy from "./Components/Legal/Privacy";
+import Terms from "./Components/Legal/Terms";
+
+import axios from "./helpers/axios-client";
 
 import {
   fetchBulkBreakers,

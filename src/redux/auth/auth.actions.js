@@ -1,5 +1,5 @@
 import AuthActionTypes from "./auth.types";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 
 import { trimUser } from "../user/user.helpers";
 

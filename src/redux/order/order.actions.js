@@ -1,5 +1,5 @@
 import OrderActionTypes from "./order.types";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 
 const fetchReceivedOrdersStart = () => ({
   type: OrderActionTypes.FETCH_RECEIVED_ORDERS_START,

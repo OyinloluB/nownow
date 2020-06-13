@@ -1,5 +1,5 @@
 import PasswordAction from './password.types';
-import axios from '../../axios-client';
+import axios from '../../helpers/axios-client';
 
 export const updateDistributorPasswordStart = () => ({
     type: PasswordAction.PASSWORD_DISTRIBUTOR_START,

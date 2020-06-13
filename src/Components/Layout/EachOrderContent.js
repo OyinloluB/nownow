@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import DateCountdown from "react-date-countdown-timer";
 
-import {generateTimeDifference, calcDistanceInKm} from '../../utility';
+import {generateTimeDifference, calcDistanceInKm} from '../../helpers/utility';
 
 const EachOrderContent = ({ order, setOrder }) => {
   const userPosition = useSelector((state) => {

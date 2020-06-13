@@ -7,8 +7,8 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
-import axios from "axios";
-import { calcDistanceInKm } from "../../utility";
+import { getCoordinatesAddress } from "../../helpers/google-maps";
+import { calcDistanceInKm } from "../../helpers/utility";
 
 const ListHandler = ({ show, closeModal, users: propUsers }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
@@ -20,42 +20,52 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
-  const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
 
-  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
+  useEffect(() => {
+    const closeUsers = Object.keys(propUsers)
+      .map((userType) =>
+        propUsers[userType]
+          .filter(
+            (user) =>
+              calcDistanceInKm(coordinates, {
+                lat: user.latitude,
+                lng: user.longitude,
+              }) <= 2
+          )
+          .slice(0, 30)
+      )
+      .flat();
+    setUsers([...closeUsers]);
+  }, [propUsers, coordinates]);
 
   useEffect(() => {
-    setUsers([...propUsers]);
-  }, [propUsers]);
-
-  // useEffect(() => {
-  //   const fetchAddresses = async () => {
-  //     try {
-  //       const updatedUsers = [];
-  //       for await (const user of users) {
-  //         if (user.latitude === 0) {
-  //           user.address = "Not Available, contact through mobile number";
-  //         } else {
-  //           const response = await axios.get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
-  //           );
-  //           const { data: responseJson } = response;
-  //           if (responseJson.results.length > 0) {
-  //             user.address = responseJson.results[0].formatted_address;
-  //             console.log(user)
-  //           }
-  //         }
-  //         updatedUsers.push(user);
-  //       }
-  //       setUsers([...updatedUsers]);
-  //     } catch (error) {
-  //       console.log("Error Fetching Addresses: ", error);
-  //     }
-  //   };
-  //   fetchAddresses();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+    if (users.length > 0) {
+      const fetchAddresses = async (users) => {
+        try {
+          const updatedUsers = [];
+          for await (const user of users) {
+            if (user.latitude === 0) {
+              user.address = "Not Available, contact through mobile number";
+            } else {
+              const address = await getCoordinatesAddress(
+                user.latitude,
+                user.longitude
+              );
+              if (address) {
+                user.address = address;
+              }
+            }
+            updatedUsers.push(user);
+          }
+          setUsers([...updatedUsers]);
+        } catch (error) {
+          console.log("Error Fetching Addresses: ", error);
+        }
+      };
+      fetchAddresses(users);
+    }
+  }, [users]);
 
   return (
     <>
@@ -132,32 +142,13 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             {users
               .filter(
                 (user) =>
-                  // user.products.length > 0 &&
-                  user.type === userType && true &&
+                  user.type === userType &&
                   calcDistanceInKm(coordinates, {
                     lat: user.latitude,
                     lng: user.longitude,
                   }) <= 2
               )
-              .map((user, i) => {
-                if(user.latitude === 0) {
-                  user.address = 'Not Available, contact through mobile number'
-                }
-      
-                else { 
-                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                    user.latitude +
-                    "," +
-                    user.longitude +
-                    "&key=" +
-                    API_KEY
-                )
-                  .then((response) => response.json())
-                  .then((responseJson) => {
-                    // forcing the fetched address into the users data
-                      user.address = responseJson.results[0].formatted_address;
-                  });
-                }
+              .map((user) => {
                 return (
                   <div
                     key={user.id}
