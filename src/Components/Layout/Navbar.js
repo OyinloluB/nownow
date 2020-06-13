@@ -68,9 +68,7 @@ export default function Navbar() {
       return {
         isAuthenticated: state.auth.isAuthenticated,
         user: state.auth.user,
-        cartItemsCount: state.cart.items.reduce((accumulator, item) => {
-          return accumulator + item.quantity;
-        }, 0),
+        cartItemsCount: state.cart.items.length,
         receivedOrdersCount: state.order.receivedOrders.filter(
           (order) => order.status === "new"
         ).length,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
@@ -21,6 +21,8 @@ import SentOrders from "./SentOrders";
 
 import {
   updateOrderStatus,
+  fetchSentOrders,
+  fetchReceivedOrders
 } from "../../redux/order/order.actions";
 
 const Order = () => {
@@ -42,6 +44,13 @@ const Order = () => {
   });
   const [switchReceived, setSwitchReceived] = useState("d-block");
   const [switchSent, setSwitchSent] = useState("d-none");
+
+  useEffect(() => {
+    dispatch(fetchReceivedOrders());
+    if(user.type !== 'distributor'){
+      dispatch(fetchSentOrders());
+    }
+  }, [dispatch, user.type]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
