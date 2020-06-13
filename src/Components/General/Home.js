@@ -9,7 +9,7 @@ import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
 
 import axios from "../../axios-client";
-import {setCoordinates} from '../../redux/auth/auth.actions';
+import { setCoordinates } from "../../redux/auth/auth.actions";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -24,50 +24,23 @@ const useStyles = makeStyles(() => ({
 
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
-  
+
   const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
-  const { pocs, distributors, bulkbreakers } = useSelector(
-    (state) => state.user
-    );
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
- 
-    // if(isAuthenticated) {
-    //   if(window.confirm("Do you want Customers to see your store open?")){
-
-    //     if(user.type==='distributor'){
-    //       axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //     else if(user.type==='bulkbreaker'){
-    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //     else if(user.type==='poc'){
-    //       axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //   }
-    //   else {
-    //     if(user.type==='distributor'){
-    //       axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //     else if(user.type==='bulkbreaker'){
-    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //     else if(user.type==='poc'){
-    //       axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //   }
-    // }
-
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(function (position) {
-        dispatch(setCoordinates({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }));
+        dispatch(
+          setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        );
       });
     }
   }, [isAuthenticated, user, dispatch]);
@@ -76,16 +49,20 @@ const Home = () => {
     <div>
       <Map
         users={
-          isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
+          isAuthenticated
+            ? {
+                pocs: [...pocs],
+                distributors: [...distributors],
+                bulkbreakers: [...bulkbreakers],
+              }
+            : []
         }
         center={coordinates}
       />
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
-        users={
-          isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
-        }
+        users={isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []}
       />
       {isAuthenticated ? (
         <button

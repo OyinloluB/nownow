@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductCard = ({ product, handleInputChange }) => {
+const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
+  
   const classes = useStyles();
   const [showContent, setShowContent] = useState(false);
   return (
@@ -39,6 +40,7 @@ const ProductCard = ({ product, handleInputChange }) => {
         setShowContent={setShowContent}
         product={product}
         handleInputChange={handleInputChange}
+        setMaxPriceAlert={setMaxPriceAlert}
       />
 
       <div className={classes.root} onClick={() => setShowContent(true)}>
@@ -56,8 +58,10 @@ const ProductCard = ({ product, handleInputChange }) => {
               />
               <p
                 style={{
-                  fontSize: "12px",
+                  fontSize: "14px",
                   textAlign: "center",
+                  fontWeight: 'bold',
+                  padding:'5px'
                 }}
               >
                 {" "}
@@ -65,6 +69,8 @@ const ProductCard = ({ product, handleInputChange }) => {
                 <span
                   style={{
                     color: "#b11917",
+                    fontWeight: 'bold',
+                    
                   }}
                 >
                   {`${product.volume} (${product.sku})`}

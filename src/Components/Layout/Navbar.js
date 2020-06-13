@@ -15,7 +15,7 @@ import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 import { ViewBasket } from "./ViewBasket";
 import axios from "../../axios-client";
-import Logo from "../../assets/logo.png";
+import Logo from "../../assets/logo3.png";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(0),
   },
   appbar: {
-    backgroundColor: "grey",
+    backgroundColor: "#B11917",
   },
   title: {
     display: "block",

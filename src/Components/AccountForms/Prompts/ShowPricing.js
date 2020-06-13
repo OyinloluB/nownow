@@ -3,17 +3,21 @@ import { Modal, Button } from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import { Form } from "react-bootstrap";
 
-const ShowPricing = ({ show, setShowContent, product, handleInputChange }) => {
-  const handleClose = () => setShowContent(false);
+const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxPriceAlert }) => {
+  const handleClose = () => {
+    setShowContent(false);
+  }
+   
   return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Body>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Body className={'text-center'}>
         <div>
-          <Typography component="h5" variant="h5">
+          <Typography component="h6" variant="h6" style={{fontWeight: 'bold'}}>
             {`${product.brand} `}
             <span
               style={{
                 color: "#b11917",
+                fontWeight: 'bold'
               }}
             >
               {`${product.volume} (${product.sku})`}
@@ -25,10 +29,13 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange }) => {
               <Form.Control
                 type="number"
                 placeholder="Input Price"
+                defaultValue={Number(product.recommendedPrice.substring(1).replace(",",""))}
                 onChange={(e) => handleInputChange(e, product._id)}
+                className={'font-weight-bold'}
                 required
               />
             </Form.Group>
+            <span className={'text-center'} style={{fontWeight: 'bold', fontSize: '12px', color: '#B11917'}}>{ setMaxPriceAlert }</span>
           </div>
         </div>
       </Modal.Body>
@@ -38,9 +45,10 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange }) => {
           style={{
             backgroundColor: "#b11917",
             border: "none",
+            width: "100%"
           }}
         >
-          Add Price
+          Update Price
         </Button>
       </Modal.Footer>
     </Modal>

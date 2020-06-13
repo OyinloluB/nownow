@@ -46,18 +46,18 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               backgroundColor: "#b11917",
             }}
           > 
-            <Modal.Title style={{ color: "white", fontSize: "18px" }}>
+            <Modal.Title style={{ color: "white", fontSize: "16px" }} className={'text-center'}>
               <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
-              <LocalShippingIcon style={{ color: "white", fontSize: 30 }} />
+              <LocalShippingIcon style={{ color: "white", fontSize: 25 }} />
               &nbsp;
-              Do you deliver products to buyers?
+               Do you deliver products to buyers?
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body>
+          <Modal.Body className={'d-flex'}>
             <button
               type="button"
-              className={'btn'}
+              className={'btn mr-auto'}
               style={{
                 backgroundColor: "white",
                 paddding: "25px",
@@ -78,7 +78,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
             </button>
             <button
               type="button"
-              className={'btn offset-3'}
+              className={'btn'}
               onClick={
                 // setHomeDelivery(false),
                 toggleColorNo
@@ -88,7 +88,6 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
                 border: "1px solid #b11917",
                 color: "#b11917",
                 width: "30%",
-                marginRight: "10px",
               }}
             >
               No
@@ -108,6 +107,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               Next
             </Button>
           </Modal.Footer>
+          <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 2 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>
