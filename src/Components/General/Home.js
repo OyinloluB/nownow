@@ -109,7 +109,7 @@ const Home = () => {
           </p>
         </div>
       )}
-      {/* {isAuthenticated ? <SearchLocation /> : null} */}
+      {isAuthenticated ? <SearchLocation /> : null}
     </div>
   );
 };
