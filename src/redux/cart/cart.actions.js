@@ -34,7 +34,7 @@ export const makeOrder = () => {
         return new Promise(async (resolve, reject) => {
             dispatch(makeOrderStart());
             try{
-                const { auth, cart} = getState();console.log(cart)
+                const { auth, cart} = getState();
                 const response = await axios.post('/Order', {
                     userType: auth.user.type, 
                     products: [...cart.items], 
@@ -44,7 +44,7 @@ export const makeOrder = () => {
                     requesterID: auth.user.id
                 });
                 const { data } = response;
-                // console.log(data)
+                console.log(data)
                 dispatch(makeOrderSuccess());
                 resolve(data.success);
             } catch(error){

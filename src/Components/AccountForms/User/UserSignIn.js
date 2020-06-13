@@ -37,6 +37,8 @@ const UserSignIn = () => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
+  const [ notice, setNotice ] = useState('')
+
   const [showPrompt, setShowPrompt] = useState(true);
   
   const toggler = () => {
@@ -45,47 +47,64 @@ const UserSignIn = () => {
     
     if(ID.slice(0,2) === '6C') {
       axios.get(`/Distributor/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('distributor');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('distributor');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     } else if(ID.slice(0,2) === 'BB') {
       axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('bulkbreaker');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('bulkbreaker');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     } else if(ID.slice(0,2) === 'RT') {
       axios.get(`/Poc/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('poc');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('poc');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     }
@@ -142,8 +161,9 @@ const UserSignIn = () => {
         
         <Form onSubmit={handleSubmit}>
           <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={["text-center", showUserId].join(" ")} >Confirm Your Code</div>
+            <span className={'text-danger mt-1'}>{ notice }</span>
           <Form.Group controlId="formBasicNumber" className={showUserId}>
-            <Form.Label style={{color: 'grey'}} className={'mt-4 font-weight-bold'}>Enter Your Customer Code</Form.Label>
+            <Form.Label style={{color: 'grey'}} className={'mt-3 font-weight-bold'}>Enter Your Customer Code</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="text"

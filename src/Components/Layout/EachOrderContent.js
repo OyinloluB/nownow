@@ -32,6 +32,7 @@ const EachOrderContent = ({ order, setOrder }) => {
     orderUser = { ...order.owner };
   }
 
+
   return (
     <div
       style={{
@@ -71,6 +72,7 @@ const EachOrderContent = ({ order, setOrder }) => {
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           <b>Request made:</b> {timeString}
         </p>
+        payment option:
         <p style={{ color: "#B11917", fontSize: "12px" }}>
           {order.status === "processing" && timeDiff > 0 ? (
             <>

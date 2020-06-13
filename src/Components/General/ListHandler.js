@@ -96,7 +96,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
               style={{ whiteSpace: "nowrap" }}
             >
               
-              Nearby { userType[0].toUpperCase() + userType.slice(1) + 's'}
+              Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
             </span>
           </div>
         </Modal.Header>

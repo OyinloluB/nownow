@@ -39,7 +39,7 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
         }
     }
     else{
-        setNotice('Confirm Password does noth match your Password!')
+        setNotice('Confirm Password is not the same as your Password!')
     }
   }
 
