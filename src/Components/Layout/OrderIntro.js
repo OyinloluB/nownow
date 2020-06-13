@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
 const OrderIntro = ({ item, status }) => {
+  
   return (
     <div>
       <Card style={{ width: "100" }}>
@@ -45,6 +46,11 @@ const OrderIntro = ({ item, status }) => {
                   <li>
                     <b>Cost: </b>
                     {`${item.quantity * item.details.price}`}
+                  </li>
+
+                  <li>
+                    <b>Mode of Payment: </b>
+                    { item.details.paymentMode==='pos'? 'Debit Card' : item.details.paymentMode==='transfer'? 'Transfer' : 'Cash' }
                   </li>
                   <li>
                     <b>Placed On: </b>

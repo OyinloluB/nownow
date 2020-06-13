@@ -45,7 +45,11 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
         margin: "15vh auto 0vh auto",
       }}
     >
+
       <Form onSubmit={handleSubmit}>
+      <p style={{fontSize: '11px',backgroundColor: '#AADAFF', fontWeight: 'bold', borderRadius: '4px'}} className={'text-center text-justify'}>
+        Please note your mode of payment will be communicated with the Seller and you will pay directly to them upon receipt of your order
+      </p>
         <Modal.Dialog>
           <Modal.Header
             style={{

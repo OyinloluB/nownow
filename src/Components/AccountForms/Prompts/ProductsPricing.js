@@ -77,7 +77,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         >
           Select the Brand/SKU you sell and set your Selling Price
         </h6>
-        <p style={{fontSize: '10px', borderRadius: '4px'}} className={'text-center bg-success text-justify p-1 text-light'}>
+        <p style={{fontSize: '10px', borderRadius: '4px', backgroundColor: '#AADAFF', fontWeight: 'bold'}} className={'text-center text-justify p-1'}>
         Please note! you are expected to input the price you sell each product which will be communicated to your potential customers, if you do not set your price, a recommended selling price will be displayed on your profile for your customers to see
         </p>
         <Row>
