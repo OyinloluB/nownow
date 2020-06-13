@@ -40,6 +40,10 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
       }}
     >
       <Form onSubmit={handleSubmit}>
+      <p style={{fontSize: '10px', borderRadius: '4px'}} className={'text-center bg-success text-justify p-1 text-light'}>
+          Please note your customers will be able to see that you can deliver to them or not when placing their order
+      </p>
+    
         <Modal.Dialog>
           <Modal.Header
             style={{

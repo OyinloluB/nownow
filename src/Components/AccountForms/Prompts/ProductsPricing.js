@@ -28,7 +28,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     var maxRecPrice = (150/100)*recPrice
 
     const updatedProducts = products.map((product) => {
-
+      
       (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
       
       if (product._id === productId) {
@@ -61,7 +61,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "5vh auto",
+        margin: "2vh auto",
       }}
     >
      
@@ -77,7 +77,9 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         >
           Select the Brand/SKU you sell and set your Selling Price
         </h6>
-        <br />
+        <p style={{fontSize: '10px', borderRadius: '4px'}} className={'text-center bg-success text-justify p-1 text-light'}>
+        Please note! you are expected to input the price you sell each product which will be communicated to your potential customers, if you do not set your price, a recommended selling price will be displayed on your profile for your customers to see
+        </p>
         <Row>
           {products.map((product) => {
             return (

@@ -257,8 +257,9 @@ export const ViewBasket = ({ show, setViewBasket }) => {
             <div className={togglePaymentOption}>
               <Card className={classes.root}>
                 <CardContent className={classes.content}>
-                  <span className={'font-weight-bold mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Note: </span><span className={'mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Your payment option would be sent to the seller</span>
-                  <li className={'list-group-item m-0 p-2'} style={{color: "grey", fontSize: "14px"}}>
+                  <span className={'font-weight-bold mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Note: </span><span className={'mb-2'} style={{fontSize: '13px', color:'#B11917'}}>Please note your mode of payment will be communicated with the Seller and you will pay directly to them upon receipt of your order</span>
+
+                  <li className={'list-group-item mt-2 p-2'} style={{color: "grey", fontSize: "14px"}}>
                   <FormControl component="fieldset">
                   <FormLabel component="legend" className={'mt-1'}>Please Select Mode of Payment</FormLabel>
                     <RadioGroup aria-label="paymentMethod" name="paymentMethod" value={value} onChange={handleChange}>

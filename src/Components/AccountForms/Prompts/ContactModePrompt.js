@@ -59,6 +59,10 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
       }}
     >
       <Form onSubmit={handleSubmit}>
+      <p style={{fontSize: '10px', borderRadius: '4px'}} className={'text-center bg-success text-justify p-1 text-light'}>
+          Please note that you can only select one and this is how your customers will contact you
+      </p>
+      
         <Modal.Dialog>
           <Modal.Header
             style={{
