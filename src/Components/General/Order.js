@@ -89,8 +89,8 @@ const Order = () => {
             flexWrap: "wrap",
           }}
         >
-          <h5
-            className={`bg-info col-md-${
+          <h6
+            className={`col-md-${
               user.type !== "distributor" ? "6" : "12"
             }`}
             style={{
@@ -98,6 +98,8 @@ const Order = () => {
               backgroundColor: "#f7f7f7",
               padding: "10px",
               cursor: "pointer",
+              backgroundColor: "green",
+              color: '#fff'
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
@@ -105,11 +107,11 @@ const Order = () => {
             }}
           >
             <GetAppIcon /> Received Orders
-          </h5>
+          </h6>
 
           {user.type !== "distributor" ? (
-            <h5
-              className="bg-warning col-md-6"
+            <h6
+              className="col-md-6"
               onClick={() => {
                 setCurrentOrder({ items: [] });
                 switchOrder("sent");
@@ -119,10 +121,12 @@ const Order = () => {
                 backgroundColor: "rgb(215, 215, 215)",
                 cursor: "pointer",
                 padding: "10px",
+                backgroundColor: '#B11917',
+                color: '#fff'
               }}
             >
-              <PublishIcon /> Sent Orders
-            </h5>
+              <PublishIcon /> Orders I Placed
+            </h6>
           ) : null}
         </div>
         <br />

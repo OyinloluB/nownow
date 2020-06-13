@@ -287,7 +287,7 @@ export const ViewBasket = ({ show, setViewBasket }) => {
               <Card className={classes.root}>
                 <CardContent className={classes.content}>
                   <li className={'list-group-item m-0 p-2 d-flex'} style={{color: "grey", fontSize: "14px"}}>
-                      <span className={'mr-auto'}>
+                      <span className={'mr-auto text-success'}>
                         Your Order has been successfully placed!
                       </span>
                       <CloseIcon onClick={handleClose} style={{cursor: 'pointer'}}/>

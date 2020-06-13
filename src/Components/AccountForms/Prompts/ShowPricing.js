@@ -26,9 +26,10 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
               {`${product.volume} (${product.sku})`}
             </span>
           </Typography>
-          <br />
+          
           <div>
             <Form.Group controlId="formBasicPrice">
+            <Form.Label className={'text-center font-weight-bold'}>Price Per Case:</Form.Label>
               <Form.Control
                 type="number"
                 placeholder={Number(product.recommendedPrice.substring(1).replace(",",""))}

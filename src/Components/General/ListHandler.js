@@ -27,7 +27,6 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
   useEffect(() => {
     setUsers([...propUsers]);
-    
   }, [propUsers]);
 
   // useEffect(() => {
@@ -93,10 +92,11 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             />
 
             <span
-              className={"offset-3 offset-md-1 col-4 font-weight-bold"}
+              className={"offset-3 offset-md-3 col-4 font-weight-bold"}
               style={{ whiteSpace: "nowrap" }}
             >
-              Nearby Customers
+              
+              Nearby { userType[0].toUpperCase() + userType.slice(1) + 's'}
             </span>
           </div>
         </Modal.Header>
@@ -119,14 +119,14 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                   backgroundColor: i === 0 ? "Green" : "#B11917"
                 }}
                 className={'p-1 pt-3 pb-3 p-md-3'}
-                onClick={() => setUserType(userType)}
+                onClick={() => setUserType(userType) }
                 // className={i === 0 ? "bg-info" : "bg-warning"}
               >
 
-                { `${userType[0] + userType.slice(1)}`==='distributor' ? 'Buy from Distributors' : 
-                   `${userType[0] + userType.slice(1)}`==='bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
-                   `${userType[0] + userType.slice(1)}`==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
-                   `${userType[0] + userType.slice(1)}`==='poc' ? 'Sell to Retail Stores' : ''
+                { userType === 'distributor' ? 'Buy from Distributors' : 
+                   userType === 'bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
+                   userType ==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
+                   userType ==='poc' ? 'Sell to Retail Stores' : ''
                 } 
               </div>
             );
