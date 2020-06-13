@@ -9,6 +9,7 @@ import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
 
 import { setCoordinates } from "../../redux/auth/auth.actions";
+import { calcDistanceInKm } from "../../helpers/utility";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -20,6 +21,20 @@ const useStyles = makeStyles(() => ({
     textJustify: "justify",
   },
 }));
+
+const modifyUsers = (users, coordinates) => {
+  return users
+    .map((user) => ({
+      ...user,
+      distance: calcDistanceInKm(coordinates, {
+        lat: user.latitude,
+        lng: user.longitude,
+      }),
+    }))
+    .filter((user) => user.distance <= 2)
+    .sort((userA, userB) => userA.distance - userB.distance)
+    .slice(0, 30);
+};
 
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
@@ -44,30 +59,19 @@ const Home = () => {
     }
   }, [isAuthenticated, user, dispatch]);
 
+  const users = {
+    pocs: modifyUsers(pocs, coordinates),
+    distributors: modifyUsers(distributors, coordinates),
+    bulkbreakers: modifyUsers(bulkbreakers, coordinates),
+  };
+
   return (
     <div>
-      <Map
-        users={
-          isAuthenticated
-            ? {
-                pocs: [...pocs],
-                distributors: [...distributors],
-                bulkbreakers: [...bulkbreakers],
-              }
-            : []
-        }
-        center={coordinates}
-      />
+      <Map users={isAuthenticated ? users : []} center={coordinates} />
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
-        users={isAuthenticated
-          ? {
-              pocs: [...pocs],
-              distributors: [...distributors],
-              bulkbreakers: [...bulkbreakers],
-            }
-          : []}
+        users={isAuthenticated ? users : []}
       />
       {isAuthenticated ? (
         <button

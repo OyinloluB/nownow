@@ -19,17 +19,7 @@ const Map = ({ center, users }) => {
   useEffect(() => {
     setCloseUsers([
       ...Object.keys(users)
-        .map((userType) =>
-          users[userType]
-            .filter(
-              (user) =>
-                calcDistanceInKm(center, {
-                  lat: user.latitude,
-                  lng: user.longitude,
-                }) <= 2
-            )
-            .slice(0, 30)
-        )
+        .map((userType) => users[userType])
         .flat(),
     ]);
   }, [center, users]);

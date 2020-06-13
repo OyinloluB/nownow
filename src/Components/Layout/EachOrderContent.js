@@ -3,15 +3,10 @@ import { useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import DateCountdown from "react-date-countdown-timer";
 
-import {generateTimeDifference, calcDistanceInKm} from '../../helpers/utility';
+import { generateTimeDifference, calcDistanceInKm } from "../../helpers/utility";
 
 const EachOrderContent = ({ order, setOrder }) => {
-  const userPosition = useSelector((state) => {
-    return {
-      lat: state.auth.user.latitude,
-      lng: state.auth.user.longitude,
-    };
-  });
+  const userPosition = useSelector((state) => state.auth.coordinates);
 
   const { timeString } = generateTimeDifference(order.createdAt);
 
@@ -31,6 +26,11 @@ const EachOrderContent = ({ order, setOrder }) => {
   } else {
     orderUser = { ...order.owner };
   }
+
+  const distance = calcDistanceInKm(userPosition, {
+    lat: orderUser.latitude,
+    lng: orderUser.longitude,
+  });
 
   return (
     <div
@@ -63,10 +63,9 @@ const EachOrderContent = ({ order, setOrder }) => {
       <div>
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           <b>Distance:</b>{" "}
-          {`${calcDistanceInKm(userPosition, {
-            lat: orderUser.latitude,
-            lng: orderUser.longitude,
-          })} km`}
+          {distance < 1
+            ? `${Math.floor(distance * 1000)} m`
+            : `${Math.floor(distance)} km`}
         </p>
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           <b>Request made:</b> {timeString}

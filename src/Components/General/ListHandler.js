@@ -24,17 +24,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
-      .map((userType) =>
-        propUsers[userType]
-          .filter(
-            (user) =>
-              calcDistanceInKm(coordinates, {
-                lat: user.latitude,
-                lng: user.longitude,
-              }) <= 2
-          )
-          .slice(0, 30)
-      )
+      .map((userType) => propUsers[userType])
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
@@ -63,10 +53,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
           console.log("Error Fetching Addresses: ", error);
         }
       };
-      console.log("Yooo");
       fetchAddresses(users);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users.length]);
 
   return (
@@ -142,14 +131,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             }}
           >
             {users
-              .filter(
-                (user) =>
-                  user.type === userType &&
-                  calcDistanceInKm(coordinates, {
-                    lat: user.latitude,
-                    lng: user.longitude,
-                  }) <= 2
-              )
+              .filter((user) => user.type === userType)
               .map((user) => {
                 return (
                   <div
@@ -195,10 +177,11 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           {user.name}
                           <br />
                           <span style={{ fontSize: "12px", color: "#000" }}>
-                            {`Distance: ${calcDistanceInKm(coordinates, {
-                              lat: user.latitude,
-                              lng: user.longitude,
-                            })} km`}
+                            {`Distance: ${
+                              user.distance < 1
+                                ? `${Math.floor(user.distance * 1000)} m`
+                                : `${Math.floor(user.distance)} km`
+                            }`}
                           </span>
                         </span>
 
