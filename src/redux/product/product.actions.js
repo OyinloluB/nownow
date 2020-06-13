@@ -1,5 +1,5 @@
 import ProductActionTypes from "./product.types";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 
 const fetchProductsStart = () => {
   return {

@@ -10,8 +10,8 @@ import ProductCard from "../../Layout/ProductCard";
 const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
   const { products: serverProducts } = useSelector((state) => state.product);
   const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();   
-  const [maxPriceAlert,setMaxPriceAlert] = useState('')
+  const dispatch = useDispatch();
+  const [maxPriceAlert, setMaxPriceAlert] = useState("");
 
   useEffect(() => {
     setProducts([...serverProducts]);
@@ -21,25 +21,26 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleInputChange = (e, productId, recPrice) => {
-
-    // getting 70% of recommended price
-    var minRecPrice = (70/100)*recPrice
-    var maxRecPrice = (150/100)*recPrice
-
+  const handleInputChange = (e, productId) => {
     const updatedProducts = products.map((product) => {
-      
-      (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
-      
       if (product._id === productId) {
-        product.price = e.target.value; 
+        if (
+          e.target.value >
+          Number(product.recommendedPrice.substring(1).replace(",", ""))
+        ) {
+          setMaxPriceAlert(
+            "Your Product Price is beyond the Recommended Price!"
+          );
+          
+        } else {
+          product.price = e.target.value;
+        }
       }
-    
 
       return product;
     });
 
-    setProducts(updatedProducts);
+    setProducts([...updatedProducts]);
   };
 
   const handleSubmit = (e) => {
@@ -64,15 +65,14 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         margin: "2vh auto",
       }}
     >
-     
       <Form onSubmit={handleSubmit}>
         <h6
           style={{
             color: "#b11917",
             textAlign: "center",
-            border: '1px solid grey',
-            padding: '4px',
-            borderRadius: '4px',
+            border: "1px solid grey",
+            padding: "4px",
+            borderRadius: "4px",
           }}
         >
           Select the Brand/SKU you sell and set your Selling Price
@@ -81,18 +81,19 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         Please note! you are expected to input the price you sell each product which will be communicated to your potential customers, if you do not set your price, a recommended selling price will be displayed on your profile for your customers to see
         </p>
         <Row>
-          {products.map((product) => {
-            return (
-              <Col xs={4} lg={4} md={4}>
-                <ProductCard
-                  product={product}
-                  handleInputChange={handleInputChange}
-                  key={product._id}
-                  setMaxPriceAlert = {maxPriceAlert}
-                />
-              </Col>
-            );
-          })}
+          {products.length > 0 &&
+            products.map((product) => {
+              
+              return (
+                <Col xs={4} lg={4} md={4} key={product._id}>
+                  <ProductCard
+                    product={product}
+                    handleInputChange={handleInputChange}
+                    setMaxPriceAlert={maxPriceAlert}
+                  />
+                </Col>
+              );
+            })}
         </Row>
         <br />
         <Button
@@ -107,7 +108,12 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
           Next
         </Button>
       </Form>
-      <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 1 of 4</span>
+      <span
+        style={{ color: "#b11917", fontSize: "13px", fontWeight: "bold" }}
+        className={"offset-5"}
+      >
+        Page 1 of 4
+      </span>
     </Container>
   );
 };

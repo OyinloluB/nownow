@@ -11,6 +11,8 @@ import SearchLocation from "../Layout/SearchLocation";
 import axios from "../../axios-client";
 import {setCoordinates} from '../../redux/auth/auth.actions';
 import UserSignIn from "../AccountForms/User/UserSignIn";
+import { setCoordinates } from "../../redux/auth/auth.actions";
+import { calcDistanceInKm } from "../../helpers/utility";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -23,51 +25,40 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const modifyUsers = (users, coordinates) => {
+  return users
+    .map((user) => ({
+      ...user,
+      distance: calcDistanceInKm(coordinates, {
+        lat: user.latitude,
+        lng: user.longitude,
+      }),
+    }))
+    .filter((user) => user.distance <= 2)
+    .sort((userA, userB) => userA.distance - userB.distance)
+    .slice(0, 30);
+};
+
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
-  
+
   const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
-  const { pocs, distributors, bulkbreakers } = useSelector(
-    (state) => state.user
-    );
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
- 
-    // if(isAuthenticated) {
-    //   if(window.confirm("Do you want Customers to see your store open?")){
-
-    //     if(user.type==='distributor'){
-    //       axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //     else if(user.type==='bulkbreaker'){
-    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //     else if(user.type==='poc'){
-    //       axios.patch(`/Poc/${user.id}`, { confirmed: true }).then(list=>{})
-    //     }
-    //   }
-    //   else {
-    //     if(user.type==='distributor'){
-    //       axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //     else if(user.type==='bulkbreaker'){
-    //       axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //     else if(user.type==='poc'){
-    //       axios.patch(`/Poc/${user.id}`, { confirmed: false }).then(list=>{})
-    //     }
-    //   }
-    // }
-
-    if(isAuthenticated) {
-      dispatch(setCoordinates({
-        lat: user.latitude,
-        lng: user.longitude
-      }));
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        dispatch(
+          setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          })
+        );
+      });
     }
 
     else {
@@ -82,6 +73,12 @@ const Home = () => {
     }
 
   }, [isAuthenticated, user, dispatch]);
+
+  const users = {
+    pocs: modifyUsers(pocs, coordinates),
+    distributors: modifyUsers(distributors, coordinates),
+    bulkbreakers: modifyUsers(bulkbreakers, coordinates),
+  };
 
   return (
     <div style={{position: 'relative'}}>
@@ -109,9 +106,7 @@ const Home = () => {
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
-        users={
-          isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
-        }
+        users={isAuthenticated ? users : []}
       />
       
       
@@ -155,7 +150,7 @@ const Home = () => {
           </p>
         </div>
       )}
-      {/* {isAuthenticated ? <SearchLocation /> : null} */}
+      {isAuthenticated ? <SearchLocation /> : null}
     </div>
   );
 };

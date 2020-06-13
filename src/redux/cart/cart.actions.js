@@ -1,5 +1,5 @@
 import CartActionTypes from './cart.types';
-import axios from '../../axios-client';
+import axios from '../../helpers/axios-client';
 
 export const addToCart = (item) => ({
     type: CartActionTypes.ADD_TO_CART,

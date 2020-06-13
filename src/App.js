@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Eligible from "./Components/Modals/Eligible";
-import Privacy from "./Components/Legal/Privacy";
-import Terms from "./Components/Legal/Terms";
+
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import axios from "./axios-client";
+
+import Eligible from "./Components/Modals/Eligible";
+import Privacy from "./Components/Legal/Privacy";
+import Terms from "./Components/Legal/Terms";
+
+import axios from "./helpers/axios-client";
 
 import {
   fetchBulkBreakers,
@@ -16,7 +19,7 @@ import {
   fetchDistributors,
 } from "./redux/user/user.actions";
 
-import { fetchReceivedOrders, fetchSentOrders } from "./redux/order/order.actions";
+import { fetchReceivedOrders } from "./redux/order/order.actions";
 
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
@@ -26,7 +29,7 @@ import Order from "./Components/General/Order";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 
-import { ProtectedRoute } from "./routes";
+import { ProtectedRoute } from "./helpers/routes";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,11 +59,10 @@ function App() {
   
   useEffect(() => {
     if (isAuthenticated) {
+      dispatch(fetchReceivedOrders());
       if (user.type === "poc") {
         dispatch(fetchBulkBreakers());
         dispatch(fetchDistributors());
-        dispatch(fetchReceivedOrders());
-        dispatch(fetchSentOrders());
 
         axios.get(`/Poc/User/${user.userID}`).then(list=>{
           (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
@@ -68,7 +70,6 @@ function App() {
       } else if (user.type === "distributor") {
         dispatch(fetchPocs());
         dispatch(fetchBulkBreakers());
-        dispatch(fetchReceivedOrders());
 
         axios.get(`/Distributor/User/${user.userID}`).then(list=>{
           (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
@@ -78,7 +79,6 @@ function App() {
         dispatch(fetchPocs());
         dispatch(fetchDistributors());
         dispatch(fetchReceivedOrders());
-        dispatch(fetchSentOrders());
 
         axios.get(`/BulkBreaker/User/${user.userID}`).then(list=>{
             (list.data[0].confirmed===true)? setOpen(false) : setOpen(true);
@@ -176,7 +176,6 @@ function App() {
           path="/info"
           isAuthenticated={isAuthenticated}
           component={UserInfo}
-        />
         />
         <Route exact path="/signin" component={UserSignIn} />
       </Switch>

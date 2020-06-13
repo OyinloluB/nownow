@@ -46,5 +46,5 @@ export const calcDistanceInKm = (p1, p2) => {
             Math.sin(difflon / 2)
       )
     );
-  return Math.floor(d);
+  return d;
 };

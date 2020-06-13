@@ -1,5 +1,5 @@
 import UserActionTypes from "./user.types";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 import { trimUser } from "./user.helpers";
 
 export const fetchPocsStart = () => ({

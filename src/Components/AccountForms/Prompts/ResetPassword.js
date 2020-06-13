@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+
 import { Modal, Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
-import axios from "../../../axios-client";
+
 import UserSignInfo from "../User/UserInfo"
 import UserInfo from "../User/UserInfo";
+
+import axios from "../../../helpers/axios-client";
 
 const ResetPassword = ({ userID, setResetPassword , type}) => {
   const [pwd, setPwd] = useState({});

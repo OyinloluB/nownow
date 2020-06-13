@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
 import { ViewBasket } from "./ViewBasket";
-import axios from "../../axios-client";
+import axios from "../../helpers/axios-client";
 import Logo from "../../assets/logo3.png";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -72,9 +72,7 @@ export default function Navbar() {
       return {
         isAuthenticated: state.auth.isAuthenticated,
         user: state.auth.user,
-        cartItemsCount: state.cart.items.reduce((accumulator, item) => {
-          return accumulator + item.quantity;
-        }, 0),
+        cartItemsCount: state.cart.items.length,
         receivedOrdersCount: state.order.receivedOrders.filter(
           (order) => order.status === "new"
         ).length,
