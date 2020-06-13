@@ -21,10 +21,15 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleInputChange = (e, productId) => {
+  const handleInputChange = (e, productId, recPrice) => {
+
+    // getting 70% of recommended price
+    var minRecPrice = (70/100)*recPrice
+    var maxRecPrice = (150/100)*recPrice
+
     const updatedProducts = products.map((product) => {
 
-      (e.target.value > Number(product.recommendedPrice.substring(1).replace(",","")))? setMaxPriceAlert('Your Product Price is beyond the Recommended Price!') : setMaxPriceAlert('');
+      (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
       
       if (product._id === productId) {
         product.price = e.target.value; 
