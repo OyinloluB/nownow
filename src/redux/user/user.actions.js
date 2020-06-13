@@ -10,8 +10,8 @@ export const fetchPocsSuccess = (users) => {
   const trimmedUsers = users.map((user) => ({
     ...trimUser(user),
     type: "poc",
-    // orange color: marker
-    mapUrl: "https://i.ya-webdesign.com/images/map-marker-icons-png-3.png",
+    // whine color: marker
+    mapUrl: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png",
   }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
@@ -48,6 +48,7 @@ export const fetchDistributorsSuccess = (users) => {
     // color: black icon
     mapUrl: "https://static.thenounproject.com/png/462-200.png",
   }));
+  
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
     payload: trimmedUsers,
@@ -81,8 +82,8 @@ export const fetchBulkBreakersSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "bulkbreaker",
-    // color: whine color marker
-    mapUrl:"https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png"
+    // color: green color marker
+    mapUrl:"https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_1-512.png"
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,

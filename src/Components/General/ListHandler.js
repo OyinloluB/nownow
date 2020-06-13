@@ -266,6 +266,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                                   setSelectedUser(user);
                                   setShowBasket(true);
                                 }}
+                                // do not display shopping basket on pocs for bulkbreaker 
+                                className = { user.type==='poc' && loggedInUser.type==='bulkbreaker' ? 'd-none': 'd-block' }
+
                               />
                             </span>
                           ) : null}
