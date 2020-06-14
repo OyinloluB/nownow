@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import DateCountdown from "react-date-countdown-timer";
@@ -70,7 +70,7 @@ const EachOrderContent = ({ order, setOrder }) => {
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           <b>Request made:</b> {timeString}
         </p>
-        <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
+        <p style={{ color: "#B11917", fontSize: "12px" }}>
           {order.status === "processing" && timeDiff > 0 ? (
             <>
               <b>Time left: </b>{" "}

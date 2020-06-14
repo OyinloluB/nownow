@@ -10,7 +10,8 @@ export const fetchPocsSuccess = (users) => {
   const trimmedUsers = users.map((user) => ({
     ...trimUser(user),
     type: "poc",
-    mapUrl: "https://cdn0.iconfinder.com/data/icons/contact-us-21/512/Location-512.png",
+    // whine color: marker
+    mapUrl: "https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png",
   }));
   return {
     type: UserActionTypes.FETCH_POCS_SUCCESS,
@@ -44,8 +45,10 @@ export const fetchDistributorsSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "distributor",
-    mapUrl: "https://cdn4.iconfinder.com/data/icons/location-flat/64/Location-map-pin-marker-flag-512.png",
+    // color: black icon
+    mapUrl: "https://static.thenounproject.com/png/462-200.png",
   }));
+  
   return {
     type: UserActionTypes.FETCH_DISTRIBUTORS_SUCCESS,
     payload: trimmedUsers,
@@ -79,9 +82,8 @@ export const fetchBulkBreakersSuccess = (users) => {
   const trimmedUsers = users.map((user, i) => ({
     ...trimUser(user),
     type: "bulkbreaker",
-    mapUrl:"https://cdn4.iconfinder.com/data/icons/iconsimple-places/512/pin_2-512.png",
-    // https://cdn4.iconfinder.com/data/icons/location-flat/64/Location-map-pin-marker-flag-512.png
-    // https://cdn2.iconfinder.com/data/icons/vivid/48/map-marker-512.png
+    // color: green color marker
+    mapUrl:"https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_1-512.png"
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,

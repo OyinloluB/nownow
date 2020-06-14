@@ -11,6 +11,8 @@ import SearchLocation from "../Layout/SearchLocation";
 import { setCoordinates } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
 
+import UserSignIn from "../AccountForms/User/UserSignIn";
+
 const useStyles = makeStyles(() => ({
   btn: {
     position: "fixed",
@@ -57,6 +59,18 @@ const Home = () => {
         );
       });
     }
+
+    else {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(function (position) {
+          dispatch(setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }));
+        });
+      }
+    }
+
   }, [isAuthenticated, user, dispatch]);
 
   const users = {
@@ -66,13 +80,30 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Map users={isAuthenticated ? users : []} center={coordinates} />
+
+      {isAuthenticated ? null : ( <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          position: "fixed",
+          top: "10%",
+          width: "100%",
+          fontSize: "13px",
+        }}>
+          <UserSignIn />
+        </div>
+        )}
+
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
       />
+      
+      
       {isAuthenticated ? (
         <button
           className={["btn", classes.btn].join(" ")}

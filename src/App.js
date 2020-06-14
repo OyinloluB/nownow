@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -54,6 +54,8 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [colorYes, setColorYes] = useState('green');
+  const [colorNo, setColorNo] = useState('#B11917');
   
   useEffect(() => {
     if (isAuthenticated) {
@@ -89,6 +91,7 @@ function App() {
   }, [isAuthenticated]);
 
   const handleYes = () => {
+    setColorYes('#B11917');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: true })
@@ -104,6 +107,7 @@ function App() {
   } 
   
   const handleNo = () => {
+    setColorNo('green');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: false })
@@ -137,11 +141,11 @@ function App() {
         
         <Fade in={open}>
       <div className={classes.paper}>
-        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome {user.name}, Do you want customers to see your store open?</div>
+        <div className={'text-light text-center'} style={{fontSize: '15px', wordBreak: 'nowrap'}}>Welcome, Do you want customers to see your store open?</div>
             <div className={'row mt-4'}>
               <div className={'container offset-1 offset-md-2'}>
-                <button className={'btn pr-4 pl-4 ml-md-3'} style={{color: 'white', border: '1px solid white'}} onClick={handleYes}>Yes, I do!</button>
-                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white'}} onClick={handleNo}>No, I don't!</button>
+                <button className={'btn pr-4 pl-4 ml-md-1'} style={{color: 'white', border: '1px solid green', backgroundColor: colorYes }} onClick={handleYes}>Yes, I do!</button>
+                <button className={'btn offset-1'} style={{color: 'white', border: '1px solid white', backgroundColor: colorNo }} onClick={handleNo}>No, I don't!</button>
               </div>
             </div>
             

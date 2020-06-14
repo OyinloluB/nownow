@@ -7,6 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 // import Typography from "@material-ui/core/Typography";
 // import { Form } from "react-bootstrap";
 import ShowPricing from "../AccountForms/Prompts/ShowPricing";
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
-  
   const classes = useStyles();
+  console.log(setMaxPriceAlert)
   const [showContent, setShowContent] = useState(false);
   return (
     <>
@@ -47,6 +49,7 @@ const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
         <Row className={classes.details}>
           {product.image ? (
             <>
+            { product.price && setMaxPriceAlert === '' ? <CheckCircleOutlineIcon style={{color: 'green'}} className={'offset-3'}/> : <CancelIcon style={{color: '#B11917'}} className={'offset-3'}/> }
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.sku}`}

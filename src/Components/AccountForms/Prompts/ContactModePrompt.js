@@ -59,6 +59,10 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
       }}
     >
       <Form onSubmit={handleSubmit}>
+      <p style={{fontSize: '11px',backgroundColor: '#AADAFF', fontWeight: 'bold', borderRadius: '4px'}} className={'text-center text-justify'}>
+          Please note that you can only select one and this is how your customers will contact you
+      </p>
+      
         <Modal.Dialog>
           <Modal.Header
             style={{
@@ -89,7 +93,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 value = { phoneCall }
                 onChange={handleChangePhone}
               />
-                <CallIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
+                <CallIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 18 }} />
                 <span className={'mt-2'}> &nbsp; By Phone</span>
               </Form.Label>
               <Form.Control
@@ -120,7 +124,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                   value = { whatsapp }
                   onChange={ handleChangeWhatsapp }
                 />
-                <WhatsAppIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 20 }} />
+                <WhatsAppIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 18 }} />
                 <span className={'mt-2'}> &nbsp; By WhatsApp</span>
               </Form.Label>
               <Form.Control
