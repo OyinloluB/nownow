@@ -8,7 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 import Eligible from "./Components/Modals/Eligible";
-import Agegate from "./Components/AgeGate/Agegate";
+// import Agegate from "./Components/AgeGate/Agegate";
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
 import Cookie from "./Components/General/Cookies";
