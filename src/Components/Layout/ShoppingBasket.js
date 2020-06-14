@@ -8,13 +8,14 @@ import { addToCart } from "../../redux/cart/cart.actions";
 import InfoIcon from "@material-ui/icons/Info";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
+import { useSelector } from "react-redux";
 
 const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
   const [showAlert, setShowAlert] = useState({ alertShow });
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const { user: loggedInUser } = useSelector((state) => state.auth);
   const dispacth = useDispatch();
 
-  // console.log(user)
   const handleClose = () => {
     setShowBasket(false);
     setShowAlert("d-block");
@@ -40,7 +41,11 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
         </div>
           <Modal.Header className={showAlert} style={{backgroundColor: '#AADAFF', fontSize: '11px', fontWeight: 'bold'}}>
             <InfoIcon style={{fontSize: '14px'}}/> Note that the empties for all Returnable Glass Bottled Brands attract an extra cost of &#8358; 1,000 per case, if you do not purchase the item with your own empty case. Empty cost not applicable to cans. 
+           
           </Modal.Header>
+            { user.type==='distributor' && loggedInUser.type==='poc'? (
+                <p className={'text-justify font-weight-bold text-danger text-center p-1'} style={{fontSize: '12px'}}>Please note that for orders 80cases and above, you will get at wholesale price</p>
+            ):null }
 
           <Modal.Body>
             <ul className={'list-group'}>
@@ -63,6 +68,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
           style={{
             backgroundColor: "green",
             border: "none",
+            width: '100%'
           }}
         >
           Add <AddShoppingCartIcon />

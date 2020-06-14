@@ -35,13 +35,14 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
             }
             else if(type==="poc"){
                 axios.patch(`/Poc/changepassword/${userID}`, { password: password }).then(list=>{
+                  console.log(list)
                     window.location.reload(false);
-                })
+                }).catch(error=>console.log(error))
             }
         }
     }
     else{
-        setNotice('Confirm Password does noth match your Password!')
+        setNotice('Confirm Password is not the same as your Password!')
     }
   }
 

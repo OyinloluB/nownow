@@ -85,16 +85,19 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 color: "#b11917",
                 fontSize: 20,
                 cursor: "pointer",
+                border: '1px solid #b11917',
+                borderRadius: '2px'
               }}
+              className={"col-3"}
               onClick={closeModal}
-              className={"col-5"}
             />
 
             <span
-              className={"offset-3 col-4 font-weight-bold"}
+              className={"offset-3 offset-md-3 col-4 font-weight-bold"}
               style={{ whiteSpace: "nowrap" }}
             >
-              Nearby Customers
+              
+              Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
             </span>
           </div>
         </Modal.Header>
@@ -113,18 +116,25 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 style={{
                   width: "50%",
                   textAlign: "center",
-                  padding: "10px",
                   cursor: "pointer",
+                  backgroundColor: i === 0 ? "Green" : "#B11917"
                 }}
-                onClick={() => setUserType(userType)}
-                className={i === 0 ? "bg-info" : "bg-warning"}
+                className={'p-1 pt-3 pb-3 p-md-3'}
+                onClick={() => setUserType(userType) }
+                // className={i === 0 ? "bg-info" : "bg-warning"}
               >
-                {`${userType[0].toUpperCase() + userType.slice(1)}s`}
+
+                { userType === 'distributor' ? 'Buy from Distributors' : 
+                   userType === 'bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
+                   userType ==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
+                   userType ==='poc' ? 'Sell to Retail Stores' : ''
+                } 
               </div>
             );
           })}
         </div>
         <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
+        
           <ul
             style={{
               paddingLeft: "0rem",
@@ -137,9 +147,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                   <div
                     key={user.id}
                     style={{
-                      justifyContent: "space-between",
+                      justifyContent: "space-between", fontSize: '14px'
                     }}
-                  >
+                  > 
                     <li
                       key={user.id}
                       className={"list-group"}
@@ -172,7 +182,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           />
                         )}
 
-                        <span class={"offset-1 mr-auto"}>
+                        <span class={"offset-1 mr-auto font-weight-bold"}>
                           {" "}
                           {user.name}
                           <br />
@@ -187,9 +197,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
 
                         <div
                           style={{
-                            // display: "flex",
+                            display: "flex",
                             justifyContent: "space-around",
-                            width: "20%",
+                            width: "25%",
                           }}
                         >
                           <span>
@@ -199,7 +209,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                               rel="noopener noreferrer"
                             >
                               <WhatsAppIcon
-                                style={{ color: "green", fontSize: 20 }}
+                                style={{ color: "green", fontSize: 17 }}
                               />
                             </a>
                           </span>
@@ -211,15 +221,15 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                               rel="noopener noreferrer"
                               className={"ml-2"}
                             >
-                              <PhoneIcon style={{ color: "black", fontSize: 20 }} />
+                              <PhoneIcon style={{ color: "black", fontSize: 17 }} />
                             </a>
                           </span>
                           {loggedInUser.type !== "distributor" ? (
-                            <span className={"ml-2"}>
+                            <span className={"ml-2 mt-1"}>
                               <ShoppingCartIcon
                                 style={{
                                   color: "red",
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   cursor: "pointer",
                                 }}
                                 onClick={() => {
@@ -227,6 +237,8 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                                   setSelectedUser(user);
                                   setShowBasket(true);
                                 }}
+                                // do not display shopping basket on pocs for bulkbreaker 
+                                className = { user.type==='poc' && loggedInUser.type==='bulkbreaker' ? 'd-none': 'd-block' }
                               />
                             </span>
                           ) : null}

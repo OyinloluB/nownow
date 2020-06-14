@@ -36,6 +36,8 @@ const UserSignIn = () => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
   };
 
+  const [ notice, setNotice ] = useState('')
+
   const [showPrompt, setShowPrompt] = useState(true);
   
   const toggler = () => {
@@ -44,47 +46,64 @@ const UserSignIn = () => {
     
     if(ID.slice(0,2) === '6C') {
       axios.get(`/Distributor/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('distributor');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('distributor');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     } else if(ID.slice(0,2) === 'BB') {
       axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('bulkbreaker');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('bulkbreaker');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     } else if(ID.slice(0,2) === 'RT') {
       axios.get(`/Poc/User/${ID}`).then(list=>{
-        _setId(list.data[0]._id);
-        setType('poc');
-        if(list.data[0].password===password){
-          setShowUserId('d-none');
-          setShowUserPas('d-none');
-          setResetPassword('d-block');
+
+        if(list.data.length!==0) {
+          _setId(list.data[0]._id);
+          setType('poc');
+          if(list.data[0].password===password){
+            setShowUserId('d-none');
+            setShowUserPas('d-none');
+            setResetPassword('d-block');
+          }
+          else {
+            setResetPassword('d-none');
+            setShowUserId('d-none');
+            setShowUserPas('d-block');
+          }
         }
         else {
-          setResetPassword('d-none');
-          setShowUserId('d-none');
-          setShowUserPas('d-block');
+          setNotice('UserId not valid!')
         }
       })
     }
@@ -127,7 +146,7 @@ const UserSignIn = () => {
   };
 
   return (
-      <React.Fragment style={{background: '#E5E3DF', padding: '10px', minHeight: '90vh', minWidth: '100%'}}>
+      // <React.Fragment style={{background: '#E5E3DF', padding: '10px', minHeight: '90vh', minWidth: '100%'}}>
       <Container
         maxWidth="sm"
         style={{
@@ -140,9 +159,10 @@ const UserSignIn = () => {
       >
         
         <Form onSubmit={handleSubmit}>
-          <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserId}>Confirm Your Code</div>
+          <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={["text-center", showUserId].join(" ")} >Confirm Your Code</div>
+            <span className={'text-danger mt-1'}>{ notice }</span>
           <Form.Group controlId="formBasicNumber" className={showUserId}>
-            <Form.Label style={{color: 'grey'}} className={'mt-4'}>Enter Your Customer Code</Form.Label>
+            <Form.Label style={{color: 'grey'}} className={'mt-3 font-weight-bold'}>Enter Your Customer Code</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="text"
@@ -159,10 +179,10 @@ const UserSignIn = () => {
         </div>
 
 
-        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={showUserPas}>Input your Password</div>
+        <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={['text-center', showUserPas].join(" ")}>Input your Password</div>
 
           <Form.Group controlId="formBasicPassword" className={showUserPas}>
-            <Form.Label className={'mt-4'}>Password</Form.Label>
+            <Form.Label className={'mt-4 font-weight-bold'}>Password</Form.Label>
             <Form.Control
               onChange={handleChange}
               type="password"
@@ -196,7 +216,7 @@ const UserSignIn = () => {
             Log in
           </Button>
 
-          <div style={{color: 'grey', marginTop: '25px', fontSize: '14px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
+          <div style={{color: 'grey', marginTop: '25px', fontSize: '13px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
          
           {/* <p>
             New user?{" "}
@@ -213,7 +233,6 @@ const UserSignIn = () => {
           
         </Form>
       </Container>
-      </React.Fragment>
     );
   };
 

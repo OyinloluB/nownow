@@ -57,6 +57,18 @@ const Home = () => {
         );
       });
     }
+
+    else {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(function (position) {
+          dispatch(setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }));
+        });
+      }
+    }
+
   }, [isAuthenticated, user, dispatch]);
 
   const users = {
@@ -73,6 +85,8 @@ const Home = () => {
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
       />
+      
+      
       {isAuthenticated ? (
         <button
           className={["btn", classes.btn].join(" ")}
