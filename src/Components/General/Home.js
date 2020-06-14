@@ -34,13 +34,14 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance <= 2)
+    .filter((user) => user.distance <= 10)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 30);
 };
 
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
+  const [position, setPosition] = useState(false);
 
   const { user, isAuthenticated, coordinates } = useSelector(
     (state) => state.auth
@@ -64,7 +65,7 @@ const Home = () => {
         );
       });
     }
-  }, [isAuthenticated, user, dispatch]);
+  }, [isAuthenticated, user, dispatch, position]);
 
   const users = {
     pocs: modifyUsers(pocs, coordinates),
@@ -94,6 +95,7 @@ const Home = () => {
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
+        resetCenter={() => setPosition(true)}
       />
 
       {isAuthenticated ? (

@@ -11,5 +11,6 @@ export const trimUser = (user) => {
     latitude: Number.parseFloat(user.latitude),
     payment: { ...user.payment },
     products: Array.isArray(user.product) ? [...user.product] : [],
+    firstTimer: user.product.length < 1 ? true : false
   };
 };

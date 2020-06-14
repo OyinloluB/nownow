@@ -10,7 +10,7 @@ import ShoppingBasket from "../Layout/ShoppingBasket";
 import { getCoordinatesAddress } from "../../helpers/google-maps";
 import { calcDistanceInKm } from "../../helpers/utility";
 
-const ListHandler = ({ show, closeModal, users: propUsers }) => {
+const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
@@ -99,6 +99,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
               
               Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
             </span>
+            <button onClick={resetCenter}>Reset</button>
           </div>
         </Modal.Header>
         <div
