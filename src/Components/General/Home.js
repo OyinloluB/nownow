@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
-
+import UserSignIn from "../AccountForms/User/UserSignIn";
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
@@ -47,15 +47,12 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        dispatch(
-          setCoordinates({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          })
-        );
-      });
+
+    if(isAuthenticated) {
+      dispatch(setCoordinates({
+        lat: user.latitude,
+        lng: user.longitude
+      }));
     }
 
     else {
@@ -78,7 +75,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Map users={isAuthenticated ? users : []} center={coordinates} />
       <ListHandler
         show={showCustomerModal}
@@ -103,14 +100,15 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "space-around",
             position: "fixed",
-            bottom: "3vh",
-            left: "2%",
-            width: "10%",
+            top: "10%",
+            // left: "2%",
+            width: "100%",
             fontSize: "14px",
             fontWeight: "bold",
             cursor: "pointer",
           }}
         >
+          
           <p
             onClick={() => {
               history.push("/terms");
@@ -125,6 +123,8 @@ const Home = () => {
           >
             Privacy
           </p>
+
+          <UserSignIn />
         </div>
       )}
       {isAuthenticated ? <SearchLocation /> : null}
