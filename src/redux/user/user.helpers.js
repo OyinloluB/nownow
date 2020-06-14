@@ -1,5 +1,4 @@
 export const trimUser = (user) => {
-
   return {
     id: user._id,
     userID: user.ID,
@@ -11,6 +10,11 @@ export const trimUser = (user) => {
     latitude: Number.parseFloat(user.latitude),
     payment: { ...user.payment },
     products: Array.isArray(user.product) ? [...user.product] : [],
-    firstTimer: user.product.length < 1 ? true : false
+    firstTimer:
+      Array.isArray(user.product) &&
+      user.product.length > 0 &&
+      JSON.stringify(user.product[0]) !== JSON.stringify({ 0: "0" })
+        ? false
+        : true,
   };
 };

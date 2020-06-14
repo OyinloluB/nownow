@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
 
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
+import { Legal } from "../Modals/Legal";
 import "./home.css";
 
-import { setCoordinates } from "../../redux/auth/auth.actions";
+import { setCoordinates, updateFirstTimerStatus } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
 
 import UserSignIn from "../AccountForms/User/UserSignIn";
@@ -51,7 +51,6 @@ const Home = () => {
   );
 
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,22 +72,30 @@ const Home = () => {
     bulkbreakers: modifyUsers(bulkbreakers, coordinates),
   };
 
-  return (
-    <div style={{position: 'relative'}}>
-      <Map users={isAuthenticated ? users : []} center={coordinates} />
+  const setFirstTimeStatus = () => {
+    dispatch(updateFirstTimerStatus());
+  }
 
-      {isAuthenticated ? null : ( <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          position: "fixed",
-          top: "10%",
-          width: "100%",
-          fontSize: "13px",
-        }}>
-          <UserSignIn />
-        </div>
+  return (
+    <>
+      <Legal show={user.firstTimer} setShow={setFirstTimeStatus} />
+      <div style={{ position: "relative" }}>
+        <Map users={isAuthenticated ? users : []} center={coordinates} />
+
+        {isAuthenticated ? null : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              position: "fixed",
+              top: "10%",
+              width: "100%",
+              fontSize: "13px",
+            }}
+          >
+            <UserSignIn />
+          </div>
         )}
 
       <ListHandler
@@ -98,15 +105,15 @@ const Home = () => {
         resetCenter={() => setPosition(true)}
       />
 
-      {isAuthenticated ? (
-        <button
-          className={["btn", classes.btn].join(" ")}
-          onClick={() => setShowCustomerModal(true)}
-        >
-          <AllOutIcon /> View Customers
-        </button>
-      ) : null}
-      {isAuthenticated ? null : (
+        {isAuthenticated ? (
+          <button
+            className={["btn", classes.btn].join(" ")}
+            onClick={() => setShowCustomerModal(true)}
+          >
+            <AllOutIcon /> View Customers
+          </button>
+        ) : null}
+        {/* {isAuthenticated ? null : (
         <div
           style={{
             color: "#b11917",
@@ -137,9 +144,10 @@ const Home = () => {
             Privacy
           </p>
         </div>
-      )}
-      {isAuthenticated ? <SearchLocation /> : null}
-    </div>
+      )} */}
+        {isAuthenticated ? <SearchLocation /> : null}
+      </div>
+    </>
   );
 };
 

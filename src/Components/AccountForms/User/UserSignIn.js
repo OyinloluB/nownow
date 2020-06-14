@@ -58,8 +58,9 @@ const UserSignIn = () => {
   const toggler = () => {
     const ID = loginDetails.ID;
     const password = "DDLCPD";
+    console.log('nawa');
 
-    if (ID.slice(0, 2) === "6C") {
+    if (ID.slice(0, 1) === "6") {
       axios.get(`/Distributor/User/${ID}`).then((list) => {
         if (list.data.length !== 0) {
           _setId(list.data[0]._id);
