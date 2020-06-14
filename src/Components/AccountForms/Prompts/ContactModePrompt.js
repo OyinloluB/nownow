@@ -9,7 +9,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Checkbox from '@material-ui/core/Checkbox';
 
 
-const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted }) => {
+const ContactModePrompt = ({ setCurrentSetup, setContactModeDetails, setSubmitted }) => {
   const [checked, setChecked] = React.useState(true);
 
   const [contactDetails, setContactDetails] = useState({});
@@ -36,7 +36,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
   };
 
   const previous = () => {
-    setCurrentPage(3);
+    setCurrentSetup(3);
   };
 
 
@@ -94,7 +94,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                 onChange={handleChangePhone}
               />
                 <CallIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 18 }} />
-                <span className={'mt-2'}> &nbsp; By Phone</span>
+                <span className={'mt-2'} style={{fontSize: '13px'}}> &nbsp; By Phone</span>
               </Form.Label>
               <Form.Control
                 style={{
@@ -125,7 +125,7 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
                   onChange={ handleChangeWhatsapp }
                 />
                 <WhatsAppIcon className={'mt-2'} style={{ color: "#b11917", fontSize: 18 }} />
-                <span className={'mt-2'}> &nbsp; By WhatsApp</span>
+                <span className={'mt-2'} style={{fontSize: '13px'}}> &nbsp; By WhatsApp</span>
               </Form.Label>
               <Form.Control
               
@@ -153,9 +153,9 @@ const ContactModePrompt = ({ setCurrentPage, setContactModeDetails, setSubmitted
             >
                 Finish Setup
             </Button>
-            <span> { setCurrentPage } </span>
+            <span> { setCurrentSetup } </span>
           </Modal.Footer>
-        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 4 of 4</span>
+        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Setup 4 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>

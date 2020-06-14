@@ -3,11 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
-
+import UserSignIn from "../AccountForms/User/UserSignIn";
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
-import "./home.css";
 
 import { setCoordinates } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
@@ -23,58 +22,50 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-
+const modifyUsers = (users, coordinates) => {
+  return users
+    .map((user) => ({
+      ...user,
+      distance: calcDistanceInKm(coordinates, {
+        lat: user.latitude,
+        lng: user.longitude,
+      }),
+    }))
+    .filter((user) => user.distance < 3)
+    .sort((userA, userB) => userA.distance - userB.distance)
+    .slice(0, 60);
+};
 
 const Home = () => {
-
-  const modifyUsers = (users, coordinates) => {
-    return users
-      .map((user) => ({
-        ...user,
-        distance: calcDistanceInKm(coordinates, {
-          lat: user.latitude,
-          lng: user.longitude,
-        }),
-      }))
-      .filter((user) => user.distance <= 2)
-      .sort((userA, userB) => userA.distance - userB.distance)
-      .slice(0, 30);
-  };
   const [showCustomerModal, setShowCustomerModal] = useState(false);
 
-  const { user, isAuthenticated, coordinates } = useSelector(
-    (state) => state.auth
-  );
-  const { pocs, distributors, bulkbreakers } = useSelector(
-    (state) => state.user
-  );
+  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        dispatch(
-          setCoordinates({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          })
-        );
-      });
-    } else {
+
+    if(isAuthenticated) {
+      dispatch(setCoordinates({
+        lat: user.latitude,
+        lng: user.longitude
+      }));
+    }
+
+    else {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(function (position) {
-          dispatch(
-            setCoordinates({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            })
-          );
+          dispatch(setCoordinates({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }));
         });
       }
     }
+
   }, [isAuthenticated, user, dispatch]);
 
   const users = {
@@ -84,14 +75,15 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Map users={isAuthenticated ? users : []} center={coordinates} />
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
       />
-
+      
+      
       {isAuthenticated ? (
         <button
           className={["btn", classes.btn].join(" ")}
@@ -108,15 +100,16 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "space-around",
             position: "fixed",
-            bottom: "3vh",
-            left: "2%",
-            width: "10%",
+            top: "10%",
+            // left: "2%",
+            width: "100%",
             fontSize: "14px",
             fontWeight: "bold",
             cursor: "pointer",
           }}
         >
-          <p
+          
+          {/* <p
             onClick={() => {
               history.push("/terms");
             }}
@@ -129,7 +122,9 @@ const Home = () => {
             }}
           >
             Privacy
-          </p>
+          </p> */}
+
+          <UserSignIn />
         </div>
       )}
       {isAuthenticated ? <SearchLocation /> : null}

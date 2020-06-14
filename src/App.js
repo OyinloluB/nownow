@@ -8,6 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 import Eligible from "./Components/Modals/Eligible";
+// import Agegate from "./Components/AgeGate/Agegate";
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
 import Cookie from "./Components/General/Cookies";
@@ -90,7 +91,7 @@ function App() {
   }, [isAuthenticated]);
 
   const handleYes = () => {
-    setColorYes("#B11917");
+    setColorYes("grey");
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: true })
@@ -111,7 +112,7 @@ function App() {
   };
 
   const handleNo = () => {
-    setColorNo("green");
+    setColorNo("grey");
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: false })

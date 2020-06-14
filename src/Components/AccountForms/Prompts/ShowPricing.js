@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Typography from "@material-ui/core/Typography";
 import { Form } from "react-bootstrap";
+import CancelIcon from '@material-ui/icons/Cancel';
 
 const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxPriceAlert  }) => {
 
@@ -13,9 +14,9 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
    
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Modal.Body className={'text-center'}>
-        <div>
-          <Typography component="h6" variant="h6" style={{fontWeight: 'bold'}}>
+      <Modal.Body>
+        <div style={{fontSize: '15px'}}>
+          <span style={{fontWeight: 'bold'}}>
             {`${product.brand} `}
             <span
               style={{
@@ -24,12 +25,13 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
               }}
             >
               {`${product.volume} (${product.sku})`}
+              <CancelIcon style={{color: '#B11917'}} className={'offset-3'} onClick={ handleClose } />
             </span>
-          </Typography>
+          </span>
           
           <div>
             <Form.Group controlId="formBasicPrice">
-            <Form.Label className={'text-center font-weight-bold'}>Price Per Case:</Form.Label>
+            <Form.Label className={'text-center font-weight-bold'}>Price Per Case (&#8358;):</Form.Label>
               <Form.Control
                 type="number"
                 placeholder={Number(product.recommendedPrice.substring(1).replace(",",""))}

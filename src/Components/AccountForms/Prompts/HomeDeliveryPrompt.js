@@ -54,7 +54,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
               <LocalShippingIcon style={{ color: "white", fontSize: 25 }} />
               &nbsp;
-               Do you deliver products to buyers?
+               Do you deliver products to your customers?
             </Modal.Title>
           </Modal.Header>
 
@@ -111,7 +111,7 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               Next
             </Button>
           </Modal.Footer>
-          <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 2 of 4</span>
+          <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Setup 2 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>

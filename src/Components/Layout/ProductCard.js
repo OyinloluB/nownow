@@ -8,7 +8,6 @@ import CardContent from "@material-ui/core/CardContent";
 // import { Form } from "react-bootstrap";
 import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CancelIcon from '@material-ui/icons/Cancel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,17 +43,17 @@ const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
         setMaxPriceAlert={setMaxPriceAlert}
       />
 
-      <div className={classes.root} onClick={() => setShowContent(true)}>
+      <div className={classes.root} onClick={() => setShowContent(true)} style={{border: '1px solid grey',minHeight: '230px',paddingLeft: '15px', paddingRight: '15px', borderRadius: '5px'}}>
         <Row className={classes.details}>
           {product.image ? (
             <>
-            { product.price && setMaxPriceAlert === '' ? <CheckCircleOutlineIcon style={{color: 'green'}} className={'offset-3'}/> : <CancelIcon style={{color: '#B11917'}} className={'offset-3'}/> }
+            { product.price && setMaxPriceAlert === '' ? <CheckCircleOutlineIcon style={{color: 'green'}} className={'offset-3'}/> : <CheckCircleOutlineIcon style={{color: '#fff'}} className={'offset-3'}/> }
               <img
                 src={product.image}
                 alt={`${product.brand} ${product.sku}`}
                 style={{
                   width: "100%",
-                  height: "100px",
+                  maxHeight: "80px",
                   objectFit: "contain",
                 }}
               />

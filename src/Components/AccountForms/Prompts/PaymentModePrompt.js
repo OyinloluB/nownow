@@ -48,7 +48,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
 
       <Form onSubmit={handleSubmit}>
       <p style={{fontSize: '11px',backgroundColor: '#AADAFF', fontWeight: 'bold', borderRadius: '4px'}} className={'text-center text-justify'}>
-        Please note your mode of payment will be communicated with the Seller and you will pay directly to them upon receipt of your order
+        Please note your mode of payment will be communicated with the buyer
       </p>
         <Modal.Dialog>
           <Modal.Header
@@ -80,7 +80,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
               Next
             </Button>
           </Modal.Footer>
-        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Page 3 of 4</span>
+        <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Setup 3 of 4</span>
         </Modal.Dialog>
       </Form>
     </Container>

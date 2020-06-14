@@ -28,36 +28,8 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
-
-  useEffect(() => {
-    if (users.length > 0) {
-      const fetchAddresses = async (users) => {
-        try {
-          const updatedUsers = [];
-          for await (const user of users) {
-            if (user.latitude === 0) {
-              user.address = "Not Available, contact through mobile number";
-            } else {
-              const address = await getCoordinatesAddress(
-                user.latitude,
-                user.longitude
-              );
-              if (address) {
-                user.address = address;
-              }
-            }
-            updatedUsers.push(user);
-          }
-          setUsers([...updatedUsers]);
-        } catch (error) {
-          console.log("Error Fetching Addresses: ", error);
-        }
-      };
-      fetchAddresses(users);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [users.length]);
-
+  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
+ 
   return (
     <>
       <ShoppingBasket
@@ -142,7 +114,30 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
           >
             {users
               .filter((user) => user.type === userType)
-              .map((user) => {
+              .map((user, i) => {
+
+                if(user.latitude === 0) {
+                  user.address = 'Not Available, contact through mobile number'
+                }
+                else { 
+                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+                    user.latitude +
+                    "," +
+                    user.longitude +
+                    "&key=" +
+                    API_KEY
+                ).then((response) => response.json())
+                .then((responseJson) => {
+                  if(responseJson.results.length > 1){
+                    // forcing the fetched address into the users data
+                      user.address = responseJson.results[0].formatted_address;
+                  }
+                  else {
+                    user.address = 'Loading...'
+                  }
+                }).catch(error=>console.log('error'))
+              }
+
                 return (
                   <div
                     key={user.id}

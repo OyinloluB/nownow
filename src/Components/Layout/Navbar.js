@@ -85,7 +85,7 @@ export default function Navbar() {
   };
 
   const handleYes = () => {
-    setYesColor('#B11917');
+    setYesColor('grey');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: true })
@@ -101,7 +101,7 @@ export default function Navbar() {
   } 
   
   const handleNo = () => {
-    setNoColor('green');
+    setNoColor('grey');
     if (user.type === "distributor") {
       axios
         .patch(`/Distributor/${user.id}`, { confirmed: false })

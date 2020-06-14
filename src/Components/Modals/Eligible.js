@@ -22,15 +22,15 @@ function Eligible() {
     <>
       <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header>
-          <Modal.Title>Please confirm your age</Modal.Title>
+          <Modal.Title className={'offset-1 offset-md-3'}>Please confirm your age</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you 18 and above?</Modal.Body>
+        <Modal.Body className={'text-center text-danger'} style={{fontSize: '19px'}}>Are you 18 and above?</Modal.Body>
         <p style={{ color: "red", fontSize: "12", textAlign: "center" }}>{warning}</p>
-        <Modal.Footer>
+        <Modal.Footer className={'row'}>
           <Button
             onClick={handleClose}
             style={{
-              width: "184px",
+              width: "45%",
               padding: "10px",
               border: "1px solid #b11917",
               backgroundColor: "#b11917",
@@ -42,7 +42,7 @@ function Eligible() {
             variant="secondary"
             onClick={handleNotEligible}
             style={{
-              width: "91px",
+              width: "50%",
               padding: "10px",
             }}
           >
