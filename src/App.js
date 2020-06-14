@@ -185,7 +185,7 @@ function App() {
         </Fade>
       </Modal>
       <Cookie />
-      {/* {isAuthenticated ? null : <Eligible />} */}
+      {isAuthenticated ? null : <Eligible />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />
