@@ -7,6 +7,7 @@ import AllOutIcon from "@material-ui/icons/AllOut";
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
+import "./home.css";
 
 import { setCoordinates } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
@@ -39,8 +40,12 @@ const modifyUsers = (users, coordinates) => {
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
 
-  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
-  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
+  const { user, isAuthenticated, coordinates } = useSelector(
+    (state) => state.auth
+  );
+  const { pocs, distributors, bulkbreakers } = useSelector(
+    (state) => state.user
+  );
 
   const classes = useStyles();
   const history = useHistory();
@@ -56,19 +61,18 @@ const Home = () => {
           })
         );
       });
-    }
-
-    else {
+    } else {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(function (position) {
-          dispatch(setCoordinates({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }));
+          dispatch(
+            setCoordinates({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            })
+          );
         });
       }
     }
-
   }, [isAuthenticated, user, dispatch]);
 
   const users = {
@@ -85,8 +89,7 @@ const Home = () => {
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
       />
-      
-      
+
       {isAuthenticated ? (
         <button
           className={["btn", classes.btn].join(" ")}

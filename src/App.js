@@ -8,6 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
 import Eligible from "./Components/Modals/Eligible";
+import Agegate from "./Components/AgeGate/Agegate";
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
 import Cookie from "./Components/General/Cookies";
@@ -185,7 +186,7 @@ function App() {
         </Fade>
       </Modal>
       <Cookie />
-      {/* {isAuthenticated ? null : <Eligible />} */}
+      {isAuthenticated ? null : <Eligible />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />
