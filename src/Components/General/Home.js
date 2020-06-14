@@ -8,9 +8,6 @@ import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
 
-import axios from "../../axios-client";
-import {setCoordinates} from '../../redux/auth/auth.actions';
-import UserSignIn from "../AccountForms/User/UserSignIn";
 import { setCoordinates } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
 
@@ -81,28 +78,8 @@ const Home = () => {
   };
 
   return (
-    <div style={{position: 'relative'}}>
-      <Map
-        users={
-          isAuthenticated ? [...pocs, ...distributors, ...bulkbreakers] : []
-        }
-        center={coordinates}
-      />
-
-      {isAuthenticated ? null : ( <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-            position: "fixed",
-            top: "10%",
-            width: "100%",
-            fontSize: "13px",
-          }}>
-            <UserSignIn />
-          </div>
-          )}
-
+    <div>
+      <Map users={isAuthenticated ? users : []} center={coordinates} />
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}

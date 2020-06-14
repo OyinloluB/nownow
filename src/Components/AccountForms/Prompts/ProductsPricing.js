@@ -21,21 +21,20 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const handleInputChange = (e, productId) => {
+  const handleInputChange = (e, productId, recPrice) => {
+
+    // getting 70% of recommended price
+    var minRecPrice = (70/100)*recPrice
+    var maxRecPrice = (150/100)*recPrice
+
     const updatedProducts = products.map((product) => {
+      
+      (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
+      
       if (product._id === productId) {
-        if (
-          e.target.value >
-          Number(product.recommendedPrice.substring(1).replace(",", ""))
-        ) {
-          setMaxPriceAlert(
-            "Your Product Price is beyond the Recommended Price!"
-          );
-          
-        } else {
-          product.price = e.target.value;
-        }
+        product.price = e.target.value; 
       }
+    
 
       return product;
     });
@@ -77,7 +76,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
         >
           Select the Brand/SKU you sell and set your Selling Price
         </h6>
-        <p style={{fontSize: '10px', borderRadius: '4px'}} className={'text-center bg-success text-justify p-1 text-light'}>
+        <p style={{fontSize: '10px', borderRadius: '4px', backgroundColor: '#AADAFF', fontWeight: 'bold'}} className={'text-center text-justify p-1'}>
         Please note! you are expected to input the price you sell each product which will be communicated to your potential customers, if you do not set your price, a recommended selling price will be displayed on your profile for your customers to see
         </p>
         <Row>
