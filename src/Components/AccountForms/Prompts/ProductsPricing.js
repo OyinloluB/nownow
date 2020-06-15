@@ -32,10 +32,9 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
       (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
       
       if (product._id === productId) {
-        product.price = e.target.value; 
+        product.price = e.target.value;
       }
     
-
       return product;
     });
 

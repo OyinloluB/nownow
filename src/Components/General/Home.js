@@ -77,6 +77,21 @@ const Home = () => {
   return (
     <div style={{position: 'relative'}}>
       <Map users={isAuthenticated ? users : []} center={coordinates} />
+
+      {isAuthenticated ? null : ( <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          position: "fixed",
+          top: "10%",
+          width: "100%",
+          fontSize: "13px",
+        }}>
+          <UserSignIn />
+        </div>
+        )}
+
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}

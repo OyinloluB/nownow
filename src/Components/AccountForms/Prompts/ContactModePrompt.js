@@ -60,7 +60,7 @@ const ContactModePrompt = ({ setCurrentSetup, setContactModeDetails, setSubmitte
     >
       <Form onSubmit={handleSubmit}>
       <p style={{fontSize: '11px',backgroundColor: '#AADAFF', fontWeight: 'bold', borderRadius: '4px'}} className={'text-center text-justify'}>
-          Please note that you can only select one and this is how your customers will contact you
+          Please note that you can select one or both modes of contact which your customers will be able to contact you
       </p>
       
         <Modal.Dialog>
