@@ -1,6 +1,6 @@
 import React from "react";
 // import CookieConsent from "react-cookie-consent";
-import CookieConsent, { Cookies } from "react-cookie-consent";
+import CookieConsent from "react-cookie-consent";
 
 const Cookie = () => {
   return (

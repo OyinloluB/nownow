@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
@@ -6,11 +7,10 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingBasket from "../Layout/ShoppingBasket";
-
-import { getCoordinatesAddress } from "../../helpers/google-maps";
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import { calcDistanceInKm } from "../../helpers/utility";
 
-const ListHandler = ({ show, closeModal, users: propUsers }) => {
+const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
@@ -20,7 +20,9 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
+  const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
+  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
@@ -28,8 +30,35 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
-  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
- 
+
+  // useEffect(() => {
+  //   const fetchAddresses = async () => {
+  //     try {
+  //       const updatedUsers = [];
+  //       for await (const user of users) {
+  //         if (user.latitude === 0) {
+  //           user.address = "Not Available, contact through mobile number";
+  //         } else {
+  //           const response = await axios.get(
+  //             `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
+  //           );
+  //           const { data: responseJson } = response;
+  //           if (responseJson.results.length > 0) {
+  //             user.address = responseJson.results[0].formatted_address;
+  //             console.log(user)
+  //           }
+  //         }
+  //         updatedUsers.push(user);
+  //       }
+  //       setUsers([...updatedUsers]);
+  //     } catch (error) {
+  //       console.log("Error Fetching Addresses: ", error);
+  //     }
+  //   };
+  //   fetchAddresses();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   return (
     <>
       <ShoppingBasket
@@ -51,7 +80,7 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             // alignItems: "center",
           }}
         >
-          <div className={"row"}>
+          {/* <div className={"row"}> */}
             <ArrowBackIcon
               style={{
                 color: "#b11917",
@@ -60,18 +89,20 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                 border: '1px solid #b11917',
                 borderRadius: '2px'
               }}
-              className={"col-3"}
+              className={"col-2 mt-1 mr-auto"}
               onClick={closeModal}
             />
 
             <span
-              className={"offset-3 offset-md-3 col-4 font-weight-bold"}
-              style={{ whiteSpace: "nowrap" }}
+              className={"col-6 font-weight-bold "}
+              style={{ whiteSpace: "nowrap", fontSize: 18 }}
             >
               
-              Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
+            Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
+          
             </span>
-          </div>
+            <span className={'btn text-light ml-auto'}><RotateLeftIcon className={'btn text-light'} style={{color: 'white', backgroundColor:'grey'}} onClick={resetCenter} /></span>
+          {/* </div> */}
         </Modal.Header>
         <div
           style={{
@@ -113,12 +144,20 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
             }}
           >
             {users
-              .filter((user) => user.type === userType)
+              .filter(
+                (user) =>
+                  // user.products.length > 0 &&
+                  user.type === userType && true &&
+                  calcDistanceInKm(coordinates, {
+                    lat: user.latitude,
+                    lng: user.longitude,
+                  }) <= 6
+              ).slice(0,60)
               .map((user, i) => {
-
                 if(user.latitude === 0) {
                   user.address = 'Not Available, contact through mobile number'
                 }
+      
                 else { 
                   fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
                     user.latitude +
@@ -126,18 +165,18 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                     user.longitude +
                     "&key=" +
                     API_KEY
-                ).then((response) => response.json())
-                .then((responseJson) => {
-                  if(responseJson.results.length > 1){
-                    // forcing the fetched address into the users data
-                      user.address = responseJson.results[0].formatted_address;
-                  }
-                  else {
-                    user.address = 'Loading...'
-                  }
-                }).catch(error=>console.log('error'))
-              }
-
+                )
+                  .then((response) => response.json())
+                  .then((responseJson) => {
+                    if(responseJson.results.length > 1){
+                      // forcing the fetched address into the users data
+                        user.address = responseJson.results[0].formatted_address;
+                    }
+                    else {
+                      user.address = 'Loading...'
+                    }
+                  }).catch(error=>console.log('error'))
+                }
                 return (
                   <div
                     key={user.id}
@@ -181,8 +220,8 @@ const ListHandler = ({ show, closeModal, users: propUsers }) => {
                           {" "}
                           {user.name}
                           <br />
-                          <span style={{ fontSize: "12px", color: "#000" }}>
-                            {`Distance: ${
+                          <span style={{ fontSize: "11px", color: "#000" }}>
+                          {`Distance: ${
                               user.distance < 1
                                 ? `${Math.floor(user.distance * 1000)} m`
                                 : `${Math.floor(user.distance)} km`

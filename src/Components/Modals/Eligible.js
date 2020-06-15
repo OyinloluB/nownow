@@ -24,8 +24,8 @@ function Eligible() {
         <Modal.Header>
           <Modal.Title className={'offset-1 offset-md-3'}>Please confirm your age</Modal.Title>
         </Modal.Header>
-        <Modal.Body className={'text-center text-danger'} style={{fontSize: '19px'}}>Are you 18 and above?</Modal.Body>
-        <p style={{ color: "red", fontSize: "12", textAlign: "center" }}>{warning}</p>
+        <Modal.Body className={'text-center text-danger'} style={{fontSize: '19px', color: '#B11917'}}>Are you 18 and above?</Modal.Body>
+        <p style={{ color: "red", fontSize: "12", textAlign: "center" }} className={'text-danger'}>{warning}</p>
         <Modal.Footer className={'row'}>
           <Button
             onClick={handleClose}

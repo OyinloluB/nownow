@@ -121,3 +121,8 @@ export const setCoordinates = (coordinates) => ({
   type: AuthActionTypes.SET_COORDINATES,
   payload: coordinates
 });
+
+
+export const updateFirstTimerStatus = () => ({
+  type: AuthActionTypes. UPDATE_FIRST_TIMER_STATUS
+});

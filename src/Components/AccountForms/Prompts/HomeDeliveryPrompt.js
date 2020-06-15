@@ -6,7 +6,6 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
-  const [noColor, setNoColor] = useState("white");
 
   const handleSubmit = (e) => {
     e.preventDefault();

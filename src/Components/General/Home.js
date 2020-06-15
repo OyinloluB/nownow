@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AllOutIcon from "@material-ui/icons/AllOut";
-import UserSignIn from "../AccountForms/User/UserSignIn";
+
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
+import { Legal } from "../Modals/Legal";
+import "./home.css";
 
-import { setCoordinates } from "../../redux/auth/auth.actions";
+import { setCoordinates, updateFirstTimerStatus } from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
+
+import UserSignIn from "../AccountForms/User/UserSignIn";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -33,21 +36,24 @@ const modifyUsers = (users, coordinates) => {
     }))
     .filter((user) => user.distance < 3)
     .sort((userA, userB) => userA.distance - userB.distance)
-    .slice(0, 60);
+    .slice(0, 30);
 };
 
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
+  const [position, setPosition] = useState(false);
 
-  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
-  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
+  const { user, isAuthenticated, coordinates } = useSelector(
+    (state) => state.auth
+  );
+  const { pocs, distributors, bulkbreakers } = useSelector(
+    (state) => state.user
+  );
 
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     if(isAuthenticated) {
       dispatch(setCoordinates({
         lat: user.latitude,
@@ -66,7 +72,7 @@ const Home = () => {
       }
     }
 
-  }, [isAuthenticated, user, dispatch]);
+  }, [isAuthenticated, user, dispatch, position]);
 
   const users = {
     pocs: modifyUsers(pocs, coordinates),
@@ -74,40 +80,48 @@ const Home = () => {
     bulkbreakers: modifyUsers(bulkbreakers, coordinates),
   };
 
-  return (
-    <div style={{position: 'relative'}}>
-      <Map users={isAuthenticated ? users : []} center={coordinates} />
+  const setFirstTimeStatus = () => {
+    dispatch(updateFirstTimerStatus());
+  }
 
-      {isAuthenticated ? null : ( <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          position: "fixed",
-          top: "10%",
-          width: "100%",
-          fontSize: "13px",
-        }}>
-          <UserSignIn />
-        </div>
+  return (
+    <>
+      <Legal show={user.firstTimer} setShow={setFirstTimeStatus} />
+      <div style={{ position: "relative" }}>
+        <Map users={isAuthenticated ? users : []} center={coordinates} />
+
+        {isAuthenticated ? null : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              position: "fixed",
+              top: "10%",
+              width: "100%",
+              fontSize: "13px",
+            }}
+          >
+            <UserSignIn />
+          </div>
         )}
 
       <ListHandler
         show={showCustomerModal}
         closeModal={() => setShowCustomerModal(false)}
         users={isAuthenticated ? users : []}
+        resetCenter={() => setPosition(true)}
       />
-      
-      
-      {isAuthenticated ? (
-        <button
-          className={["btn", classes.btn].join(" ")}
-          onClick={() => setShowCustomerModal(true)}
-        >
-          <AllOutIcon /> View Customers
-        </button>
-      ) : null}
-      {isAuthenticated ? null : (
+
+        {isAuthenticated ? (
+          <button
+            className={["btn", classes.btn].join(" ")}
+            onClick={() => setShowCustomerModal(true)}
+          >
+            <AllOutIcon /> View Customers
+          </button>
+        ) : null}
+        {/* {isAuthenticated ? null : (
         <div
           style={{
             color: "#b11917",
@@ -115,16 +129,15 @@ const Home = () => {
             alignItems: "center",
             justifyContent: "space-around",
             position: "fixed",
-            top: "10%",
-            // left: "2%",
-            width: "100%",
+            bottom: "3vh",
+            left: "2%",
+            width: "10%",
             fontSize: "14px",
             fontWeight: "bold",
             cursor: "pointer",
           }}
         >
-          
-          {/* <p
+          <p
             onClick={() => {
               history.push("/terms");
             }}
@@ -137,13 +150,12 @@ const Home = () => {
             }}
           >
             Privacy
-          </p> */}
-
-          <UserSignIn />
+          </p>
         </div>
-      )}
-      {isAuthenticated ? <SearchLocation /> : null}
-    </div>
+      )} */}
+        {isAuthenticated ? <SearchLocation /> : null}
+      </div>
+    </>
   );
 };
 

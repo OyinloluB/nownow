@@ -1,7 +1,7 @@
 import AuthActionTypes from "./auth.types";
 
 const INITIAL_STATE = {
-  eligible: true,
+  eligible: null,
   isAuthenticated: false,
   user: {},
   coordinates: { lat: 0, lng: 0},
@@ -46,6 +46,14 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         coordinates: {...action.payload}
       };
+      case AuthActionTypes.UPDATE_FIRST_TIMER_STATUS:
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            firstTimer: false,
+          },
+        };
     default:
       return state;
   }

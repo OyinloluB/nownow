@@ -4,16 +4,16 @@ import { Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 import { Link, useHistory } from "react-router-dom";
 
-import ProductsPricing from "../Prompts/ProductsPricing";
-import HomeDeliveryPrompt from "../Prompts/HomeDeliveryPrompt";
-import PaymentModePrompt from "../Prompts/PaymentModePrompt";
-import ContactModePrompt from "../Prompts/ContactModePrompt";
+import ProductsPricing from "../AccountForms/Prompts/ProductsPricing";
+import HomeDeliveryPrompt from "../AccountForms/Prompts/HomeDeliveryPrompt";
+import PaymentModePrompt from "../AccountForms/Prompts/PaymentModePrompt";
+import ContactModePrompt from "../AccountForms/Prompts/ContactModePrompt";
 
 import {
   updateBulkbreaker,
   updateDistributor,
   updatePoc,
-} from "../../../redux/user/user.actions";
+} from "../../redux/user/user.actions";
 
 const UserInfo = () => {
   const [currentPage, setCurrentPage] = useState(1);

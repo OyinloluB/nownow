@@ -1,13 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { Modal, Button, Alert } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import StoreItem from "./StoreItem";
 import ClearIcon from "@material-ui/icons/Clear";
 import { addToCart } from "../../redux/cart/cart.actions";
 import InfoIcon from "@material-ui/icons/Info";
-import WhatsAppIcon from "@material-ui/icons/WhatsApp";
-import PhoneIcon from "@material-ui/icons/Phone";
 import { useSelector } from "react-redux";
 
 const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {

@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import { Modal, Form, Button } from "react-bootstrap";
 import Container from "@material-ui/core/Container";
 
-import UserSignInfo from "../User/UserInfo"
-import UserInfo from "../User/UserInfo";
+import UserSignInfo from "../../General/UserInfo"
+import UserInfo from "../../General/UserInfo";
 
 import axios from "../../../helpers/axios-client";
 
@@ -22,20 +22,18 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
         else {
             let password = pwd.password;
             if(type==="distributor"){
-              axios.patch(`/Distributor/changepassword/${userID}`, { password: password}).then(list=>{
+              axios.patch(`/Distributor/${userID}`, { password: password, activated: true}).then(list=>{
                 window.location.reload(false);
-              })
+              }).catch(error=>console.log(error))
             }
           
             else if(type==="bulkbreaker"){console.log({userID});
-                axios.patch(`/BulkBreaker/changepassword/${userID}`, { password: password }).then(list=>{
+                axios.patch(`/BulkBreaker/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false); 
-                    console.log(list)
-                })
+                }).catch(error=>console.log(error))
             }
             else if(type==="poc"){
-                axios.patch(`/Poc/changepassword/${userID}`, { password: password }).then(list=>{
-                  console.log(list)
+                axios.patch(`/Poc/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false);
                 }).catch(error=>console.log(error))
             }

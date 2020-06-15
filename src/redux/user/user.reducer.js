@@ -44,7 +44,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: null
+        error: null,
       };
     case UserActionTypes.FETCH_POCS_FAILURE:
     case UserActionTypes.FETCH_DISTRIBUTORS_FAILURE:
@@ -57,7 +57,6 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
-
     default:
       return state;
   }

@@ -93,16 +93,17 @@ export const ViewBasket = ({ show, setViewBasket }) => {
   const [value, setValue] = useState('');
   
   const { items, total } = useSelector((state) => {
+    const totalQuantity = state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
+    const multiple = totalQuantity >= 80 ? 0.981 : 1;
+    const totalPrice = state.cart.items.reduce((currentTotal, item) => {
+      return currentTotal + Math.floor((item.price * multiple) * item.quantity);
+    }, 0);
     return {
       items: state.cart.items,
-      total: state.cart.items.reduce((currentTotal, item) => {
-        return currentTotal + item.price * item.quantity;
-      }, 0),
+      total: totalPrice
     };
   });
 
-  
-  
   const handleClose = () => {
     setSuccess('d-none')
     setViewBasket(false);

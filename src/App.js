@@ -7,8 +7,8 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
-import Eligible from "./Components/Modals/Eligible";
-// import Agegate from "./Components/AgeGate/Agegate";
+import Eligible from "./Components/Agegate";
+
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
 import Cookie from "./Components/General/Cookies";
@@ -21,7 +21,7 @@ import {
   fetchDistributors,
 } from "./redux/user/user.actions";
 
-import { fetchReceivedOrders } from "./redux/order/order.actions";
+import { fetchReceivedOrders, fetchSentOrders } from "./redux/order/order.actions";
 
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
@@ -51,12 +51,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const { user, isAuthenticated, eligible } = useSelector(
-    (state) => state.auth
-  );
+  const { user, isAuthenticated, eligible } = useSelector((state) => ({
+    user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
+    eligible: state.auth.eligible
+  }));
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [colorYes, setColorYes] = useState("green");
   const [colorNo, setColorNo] = useState("#B11917");
 
@@ -66,6 +68,7 @@ function App() {
       if (user.type === "poc") {
         dispatch(fetchBulkBreakers());
         dispatch(fetchDistributors());
+        dispatch(fetchSentOrders());
 
         axios.get(`/Poc/User/${user.userID}`).then((list) => {
           list.data[0].confirmed === true ? setOpen(false) : setOpen(true);
@@ -80,7 +83,7 @@ function App() {
       } else if (user.type === "bulkbreaker") {
         dispatch(fetchPocs());
         dispatch(fetchDistributors());
-        dispatch(fetchReceivedOrders());
+        dispatch(fetchSentOrders());
 
         axios.get(`/BulkBreaker/User/${user.userID}`).then((list) => {
           list.data[0].confirmed === true ? setOpen(false) : setOpen(true);
@@ -93,17 +96,13 @@ function App() {
   const handleYes = () => {
     setColorYes("grey");
     if (user.type === "distributor") {
-      axios
-        .patch(`/Distributor/${user.id}`, { confirmed: true })
-        .then((list) => {
-          setOpen(false);
-        });
+      axios.patch(`/Distributor/${user.id}`, { confirmed: true }).then((list) => {
+        setOpen(false);
+      });
     } else if (user.type === "bulkbreaker") {
-      axios
-        .patch(`/BulkBreaker/${user.id}`, { confirmed: true })
-        .then((list) => {
-          setOpen(false);
-        });
+      axios.patch(`/BulkBreaker/${user.id}`, { confirmed: true }).then((list) => {
+        setOpen(false);
+      });
     } else if (user.type === "poc") {
       axios.patch(`/Poc/${user.id}`, { confirmed: true }).then((list) => {
         setOpen(false);
@@ -114,17 +113,13 @@ function App() {
   const handleNo = () => {
     setColorNo("grey");
     if (user.type === "distributor") {
-      axios
-        .patch(`/Distributor/${user.id}`, { confirmed: false })
-        .then((list) => {
-          setOpen(false);
-        });
+      axios.patch(`/Distributor/${user.id}`, { confirmed: false }).then((list) => {
+        setOpen(false);
+      });
     } else if (user.type === "bulkbreaker") {
-      axios
-        .patch(`/BulkBreaker/${user.id}`, { confirmed: false })
-        .then((list) => {
-          setOpen(false);
-        });
+      axios.patch(`/BulkBreaker/${user.id}`, { confirmed: false }).then((list) => {
+        setOpen(false);
+      });
     } else if (user.type === "poc") {
       axios.patch(`/Poc/${user.id}`, { confirmed: false }).then((list) => {
         setOpen(false);
@@ -186,7 +181,7 @@ function App() {
         </Fade>
       </Modal>
       <Cookie />
-      {isAuthenticated ? null : <Eligible />}
+      {!eligible ? <Eligible /> : null}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />

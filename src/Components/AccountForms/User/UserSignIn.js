@@ -43,14 +43,15 @@ const UserSignIn = () => {
   
   const toggler = () => {
     const ID = loginDetails.ID;
-    const password = 'DDLCPD';
-    
-    if(ID.slice(0,2) === '6C') {
-      axios.get(`/Distributor/User/${ID}`).then(list=>{
-        if(list.data.length!==0) {
+    console.log('nawa');
+
+    if (ID.slice(0, 1) === "6") {
+      axios.get(`/Distributor/User/${ID}`).then((list) => {
+        setNotice('');
+        if (list.data.length !== 0) {
           _setId(list.data[0]._id);
           setType('distributor');
-          if(list.data[0].password===password){
+          if(list.data[0].activated===false){
             setShowUserId('d-none');
             setShowUserPas('d-none');
             setResetPassword('d-block');
@@ -67,11 +68,12 @@ const UserSignIn = () => {
       })
     } else if(ID.slice(0,2) === 'BB') {
       axios.get(`/BulkBreaker/User/${ID}`).then(list=>{
+        setNotice('')
 
         if(list.data.length!==0) {
           _setId(list.data[0]._id);
           setType('bulkbreaker');
-          if(list.data[0].password===password){
+          if(list.data[0].activated===false){
             setShowUserId('d-none');
             setShowUserPas('d-none');
             setResetPassword('d-block');
@@ -89,10 +91,12 @@ const UserSignIn = () => {
     } else if(ID.slice(0,2) === 'RT') {
       axios.get(`/Poc/User/${ID}`).then(list=>{
 
+        setNotice('')
+
         if(list.data.length!==0) {
           _setId(list.data[0]._id);
           setType('poc');
-          if(list.data[0].password===password){
+          if(list.data[0].activated===false){
             setShowUserId('d-none');
             setShowUserPas('d-none');
             setResetPassword('d-block');
