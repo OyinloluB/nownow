@@ -7,6 +7,7 @@ import AllOutIcon from "@material-ui/icons/AllOut";
 import Map from "./Map";
 import ListHandler from "./ListHandler";
 import SearchLocation from "../Layout/SearchLocation";
+import { Legal } from "../Modals/Legal";
 import "./home.css";
 
 import { setCoordinates } from "../../redux/auth/auth.actions";
@@ -48,6 +49,7 @@ const Home = () => {
   const { pocs, distributors, bulkbreakers } = useSelector(
     (state) => state.user
   );
+  const [showLegal, setShowLegal] = useState(false);
 
   const classes = useStyles();
   const history = useHistory();
@@ -64,6 +66,7 @@ const Home = () => {
         );
       });
     }
+    setShowLegal(true);
   }, [isAuthenticated, user, dispatch]);
 
   const users = {
@@ -73,38 +76,42 @@ const Home = () => {
   };
 
   return (
-    <div style={{position: 'relative'}}>
-      <Map users={isAuthenticated ? users : []} center={coordinates} />
+    <>
+      <Legal show={showLegal} setShow={setShowLegal} />
+      <div style={{ position: "relative" }}>
+        <Map users={isAuthenticated ? users : []} center={coordinates} />
 
-      {isAuthenticated ? null : ( <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          position: "fixed",
-          top: "10%",
-          width: "100%",
-          fontSize: "13px",
-        }}>
-          <UserSignIn />
-        </div>
+        {isAuthenticated ? null : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              position: "fixed",
+              top: "10%",
+              width: "100%",
+              fontSize: "13px",
+            }}
+          >
+            <UserSignIn />
+          </div>
         )}
 
-      <ListHandler
-        show={showCustomerModal}
-        closeModal={() => setShowCustomerModal(false)}
-        users={isAuthenticated ? users : []}
-      />
+        <ListHandler
+          show={showCustomerModal}
+          closeModal={() => setShowCustomerModal(false)}
+          users={isAuthenticated ? users : []}
+        />
 
-      {isAuthenticated ? (
-        <button
-          className={["btn", classes.btn].join(" ")}
-          onClick={() => setShowCustomerModal(true)}
-        >
-          <AllOutIcon /> View Customers
-        </button>
-      ) : null}
-      {isAuthenticated ? null : (
+        {isAuthenticated ? (
+          <button
+            className={["btn", classes.btn].join(" ")}
+            onClick={() => setShowCustomerModal(true)}
+          >
+            <AllOutIcon /> View Customers
+          </button>
+        ) : null}
+        {/* {isAuthenticated ? null : (
         <div
           style={{
             color: "#b11917",
@@ -135,9 +142,10 @@ const Home = () => {
             Privacy
           </p>
         </div>
-      )}
-      {isAuthenticated ? <SearchLocation /> : null}
-    </div>
+      )} */}
+        {isAuthenticated ? <SearchLocation /> : null}
+      </div>
+    </>
   );
 };
 
