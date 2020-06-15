@@ -11,7 +11,7 @@ var MarkerInfoWindow = ({ user }) => {
     
       icon={{
         url: user.mapUrl,
-        scaledSize:  new window.google.maps.Size(30,30)
+        scaledSize:  new window.google.maps.Size(28,32)
       }}
       style={{fontSize: '100px'}}
       onClick={() => setIsOpen(!isOpen)}
