@@ -83,7 +83,7 @@ export const fetchBulkBreakersSuccess = (users) => {
     ...trimUser(user),
     type: "bulkbreaker",
     // color: green color marker
-    mapUrl:"https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_1-512.png"
+    mapUrl:"https://iconsetc.com/icons-watermarks/simple-green/raphael/raphael_location/raphael_location_simple-green_512x512.png"
   }));
   return {
     type: UserActionTypes.FETCH_BULK_BREAKERS_SUCCESS,
