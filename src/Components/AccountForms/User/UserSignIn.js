@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersonIcon from '@material-ui/icons/Person';
 import ResetPassword from "../Prompts/ResetPassword";
+import CicAgentContact from "../../Modals/CicAgentContact";
 
 import {
   authenticateDistributor,
@@ -30,8 +31,14 @@ const UserSignIn = () => {
   const [userPassword, setUserPassword] = useState({});
   const [_id, _setId] = useState('');
 
+  const [show, setShow] = useState(false);
+
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const handleCicAgentContactOpen = () => {
+    setShow(true);
+  }
 
   const handleChange = (e) => {
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value });
@@ -162,6 +169,8 @@ const UserSignIn = () => {
           borderRadius: '6px'
         }}
       >
+
+        <CicAgentContact show={show} closeModal={ () => setShow(false) }/>
         
         <Form onSubmit={handleSubmit}>
           <div style={{color: '#b11917', fontSize: '18px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={["text-center", showUserId].join(" ")} >Confirm Your Code</div>
@@ -221,7 +230,7 @@ const UserSignIn = () => {
             Log in
           </Button>
 
-          <div style={{color: 'grey', marginTop: '25px', fontSize: '13px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link to="/" style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
+          <div style={{color: 'grey', marginTop: '25px', fontSize: '13px'}}><PersonIcon style={{fontSize: '16px'}} /> Don't have an account or know your code? <Link onClick={handleCicAgentContactOpen} style={{color: '#B11917'}}> Ask our CIC Agent. </Link></div>  
          
           {/* <p>
             New user?{" "}
