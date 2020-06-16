@@ -12,8 +12,8 @@ export const Legal = ({ show, setShow }) => {
         }}
         aria-labelledby="example-custom-modal-styling-title"
       >
-        <Modal.Body>
-          <p>
+        <Modal.Body style={{padding: '10px'}} className={'text-center'}>
+          <p style={{color: '#B11917'}}>
             By using ShopNow, you agree to the{" "}
             <Link to="/terms">Terms of Use</Link> and{" "}
             <Link to="privacy">Privacy Policy</Link>
@@ -22,7 +22,7 @@ export const Legal = ({ show, setShow }) => {
             onClick={() => setShow(false)}
             style={{
               padding: "10px",
-              width: "160px",
+              width: "100%",
               background: "white",
               border: "none",
             }}

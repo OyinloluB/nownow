@@ -12,9 +12,11 @@ const ConfirmDeliveryItem = ({ item }) => {
     <>
       <ListGroup variant="flush">
         <ListGroup.Item style={itemStyles}>
-          {item.details.brand} &nbsp; <b>Price ({`N ${item.details.price}`})</b>{" "}
-          &nbsp; <b>Qty ({item.quantity})</b>
+             <div className={'d-flex font-weight-bold'} style={{color: '#B11917'}}><span className={'text-dark'}>Brand Name: </span><span className={'ml-auto'}></span>{item.details.brand} &nbsp; </div>
+             <div className={'d-flex font-weight-bold'} style={{color: '#B11917'}}><span className={'mr-auto text-dark'}>Quantity: </span>{item.quantity} </div>
+             <div className={'d-flex font-weight-bold'} style={{color: '#B11917'}}><span className={'mr-auto text-dark'}>Price: </span>&#8358; {item.details.price}</div>
         </ListGroup.Item>
+
       </ListGroup>
     </>
   );

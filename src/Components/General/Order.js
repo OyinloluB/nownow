@@ -166,6 +166,7 @@ const Order = () => {
             <Col xs={12} md={12} lg={12}>
               <OrderDropdown
                 isProcessing={currentOrder.status === "processing"}
+                isInTransit={currentOrder.status === "transit"}
                 updateOrderStatus={handleStatusUpdate}
               />
             </Col>
@@ -213,7 +214,7 @@ const Order = () => {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() =>
-                    setOrderStatus({ type: "Delivered", status: "delivered" })
+                    setOrderStatus({ type: "Delivered", status: "confirmed" })
                   }
                 >
                   <DoneIcon className="mr-3" />

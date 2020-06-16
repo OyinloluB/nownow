@@ -1,9 +1,9 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const OrderDropdown = ({ updateOrderStatus, isProcessing }) => {
+const OrderDropdown = ({ updateOrderStatus, isProcessing, isInTransit }) => {
   const handleSelectChange = (e) => {
-    if (e.target.value !== '' && isProcessing){
+    if (e.target.value !== '' && (isProcessing || isInTransit)){
       updateOrderStatus(e.target.value);
     }
   };
