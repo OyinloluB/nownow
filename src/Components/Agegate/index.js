@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./style.module.css";
 import img from "../../assets/logo.png";
 import moment from "moment";
 
-import { setEligibility } from '../../redux/auth/auth.actions';
+import { setEligibility } from "../../redux/auth/auth.actions";
 
 const classNames = (...classes) =>
   classes.filter((className) => className).join(" ");
@@ -90,7 +90,10 @@ const EligibilityWrapper = () => {
 
   return (
     <div
-      className={classNames(styles.ModalContainer, !eligible && styles.activeModal)}
+      className={classNames(
+        styles.ModalContainer,
+        !eligible && styles.activeModal
+      )}
     >
       <div className={styles.modalContent}>
         <img src={img} alt={"Logo"} />
@@ -98,9 +101,22 @@ const EligibilityWrapper = () => {
         <p> Please enter your birth date below </p>
         <div className={styles.inputGroup}>{inputs}</div>
         {invalidForm && (
-          <p className={styles.error}>You're not eligible to use this website.</p>
+          <p className={styles.error} style={{ color: "#b11917" }}>
+            You're not eligible to use this website.
+          </p>
         )}
-        <button onClick={submitFunc}>Submit</button>
+        <button
+          onClick={submitFunc}
+          style={{
+            padding: "8px",
+            width: "100px",
+            background: "#b11917",
+            border: "none",
+            color: "white",
+          }}
+        >
+          Submit
+        </button>
         <p className={styles.tandc}>
           By entering this site you are agreeing to the terms of use and Privacy
           policy
