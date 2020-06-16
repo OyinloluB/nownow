@@ -1,7 +1,12 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-export const SelectDropdown = () => {
+const OrderDropdown = ({ updateOrderStatus, isProcessing }) => {
+  const handleSelectChange = (e) => {
+    if (e.target.value !== '' && isProcessing){
+      updateOrderStatus(e.target.value);
+    }
+  };
   return (
     <Form>
       <Form.Group controlId="exampleForm.SelectCustom">
@@ -19,11 +24,14 @@ export const SelectDropdown = () => {
           style={{
             width: "230px",
           }}
+          onChange={handleSelectChange}
         >
-          <option>Select</option>
-          <option>Delivered</option>
+          <option value="">Select</option>
+          <option value="delivered">Delivered</option>
         </Form.Control>
       </Form.Group>
     </Form>
   );
 };
+
+export default OrderDropdown;

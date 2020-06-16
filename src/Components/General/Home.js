@@ -16,7 +16,6 @@ import {
 import { calcDistanceInKm } from "../../helpers/utility";
 
 import UserSignIn from "../AccountForms/User/UserSignIn";
-import ConfirmDelivery from "../Modals/ConfirmDelivery";
 
 const useStyles = makeStyles(() => ({
   btn: {
@@ -38,7 +37,7 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance < 3)
+    .filter((user) => user.distance < 100)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 30);
 };

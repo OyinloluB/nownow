@@ -156,12 +156,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
             {users
               .filter(
                 (user) =>
-                  // user.products.length > 0 &&
-                  user.type === userType &&
-                  calcDistanceInKm(coordinates, {
-                    lat: user.latitude,
-                    lng: user.longitude,
-                  }) <= 6
+                  user.type === userType 
               )
               .slice(0, 60)
               .map((user) => {
@@ -205,7 +200,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                           />
                         )}
 
-                        <span class={"offset-1 mr-auto font-weight-bold"}>
+                        <span className={"offset-1 mr-auto font-weight-bold"}>
                           {" "}
                           {user.name}
                           <br />

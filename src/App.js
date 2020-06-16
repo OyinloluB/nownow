@@ -12,7 +12,7 @@ import Order from "./Components/General/Order";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import StatusModal from "./Components/Modals/StatusModal";
-import ConfirmDelivery from './Components/Modals/ConfirmDelivery';
+import ConfirmDelivery from "./Components/Modals/ConfirmDelivery";
 
 import {
   fetchBulkBreakers,
@@ -67,11 +67,12 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar showDeliveryModal={() => setShowDeliveryModal(true)} />
       {/* promp to set your store open/close */}
       <StatusModal open={open} setOpen={setOpen} />
       <Cookie />
       {!eligible ? <Eligible /> : null}
+      <ConfirmDelivery show={showDeliveryModal} setShow={setShowDeliveryModal} />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />

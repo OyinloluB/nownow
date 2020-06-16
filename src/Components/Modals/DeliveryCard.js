@@ -1,10 +1,20 @@
 import React from "react";
-import ConfirmDeliveryItem from "./ConfirmDeliveryItem";
-
+import { useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 
-const DeliveryCard = ({ order }) => {
-  const handleConfirmOrder = (confirmed) => {};
+import ConfirmDeliveryItem from "./ConfirmDeliveryItem";
+
+import { updateOrderStatus } from "../../redux/order/order.actions";
+
+const DeliveryCard = ({ order, close }) => {
+  const dispatch = useDispatch();
+
+  const handleConfirmOrder = (confirmed) => {
+    const status = confirmed ? "confirmed" : "delayed";
+    dispatch(updateOrderStatus(order._id, status))
+      .then(() => close())
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div style={{ padding: "1rem 1rem 0rem 1rem", borderBottom: "none" }}>

@@ -6,7 +6,7 @@ import DeliveryCard from "./DeliveryCard";
 
 const ConfirmDelivery = ({ show, setShow }) => {
   const deliveredOrders = useSelector((state) => {
-    return state.orders.sentOrders.filter((order) => order.status === "delivered");
+    return state.order.sentOrders.filter((order) => order.status === "delivered");
   });
   
   const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ const ConfirmDelivery = ({ show, setShow }) => {
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       {deliveredOrders.map((order) => {
-        return <DeliveryCard key={order._id} order={order} />;
+        return <DeliveryCard key={order._id} order={order} close={handleClose} />;
       })}
     </Modal>
   );

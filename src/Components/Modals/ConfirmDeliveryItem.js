@@ -12,9 +12,9 @@ const ConfirmDeliveryItem = ({ item }) => {
     <>
       <ListGroup variant="flush">
         <ListGroup.Item style={itemStyles}>
-        {item.details.brand} &nbsp; <b>Price ({`N ${item.details.price}`})</b> &nbsp; <b>Qty ({item.quantity})</b>
+          {item.details.brand} &nbsp; <b>Price ({`N ${item.details.price}`})</b>{" "}
+          &nbsp; <b>Qty ({item.quantity})</b>
         </ListGroup.Item>
-        <ListGroup.Item style={itemStyles}>Total: 4000</ListGroup.Item>
       </ListGroup>
     </>
   );

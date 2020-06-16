@@ -12,12 +12,13 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import ViewBasket from "./ViewBasket";
 import StatusModal from "../Modals/StatusModal";
 import Logo from "../../assets/logo3.png";
 
-import {logout} from '../../redux/auth/auth.actions';
+import { logout } from "../../redux/auth/auth.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,26 +44,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ showDeliveryModal }) {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const [viewBasket, setViewBasket] = useState(false);
 
-  const { isAuthenticated, user, cartItemsCount, receivedOrdersCount } = useSelector(
-    (state) => {
-      return {
-        isAuthenticated: state.auth.isAuthenticated,
-        user: state.auth.user,
-        cartItemsCount: state.cart.items.length,
-        receivedOrdersCount: state.order.receivedOrders.filter(
-          (order) => order.status === "new"
-        ).length,
-        deliveredOrdersCount: state.order.sentOrders.filter(
-          (order) => order.status === "delivered"
-        ).length
-      };
-    }
-  );
+  const {
+    isAuthenticated,
+    user,
+    cartItemsCount,
+    receivedOrdersCount,
+    deliveredOrdersCount,
+  } = useSelector((state) => {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      user: state.auth.user,
+      cartItemsCount: state.cart.items.length,
+      receivedOrdersCount: state.order.receivedOrders.filter(
+        (order) => order.status === "new"
+      ).length,
+      deliveredOrdersCount: state.order.sentOrders.filter(
+        (order) => order.status === "delivered"
+      ).length,
+    };
+  });
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -93,7 +98,6 @@ export default function Navbar() {
                 <p
                   style={{
                     paddingLeft: "10px",
-                    // whiteSpace: "nowrap",
                     marginBottom: "0rem",
                     fontSize: "15px",
                   }}
@@ -110,6 +114,17 @@ export default function Navbar() {
                   >
                     <Badge badgeContent={cartItemsCount} color="secondary">
                       <ShoppingCartIcon />
+                    </Badge>
+                  </IconButton>
+                ) : null}
+                {user.type !== "distributor" ? (
+                  <IconButton
+                    aria-label="shopping"
+                    color="inherit"
+                    onClick={showDeliveryModal}
+                  >
+                    <Badge badgeContent={deliveredOrdersCount} color="secondary">
+                      <NotificationsIcon />
                     </Badge>
                   </IconButton>
                 ) : null}

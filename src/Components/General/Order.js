@@ -13,7 +13,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import CachedIcon from "@material-ui/icons/Cached";
 import NotInterestedIcon from "@material-ui/icons/NotInterested";
 
-import { SelectDropdown } from "../Layout/SelectDropdown";
+import OrderDropdown from "../Layout/OrderDropdown";
 import Spinner from "../Loaders/Spinner";
 
 import ReceivdOrders from "./ReceivedOrders";
@@ -22,7 +22,7 @@ import SentOrders from "./SentOrders";
 import {
   updateOrderStatus,
   fetchSentOrders,
-  fetchReceivedOrders
+  fetchReceivedOrders,
 } from "../../redux/order/order.actions";
 
 const Order = () => {
@@ -47,7 +47,7 @@ const Order = () => {
 
   useEffect(() => {
     dispatch(fetchReceivedOrders());
-    if(user.type !== 'distributor'){
+    if (user.type !== "distributor") {
       dispatch(fetchSentOrders());
     }
   }, [dispatch, user.type]);
@@ -99,15 +99,13 @@ const Order = () => {
           }}
         >
           <h6
-            className={`col-md-${
-              user.type !== "distributor" ? "6" : "12"
-            }`}
+            className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
             style={{
               textAlign: "center",
               padding: "10px",
               cursor: "pointer",
               backgroundColor: "green",
-              color: '#fff'
+              color: "#fff",
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
@@ -128,8 +126,8 @@ const Order = () => {
                 textAlign: "center",
                 cursor: "pointer",
                 padding: "10px",
-                backgroundColor: '#B11917',
-                color: '#fff'
+                backgroundColor: "#B11917",
+                color: "#fff",
               }}
             >
               <PublishIcon /> Orders I Placed
@@ -163,7 +161,10 @@ const Order = () => {
               </p>
             </Col>
             <Col xs={12} md={12} lg={12}>
-              <SelectDropdown />
+              <OrderDropdown
+                isProcessing={currentOrder.status === "processing"}
+                updateOrderStatus={handleStatusUpdate}
+              />
             </Col>
           </Row>
         ) : null}
@@ -198,9 +199,7 @@ const Order = () => {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: `Newly ${
-                        switchSent === "d-none" ? "Received" : "Sent"
-                      }`,
+                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
                       status: "new",
                     })
                   }
