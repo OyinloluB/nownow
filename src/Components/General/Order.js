@@ -2,18 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
-import CancelIcon from "@material-ui/icons/Cancel";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import ReceiptIcon from "@material-ui/icons/Receipt";
-import DoneIcon from "@material-ui/icons/Done";
-import CachedIcon from "@material-ui/icons/Cached";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import {
+  Cancel as CancelIcon,
+  FilterList as FilterListIcon,
+  GetApp as GetAppIcon,
+  Publish as PublishIcon,
+  Receipt as ReceiptIcon,
+  Done as DoneIcon,
+  Cached as CachedIcon,
+  NotInterested as NotInterestedIcon,
+  LocalShipping as LocalShippingIcon,
+} from "@material-ui/icons";
 
-import { SelectDropdown } from "../Layout/SelectDropdown";
+import OrderDropdown from "../Layout/OrderDropdown";
 import Spinner from "../Loaders/Spinner";
 
 import ReceivdOrders from "./ReceivedOrders";
@@ -22,7 +25,7 @@ import SentOrders from "./SentOrders";
 import {
   updateOrderStatus,
   fetchSentOrders,
-  fetchReceivedOrders
+  fetchReceivedOrders,
 } from "../../redux/order/order.actions";
 
 const Order = () => {
@@ -47,7 +50,7 @@ const Order = () => {
 
   useEffect(() => {
     dispatch(fetchReceivedOrders());
-    if(user.type !== 'distributor'){
+    if (user.type !== "distributor") {
       dispatch(fetchSentOrders());
     }
   }, [dispatch, user.type]);
@@ -99,16 +102,13 @@ const Order = () => {
           }}
         >
           <h6
-            className={`col-md-${
-              user.type !== "distributor" ? "6" : "12"
-            }`}
+            className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
             style={{
               textAlign: "center",
-              backgroundColor: "#f7f7f7",
               padding: "10px",
               cursor: "pointer",
               backgroundColor: "green",
-              color: '#fff'
+              color: "#fff",
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
@@ -127,11 +127,10 @@ const Order = () => {
               }}
               style={{
                 textAlign: "center",
-                backgroundColor: "rgb(215, 215, 215)",
                 cursor: "pointer",
                 padding: "10px",
-                backgroundColor: '#B11917',
-                color: '#fff'
+                backgroundColor: "#B11917",
+                color: "#fff",
               }}
             >
               <PublishIcon /> Orders I Placed
@@ -165,7 +164,10 @@ const Order = () => {
               </p>
             </Col>
             <Col xs={12} md={12} lg={12}>
-              <SelectDropdown />
+              <OrderDropdown
+                isProcessing={currentOrder.status === "processing"}
+                updateOrderStatus={handleStatusUpdate}
+              />
             </Col>
           </Row>
         ) : null}
@@ -200,9 +202,7 @@ const Order = () => {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: `Newly ${
-                        switchSent === "d-none" ? "Received" : "Sent"
-                      }`,
+                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
                       status: "new",
                     })
                   }
@@ -218,6 +218,15 @@ const Order = () => {
                 >
                   <DoneIcon className="mr-3" />
                   Delivered
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem
+                  onClick={() =>
+                    setOrderStatus({ type: "In Transit", status: "transit" })
+                  }
+                >
+                  <LocalShippingIcon className="mr-3" />
+                  In Transit
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem

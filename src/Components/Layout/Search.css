@@ -1,0 +1,13 @@
+.searchField {
+  position: fixed;
+  height: 200px;
+  bottom: 0px;
+  margin: auto;
+  right: 0px;
+}
+
+@media screen and (max-width: 420px) {
+  .searchField {
+    width: 100%;
+  }
+}

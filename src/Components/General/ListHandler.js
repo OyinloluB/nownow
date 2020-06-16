@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
@@ -6,11 +5,14 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
+
 import ShoppingBasket from "../Layout/ShoppingBasket";
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
+import axios from "../../helpers/axios-client";
 import { calcDistanceInKm } from "../../helpers/utility";
 
-const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
+const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
@@ -20,7 +22,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
-  const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
   const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
@@ -45,7 +46,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
   //           const { data: responseJson } = response;
   //           if (responseJson.results.length > 0) {
   //             user.address = responseJson.results[0].formatted_address;
-  //             console.log(user)
+  //             console.log(user);
   //           }
   //         }
   //         updatedUsers.push(user);
@@ -81,27 +82,34 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
           }}
         >
           {/* <div className={"row"}> */}
-            <ArrowBackIcon
-              style={{
-                color: "#b11917",
-                fontSize: 20,
-                cursor: "pointer",
-                border: '1px solid #b11917',
-                borderRadius: '2px'
-              }}
-              className={"col-2 mt-1 mr-auto"}
-              onClick={closeModal}
-            />
+          <ArrowBackIcon
+            style={{
+              color: "#b11917",
+              fontSize: 20,
+              cursor: "pointer",
+              border: "1px solid #b11917",
+              borderRadius: "2px",
+            }}
+            className={"col-2 mt-1 "}
+            onClick={closeModal}
+          />
 
-            <span
-              className={"col-6 font-weight-bold "}
-              style={{ whiteSpace: "nowrap", fontSize: 18 }}
-            >
-              
-            Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
-          
-            </span>
-            <span className={'btn text-light ml-auto'}><RotateLeftIcon className={'btn text-light'} style={{color: 'white', backgroundColor:'grey'}} onClick={resetCenter} /></span>
+          <span
+            className={"col-6 font-weight-bold mr-auto"}
+            style={{ whiteSpace: "nowrap", fontSize: 18 }}
+          >
+            Nearby{" "}
+            {userType !== "poc"
+              ? userType[0].toUpperCase() + userType.slice(1) + "s"
+              : "Retail Stores"}
+          </span>
+          {/* <span className={"btn text-light ml-auto"}> */}
+            <RotateLeftIcon
+              className={"btn text-light"}
+              style={{ color: "white", backgroundColor: "grey" }}
+              onClick={resetCenter}
+            />
+          {/* </span> */}
           {/* </div> */}
         </Modal.Header>
         <div
@@ -120,24 +128,26 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
                   width: "50%",
                   textAlign: "center",
                   cursor: "pointer",
-                  backgroundColor: i === 0 ? "Green" : "#B11917"
+                  backgroundColor: i === 0 ? "Green" : "#B11917",
                 }}
-                className={'p-1 pt-3 pb-3 p-md-3'}
-                onClick={() => setUserType(userType) }
+                className={"p-1 pt-3 pb-3 p-md-3"}
+                onClick={() => setUserType(userType)}
                 // className={i === 0 ? "bg-info" : "bg-warning"}
               >
-
-                { userType === 'distributor' ? 'Buy from Distributors' : 
-                   userType === 'bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
-                   userType ==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
-                   userType ==='poc' ? 'Sell to Retail Stores' : ''
-                } 
+                {userType === "distributor"
+                  ? "Buy from Distributors"
+                  : userType === "bulkbreaker" && loggedInUser.type === "poc"
+                  ? "Buy from Bulkbreakers"
+                  : userType === "bulkbreaker" && loggedInUser.type === "distributor"
+                  ? "Sell to Bulkbreakers"
+                  : userType === "poc"
+                  ? "Sell to Retail Stores"
+                  : ""}
               </div>
             );
           })}
         </div>
         <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
-        
           <ul
             style={{
               paddingLeft: "0rem",

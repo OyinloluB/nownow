@@ -2,14 +2,12 @@ import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
 const OrderIntro = ({ item, status }) => {
-  
   return (
     <div>
       <Card style={{ width: "100" }}>
         <Card.Body>
           <Row
             style={{
-              // borderBottom: "1px solid rgb(223, 223, 223)",
               paddingBottom: "9px",
               padding: "9px",
             }}

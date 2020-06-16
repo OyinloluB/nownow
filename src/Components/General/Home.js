@@ -9,7 +9,10 @@ import SearchLocation from "../Layout/SearchLocation";
 import { Legal } from "../Modals/Legal";
 import "./home.css";
 
-import { setCoordinates, updateFirstTimerStatus } from "../../redux/auth/auth.actions";
+import {
+  setCoordinates,
+  updateFirstTimerStatus,
+} from "../../redux/auth/auth.actions";
 import { calcDistanceInKm } from "../../helpers/utility";
 
 import UserSignIn from "../AccountForms/User/UserSignIn";
@@ -34,7 +37,7 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance < 3)
+    .filter((user) => user.distance < 100)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 30);
 };
@@ -42,36 +45,34 @@ const modifyUsers = (users, coordinates) => {
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
   const [position, setPosition] = useState(false);
+  const [confirmDelivery, setConfirmDelivery] = useState(true);
 
-  const { user, isAuthenticated, coordinates } = useSelector(
-    (state) => state.auth
-  );
-  const { pocs, distributors, bulkbreakers } = useSelector(
-    (state) => state.user
-  );
+  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(isAuthenticated) {
-      dispatch(setCoordinates({
-        lat: user.latitude,
-        lng: user.longitude
-      }));
-    }
-
-    else {
+    if (isAuthenticated) {
+      dispatch(
+        setCoordinates({
+          lat: user.latitude,
+          lng: user.longitude,
+        })
+      );
+    } else {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(function (position) {
-          dispatch(setCoordinates({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }));
+          dispatch(
+            setCoordinates({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            })
+          );
         });
       }
     }
-
   }, [isAuthenticated, user, dispatch, position]);
 
   const users = {
@@ -82,7 +83,7 @@ const Home = () => {
 
   const setFirstTimeStatus = () => {
     dispatch(updateFirstTimerStatus());
-  }
+  };
 
   return (
     <>
@@ -106,12 +107,12 @@ const Home = () => {
           </div>
         )}
 
-      <ListHandler
-        show={showCustomerModal}
-        closeModal={() => setShowCustomerModal(false)}
-        users={isAuthenticated ? users : []}
-        resetCenter={() => setPosition(true)}
-      />
+        <ListHandler
+          show={showCustomerModal}
+          closeModal={() => setShowCustomerModal(false)}
+          users={isAuthenticated ? users : []}
+          resetCenter={() => setPosition(true)}
+        />
 
         {isAuthenticated ? (
           <button

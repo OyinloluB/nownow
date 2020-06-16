@@ -4,3 +4,9 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 420px) {
+  .background {
+    height: 190px;
+  }
+}

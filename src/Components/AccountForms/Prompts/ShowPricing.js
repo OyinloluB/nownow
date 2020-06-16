@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import Typography from "@material-ui/core/Typography";
 import { Form } from "react-bootstrap";
 import CancelIcon from '@material-ui/icons/Cancel';
 

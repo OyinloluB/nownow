@@ -13,7 +13,7 @@ const ContactModePrompt = ({
   setContactModeDetails,
   setSubmitted,
 }) => {
-  const [checked, setChecked] = React.useState(true);
+  // const [checked, setChecked] = React.useState(true);
 
   const [contactDetails, setContactDetails] = useState({});
   const [phoneCall, setPhoneCall] = useState(true);

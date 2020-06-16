@@ -63,7 +63,7 @@ const InfoWindowTooltip = ({ user }) => {
           <ShoppingCartIcon style={{ color: "#b11917", fontSize: 20 }} />
         </span>
       </div>
-    </div>
+      </div>
   );
 };
 

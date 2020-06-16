@@ -7,17 +7,28 @@ export const Legal = ({ show, setShow }) => {
     <>
       <Modal
         show={show}
-        onHide={() => setShow(false)}
-        dialogClassName="modal-100w"
+        style={{
+          width: "80vw",
+        }}
         aria-labelledby="example-custom-modal-styling-title"
       >
-        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <p>
             By using ShopNow, you agree to the{" "}
             <Link to="/terms">Terms of Use</Link> and{" "}
             <Link to="privacy">Privacy Policy</Link>
           </p>
+          <button
+            onClick={() => setShow(false)}
+            style={{
+              padding: "10px",
+              width: "160px",
+              background: "white",
+              border: "none",
+            }}
+          >
+            I Accept
+          </button>
         </Modal.Body>
       </Modal>
     </>

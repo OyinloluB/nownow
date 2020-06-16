@@ -124,5 +124,9 @@ export const setCoordinates = (coordinates) => ({
 
 
 export const updateFirstTimerStatus = () => ({
-  type: AuthActionTypes. UPDATE_FIRST_TIMER_STATUS
+  type: AuthActionTypes.UPDATE_FIRST_TIMER_STATUS
+});
+
+export const logout = () => ({
+  type: AuthActionTypes.LOGOUT
 });

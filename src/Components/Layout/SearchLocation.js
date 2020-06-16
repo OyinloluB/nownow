@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
 
+import "./Search.css";
+
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
@@ -35,14 +37,7 @@ const SearchLocation = () => {
   };
 
   return (
-    <Card
-      style={{
-        width: "350px",
-        position: "fixed",
-        bottom: "0",
-        right: "0",
-      }}
-    >
+    <Card className="searchField">
       <Card.Body>
         <form
           className={classes.root}
