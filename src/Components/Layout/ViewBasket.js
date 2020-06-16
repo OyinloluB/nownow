@@ -95,7 +95,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
       (acc, item) => acc + item.quantity,
       0
     );
-    const multiple = totalQuantity >= 80 ? 0.981 : 1;
+    const multiple = totalQuantity < 80 ? 1.026 : 1;
     const totalPrice = state.cart.items.reduce((currentTotal, item) => {
       return currentTotal + Math.floor(item.price * multiple * item.quantity);
     }, 0);
