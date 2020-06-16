@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
-import CancelIcon from "@material-ui/icons/Cancel";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import PublishIcon from "@material-ui/icons/Publish";
 import Container from "@material-ui/core/Container";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import ReceiptIcon from "@material-ui/icons/Receipt";
-import DoneIcon from "@material-ui/icons/Done";
-import CachedIcon from "@material-ui/icons/Cached";
-import NotInterestedIcon from "@material-ui/icons/NotInterested";
+import {
+  Cancel as CancelIcon,
+  FilterList as FilterListIcon,
+  GetApp as GetAppIcon,
+  Publish as PublishIcon,
+  Receipt as ReceiptIcon,
+  Done as DoneIcon,
+  Cached as CachedIcon,
+  NotInterested as NotInterestedIcon,
+  LocalShipping as LocalShippingIcon,
+} from "@material-ui/icons";
 
 import OrderDropdown from "../Layout/OrderDropdown";
 import Spinner from "../Loaders/Spinner";
@@ -215,6 +218,15 @@ const Order = () => {
                 >
                   <DoneIcon className="mr-3" />
                   Delivered
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem
+                  onClick={() =>
+                    setOrderStatus({ type: "In Transit", status: "transit" })
+                  }
+                >
+                  <LocalShippingIcon className="mr-3" />
+                  In Transit
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem
