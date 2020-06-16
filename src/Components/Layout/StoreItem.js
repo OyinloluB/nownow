@@ -31,13 +31,7 @@ const useStyles = makeStyles((theme) => ({
   icon: { color: "red", fontSize: "15px", fontWeight: "bold" },
 }));
 
-const StoreItem = ({
-  userId,
-  product,
-  setProducts,
-  selectedProducts,
-  userName,
-}) => {
+const StoreItem = ({ userId, product, setProducts, selectedProducts, userName }) => {
   const classes = useStyles();
   const [quantity, setQuantity] = useState(null);
 
@@ -52,8 +46,8 @@ const StoreItem = ({
   };
 
   const handleChange = (e) => {
-    setQuantity(Number(e.target.value))
-  }
+    setQuantity(Number(e.target.value));
+  };
 
   useEffect(() => {
     if (quantity === null) {
@@ -103,21 +97,18 @@ const StoreItem = ({
           style={{ fontSize: "13px", color: "#b11917" }}
         >
           {product.brand} ({product.sku}) {product.volume}
-          <div
-            style={{ color: "grey", fontWeight: "bold" }}
-            className={"d-flex"}
-          >
-            Price per Case{" "}
-            <span className={"ml-auto"}>&#8358; {product.price}</span>
+          <div style={{ color: "grey", fontWeight: "bold" }} className={"d-flex"}>
+            Price per Case <span className={"ml-auto"}>&#8358; {product.price}</span>
           </div>
           <div
             style={{ color: "grey", fontWeight: "bold" }}
             className={"d-flex mt-1"}
           >
             Quantity{" "}
-            
-            
-            <span style={{ color: "grey", fontSize: "8px" }} className={'offset-1 offset-md-5'}>
+            <span
+              style={{ color: "grey", fontSize: "8px" }}
+              className={"offset-1 offset-md-5"}
+            >
               <IconButton
                 aria-label="remove"
                 onClick={reduceQuantity}
@@ -129,8 +120,15 @@ const StoreItem = ({
               >
                 <RemoveIcon className={classes.icon} />
               </IconButton>
-              <span style={{ padding: "7px", fontSize: "14px" }} className={''}>
-                  <input type="number" value={Number(quantity)==0? (''):Number(quantity) } className={'col-4 col-md-5 p-0 mt-2'} name="qty" onChange={handleChange} style={{maxHeight: '20px'}}/>
+              <span style={{ padding: "7px", fontSize: "14px" }} className={""}>
+                <input
+                  type="number"
+                  value={Number(quantity) === 0 ? "" : Number(quantity)}
+                  className={"col-4 col-md-5 p-0 mt-2"}
+                  name="qty"
+                  onChange={handleChange}
+                  style={{ maxHeight: "20px" }}
+                />
               </span>
               <IconButton
                 aria-label="add"
@@ -148,7 +146,6 @@ const StoreItem = ({
         </div>
       </div>
     </li>
-
   );
 };
 

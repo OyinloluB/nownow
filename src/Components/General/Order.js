@@ -104,7 +104,6 @@ const Order = () => {
             }`}
             style={{
               textAlign: "center",
-              backgroundColor: "#f7f7f7",
               padding: "10px",
               cursor: "pointer",
               backgroundColor: "green",
@@ -127,7 +126,6 @@ const Order = () => {
               }}
               style={{
                 textAlign: "center",
-                backgroundColor: "rgb(215, 215, 215)",
                 cursor: "pointer",
                 padding: "10px",
                 backgroundColor: '#B11917',

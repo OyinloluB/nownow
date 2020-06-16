@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Modal } from "react-bootstrap";
@@ -6,11 +5,14 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
+
 import ShoppingBasket from "../Layout/ShoppingBasket";
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
+import axios from "../../helpers/axios-client";
 import { calcDistanceInKm } from "../../helpers/utility";
 
-const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
+const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
   const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
@@ -20,7 +22,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
   const [users, setUsers] = useState([]);
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
-  const [confirm, setConfirm] = useState("");
   const [showBasket, setShowBasket] = useState(false);
   const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
@@ -31,33 +32,33 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
 
-  // useEffect(() => {
-  //   const fetchAddresses = async () => {
-  //     try {
-  //       const updatedUsers = [];
-  //       for await (const user of users) {
-  //         if (user.latitude === 0) {
-  //           user.address = "Not Available, contact through mobile number";
-  //         } else {
-  //           const response = await axios.get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
-  //           );
-  //           const { data: responseJson } = response;
-  //           if (responseJson.results.length > 0) {
-  //             user.address = responseJson.results[0].formatted_address;
-  //             console.log(user)
-  //           }
-  //         }
-  //         updatedUsers.push(user);
-  //       }
-  //       setUsers([...updatedUsers]);
-  //     } catch (error) {
-  //       console.log("Error Fetching Addresses: ", error);
-  //     }
-  //   };
-  //   fetchAddresses();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const updatedUsers = [];
+        for await (const user of users) {
+          if (user.latitude === 0) {
+            user.address = "Not Available, contact through mobile number";
+          } else {
+            const response = await axios.get(
+              `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
+            );
+            const { data: responseJson } = response;
+            if (responseJson.results.length > 0) {
+              user.address = responseJson.results[0].formatted_address;
+              console.log(user);
+            }
+          }
+          updatedUsers.push(user);
+        }
+        setUsers([...updatedUsers]);
+      } catch (error) {
+        console.log("Error Fetching Addresses: ", error);
+      }
+    };
+    fetchAddresses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -81,27 +82,34 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
           }}
         >
           {/* <div className={"row"}> */}
-            <ArrowBackIcon
-              style={{
-                color: "#b11917",
-                fontSize: 20,
-                cursor: "pointer",
-                border: '1px solid #b11917',
-                borderRadius: '2px'
-              }}
-              className={"col-2 mt-1 mr-auto"}
-              onClick={closeModal}
-            />
+          <ArrowBackIcon
+            style={{
+              color: "#b11917",
+              fontSize: 20,
+              cursor: "pointer",
+              border: "1px solid #b11917",
+              borderRadius: "2px",
+            }}
+            className={"col-2 mt-1 mr-auto"}
+            onClick={closeModal}
+          />
 
-            <span
-              className={"col-6 font-weight-bold "}
-              style={{ whiteSpace: "nowrap", fontSize: 18 }}
-            >
-              
-            Nearby { userType!=='poc' ? userType[0].toUpperCase() + userType.slice(1) + 's' : 'Retail Stores'}
-          
-            </span>
-            <span className={'btn text-light ml-auto'}><RotateLeftIcon className={'btn text-light'} style={{color: 'white', backgroundColor:'grey'}} onClick={resetCenter} /></span>
+          <span
+            className={"col-6 font-weight-bold "}
+            style={{ whiteSpace: "nowrap", fontSize: 18 }}
+          >
+            Nearby{" "}
+            {userType !== "poc"
+              ? userType[0].toUpperCase() + userType.slice(1) + "s"
+              : "Retail Stores"}
+          </span>
+          <span className={"btn text-light ml-auto"}>
+            <RotateLeftIcon
+              className={"btn text-light"}
+              style={{ color: "white", backgroundColor: "grey" }}
+              onClick={resetCenter}
+            />
+          </span>
           {/* </div> */}
         </Modal.Header>
         <div
@@ -120,24 +128,26 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
                   width: "50%",
                   textAlign: "center",
                   cursor: "pointer",
-                  backgroundColor: i === 0 ? "Green" : "#B11917"
+                  backgroundColor: i === 0 ? "Green" : "#B11917",
                 }}
-                className={'p-1 pt-3 pb-3 p-md-3'}
-                onClick={() => setUserType(userType) }
+                className={"p-1 pt-3 pb-3 p-md-3"}
+                onClick={() => setUserType(userType)}
                 // className={i === 0 ? "bg-info" : "bg-warning"}
               >
-
-                { userType === 'distributor' ? 'Buy from Distributors' : 
-                   userType === 'bulkbreaker' && loggedInUser.type === 'poc' ? 'Buy from Bulkbreakers' :
-                   userType ==='bulkbreaker' && loggedInUser.type === 'distributor' ? 'Sell to Bulkbreakers' :
-                   userType ==='poc' ? 'Sell to Retail Stores' : ''
-                } 
+                {userType === "distributor"
+                  ? "Buy from Distributors"
+                  : userType === "bulkbreaker" && loggedInUser.type === "poc"
+                  ? "Buy from Bulkbreakers"
+                  : userType === "bulkbreaker" && loggedInUser.type === "distributor"
+                  ? "Sell to Bulkbreakers"
+                  : userType === "poc"
+                  ? "Sell to Retail Stores"
+                  : ""}
               </div>
             );
           })}
         </div>
         <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
-        
           <ul
             style={{
               paddingLeft: "0rem",
@@ -147,43 +157,22 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
               .filter(
                 (user) =>
                   // user.products.length > 0 &&
-                  user.type === userType && true &&
+                  user.type === userType &&
                   calcDistanceInKm(coordinates, {
                     lat: user.latitude,
                     lng: user.longitude,
                   }) <= 6
-              ).slice(0,60)
-              .map((user, i) => {
-                if(user.latitude === 0) {
-                  user.address = 'Not Available, contact through mobile number'
-                }
-      
-                else { 
-                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                    user.latitude +
-                    "," +
-                    user.longitude +
-                    "&key=" +
-                    API_KEY
-                )
-                  .then((response) => response.json())
-                  .then((responseJson) => {
-                    if(responseJson.results.length > 1){
-                      // forcing the fetched address into the users data
-                        user.address = responseJson.results[0].formatted_address;
-                    }
-                    else {
-                      user.address = 'Loading...'
-                    }
-                  }).catch(error=>console.log('error'))
-                }
+              )
+              .slice(0, 60)
+              .map((user) => {
                 return (
                   <div
                     key={user.id}
                     style={{
-                      justifyContent: "space-between", fontSize: '14px'
+                      justifyContent: "space-between",
+                      fontSize: "14px",
                     }}
-                  > 
+                  >
                     <li
                       key={user.id}
                       className={"list-group"}
@@ -221,7 +210,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
                           {user.name}
                           <br />
                           <span style={{ fontSize: "11px", color: "#000" }}>
-                          {`Distance: ${
+                            {`Distance: ${
                               user.distance < 1
                                 ? `${Math.floor(user.distance * 1000)} m`
                                 : `${Math.floor(user.distance)} km`
@@ -271,8 +260,13 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter}) => {
                                   setSelectedUser(user);
                                   setShowBasket(true);
                                 }}
-                                // do not display shopping basket on pocs for bulkbreaker 
-                                className = { user.type==='poc' && loggedInUser.type==='bulkbreaker' ? 'd-none': 'd-block' }
+                                // do not display shopping basket on pocs for bulkbreaker
+                                className={
+                                  user.type === "poc" &&
+                                  loggedInUser.type === "bulkbreaker"
+                                    ? "d-none"
+                                    : "d-block"
+                                }
                               />
                             </span>
                           ) : null}

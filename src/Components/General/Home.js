@@ -48,12 +48,8 @@ const Home = () => {
   const [position, setPosition] = useState(false);
   const [confirmDelivery, setConfirmDelivery] = useState(true);
 
-  const { user, isAuthenticated, coordinates } = useSelector(
-    (state) => state.auth
-  );
-  const { pocs, distributors, bulkbreakers } = useSelector(
-    (state) => state.user
-  );
+  const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
+  const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -92,7 +88,6 @@ const Home = () => {
 
   return (
     <>
-      <ConfirmDelivery show={confirmDelivery} setShow={setConfirmDelivery} />
       <Legal show={user.firstTimer} setShow={setFirstTimeStatus} />
       <div style={{ position: "relative" }}>
         <Map users={isAuthenticated ? users : []} center={coordinates} />

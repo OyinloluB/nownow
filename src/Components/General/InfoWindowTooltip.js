@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import PhoneIcon from "@material-ui/icons/Phone";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import ShoppingBasket from "../Layout/ShoppingBasket";
 
 const InfoWindowTooltip = ({ user }) => {
   // const [selectedUser, setSelectedUser] = useState({ products: [] });

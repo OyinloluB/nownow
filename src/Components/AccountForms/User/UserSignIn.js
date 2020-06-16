@@ -16,7 +16,7 @@ import {
   authenticatePoc,
 } from "../../../redux/auth/auth.actions";
 
-import { checkDistributor } from "../../../redux/user/user.actions";
+// import { checkDistributor } from "../../../redux/user/user.actions";
 
 import LockIcon from "@material-ui/icons/Lock";
 
@@ -38,7 +38,7 @@ const UserSignIn = () => {
 
   const [notice, setNotice] = useState("");
 
-  const [showPrompt, setShowPrompt] = useState(true);
+  // const [showPrompt, setShowPrompt] = useState(true);
 
   const toggler = () => {
     const ID = loginDetails.ID;

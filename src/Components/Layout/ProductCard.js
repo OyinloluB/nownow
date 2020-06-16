@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Row, Col } from "react-bootstrap";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import Typography from "@material-ui/core/Typography";
-// import { Form } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 

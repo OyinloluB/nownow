@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 
-import { Modal, Form, Button } from "react-bootstrap";
-import Container from "@material-ui/core/Container";
-
-import UserSignInfo from "../../General/UserInfo"
-import UserInfo from "../../General/UserInfo";
+import { Form, Button } from "react-bootstrap";
 
 import axios from "../../../helpers/axios-client";
 
