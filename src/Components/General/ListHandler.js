@@ -154,16 +154,13 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
             }}
           >
             {users
-              .filter(
-                (user) =>
-                  // user.products.length > 0 &&
-                  user.type === userType && true &&
-                  calcDistanceInKm(coordinates, {
-                    lat: user.latitude,
-                    lng: user.longitude,
-                  }) <= 6
-              ).slice(0,60)
-              .map((user, i) => {
+                .filter(
+                  (user) =>
+                    user.type === userType 
+                )
+                .slice(0, 60)
+                .map((user, i) => {
+                  
                 if(user.latitude === 0) {
                   user.address = 'Not Available, contact through mobile number'
                 }
