@@ -12,12 +12,13 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import ViewBasket from "./ViewBasket";
 import StatusModal from "../Modals/StatusModal";
 import Logo from "../../assets/logo3.png";
 
-import {logout} from '../../redux/auth/auth.actions';
+import { logout } from "../../redux/auth/auth.actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,18 +49,21 @@ export default function Navbar() {
   const history = useHistory();
   const [viewBasket, setViewBasket] = useState(false);
 
-  const { isAuthenticated, user, cartItemsCount, receivedOrdersCount } = useSelector(
-    (state) => {
-      return {
-        isAuthenticated: state.auth.isAuthenticated,
-        user: state.auth.user,
-        cartItemsCount: state.cart.items.length,
-        receivedOrdersCount: state.order.receivedOrders.filter(
-          (order) => order.status === "new"
-        ).length,
-      };
-    }
-  );
+  const {
+    isAuthenticated,
+    user,
+    cartItemsCount,
+    receivedOrdersCount,
+  } = useSelector((state) => {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      user: state.auth.user,
+      cartItemsCount: state.cart.items.length,
+      receivedOrdersCount: state.order.receivedOrders.filter(
+        (order) => order.status === "new"
+      ).length,
+    };
+  });
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -110,9 +114,18 @@ export default function Navbar() {
                     </Badge>
                   </IconButton>
                 ) : null}
+                {user.type !== "distributor" ? (
+                  <IconButton aria-label="shopping" color="inherit">
+                    <Badge badgeContent="0" color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                ) : null}
                 <IconButton aria-label="delivery" color="inherit">
                   <Badge badgeContent={receivedOrdersCount} color="secondary">
-                    <LocalShippingIcon onClick={() => history.push("/orders")} />
+                    <LocalShippingIcon
+                      onClick={() => history.push("/orders")}
+                    />
                   </Badge>
                 </IconButton>
                 <Button
