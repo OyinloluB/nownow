@@ -7,12 +7,12 @@ const itemStyles = {
   padding: "0.4rem 0.25rem",
 };
 
-const ConfirmDeliveryItem = () => {
+const ConfirmDeliveryItem = ({ item }) => {
   return (
     <>
       <ListGroup variant="flush">
         <ListGroup.Item style={itemStyles}>
-          Budweiser &nbsp; <b>Price (4000)</b> &nbsp; <b>Qty (30)</b>
+        {item.details.brand} &nbsp; <b>Price ({`N ${item.details.price}`})</b> &nbsp; <b>Qty ({item.quantity})</b>
         </ListGroup.Item>
         <ListGroup.Item style={itemStyles}>Total: 4000</ListGroup.Item>
       </ListGroup>

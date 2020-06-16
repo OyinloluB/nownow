@@ -57,6 +57,9 @@ export default function Navbar() {
         receivedOrdersCount: state.order.receivedOrders.filter(
           (order) => order.status === "new"
         ).length,
+        deliveredOrdersCount: state.order.sentOrders.filter(
+          (order) => order.status === "delivered"
+        ).length
       };
     }
   );
