@@ -52,7 +52,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
            
           </Modal.Header>
             { user.type==='distributor' && loggedInUser.type==='poc'? (
-                <p className={'text-justify font-weight-bold text-danger text-center p-1'} style={{fontSize: '12px'}}>Please note that for orders 80cases and above, you will get at wholesale price</p>
+                <p className={'text-justify font-weight-bold text-danger text-center p-1'} style={{fontSize: '12px'}}>Please note that for orders of 80 cases and above, you will get at wholesale price</p>
             ):null }
 
           <Modal.Body>
