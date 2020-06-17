@@ -15,7 +15,7 @@ const DeliveryCard = ({ order, close }) => {
     const status = confirmed ? "confirmed" : "delayed";
     dispatch(updateOrderStatus(order._id, status))
       .then(() => {
-        if(confirmed){
+        if (confirmed) {
           setShowRating(true);
         } else {
           close();
@@ -31,7 +31,7 @@ const DeliveryCard = ({ order, close }) => {
       .catch((err) => console.log(err));
   };
   return showRating ? (
-    <StarRating rateOrder={handleRating} setShowRating={setShowRating} />
+    <StarRating rateOrder={handleRating} close={close} />
   ) : (
     <div className={"p-3"}>
       <div style={{ padding: "1rem 1rem 0rem 1rem", borderBottom: "none" }}>

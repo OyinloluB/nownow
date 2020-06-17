@@ -71,13 +71,21 @@ const EachOrderContent = ({ order, setOrder }) => {
           <b>Request made:</b> {timeString}
         </p>
         <p style={{ color: "#B11917", fontSize: "12px" }}>
-          {order.status === "new" && timeDiff > 0 ? (
+          {order.status === "new" ||
+          (order.status === "processing" && timeDiff > 0) ? (
             <>
               <b>Time left: </b>{" "}
               <DateCountdown
                 dateTo={deliveryDate.toISOString()}
                 locales={["year", "month", "day", "hr", "min", "sec"]}
-                locales_plural={["years", "months", "days", "hrs", "mins", "secs"]}
+                locales_plural={[
+                  "years",
+                  "months",
+                  "days",
+                  "hrs",
+                  "mins",
+                  "secs",
+                ]}
               />
             </>
           ) : null}

@@ -4,7 +4,7 @@ import Rating from "@material-ui/lab/Rating";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import { Typography, Box, Button } from "@material-ui/core";
 
-const StarRating = ({ rateOrder, setShowRating }) => {
+const StarRating = ({ rateOrder, setShowRating, close }) => {
   const [rating, setRating] = useState(0);
 
   const handleRatingChange = (e, val) => {
@@ -36,7 +36,7 @@ const StarRating = ({ rateOrder, setShowRating }) => {
         variant="contained"
         onClick={() => {
           rateOrder(rating);
-          setShowRating(false);
+          close()
         }}
         style={{ backgroundColor: "#b11917", color: "#fff" }}
       >
