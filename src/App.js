@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Eligible from "./Components/Agegate";
 import Privacy from "./Components/Legal/Privacy";
 import Terms from "./Components/Legal/Terms";
+import ReturnPolicy from "./Components/Legal/ReturnPolicy";
 import Cookie from "./Components/General/Cookies";
 import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
@@ -76,6 +77,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />
+        <Route exact path="/return" component={ReturnPolicy} />
         <Route exact path="/privacy" component={Privacy} />
         <ProtectedRoute
           exact
