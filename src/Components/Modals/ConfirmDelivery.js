@@ -19,7 +19,7 @@ const ConfirmDelivery = ({ show, setShow }) => {
   }, [deliveredOrders.length]);
 
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal show={show} onHide={handleClose} backdrop keyboard={false}>
       {deliveredOrders.map((order) => {
         return <DeliveryCard key={order._id} order={order} close={handleClose} />;
       })}

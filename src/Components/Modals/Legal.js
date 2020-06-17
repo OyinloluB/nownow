@@ -8,11 +8,11 @@ export const Legal = ({ show, setShow }) => {
       <Modal
         show={show}
         style={{
-          width: "80vw",
+          width: "100%",
         }}
         aria-labelledby="example-custom-modal-styling-title"
       >
-        <Modal.Body style={{padding: '10px'}} className={'text-center'}>
+        <Modal.Body style={{padding: '10px', backgrounColor:"#b11917"}} className={'text-center'}>
           <p style={{color: '#B11917'}}>
             By using ShopNow, you agree to the{" "}
             <Link to="/terms">Terms of Use</Link> and{" "}
