@@ -98,3 +98,37 @@ export const updateOrderStatus = (orderId, status) => {
     });
   };
 };
+
+const rateOrderStart = () => ({
+  type: OrderActionTypes.RATE_ORDER_START,
+});
+
+const rateOrderSuccess = () => ({
+  type: OrderActionTypes.RATE_ORDER_SUCCESS,
+});
+
+const rateOrderFailure = (error) => ({
+  type: OrderActionTypes.RATE_ORDER_FAILURE,
+  payload: error,
+});
+
+export const rateOrder = (orderId, rating) => {
+  return (dispatch) => {
+    return new Promise(async (resolve, reject) => {
+      dispatch(rateOrderStart());
+      try {
+        const response = await axios.patch(`/Order/${orderId}`, { rating });
+        const { data } = response;
+        if (data.success) {
+          dispatch(rateOrderSuccess());
+        } else {
+          dispatch(rateOrderFailure(data));
+        }
+        resolve(data.success);
+      } catch (error) {
+        dispatch(rateOrderFailure(error));
+        reject(error);
+      }
+    });
+  };
+};

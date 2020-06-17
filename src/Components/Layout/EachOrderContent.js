@@ -13,8 +13,8 @@ const EachOrderContent = ({ order, setOrder }) => {
   let deliveryDate;
   let timeDiff;
 
-  if (order.status === "processing") {
-    deliveryDate = new Date(order.updatedAt);
+  if (order.status === "new" || order.status === "processing") {
+    deliveryDate = new Date(order.createdAt);
     deliveryDate.setHours(deliveryDate.getHours() + 24);
     timeDiff = deliveryDate.getTime() - new Date().getTime();
   }

@@ -13,7 +13,6 @@ import {
   Done as DoneIcon,
   Cached as CachedIcon,
   NotInterested as NotInterestedIcon,
-  LocalShipping as LocalShippingIcon,
 } from "@material-ui/icons";
 
 import OrderDropdown from "../Layout/OrderDropdown";
@@ -219,15 +218,6 @@ const Order = () => {
                 >
                   <DoneIcon className="mr-3" />
                   Delivered
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem
-                  onClick={() =>
-                    setOrderStatus({ type: "In Transit", status: "transit" })
-                  }
-                >
-                  <LocalShippingIcon className="mr-3" />
-                  In Transit
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem

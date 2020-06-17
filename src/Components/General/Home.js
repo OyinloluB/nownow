@@ -37,7 +37,7 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance < 3)
+    .filter((user) => user.distance < 100)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 60);
 };
@@ -45,7 +45,6 @@ const modifyUsers = (users, coordinates) => {
 const Home = () => {
   const [showCustomerModal, setShowCustomerModal] = useState(false);
   const [position, setPosition] = useState(false);
-  const [confirmDelivery, setConfirmDelivery] = useState(true);
 
   const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
   const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
@@ -122,38 +121,6 @@ const Home = () => {
             <AllOutIcon /> View Customers
           </button>
         ) : null}
-        {/* {isAuthenticated ? null : (
-        <div
-          style={{
-            color: "#b11917",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
-            position: "fixed",
-            bottom: "3vh",
-            left: "2%",
-            width: "10%",
-            fontSize: "14px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          <p
-            onClick={() => {
-              history.push("/terms");
-            }}
-          >
-            Terms
-          </p>
-          <p
-            onClick={() => {
-              history.push("/privacy");
-            }}
-          >
-            Privacy
-          </p>
-        </div>
-      )} */}
         {isAuthenticated ? <SearchLocation /> : null}
       </div>
     </>
