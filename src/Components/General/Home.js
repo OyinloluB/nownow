@@ -114,12 +114,14 @@ const Home = () => {
         />
 
         {isAuthenticated ? (
+         
           <button
             className={["btn", classes.btn].join(" ")}
             onClick={() => setShowCustomerModal(true)}
           >
             <AllOutIcon /> View Customers
           </button>
+
         ) : null}
         {isAuthenticated ? <SearchLocation /> : null}
       </div>

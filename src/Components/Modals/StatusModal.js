@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StatusModal = ({ open, setOpen, callback }) => {
+const StatusModal = ({ open, setOpen, callback, comingFrom }) => {
   const user = useSelector((state) => state.auth.user);
   const [colorYes, setColorYes] = useState("green");
   const [colorNo, setColorNo] = useState("#B11917");
@@ -73,7 +73,7 @@ const StatusModal = ({ open, setOpen, callback }) => {
             className={"text-light text-center"}
             style={{ fontSize: "15px", wordBreak: "nowrap" }}
           >
-            Welcome, Do you want customers to see your store open?
+            { comingFrom==='logout'? 'Do you want customers to see your store open after logout?':'Welcome! Do you want customers to see your store open?' }
           </div>
           <div className={"row mt-4"}>
             <div className={"container offset-1 offset-md-2"}>

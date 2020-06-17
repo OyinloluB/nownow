@@ -69,7 +69,7 @@ function App() {
     <>
       <Navbar showDeliveryModal={() => setShowDeliveryModal(true)} />
       {/* promp to set your store open/close */}
-      <StatusModal open={open} setOpen={setOpen} />
+      <StatusModal open={open} setOpen={setOpen} comingFrom='login' />
       <Cookie />
       {!eligible ? <Eligible /> : null}
       <ConfirmDelivery show={showDeliveryModal} setShow={setShowDeliveryModal} />

@@ -17,6 +17,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import ViewBasket from "./ViewBasket";
 import StatusModal from "../Modals/StatusModal";
 import Logo from "../../assets/logo3.png";
+import Logo1 from "../../assets/logo4.jpg";
 
 import { logout } from "../../redux/auth/auth.actions";
 
@@ -77,7 +78,7 @@ export default function Navbar({ showDeliveryModal }) {
   const classes = useStyles();
   return (
     <>
-      <StatusModal open={open} setOpen={setOpen} callback={logOut} />
+      <StatusModal open={open} setOpen={setOpen} callback={logOut} comingFrom='logout' />
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
@@ -95,12 +96,21 @@ export default function Navbar({ showDeliveryModal }) {
                   width="100"
                   onClick={() => history.push("/")}
                 />
+
+                <img
+                  src={Logo1}
+                  alt="ibplc-logo"
+                  style={{ cursor: "pointer" }}
+                  width="100"
+                  onClick={() => history.push("/")}
+                />
                 <p
                   style={{
                     paddingLeft: "10px",
                     marginBottom: "0rem",
-                    fontSize: "15px",
+                    fontSize: "12px",
                   }}
+                  className={'d-none d-md-block'}
                 >
                   {user.name}
                 </p>
@@ -169,7 +179,7 @@ export default function Navbar({ showDeliveryModal }) {
                   width="100"
                 />
               </Typography>
-              <Button color="inherit" onClick={() => history.push("/signin")}>
+              <Button color="inherit" onClick={() => history.push("/")}>
                 <IconButton
                   edge="start"
                   className={classes.menuButton}

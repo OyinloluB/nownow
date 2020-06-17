@@ -25,10 +25,10 @@ const DeliveryCard = ({ order, close }) => {
   };
 
   const handleRating = (rating) => {
-    console.log(rating);
-    // dispatch(rateOrder(order._id, rating))
-    //   .then(() => close())
-    //   .catch((err) => console.log(err));
+    // console.log(rating);
+    dispatch(rateOrder(order._id, rating))
+      .then(() => close())
+      .catch((err) => console.log(err));
   };
   return showRating ? (
     <StarRating rateOrder={handleRating} close={close} />
@@ -68,7 +68,7 @@ const DeliveryCard = ({ order, close }) => {
             <Button
               variant="success"
               onClick={() => handleConfirmOrder(true)}
-              style={{ width: "45%" }}
+              style={{ width: "50%" }}
             >
               Yes
             </Button>

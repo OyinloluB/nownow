@@ -45,6 +45,8 @@ const Order = () => {
     status: "new",
   });
   const [switchReceived, setSwitchReceived] = useState("d-block");
+  const [ opa1, setOpa1 ] = useState(0.85);
+  const [ opa2, setOpa2 ] = useState(0.85);
   const [switchSent, setSwitchSent] = useState("d-none");
 
   useEffect(() => {
@@ -71,12 +73,16 @@ const Order = () => {
         setSwitchReceived("d-block");
         setSwitchSent("d-none");
         setOrderStatus({ type: "Newly Received", status: "new" });
+        setOpa2(0.85)
+        setOpa1(0.7)
         break;
 
       case "sent":
         setSwitchReceived("d-none");
         setSwitchSent("d-block");
         setOrderStatus({ type: "Newly Sent", status: "new" });
+        setOpa2(0.7);
+        setOpa1(0.85);
         break;
       default:
         return;
@@ -104,17 +110,20 @@ const Order = () => {
             className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
             style={{
               textAlign: "center",
-              padding: "10px",
+              padding: "12px 4px 12px 4px",
               cursor: "pointer",
               backgroundColor: "green",
               color: "#fff",
+              width: '50%',
+              fontSize: '15px',
+              opacity:  opa1
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
               switchOrder("received");
             }}
           >
-            <GetAppIcon /> Received Orders
+            <GetAppIcon style={{fontSize: '13px'}} /> Received Orders
           </h6>
 
           {user.type !== "distributor" ? (
@@ -127,12 +136,15 @@ const Order = () => {
               style={{
                 textAlign: "center",
                 cursor: "pointer",
-                padding: "10px",
+                padding: "12px 4px 12px 4px",
+                fontSize: '13px',
                 backgroundColor: "#B11917",
                 color: "#fff",
+                width: '50%',
+                opacity: opa2
               }}
             >
-              <PublishIcon /> Orders I Placed
+              <PublishIcon style={{fontSize: '16px'}} /> Orders I Placed
             </h6>
           ) : null}
         </div>
@@ -189,7 +201,8 @@ const Order = () => {
                 style={{
                   background: "white",
                 }}
-              >
+                >
+                <span style={{color: 'green'}}>Filter by</span>
                 <FilterListIcon style={{ color: "#b11017" }} />
               </DropdownToggle>
               <DropdownMenu right>

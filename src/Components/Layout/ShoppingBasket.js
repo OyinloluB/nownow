@@ -7,12 +7,15 @@ import ClearIcon from "@material-ui/icons/Clear";
 import { addToCart } from "../../redux/cart/cart.actions";
 import InfoIcon from "@material-ui/icons/Info";
 import { useSelector } from "react-redux";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ViewBasket from "./ViewBasket";
 
 const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
   const [showAlert, setShowAlert] = useState({ alertShow });
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { user: loggedInUser } = useSelector((state) => state.auth);
   const dispacth = useDispatch();
+  const [viewBasket, setViewBasket] = useState(false);
 
   const handleClose = () => {
     setShowBasket(false);
@@ -31,7 +34,14 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
     setSelectedProducts(products);
   }, []);
 
+  const handleCheckout = () => {
+    handleAddToCart();
+    setViewBasket(true)
+  }
+
   return (
+    <>
+      <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       <Modal show={show} onHide={handleClose}>
         <div className="d-flex  text-justify font-weight-bold">
           <p className="mr-auto m-2" style={{fontSize: '15px'}}>Buy from {user.name} </p>
@@ -64,15 +74,27 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
         <Button
           onClick={handleAddToCart}
           style={{
-            backgroundColor: "green",
+            backgroundColor: '#480D0C',
             border: "none",
-            width: '100%'
+            width: '47%'
           }}
         >
-          Add <AddShoppingCartIcon />
+          Add to Cart<AddShoppingCartIcon />
+        </Button>
+
+        <Button
+          onClick={handleCheckout}
+          style={{
+            backgroundColor: "green",
+            border: "none",
+            width: '49%',
+          }}
+        >
+           Proceed to Checkout<ShoppingCartIcon />
         </Button>
       </Modal.Footer>
     </Modal>
+    </>
   );
 };
 

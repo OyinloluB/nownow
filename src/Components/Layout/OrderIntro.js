@@ -8,8 +8,8 @@ const OrderIntro = ({ item, status }) => {
         <Card.Body>
           <Row
             style={{
-              paddingBottom: "9px",
-              padding: "9px",
+              // paddingBottom: "4px",
+              padding: "4px",
             }}
           >
             <Col xs={3} md={3} lg={3}>
