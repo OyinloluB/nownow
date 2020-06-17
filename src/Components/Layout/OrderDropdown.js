@@ -28,7 +28,6 @@ const OrderDropdown = ({ updateOrderStatus, isProcessing, isInTransit }) => {
         >
           <option value="">Select</option>
           <option value="delivered">Delivered</option>
-          <option value="transit">In Transit</option>
         </Form.Control>
       </Form.Group>
     </Form>
