@@ -90,7 +90,7 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
             width: '49%',
           }}
         >
-           Proceed to Checkout<ShoppingCartIcon />
+           Proceed<ShoppingCartIcon />
         </Button>
       </Modal.Footer>
     </Modal>

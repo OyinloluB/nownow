@@ -93,7 +93,7 @@ export default function Navbar({ showDeliveryModal }) {
                   src={Logo}
                   alt="ibplc-logo"
                   style={{ cursor: "pointer" }}
-                  width="100"
+                  width="90"
                   onClick={() => history.push("/")}
                 />
 
@@ -101,7 +101,7 @@ export default function Navbar({ showDeliveryModal }) {
                   src={Logo1}
                   alt="ibplc-logo"
                   style={{ cursor: "pointer" }}
-                  width="100"
+                  width="80"
                   onClick={() => history.push("/")}
                 />
                 <p
