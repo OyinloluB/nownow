@@ -136,7 +136,6 @@ const UserSignIn = () => {
 
     signInPromise
       .then((userProducts) => {
-        console.log("Request Done");
         if (
           userProducts.length < 1 ||
           JSON.stringify(userProducts[0]) === JSON.stringify({ 0: "0" })
@@ -192,7 +191,7 @@ const UserSignIn = () => {
             >
               Confirm Your Code
             </div>
-            <span className={"text-danger mt-1"}>{notice}</span>
+            <span className={"text-danger text-center font-weight-bold mt-1"}>{notice}</span>
             <Form.Group controlId="formBasicNumber" className={showUserId}>
               <Form.Label
                 style={{ color: "grey" }}

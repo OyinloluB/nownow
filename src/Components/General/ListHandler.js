@@ -6,7 +6,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
-
+import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
 import axios from "../../helpers/axios-client";
@@ -32,33 +32,37 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
 
-  // useEffect(() => {
-  //   const fetchAddresses = async () => {
-  //     try {
-  //       const updatedUsers = [];
-  //       for await (const user of users) {
-  //         if (user.latitude === 0) {
-  //           user.address = "Not Available, contact through mobile number";
-  //         } else {
-  //           const response = await axios.get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?address=${user.latitude},${user.longitude}&key=${API_KEY}`
-  //           );
-  //           const { data: responseJson } = response;
-  //           if (responseJson.results.length > 0) {
-  //             user.address = responseJson.results[0].formatted_address;
-  //             console.log(user);
-  //           }
-  //         }
-  //         updatedUsers.push(user);
-  //       }
-  //       setUsers([...updatedUsers]);
-  //     } catch (error) {
-  //       console.log("Error Fetching Addresses: ", error);
-  //     }
-  //   };
-  //   fetchAddresses();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  {users
+    .filter(
+      (user) =>
+        user.type === userType 
+    )
+    .slice(0, 60)
+    .map((user, i) => {
+
+  if(user.latitude === 0) {
+    user.address = 'Not Available, contact through mobile number'
+  }
+
+  else { 
+    fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
+      user.latitude +
+      "," +
+      user.longitude +
+      "&key=" +
+      API_KEY
+  )
+    .then((response) => response.json())
+    .then((responseJson) => {
+      if(responseJson.results.length > 1){
+        // forcing the fetched address into the users data
+          user.address = responseJson.results[0].formatted_address;
+      }
+      else {
+        user.address = 'Loading...'
+      }
+    }).catch(error=>console.log('error'))
+    }})}
 
   return (
     <>
@@ -161,29 +165,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                 .slice(0, 60)
                 .map((user, i) => {
                   
-                if(user.latitude === 0) {
-                  user.address = 'Not Available, contact through mobile number'
-                }
-      
-                else { 
-                  fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-                    user.latitude +
-                    "," +
-                    user.longitude +
-                    "&key=" +
-                    API_KEY
-                )
-                  .then((response) => response.json())
-                  .then((responseJson) => {
-                    if(responseJson.results.length > 1){
-                      // forcing the fetched address into the users data
-                        user.address = responseJson.results[0].formatted_address;
-                    }
-                    else {
-                      user.address = 'Loading...'
-                    }
-                  }).catch(error=>console.log('error'))
-                }
+                
                 return (
                   <div
                     key={user.id}
@@ -201,27 +183,16 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                       }}
                     >
                       <div className={"d-flex"}>
-                        {user.confirmed === true ? (
                           <span
                             style={{
-                              backgroundColor: "green",
+                              backgroundColor:  user.products.length === 0? 'black' : user.confirmed === false? '#b11917' : 'green' ,
                               maxHeight: "6px",
                               minWidth: "7px",
                               borderRadius: "15px",
                               marginTop: "8px",
                             }}
                           />
-                        ) : (
-                          <span
-                            style={{
-                              backgroundColor: "#b11917",
-                              maxHeight: "6px",
-                              minWidth: "7px",
-                              borderRadius: "15px",
-                              marginTop: "8px",
-                            }}
-                          />
-                        )}
+                      
 
                         <span class={"offset-1 mr-auto font-weight-bold"}>
                           {" "}
@@ -232,7 +203,8 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                               user.distance < 1
                                 ? `${Math.floor(user.distance * 1000)} m`
                                 : `${Math.floor(user.distance)} km`
-                            }`}
+                            }`}<br />
+                            <span style={{fontSize: '10px', color: 'green'}}>{ user.products.length === 0? 'Inactive' : user.confirmed === false? 'Offline' : 'Available' }</span>
                           </span>
                         </span>
 
@@ -243,6 +215,11 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                             width: "25%",
                           }}
                         >
+                        
+                        <DirectionsBikeIcon 
+                        style={{ fontSize: 16, margin: '30px 10px 0px -25px' }}
+                        className={ user.delivery? 'd-block' : 'd-none' }
+                        />
                           <span>
                             <a
                               href={`https://wa.me/${user.whatsapp}`}
@@ -265,6 +242,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                               <PhoneIcon style={{ color: "black", fontSize: 17 }} />
                             </a>
                           </span>
+
                           {loggedInUser.type !== "distributor" ? (
                             <span className={"ml-2 mt-1"}>
                               <ShoppingCartIcon
@@ -274,10 +252,12 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                                   cursor: "pointer",
                                 }}
                                 onClick={() => {
-                                  closeModal();
+                                  
                                   setSelectedUser(user);
-                                  setShowBasket(true);
+                                  user.products.length > 0? setShowBasket(true) : setShowBasket(false);
+                                  user.products.length > 0? closeModal() : setShowBasket(false)
                                 }}
+                                
                                 // do not display shopping basket on pocs for bulkbreaker 
                                 className = { user.type==='poc' && loggedInUser.type==='bulkbreaker' ? 'd-none': 'd-block' }
                               />

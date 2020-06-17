@@ -34,7 +34,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
     case AuthActionTypes.SET_ELIGIBILITY:
       return {

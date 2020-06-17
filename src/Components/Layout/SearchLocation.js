@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
-
+import CloseIcon from "@material-ui/icons/Close";
 import "./Search.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
 
 const SearchLocation = () => {
   const [search, setSearch] = useState("");
+  const [show, setShow] = useState("d-block");
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -37,7 +38,27 @@ const SearchLocation = () => {
   };
 
   return (
-    <Card className="searchField">
+    <Card className="searchField p-3" style={{ height: show === 'd-block'? '250px' :  '180px'}}>
+        <div  syle={{ textJustify: 'justify', fontWeight: 'bold' }} className={ show } >
+          
+          <div className={'d-flex mb-1'} style={{color: "#B11917"}} onClick={()=> setShow('d-none')} >
+            <span className={'mr-auto font-weight-bold'}>Close</span>
+            <CloseIcon />
+          </div>
+          <div className={'d-flex'} style={{color: "grey"}}>
+            <span className={'mr-auto font-weight-bold'}>Distributor</span>
+            <span><img src="https://static.thenounproject.com/png/462-200.png" alt="" width="20" height="20" /></span>
+          </div>
+          <div className={'d-flex font-weight-bold'} style={{color: "grey"}}>
+            <span className={'mr-auto'}>Bulkbreaker</span>
+            <span><img src="https://iconsetc.com/icons-watermarks/simple-green/raphael/raphael_location/raphael_location_simple-green_512x512.png" alt="" width="20" height="20" /></span>
+          </div>
+          <div className={'d-flex font-weight-bold pb-1'} style={{color: "grey", borderBottom: '1px solid grey'}}>
+            <span className={'mr-auto'}>Retail Store</span>
+            <span><img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" alt="" width="20" height="20" /></span>
+          </div>
+        </div> 
+
       <Card.Body>
         <form
           className={classes.root}
