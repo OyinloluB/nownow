@@ -87,10 +87,10 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
           style={{
             backgroundColor: "green",
             border: "none",
-            width: '45%',
+            width: '49%',
           }}
         >
-           Checkout<ShoppingCartIcon />
+           Proceed to Checkout<ShoppingCartIcon />
         </Button>
       </Modal.Footer>
     </Modal>

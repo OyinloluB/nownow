@@ -179,7 +179,7 @@ export default function Navbar({ showDeliveryModal }) {
                   width="100"
                 />
               </Typography>
-              <Button color="inherit" onClick={() => history.push("/signin")}>
+              <Button color="inherit" onClick={() => history.push("/")}>
                 <IconButton
                   edge="start"
                   className={classes.menuButton}

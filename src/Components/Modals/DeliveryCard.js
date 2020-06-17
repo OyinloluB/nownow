@@ -25,10 +25,10 @@ const DeliveryCard = ({ order, close }) => {
   };
 
   const handleRating = (rating) => {
-    console.log(rating);
-    // dispatch(rateOrder(order._id, rating))
-    //   .then(() => close())
-    //   .catch((err) => console.log(err));
+    // console.log(rating);
+    dispatch(rateOrder(order._id, rating))
+      .then(() => close())
+      .catch((err) => console.log(err));
   };
   return !showRating ? (
     <StarRating rateOrder={handleRating} />
