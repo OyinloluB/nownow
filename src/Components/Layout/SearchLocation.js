@@ -42,7 +42,7 @@ const SearchLocation = () => {
         <div  syle={{ textJustify: 'justify', fontWeight: 'bold' }} className={ show } >
           
           <div className={'d-flex mb-1'} style={{color: "#B11917"}} onClick={()=> setShow('d-none')} >
-            <span className={'mr-auto font-weight-bold'}>Close</span>
+            <span className={'mr-auto font-weight-bold'}>Close marker orientation</span>
             <CloseIcon />
           </div>
           <div className={'d-flex'} style={{color: "grey"}}>

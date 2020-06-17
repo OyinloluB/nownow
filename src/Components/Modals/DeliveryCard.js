@@ -68,7 +68,7 @@ const DeliveryCard = ({ order, close }) => {
             <Button
               variant="success"
               onClick={() => handleConfirmOrder(true)}
-              style={{ width: "45%" }}
+              style={{ width: "50%" }}
             >
               Yes
             </Button>
