@@ -30,8 +30,8 @@ const DeliveryCard = ({ order, close }) => {
       .then(() => close())
       .catch((err) => console.log(err));
   };
-  return !showRating ? (
-    <StarRating rateOrder={handleRating} />
+  return showRating ? (
+    <StarRating rateOrder={handleRating} setShowRating={setShowRating} />
   ) : (
     <div className={"p-3"}>
       <div style={{ padding: "1rem 1rem 0rem 1rem", borderBottom: "none" }}>
@@ -46,13 +46,18 @@ const DeliveryCard = ({ order, close }) => {
         {order.items.map((item) => {
           return <ConfirmDeliveryItem key={item._id} item={item} />;
         })}
-        <div className={"d-flex font-weight-bold mt-2"} style={{ color: "#B11917" }}>
+        <div
+          className={"d-flex font-weight-bold mt-2"}
+          style={{ color: "#B11917" }}
+        >
           <span className={"mr-auto text-dark"}>Total: </span>&#8358;{" "}
           {order.totalAmount}
         </div>
       </div>
       <div>
-        <div style={{ padding: "0.4rem 0.25rem", justifyContent: "space-between" }}>
+        <div
+          style={{ padding: "0.4rem 0.25rem", justifyContent: "space-between" }}
+        >
           <p
             style={{ fontSize: "15px", color: "#B11917" }}
             className={"text-center"}
