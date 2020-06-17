@@ -97,7 +97,7 @@ const EligibilityWrapper = () => {
     >
       <div className={styles.modalContent}>
         <img src={img} alt={"Logo"} />
-        <span className={"text-center"} style={{color: '#B11917'}}> As part of our commitment to responsible drinking, please provide your date of birth to confirm you are of legal drinking age </span>
+        <span className={"text-center"} style={{color: '#B11917'}}> As part of our commitment to responsible drinking, please provide your date of birth to confirm you are of legal drinking age (above 18 years)</span>
         <p> Please enter your birth date below </p>
         <div className={styles.inputGroup}>{inputs}</div>
         {invalidForm && (

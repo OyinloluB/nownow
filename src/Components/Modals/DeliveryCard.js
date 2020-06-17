@@ -51,7 +51,7 @@ const DeliveryCard = ({ order, close }) => {
           style={{ color: "#B11917" }}
         >
           <span className={"mr-auto text-dark"}>Total: </span>&#8358;{" "}
-          {order.totalAmount}
+          {Math.floor(order.totalAmount)}
         </div>
       </div>
       <div>
