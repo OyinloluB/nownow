@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 
-const OrderIntro = ({ item, status }) => {
+const OrderIntro = ({ item, status }) => {console.log(item)
   return (
     <div>
       <Card style={{ width: "100" }}>

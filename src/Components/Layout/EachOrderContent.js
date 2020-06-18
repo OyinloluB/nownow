@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import DateCountdown from "react-date-countdown-timer";
 
 import { generateTimeDifference, calcDistanceInKm } from "../../helpers/utility";
 
-const EachOrderContent = ({ order, setOrder }) => {
+const EachOrderContent = ({ order, setOrder }) => {console.log(order)
   const userPosition = useSelector((state) => state.auth.coordinates);
-
   const { timeString } = generateTimeDifference(order.createdAt);
 
   let deliveryDate;
@@ -32,6 +31,7 @@ const EachOrderContent = ({ order, setOrder }) => {
     lng: orderUser.longitude,
   });
 
+
   return (
     <div
       style={{
@@ -40,9 +40,11 @@ const EachOrderContent = ({ order, setOrder }) => {
         justifyContent: "space-between",
         borderBottom: "1px solid rgb(223, 223, 223)",
         paddingBottom: "9px",
-        padding: "9px",
+        padding: "4px",
       }}
     >
+
+<div>
       <p
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -60,6 +62,18 @@ const EachOrderContent = ({ order, setOrder }) => {
           {order.items.length}
         </Badge>
       </p>
+
+        <p style={{ color: "green", fontSize: "12px" }}>
+          <b>Payment method: { order.items[0].details.paymentMode.toUpperCase().slice(0,1) + order.items[0].details.paymentMode.slice(1) } </b>
+        </p>
+        <p style={{ color: "green", fontSize: "12px" }}>
+          <b>Tel: { order.owner===undefined? null:order.owner.phone  }  </b> 
+        </p>
+        <p style={{ color: "green", fontSize: "12px" }}>
+            <b>Total: { order.totalAmount  }  </b> 
+        </p>
+      </div>
+     
       <div>
         <p style={{ color: "rgb(152, 149, 149)", fontSize: "12px" }}>
           <b>Distance:</b>{" "}
