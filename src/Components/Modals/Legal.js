@@ -13,7 +13,7 @@ export const Legal = ({ show, setShow }) => {
         }}
         aria-labelledby="example-custom-modal-styling-title"
       >
-        <Modal.Body style={{padding: '10px', backgrounColor:"#b11917"}} className={'text-center'}>
+        <Modal.Body style={{padding: '10px', backgroundColor:"#b11917"}} className={'text-center'}>
           <p style={{color: '#fff'}}>
             By using ShopNow, you agree to the{" "}
             <Link to="/terms">Terms of Use,</Link>
