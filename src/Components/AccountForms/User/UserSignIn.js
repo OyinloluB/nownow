@@ -142,7 +142,7 @@ const UserSignIn = () => {
         ) {
           history.push(`/info`);
         } else {
-          history.push("/");
+          window.location.href = '';
         }
       })
       .catch((error) => setNotice('You just entered a wrong password'));
