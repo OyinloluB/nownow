@@ -7,7 +7,7 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 
 const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
-  const [checked, setChecked] = useState(["cash"]);
+  const [checked, setChecked] = useState([]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -20,6 +20,7 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
     }
 
     setChecked(newChecked);
+    console.log(checked)
   };
 
   const previous = () => {

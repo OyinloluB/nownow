@@ -5,7 +5,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Switch from "@material-ui/core/Switch";
-
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,48 +17,83 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const AntSwitch = withStyles((theme) => ({
+  root: {
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: 'flex',
+  },
+  switchBase: {
+    padding: 2,
+    color: theme.palette.grey[500],
+    '&$checked': {
+      transform: 'translateX(12px)',
+      color: theme.palette.common.white,
+      '& + $track': {
+        opacity: 1,
+        backgroundColor: 'green',
+        borderColor: 'green',
+      },
+    },
+  },
+  thumb: {
+    width: 12,
+    height: 12,
+    boxShadow: 'none',
+  },
+  track: {
+    border: `1px solid ${theme.palette.grey[500]}`,
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor: theme.palette.common.white,
+  },
+  checked: {},
+}))(Switch);
+
 
 const PaymentModeOption = ({ checked, handleToggle }) => {
   const classes = useStyles();
   // console.log(handleToggle)
   return (
     <List className={classes.root}>
-      <ListItem>
+      <ListItem className={'d-flex'}>
         <ListItemText id="switch-list-label-cash" primary="Cash" />
-        <ListItemSecondaryAction>
-          <Switch
-            edge="end"
-            onChange={handleToggle("cash")}
-            checked={checked.indexOf("cash") !== -1}
-            inputProps={{ "aria-labelledby": "switch-list-label-cash" }}
-            style = {{color: '#b11917'}}
-          />
-        </ListItemSecondaryAction>
-      </ListItem>
+          <Typography component="div">
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Off</Grid>
+              <Grid item>
+                <AntSwitch checked={checked.indexOf("cash") !== -1} onChange={handleToggle("cash")} name="cash" />
+              </Grid>
+              <Grid item>On</Grid>
+            </Grid>
+          </Typography>
+        </ListItem>
+        
       <ListItem>
         <ListItemText id="switch-list-label-pos" primary="POS" />
-        <ListItemSecondaryAction>
-          <Switch
-            edge="end"
-            onChange={handleToggle("pos")}
-            checked={checked.indexOf("pos") !== -1}
-            inputProps={{ "aria-labelledby": "switch-list-label-pos" }}
-            style = {{color: '#b11917'}}
-          />
-        </ListItemSecondaryAction>
+          <Typography component="div">
+            <Grid component="label" container alignItems="center" spacing={1}>
+              <Grid item>Off</Grid>
+              <Grid item>
+                <AntSwitch checked={checked.indexOf("pos") !== -1} onChange={handleToggle("pos")} name="pos" />
+              </Grid>
+              <Grid item>On</Grid>
+            </Grid>
+          </Typography>
+        
       </ListItem>
       <ListItem>
         <ListItemText id="switch-list-label-transfer" primary="Transfer" />
-        <ListItemSecondaryAction>
-    
-          <Switch
-            edge="end"
-            onChange={handleToggle("transfer")}
-            checked={checked.indexOf("transfer") !== -1}
-            inputProps={{ "aria-labelledby": "switch-list-label-transfer" }}
-            style = {{color: '#b11917'}}
-          />
-        </ListItemSecondaryAction>
+          <Typography component="div">
+              <Grid component="label" container alignItems="center" spacing={1}>
+                <Grid item>Off</Grid>
+                <Grid item>
+                  <AntSwitch checked={checked.indexOf("transfer") !== -1} onChange={handleToggle("transfer")} name="transfer" />
+                </Grid>
+                <Grid item>On</Grid>
+              </Grid>
+            </Typography>
       </ListItem>
     </List>
   );

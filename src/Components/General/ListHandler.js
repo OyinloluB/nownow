@@ -23,7 +23,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [showBasket, setShowBasket] = useState(false);
-  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
@@ -153,7 +152,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                       <div className={"d-flex"}>
                           <span
                             style={{
-                              backgroundColor:  user.products.length === 0? 'black' : user.confirmed === false? '#b11917' : 'green' ,
+                              backgroundColor:  user.products.length === 0? 'grey' : user.confirmed === false? '#b11917' : 'green' ,
                               maxHeight: "6px",
                               minWidth: "7px",
                               borderRadius: "15px",
@@ -177,7 +176,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                             className={ 'offset-2' }
                             />
                             <br />
-                            <span style={{fontSize: '10px', color: 'green'}}>{ user.products.length === 0? 'Inactive' : user.confirmed === false? 'Offline' : 'Available' }</span>
+                            <span style={{fontSize: '10px', color: user.products.length === 0? 'grey' : user.confirmed === false? '#B11917' : 'green' }}>{ user.products.length === 0? 'Inactive' : user.confirmed === false? 'Offline' : 'Available' }</span>
                           </span>
                         </span>
 

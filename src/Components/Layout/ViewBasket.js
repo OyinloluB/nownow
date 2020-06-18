@@ -87,6 +87,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
   const [togglePaymentOption, setTogglePaymentOption] = useState("d-none");
   const [toggleCheckoutOption, setToggleChekoutOption] = useState("d-block");
   const [success, setSuccess] = useState("d-none");
+  const [notice, setNotice] = useState("");
   // radio button for payment method
   const [value, setValue] = useState("");
 
@@ -117,8 +118,13 @@ const ViewBasket = ({ show, setViewBasket }) => {
   };
 
   const handleToggle = () => {
-    setToggleChekoutOption("d-none");
-    setTogglePaymentOption("d-block");
+    if(items.length === 0) {
+      setNotice("Your Cart is Empty!")
+    }
+    else {
+      setToggleChekoutOption("d-none");
+      setTogglePaymentOption("d-block");
+    }
   };
 
   const handleIncrement = (item) => {
@@ -175,6 +181,13 @@ const ViewBasket = ({ show, setViewBasket }) => {
               </span>
               <CloseIcon onClick={handleClose} />
             </div>
+            <span
+              style={{
+                color: '#B11917'
+              }}
+            > 
+            { notice } 
+            </span>
           </div>
           <div className={togglePaymentOption}>
             <div className={"d-flex"}>
@@ -230,6 +243,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
                           &#8358;{product.price * product.quantity}
                         </span>
                       </div>
+                      
                       <div className={"d-flex"} style={{ fontSize: "12px" }}>
                         <span
                           className={"mr-auto"}
