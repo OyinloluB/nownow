@@ -9,17 +9,17 @@ export const Legal = ({ show, setShow }) => {
         show={show}
         style={{
           width: "100%",
-          backgrounColor: "#B11917"
         }}
+        backdrop = "static"
         aria-labelledby="example-custom-modal-styling-title"
       >
         <Modal.Body style={{padding: '10px', backgroundColor:"#b11917"}} className={'text-center'}>
           <p style={{color: '#fff'}}>
             By using ShopNow, you agree to the{" "}
-            <Link to="/terms">Terms of Use,</Link>
-            <Link to="/return">Return Policy</Link>
+            <Link to="/terms" style={{color: "green"}}>Terms of Use, </Link>
+            <Link to="/return" style={{color: "green"}}>Return Policy </Link>
              and{" "}
-            <Link to="privacy">Privacy Policy</Link>
+            <Link to="privacy" style={{color: "green"}}>Privacy Policy</Link>
           </p>
           <button
             onClick={() => setShow(false)}
