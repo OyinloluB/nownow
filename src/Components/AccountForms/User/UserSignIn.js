@@ -145,7 +145,7 @@ const UserSignIn = () => {
           history.push("/");
         }
       })
-      .catch((error) => console.error(error.message));
+      .catch((error) => setNotice('You just entered a wrong password'));
   };
 
   return (
@@ -191,8 +191,8 @@ const UserSignIn = () => {
             >
               Confirm Your Code
             </div>
-            <span className={"text-danger text-center font-weight-bold mt-1"}>{notice}</span>
             <Form.Group controlId="formBasicNumber" className={showUserId}>
+              
               <Form.Label
                 style={{ color: "grey" }}
                 className={"mt-3 font-weight-bold"}
@@ -207,7 +207,7 @@ const UserSignIn = () => {
                 required
               />
             </Form.Group>
-
+            {/* <span className={"text-danger text-center font-weight-bold mt-1 offset-2 offset-md-1"}>{notice}</span> */}
             {/* resetPassword */}
             <div className={resetPassword}>
               <ResetPassword
@@ -241,7 +241,7 @@ const UserSignIn = () => {
                 required
               />
             </Form.Group>
-
+            <span className={"text-danger text-center font-weight-bold"}>{notice}</span>
             <div
               style={{ color: "grey", marginTop: "10px", fontSize: "14px" }}
               className={showUserPas}

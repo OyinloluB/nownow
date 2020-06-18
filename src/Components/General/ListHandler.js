@@ -6,7 +6,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ShoppingBasket from "../Layout/ShoppingBasket";
 
 import axios from "../../helpers/axios-client";
@@ -31,38 +31,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
-
-  {users
-    .filter(
-      (user) =>
-        user.type === userType 
-    )
-    .slice(0, 60)
-    .map((user, i) => {
-
-  if(user.latitude === 0) {
-    user.address = 'Not Available, contact through mobile number'
-  }
-
-  else { 
-    fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-      user.latitude +
-      "," +
-      user.longitude +
-      "&key=" +
-      API_KEY
-  )
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson.results.length > 1){
-        // forcing the fetched address into the users data
-          user.address = responseJson.results[0].formatted_address;
-      }
-      else {
-        user.address = 'Loading...'
-      }
-    }).catch(error=>console.log('error'))
-    }})}
 
   return (
     <>
@@ -200,10 +168,15 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                           <br />
                           <span style={{ fontSize: "11px", color: "#000" }}>
                           {`Distance: ${
-                              user.distance < 1
-                                ? `${Math.floor(user.distance * 1000)} m`
-                                : `${Math.floor(user.distance)} km`
-                            }`}<br />
+                            user.distance < 1
+                              ? `${Math.floor(user.distance * 1000)} m`
+                              : `${Math.floor(user.distance)} km`
+                            } `}
+                            <LocalShippingIcon 
+                            style={{ fontSize: 20, visibility: user.delivery ? 'visible':'hidden' }}
+                            className={ 'offset-2' }
+                            />
+                            <br />
                             <span style={{fontSize: '10px', color: 'green'}}>{ user.products.length === 0? 'Inactive' : user.confirmed === false? 'Offline' : 'Available' }</span>
                           </span>
                         </span>
@@ -216,10 +189,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                           }}
                         >
                         
-                        <DirectionsBikeIcon 
-                        style={{ fontSize: 16, margin: '30px 10px 0px -25px' }}
-                        className={ user.delivery? 'd-block' : 'd-none' }
-                        />
                           <span>
                             <a
                               href={`https://wa.me/${user.whatsapp}`}

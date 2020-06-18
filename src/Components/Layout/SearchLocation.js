@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Card } from "react-bootstrap";
-import CloseIcon from "@material-ui/icons/Close";
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import "./Search.css";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -41,10 +42,11 @@ const SearchLocation = () => {
     <Card className="searchField p-3" style={{ height: show === 'd-block'? '250px' :  '180px'}}>
         <div  syle={{ textJustify: 'justify', fontWeight: 'bold' }} className={ show } >
           
-          <div className={'d-flex mb-1'} style={{color: "#B11917"}} onClick={()=> setShow('d-none')} >
-            <span className={'mr-auto font-weight-bold'}>Close marker orientation</span>
-            <CloseIcon />
+          <div className={'d-flex mb-1'} style={{color: "#B11917"}} onClick={()=> setShow('d-none') }>
+            <span className={'mr-auto font-weight-bold'}>Close Marker Orientation</span>
+            <VisibilityOffIcon />
           </div>
+
           <div className={'d-flex'} style={{color: "grey"}}>
             <span className={'mr-auto font-weight-bold'}>Distributor</span>
             <span><img src="https://static.thenounproject.com/png/462-200.png" alt="" width="20" height="20" /></span>
@@ -58,6 +60,12 @@ const SearchLocation = () => {
             <span><img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" alt="" width="20" height="20" /></span>
           </div>
         </div> 
+
+        <div className={ show === 'd-none'? 'd-block d-flex':'d-none' } style={{color: "green"}} onClick={()=> setShow('d-block')} >
+          <span className={'mr-auto'}>Open Marker Orientation</span>
+          <VisibilityIcon />
+        </div>
+     
 
       <Card.Body>
         <form
