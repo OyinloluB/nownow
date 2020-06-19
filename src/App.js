@@ -13,7 +13,7 @@ import Order from "./Components/General/Order";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import StatusModal from "./Components/Modals/StatusModal";
-import ConfirmDelivery from "./Components/Modals/ConfirmDelivery";
+import DeliveryCard from "./Components/Modals/DeliveryCard";
 
 import {
   fetchBulkBreakers,
@@ -26,14 +26,18 @@ import axios from "./helpers/axios-client";
 import { ProtectedRoute } from "./helpers/routes";
 
 function App() {
-  const { user, isAuthenticated, eligible } = useSelector((state) => ({
-    user: state.auth.user,
-    isAuthenticated: state.auth.isAuthenticated,
-    eligible: state.auth.eligible,
-  }));
+  const { user, isAuthenticated, eligible, deliveredOrders } = useSelector(
+    (state) => ({
+      user: state.auth.user,
+      isAuthenticated: state.auth.isAuthenticated,
+      eligible: state.auth.eligible,
+      deliveredOrders: state.order.sentOrders.filter(
+        (order) => order.status === "delivered"
+      ),
+    })
+  );
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [showDeliveryModal, setShowDeliveryModal] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -68,12 +72,14 @@ function App() {
 
   return (
     <>
-      <Navbar showDeliveryModal={() => setShowDeliveryModal(true)} />
+      <Navbar />
       {/* promp to set your store open/close */}
-      <StatusModal open={open} setOpen={setOpen} comingFrom='login' />
+      <StatusModal open={open} setOpen={setOpen} comingFrom="login" />
       <Cookie />
       {!eligible ? <Eligible /> : null}
-      <ConfirmDelivery show={showDeliveryModal} setShow={setShowDeliveryModal} />
+      {deliveredOrders.map((order) => {
+        return <DeliveryCard key={order._id} order={order} />;
+      })}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/terms" component={Terms} />
