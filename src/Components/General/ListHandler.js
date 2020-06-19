@@ -6,11 +6,8 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import RotateLeftIcon from "@material-ui/icons/RotateLeft";
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import ShoppingBasket from "../Layout/ShoppingBasket";
-
-import axios from "../../helpers/axios-client";
-import { calcDistanceInKm } from "../../helpers/utility";
 
 const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
@@ -23,7 +20,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [showBasket, setShowBasket] = useState(false);
-  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
@@ -31,38 +27,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
-
-  {users
-    .filter(
-      (user) =>
-        user.type === userType 
-    )
-    .slice(0, 60)
-    .map((user, i) => {
-
-  if(user.latitude === 0) {
-    user.address = 'Not Available, contact through mobile number'
-  }
-
-  else { 
-    fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" +
-      user.latitude +
-      "," +
-      user.longitude +
-      "&key=" +
-      API_KEY
-  )
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson.results.length > 1){
-        // forcing the fetched address into the users data
-          user.address = responseJson.results[0].formatted_address;
-      }
-      else {
-        user.address = 'Loading...'
-      }
-    }).catch(error=>console.log('error'))
-    }})}
 
   return (
     <>
@@ -82,10 +46,8 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
             color: "black",
             background: "#f7f7f7",
             display: "flex",
-            // alignItems: "center",
           }}
         >
-          {/* <div className={"row"}> */}
           <ArrowBackIcon
             style={{
               color: "#b11917",
@@ -107,14 +69,11 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
               ? userType[0].toUpperCase() + userType.slice(1) + "s"
               : "Retail Stores"}
           </span>
-          {/* <span className={"btn text-light ml-auto"}> */}
-            <RotateLeftIcon
-              className={"btn text-light"}
-              style={{ color: "white", backgroundColor: "grey" }}
-              onClick={resetCenter}
-            />
-          {/* </span> */}
-          {/* </div> */}
+          <RotateLeftIcon
+            className={"btn text-light"}
+            style={{ color: "white", backgroundColor: "grey" }}
+            onClick={resetCenter}
+          />
         </Modal.Header>
         <div
           style={{
@@ -136,7 +95,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                 }}
                 className={"p-1 pt-3 pb-3 p-md-3"}
                 onClick={() => setUserType(userType)}
-                // className={i === 0 ? "bg-info" : "bg-warning"}
               >
                 {userType === "distributor"
                   ? "Buy from Distributors"
@@ -158,21 +116,17 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
             }}
           >
             {users
-                .filter(
-                  (user) =>
-                    user.type === userType 
-                )
-                .slice(0, 60)
-                .map((user, i) => {
-                  
-                
+              .filter((user) => user.type === userType)
+              .slice(0, 60)
+              .map((user, i) => {
                 return (
                   <div
                     key={user.id}
                     style={{
-                      justifyContent: "space-between", fontSize: '14px'
+                      justifyContent: "space-between",
+                      fontSize: "14px",
                     }}
-                  > 
+                  >
                     <li
                       key={user.id}
                       className={"list-group"}
@@ -183,28 +137,56 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                       }}
                     >
                       <div className={"d-flex"}>
-                          <span
-                            style={{
-                              backgroundColor:  user.products.length === 0? 'black' : user.confirmed === false? '#b11917' : 'green' ,
-                              maxHeight: "6px",
-                              minWidth: "7px",
-                              borderRadius: "15px",
-                              marginTop: "8px",
-                            }}
-                          />
-                      
+                        <span
+                          style={{
+                            backgroundColor:
+                              user.products.length === 0
+                                ? "grey"
+                                : user.confirmed === false
+                                ? "#b11917"
+                                : "green",
+                            maxHeight: "6px",
+                            minWidth: "7px",
+                            borderRadius: "15px",
+                            marginTop: "8px",
+                          }}
+                        />
 
                         <span class={"offset-1 mr-auto font-weight-bold"}>
                           {" "}
                           {user.name}
                           <br />
                           <span style={{ fontSize: "11px", color: "#000" }}>
-                          {`Distance: ${
+                            {`Distance: ${
                               user.distance < 1
                                 ? `${Math.floor(user.distance * 1000)} m`
                                 : `${Math.floor(user.distance)} km`
-                            }`}<br />
-                            <span style={{fontSize: '10px', color: 'green'}}>{ user.products.length === 0? 'Inactive' : user.confirmed === false? 'Offline' : 'Available' }</span>
+                            } `}
+                            <LocalShippingIcon
+                              style={{
+                                fontSize: 20,
+                                visibility: user.delivery ? "visible" : "hidden",
+                              }}
+                              className={"offset-2"}
+                            />
+                            <br />
+                            <span
+                              style={{
+                                fontSize: "10px",
+                                color:
+                                  user.products.length === 0
+                                    ? "grey"
+                                    : user.confirmed === false
+                                    ? "#B11917"
+                                    : "green",
+                              }}
+                            >
+                              {user.products.length === 0
+                                ? "Inactive"
+                                : user.confirmed === false
+                                ? "Offline"
+                                : "Available"}
+                            </span>
                           </span>
                         </span>
 
@@ -215,11 +197,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                             width: "25%",
                           }}
                         >
-                        
-                        <DirectionsBikeIcon 
-                        style={{ fontSize: 16, margin: '30px 10px 0px -25px' }}
-                        className={ user.delivery? 'd-block' : 'd-none' }
-                        />
                           <span>
                             <a
                               href={`https://wa.me/${user.whatsapp}`}
@@ -252,14 +229,21 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                                   cursor: "pointer",
                                 }}
                                 onClick={() => {
-                                  
                                   setSelectedUser(user);
-                                  user.products.length > 0? setShowBasket(true) : setShowBasket(false);
-                                  user.products.length > 0? closeModal() : setShowBasket(false)
+                                  user.products.length > 0
+                                    ? setShowBasket(true)
+                                    : setShowBasket(false);
+                                  user.products.length > 0
+                                    ? closeModal()
+                                    : setShowBasket(false);
                                 }}
-                                
-                                // do not display shopping basket on pocs for bulkbreaker 
-                                className = { user.type==='poc' && loggedInUser.type==='bulkbreaker' ? 'd-none': 'd-block' }
+                                // do not display shopping basket on pocs for bulkbreaker
+                                className={
+                                  user.type === "poc" &&
+                                  loggedInUser.type === "bulkbreaker"
+                                    ? "d-none"
+                                    : "d-block"
+                                }
                               />
                             </span>
                           ) : null}
@@ -283,16 +267,6 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
               })}
           </ul>
         </Modal.Body>
-
-        {/* <Modal.Footer>
-          <button
-            className="btn"
-            style={{ background: "#b11917", color: "white" }}
-            onClick={closeModal}
-          >
-            <BlurOffRoundedIcon /> Away
-          </button>
-        </Modal.Footer> */}
       </Modal>
     </>
   );

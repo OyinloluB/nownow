@@ -10,7 +10,6 @@ export const Legal = ({ show, setShow }) => {
         show={show}
         style={{
           width: "100%",
-          background: "transparent",
         }}
         backdrop="static"
         aria-labelledby="example-custom-modal-styling-title"

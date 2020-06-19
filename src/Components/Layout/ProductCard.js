@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
   const classes = useStyles();
-  console.log(setMaxPriceAlert)
+  // console.log(setMaxPriceAlert)
   const [showContent, setShowContent] = useState(false);
   return (
     <>

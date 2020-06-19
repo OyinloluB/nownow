@@ -6,6 +6,8 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   const [homeDelivery, setHomeDelivery] = useState(false);
+  const [ noColor, setColorNo ] = useState('#fff');
+  const [ yesColor, setColorYes ] = useState('#fff');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,13 +17,15 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
   };
 
    const toggleColorYes = (e) =>{
-     e.target.style.backgroundColor = "#28A745";
+     setColorNo("#fff");
+     setColorYes("#28A745");
      e.target.style.color = "white";
       setHomeDelivery(true)
   };
   const toggleColorNo = (e) =>{
     e.preventDefault();
-    e.target.style.backgroundColor = "#b11917";
+    setColorYes("#fff");
+    setColorNo("#B11917")
      e.target.style.color = "white";
     setHomeDelivery(false)
   }
@@ -62,13 +66,13 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               type="button"
               className={'btn mr-auto'}
               style={{
-                backgroundColor: "white",
+                backgroundColor: yesColor,
                 paddding: "25px",
                 padddingBottom: "25px",
                 border: "1px solid #28A745",
                 borderRadius: "5px",
                 fontWeight: "bold",
-                color: "#28A745",
+                color: yesColor==="#28A745"? "#fff" : "#28A745",
                 width: "30%",
                 marginRight: "10px",
               }}
@@ -87,9 +91,9 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
                 toggleColorNo
               }
               style={{
-                backgroundColor: "white",
+                backgroundColor: noColor,
                 border: "1px solid #b11917",
-                color: "#b11917",
+                color: noColor==='#fff'? "#B11917" : "#fff",
                 width: "30%",
               }}
             >
