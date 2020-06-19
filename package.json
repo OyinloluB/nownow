@@ -17,6 +17,7 @@
     "helmet": "^3.23.1",
     "moment": "^2.26.0",
     "react": "^16.13.1",
+    "react-add-to-homescreen": "^1.1.0",
     "react-bootstrap": "^1.0.1",
     "react-cookie-consent": "^5.0.1",
     "react-date-countdown-timer": "^1.0.4",
@@ -38,7 +39,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-sw": "http-server ./build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }

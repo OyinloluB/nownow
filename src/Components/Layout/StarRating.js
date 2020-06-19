@@ -22,21 +22,43 @@ const StarRating = ({ rateOrder, setShowRating, close }) => {
       }}
     >
       <Box component="fieldset" mb={3} borderColor="transparent">
-        <Typography component="legend">Rate Your Order</Typography>
-        <Rating
-          name="rating"
-          onChange={handleRatingChange}
-          defaultValue={rating}
-          precision={0.5}
-          emptyIcon={<StarBorderIcon fontSize="inherit" />}
-          size="large"
-        />
+        <>
+          <Typography component="legend" style={{textAlign: "center", fontSize:"13px"}}>Rate Your Order</Typography>
+          <Rating
+            name="rating"
+            onChange={handleRatingChange}
+            defaultValue={rating}
+            precision={0.5}
+            emptyIcon={<StarBorderIcon fontSize="inherit" />}
+            size="large"
+            style={{
+              display:"flex",
+              justifyContent:"center"
+            }}
+          />
+        </>
+        <>
+          <Typography component="legend" style={{textAlign: "center", fontSize:"13px"}}>Leave a review</Typography>
+          <form>
+            <input
+              type="text"
+              style={{
+                marginTop: "10px",
+                padding: "8px",
+                borderRadius: "15px",
+                border: "1px solid black",
+                width: "310px",
+                height: "121px",
+              }}
+            />
+          </form>
+        </>
       </Box>
       <Button
         variant="contained"
         onClick={() => {
           rateOrder(rating);
-          close()
+          close();
         }}
         style={{ backgroundColor: "#b11917", color: "#fff" }}
       >

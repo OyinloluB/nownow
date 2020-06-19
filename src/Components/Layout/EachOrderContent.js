@@ -75,7 +75,7 @@ const EachOrderContent = ({ order, setOrder }) => {
           <b>Tel: {orderUser.phone || orderUser.whatsapp} </b>
         </p>
         <p style={{ color: "green", fontSize: "12px" }}>
-          <b>Total: {Math.floor(order.totalAmount)} </b>
+          <b>Total: &#8358;{Math.floor(order.totalAmount)} </b>
         </p>
       </div>
 
