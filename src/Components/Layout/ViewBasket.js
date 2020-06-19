@@ -301,7 +301,8 @@ const ViewBasket = ({ show, setViewBasket }) => {
                   Seller and you will pay directly to them upon receipt of your order
                 </span>
                 {owners.map((ownerId) => {
-                  const ownerItem = items.filter((item) => item.userID === ownerId);
+                  const ownerItem = items.filter((item) => item.userID === ownerId)[0];
+                  console.log(ownerItem);
                   return (
                     <PaymentChoice
                       owner={ownerItem.ownerDetails}
