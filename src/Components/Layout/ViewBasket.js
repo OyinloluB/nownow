@@ -57,7 +57,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
   const handleClick = (newState) => () => {
     setState({ open: true, ...newState });
   };
-
+  const { user } = useSelector((state) => state.auth);
   const [togglePaymentOption, setTogglePaymentOption] = useState("d-none");
   const [toggleCheckoutOption, setToggleChekoutOption] = useState("d-block");
   const [success, setSuccess] = useState("d-none");
@@ -69,11 +69,12 @@ const ViewBasket = ({ show, setViewBasket }) => {
       (acc, item) => acc + item.quantity,
       0
     );
-    const multiple = totalQuantity < 80 ? 1.026 : 1;
+    const multiple = totalQuantity < 80 && user.type==='poc' ? 1.026 : 1;
     const totalPrice = state.cart.items.reduce((currentTotal, item) => {
       return currentTotal + Math.floor(item.price * multiple * item.quantity);
     }, 0);
     const itemOwners = Array.from(new Set(state.cart.items.map((item) => item.userID)));
+    
     return {
       items: state.cart.items,
       total: totalPrice,
@@ -82,6 +83,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
   });
 
   const handleClose = () => {
+    setNotice("");
     setSuccess("d-none");
     setViewBasket(false);
     setToggleChekoutOption("d-block");
@@ -205,6 +207,15 @@ const ViewBasket = ({ show, setViewBasket }) => {
                         </span>
                       </div>
                       <div className={"d-flex"}>
+                        <span className={"mr-auto"}>Unit Price</span>
+                        <span
+                          className={""}
+                          style={{ color: "grey", fontSize: "14px" }}
+                        >
+                          {product.price}
+                        </span>
+                      </div>
+                      <div className={"d-flex"}>
                         <span className={"mr-auto"}>
                           {product.brand} ({product.sku}) {product.volume}
                         </span>
@@ -302,7 +313,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
                 </span>
                 {owners.map((ownerId) => {
                   const ownerItem = items.filter((item) => item.userID === ownerId)[0];
-                  console.log(ownerItem);
+
                   return (
                     <PaymentChoice
                       owner={ownerItem.ownerDetails}

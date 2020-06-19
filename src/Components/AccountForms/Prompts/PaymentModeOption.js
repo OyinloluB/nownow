@@ -61,11 +61,11 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
         <ListItemText id="switch-list-label-cash" primary="Cash" />
           <Typography component="div">
             <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>Off</Grid>
+              <Grid item style={{fontSize: '10px'}}>Off</Grid>
               <Grid item>
                 <AntSwitch checked={checked.indexOf("cash") !== -1} onChange={handleToggle("cash")} name="cash" />
               </Grid>
-              <Grid item>On</Grid>
+              <Grid item style={{fontSize: '10px'}}>On</Grid>
             </Grid>
           </Typography>
         </ListItem>
@@ -74,11 +74,11 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
         <ListItemText id="switch-list-label-pos" primary="POS" />
           <Typography component="div">
             <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item>Off</Grid>
+              <Grid item style={{fontSize: '10px'}}>Off</Grid>
               <Grid item>
                 <AntSwitch checked={checked.indexOf("pos") !== -1} onChange={handleToggle("pos")} name="pos" />
               </Grid>
-              <Grid item>On</Grid>
+              <Grid item style={{fontSize: '10px'}}>On</Grid>
             </Grid>
           </Typography>
         
@@ -87,11 +87,11 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
         <ListItemText id="switch-list-label-transfer" primary="Transfer" />
           <Typography component="div">
               <Grid component="label" container alignItems="center" spacing={1}>
-                <Grid item>Off</Grid>
+                <Grid item style={{fontSize: '10px'}}>Off</Grid>
                 <Grid item>
                   <AntSwitch checked={checked.indexOf("transfer") !== -1} onChange={handleToggle("transfer")} name="transfer" />
                 </Grid>
-                <Grid item>On</Grid>
+                <Grid item style={{fontSize: '10px'}}>On</Grid>
               </Grid>
             </Typography>
       </ListItem>

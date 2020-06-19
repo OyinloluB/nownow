@@ -45,7 +45,7 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
 
     return(
         <div>
-        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} >Set your Password</div>
+        <div style={{color: '#b11917', fontSize: '20px', fontWeight: 'bold', borderBottom: '1px solid grey'}} className={'text-center'} >Set your Password</div>
         <div className={'text-danger font-weight-bold'} style={{fontSize: '13px'}}>{notice}</div>
           <Form.Group controlId="formBasicPassword">
             <Form.Label className={'mt-3 font-weight-bold'}>Choose a Password</Form.Label>

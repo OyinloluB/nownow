@@ -72,7 +72,7 @@ const EachOrderContent = ({ order, setOrder }) => {
           </b>
         </p>
         <p style={{ color: "green", fontSize: "12px" }}>
-          <b>Tel: {orderUser.phone || orderUser.whatsapp} </b>
+          Tel:<a style={{color: 'green', fontWeight: 'bold'}} href={`tel:${orderUser.phone || orderUser.whatsapp}`}> {orderUser.phone || orderUser.whatsapp} </a>
         </p>
         <p style={{ color: "green", fontSize: "12px" }}>
           <b>Total: &#8358;{Math.floor(order.totalAmount)} </b>

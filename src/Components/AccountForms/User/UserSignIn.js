@@ -3,7 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
 import axios from "../../../helpers/axios-client";
-
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import PersonIcon from "@material-ui/icons/Person";
@@ -43,7 +43,11 @@ const UserSignIn = () => {
 
   const [notice, setNotice] = useState("");
 
-  // const [showPrompt, setShowPrompt] = useState(true);
+  const goBack = () => {
+    setResetPassword("d-none");
+    setShowUserId("d-block");
+    setShowUserPas("d-none");
+  }
 
   const toggler = () => {
     const ID = loginDetails.ID;
@@ -108,6 +112,9 @@ const UserSignIn = () => {
         }
       });
     }
+    else {
+      setNotice("UserId not valid!")
+    }
     // setShowUserId('d-none');
     // setShowUserPas('d-block');
   };
@@ -150,7 +157,7 @@ const UserSignIn = () => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "8vh auto 0vh auto",
+        margin: "3vh auto 0vh auto",
         borderRadius: "6px",
         maxWidth: "900px",
       }}
@@ -207,23 +214,23 @@ const UserSignIn = () => {
             {/* <span className={"text-danger text-center font-weight-bold mt-1 offset-2 offset-md-1"}>{notice}</span> */}
             {/* resetPassword */}
             <div className={resetPassword}>
+              <KeyboardBackspaceIcon onClick={ goBack } style={{ cursor: 'pointer', marginBottom: '-40px' }}/>
               <ResetPassword
                 userID={_id}
                 setUserPassword={setUserPassword}
                 type={type}
               />
             </div>
-
             <div
               style={{
                 color: "#b11917",
-                fontSize: "18px",
+                fontSize: "16px",
                 fontWeight: "bold",
                 borderBottom: "1px solid grey",
               }}
-              className={["text-center", showUserPas].join(" ")}
-            >
-              Input your Password
+              className={[showUserPas].join(" ")}
+              >
+                 <KeyboardBackspaceIcon onClick={ goBack } style={{ cursor: 'pointer' }}/> <span className={"offset-2 offset-md-1"}> Input your Password</span>
             </div>
 
             <Form.Group controlId="formBasicPassword" className={showUserPas}>

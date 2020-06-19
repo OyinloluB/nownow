@@ -79,7 +79,7 @@ export default function Navbar() {
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       {isAuthenticated ? (
         <div className={classes.grow}>
-          <AppBar position="static" className={classes.appbar}>
+          <AppBar position='fixed' style={{zIndex: 1}} className={classes.appbar}>
             <Toolbar className={classes.toolbar}>
               <Typography
                 variant="h6"
@@ -93,21 +93,30 @@ export default function Navbar() {
                   width="90"
                   onClick={() => history.push("/")}
                 />
-
-                <img
+              {
+                isAuthenticated ?
+                (<img
                   src={Logo1}
                   alt="ibplc-logo"
                   style={{ cursor: "pointer" }}
-                  width="80"
+                  width="100"
                   onClick={() => history.push("/")}
-                />
+                  className={'d-none d-md-block'}
+                  />) :
+                (<img
+                  src={Logo1}
+                  alt="ibplc-logo"
+                  style={{ cursor: "pointer" }}
+                  width="90"
+                  onClick={() => history.push("/")}
+                />) 
+              }
                 <p
                   style={{
                     paddingLeft: "10px",
                     marginBottom: "0rem",
-                    fontSize: "12px",
+                    fontSize: "15px",
                   }}
-                  className={'d-none d-md-block'}
                 >
                   {user.name}
                 </p>

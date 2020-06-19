@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 import img from "../../assets/logo.png";
 import moment from "moment";
@@ -118,8 +118,7 @@ const EligibilityWrapper = () => {
           Submit
         </button>
         <p className={styles.tandc}>
-          By entering this site you are agreeing to the terms of use and Privacy
-          policy
+          By entering this site you are agreeing to the <Link to="/terms">Terms of Use </Link>and and <Link to="privacy">Privacy Policy</Link>
         </p>
       </div>
     </div>

@@ -14,7 +14,7 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
-        <div style={{fontSize: '15px'}}>
+        <div style={{fontSize: '13px'}}>
           <span style={{fontWeight: 'bold'}}>
             {`${product.brand} `}
             <span

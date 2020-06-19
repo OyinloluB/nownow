@@ -62,8 +62,8 @@ const SearchLocation = () => {
         </div> 
 
         <div className={ show === 'd-none'? 'd-block d-flex':'d-none' } style={{color: "green"}} onClick={()=> setShow('d-block')} >
-          <span className={'mr-auto'}>Open Marker Orientation</span>
-          <VisibilityIcon />
+          <span className={'mr-auto'} style={{fontSize: '13px'}}>Open Marker Orientation</span>
+          <VisibilityIcon  style={{fontSize: '15px'}} />
         </div>
      
 
@@ -91,7 +91,7 @@ const SearchLocation = () => {
               paddingBottom: "2vh",
             }}
           >
-            Find nearby stores
+            Find nearby locations
           </button>
         </form>
       </Card.Body>
