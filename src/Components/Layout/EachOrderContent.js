@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { Badge } from "react-bootstrap";
 import DateCountdown from "react-date-countdown-timer";
 
-import { generateTimeDifference, calcDistanceInKm } from "../../helpers/utility";
+import {
+  generateTimeDifference,
+  calcDistanceInKm,
+} from "../../helpers/utility";
 
 const EachOrderContent = ({ order, setOrder }) => {
   const userPosition = useSelector((state) => state.auth.coordinates);
@@ -72,7 +75,7 @@ const EachOrderContent = ({ order, setOrder }) => {
           <b>Tel: {orderUser.phone || orderUser.whatsapp} </b>
         </p>
         <p style={{ color: "green", fontSize: "12px" }}>
-          <b>Total: {order.totalAmount} </b>
+          <b>Total: {Math.floor(order.totalAmount)} </b>
         </p>
       </div>
 
@@ -87,13 +90,20 @@ const EachOrderContent = ({ order, setOrder }) => {
           <b>Request made:</b> {timeString}
         </p>
         <p style={{ color: "#B11917", fontSize: "12px" }}>
-          {(order.status === "new"  && timeDiff > 0) ? (
+          {order.status === "new" && timeDiff > 0 ? (
             <>
               <b>Time left: </b>{" "}
               <DateCountdown
                 dateTo={deliveryDate.toISOString()}
                 locales={["year", "month", "day", "hr", "min", "sec"]}
-                locales_plural={["years", "months", "days", "hrs", "mins", "secs"]}
+                locales_plural={[
+                  "years",
+                  "months",
+                  "days",
+                  "hrs",
+                  "mins",
+                  "secs",
+                ]}
               />
             </>
           ) : null}
