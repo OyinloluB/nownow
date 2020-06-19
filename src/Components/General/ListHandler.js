@@ -70,8 +70,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
               : "Retail Stores"}
           </span>
           <RotateLeftIcon
-            className={"btn text-light"}
-            style={{ color: "white", backgroundColor: "grey" }}
+            style={{ color: "black", cursor: 'pointer' }}
             onClick={resetCenter}
           />
         </Modal.Header>
@@ -91,6 +90,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                   width: "50%",
                   textAlign: "center",
                   cursor: "pointer",
+                  opacity: 0.7,
                   backgroundColor: i === 0 ? "Green" : "#B11917",
                 }}
                 className={"p-1 pt-3 pb-3 p-md-3"}
