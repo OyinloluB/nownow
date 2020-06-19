@@ -51,7 +51,7 @@ const UserSignIn = () => {
     const ID = loginDetails.ID;
     console.log("nawa");
 
-    if (ID.slice(0, 1) === "6") {
+    if (ID.slice(0, 1) === "6" || "X" ) {
       axios.get(`/Distributor/User/${ID}`).then((list) => {
         setNotice("");
         if (list.data.length !== 0) {
