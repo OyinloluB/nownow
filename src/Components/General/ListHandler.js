@@ -20,6 +20,8 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [showBasket, setShowBasket] = useState(false);
+  const [color1, setColor1] = useState("");
+  const [color2, setColor2] = useState("grey");
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
@@ -27,6 +29,20 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
       .flat();
     setUsers([...closeUsers]);
   }, [propUsers, coordinates]);
+
+  const handleType = (userType) => {
+      setUserType(userType); 
+      if(userType==='poc' || (userType==="bulkbreaker" && loggedInUser.type==='poc') ) {
+        setColor2("");
+        setColor1("grey");
+      }
+      else if(userType="distributor" || (userType==="bulkbreaker" && loggedInUser.type==='distributor')) {
+        setColor2("grey");
+        setColor1("");
+      }
+      
+      
+  }
 
   return (
     <>
@@ -84,16 +100,18 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
         >
           {userTypes.map((userType, i) => {
             return (
-              <div
+              <button
                 key={userType}
                 style={{
                   width: "50%",
                   textAlign: "center",
                   cursor: "pointer",
-                  backgroundColor: i === 0 ? "#45130F" : "#F49C00",
+                  color: '#45130F',
+                  fontWeight: 'bold',
+                  backgroundColor: i === 0 ?  color1  :  color2,
                 }}
                 className={"p-1 pt-3 pb-3 p-md-3"}
-                onClick={() => setUserType(userType)}
+                onClick={() => handleType(userType) }
               >
                 {userType === "distributor"
                   ? "Buy from Distributors"
@@ -104,7 +122,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                   : userType === "poc"
                   ? "Sell to Retail Stores"
                   : ""}
-              </div>
+              </button>
             );
           })}
         </div>
