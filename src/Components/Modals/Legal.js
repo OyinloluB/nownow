@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
-import "./legal.css";
+
+import classes from "./legal.module.css";
 
 export const Legal = ({ show, setShow }) => {
   return (
@@ -13,6 +14,7 @@ export const Legal = ({ show, setShow }) => {
         }}
         backdrop="static"
         aria-labelledby="example-custom-modal-styling-title"
+        className={classes.modal_dialog}
       >
         <Modal.Body
           style={{
@@ -23,7 +25,7 @@ export const Legal = ({ show, setShow }) => {
             alignItems: "center",
             height: "80px",
           }}
-          className={"text-center"}
+          className={["text-center", classes.modal_content].join(" ")}
         >
           <p style={{ color: "#fff" }}>
             By using ShopNow, you agree to the{" "}
