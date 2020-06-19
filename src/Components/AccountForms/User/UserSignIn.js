@@ -54,7 +54,7 @@ const UserSignIn = () => {
         if (list.data.length !== 0) {
           _setId(list.data[0]._id);
           setType("distributor");
-          if (list.data[0].activated === false) {
+          if (list.data[0].activated === false || list.data[0].activated === undefined) {
             setShowUserId("d-none");
             setShowUserPas("d-none");
             setResetPassword("d-block");
@@ -74,7 +74,7 @@ const UserSignIn = () => {
         if (list.data.length !== 0) {
           _setId(list.data[0]._id);
           setType("bulkbreaker");
-          if (list.data[0].activated === false) {
+          if (list.data[0].activated === false || list.data[0].activated === undefined) {
             setShowUserId("d-none");
             setShowUserPas("d-none");
             setResetPassword("d-block");
@@ -94,7 +94,7 @@ const UserSignIn = () => {
         if (list.data.length !== 0) {
           _setId(list.data[0]._id);
           setType("poc");
-          if (list.data[0].activated === false) {
+          if (list.data[0].activated === false || list.data[0].activated === undefined) {
             setShowUserId("d-none");
             setShowUserPas("d-none");
             setResetPassword("d-block");

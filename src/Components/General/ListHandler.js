@@ -90,8 +90,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                   width: "50%",
                   textAlign: "center",
                   cursor: "pointer",
-                  opacity: 0.7,
-                  backgroundColor: i === 0 ? "Green" : "#B11917",
+                  backgroundColor: i === 0 ? "#45130F" : "#F49C00",
                 }}
                 className={"p-1 pt-3 pb-3 p-md-3"}
                 onClick={() => setUserType(userType)}
