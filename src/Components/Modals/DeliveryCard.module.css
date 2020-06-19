@@ -1,0 +1,14 @@
+.container {
+    width: 50vw;
+    position: absolute;
+    z-index: 4;
+    background-color: white;
+    left: 25vw;
+    min-width: 250px;
+}
+
+@media only screen and (max-width: 400px){
+    .container {
+        left: 15vw;
+    }
+}

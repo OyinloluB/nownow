@@ -12,7 +12,6 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 
 import ViewBasket from "./ViewBasket";
 import StatusModal from "../Modals/StatusModal";
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({ showDeliveryModal }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
   const history = useHistory();
   const [viewBasket, setViewBasket] = useState(false);
@@ -55,17 +54,15 @@ export default function Navbar({ showDeliveryModal }) {
     user,
     cartItemsCount,
     receivedOrdersCount,
-    deliveredOrdersCount,
   } = useSelector((state) => {
+    const cartItems = [...state.cart.items];
+    const itemOwners = new Set(cartItems.map(item => item.userID));
     return {
       isAuthenticated: state.auth.isAuthenticated,
       user: state.auth.user,
-      cartItemsCount: state.cart.items.length,
+      cartItemsCount: itemOwners.size,
       receivedOrdersCount: state.order.receivedOrders.filter(
         (order) => order.status === "new"
-      ).length,
-      deliveredOrdersCount: state.order.sentOrders.filter(
-        (order) => order.status === "delivered"
       ).length,
     };
   });
@@ -124,17 +121,6 @@ export default function Navbar({ showDeliveryModal }) {
                   >
                     <Badge badgeContent={cartItemsCount} color="secondary">
                       <ShoppingCartIcon />
-                    </Badge>
-                  </IconButton>
-                ) : null}
-                {user.type !== "distributor" ? (
-                  <IconButton
-                    aria-label="shopping"
-                    color="inherit"
-                    onClick={showDeliveryModal}
-                  >
-                    <Badge badgeContent={deliveredOrdersCount} color="secondary">
-                      <NotificationsIcon />
                     </Badge>
                   </IconButton>
                 ) : null}

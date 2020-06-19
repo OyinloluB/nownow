@@ -17,8 +17,6 @@ import {
   authenticatePoc,
 } from "../../../redux/auth/auth.actions";
 
-// import { checkDistributor } from "../../../redux/user/user.actions";
-
 import LockIcon from "@material-ui/icons/Lock";
 
 const UserSignIn = () => {
@@ -49,9 +47,8 @@ const UserSignIn = () => {
 
   const toggler = () => {
     const ID = loginDetails.ID;
-    console.log("nawa");
 
-    if (ID.slice(0, 1) === "6") {
+    if (ID.slice(0, 1) === "6" || ID.slice(0, 1) === "X" ) {
       axios.get(`/Distributor/User/${ID}`).then((list) => {
         setNotice("");
         if (list.data.length !== 0) {
@@ -142,7 +139,7 @@ const UserSignIn = () => {
         ) {
           history.push(`/info`);
         } else {
-          window.location.href = '';
+          window.location.href = '/';
         }
       })
       .catch((error) => setNotice('You just entered a wrong password'));
