@@ -48,12 +48,10 @@ const Home = () => {
   const [position, setPosition] = useState(false);
   const { user, isAuthenticated, coordinates } = useSelector((state) => state.auth);
   const { pocs, distributors, bulkbreakers } = useSelector((state) => state.user);
-  const [users, setUsers] = useState(() => {
-    return {
-      pocs: modifyUsers(pocs, coordinates),
-      distributors: modifyUsers(distributors, coordinates),
-      bulkbreakers: modifyUsers(bulkbreakers, coordinates),
-    };
+  const [users, setUsers] = useState({
+    pocs: [],
+    distributors: [],
+    bulkbreakers: [],
   });
 
   const classes = useStyles();
@@ -82,6 +80,14 @@ const Home = () => {
   }, [isAuthenticated, user, dispatch, position]);
 
   useEffect(() => {
+    setUsers({
+      pocs: modifyUsers(pocs, coordinates),
+      distributors: modifyUsers(distributors, coordinates),
+      bulkbreakers: modifyUsers(bulkbreakers, coordinates),
+    });
+  }, [pocs, distributors, bulkbreakers, coordinates]);
+
+  useEffect(() => {
     const fetchAddress = async (storeUsers, type) => {
       try {
         const updatedUsers = [];
@@ -99,7 +105,7 @@ const Home = () => {
           }
           updatedUsers.push(user);
         }
-        setUsers(prevUsers => ({
+        setUsers((prevUsers) => ({
           ...prevUsers,
           [type]: [...updatedUsers],
         }));
@@ -116,7 +122,7 @@ const Home = () => {
     if (users.pocs.length !== 0) {
       fetchAddress(users.pocs, "pocs");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users.distributors.length, users.distributors.length, users.pocs.length]);
 
   // // function being called from check
