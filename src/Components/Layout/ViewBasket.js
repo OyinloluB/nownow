@@ -2,51 +2,25 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
 
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import {
+  ShoppingCart as ShoppingCartIcon,
+  Add as AddIcon,
+  Remove as RemoveIcon,
+  Close as CloseIcon,
+} from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import IconButton from "@material-ui/core/IconButton";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import Snackbar from "@material-ui/core/Snackbar";
-import CloseIcon from "@material-ui/icons/Close";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import { green } from "@material-ui/core/colors";
-import { withStyles } from "@material-ui/core/styles";
-
-import icon1 from "../../assets/icon1.JPG";
-import icon2 from "../../assets/icon2.JPG";
-
-// import * as Datetime from 'react-datetime';
+import { Card, CardContent, IconButton, Snackbar } from "@material-ui/core";
+import PaymentChoice from "./PaymentChoice";
 
 import {
   removeFromCart,
   addToCart,
   clearFromCart,
   makeOrder,
+  setCartItems,
 } from "../../redux/cart/cart.actions";
 
-const GreenRadio = withStyles({
-  root: {
-    color: green[400],
-    "&$checked": {
-      color: green[600],
-    },
-  },
-  checked: {},
-})((props) => <Radio color="default" {...props} />);
-
 const useStyles = makeStyles((theme) => ({
-  root: {
-    // display: "flex",
-    // justifyContent: "space-around",
-    // marginBottom: "20px",
-  },
   details: {
     display: "flex",
     flexDirection: "column",
@@ -88,10 +62,9 @@ const ViewBasket = ({ show, setViewBasket }) => {
   const [toggleCheckoutOption, setToggleChekoutOption] = useState("d-block");
   const [success, setSuccess] = useState("d-none");
   const [notice, setNotice] = useState("");
-  // radio button for payment method
-  const [value, setValue] = useState("");
+  const [paymentModes, setPaymentModes] = useState({});
 
-  const { items, total } = useSelector((state) => {
+  const { items, total, owners } = useSelector((state) => {
     const totalQuantity = state.cart.items.reduce(
       (acc, item) => acc + item.quantity,
       0
@@ -100,9 +73,11 @@ const ViewBasket = ({ show, setViewBasket }) => {
     const totalPrice = state.cart.items.reduce((currentTotal, item) => {
       return currentTotal + Math.floor(item.price * multiple * item.quantity);
     }, 0);
+    const itemOwners = Array.from(new Set(state.cart.items.map((item) => item.userID)));
     return {
       items: state.cart.items,
       total: totalPrice,
+      owners: itemOwners,
     };
   });
 
@@ -113,15 +88,10 @@ const ViewBasket = ({ show, setViewBasket }) => {
     setTogglePaymentOption("d-none");
   };
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
-
   const handleToggle = () => {
-    if(items.length === 0) {
-      setNotice("Your Cart is Empty!")
-    }
-    else {
+    if (items.length === 0) {
+      setNotice("Your Cart is Empty!");
+    } else {
       setToggleChekoutOption("d-none");
       setTogglePaymentOption("d-block");
     }
@@ -139,11 +109,18 @@ const ViewBasket = ({ show, setViewBasket }) => {
     dispatch(clearFromCart(item));
   };
 
-  const handleSubmit = () => {
-    // inserting mode of payment
-    items.map((modeOfPayment) => {
-      return (modeOfPayment.paymentMode = value);
+  const handlePaymentModeChange = (ownerId, paymentMode) => {
+    setPaymentModes((prevPaymentModes) => {
+      return { ...prevPaymentModes, [ownerId]: paymentMode };
     });
+  };
+
+  const handleSubmit = async () => {
+    // inserting mode of payment
+    const updatedItems = items.map((item) => {
+      return { ...item, paymentMode: paymentModes[item.userID] };
+    });
+    dispatch(setCartItems(updatedItems));
     dispatch(makeOrder())
       .then(() => {
         console.log("Order Made");
@@ -183,10 +160,10 @@ const ViewBasket = ({ show, setViewBasket }) => {
             </div>
             <span
               style={{
-                color: '#B11917'
+                color: "#B11917",
               }}
-            > 
-            { notice } 
+            >
+              {notice}
             </span>
           </div>
           <div className={togglePaymentOption}>
@@ -198,12 +175,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
             </div>
           </div>
 
-          <Card className={(classes.root, toggleCheckoutOption)}>
-            {/* <img
-                src={`${product.image}`}
-                alt={`${product.brand} ${product.sku}`}
-                className={classes.cover} 
-              /> */}
+          <Card className={toggleCheckoutOption}>
             <div className={classes.details}>
               <CardContent className={classes.content}>
                 <ul className={"list-group"}>
@@ -243,7 +215,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
                           &#8358;{product.price * product.quantity}
                         </span>
                       </div>
-                      
+
                       <div className={"d-flex"} style={{ fontSize: "12px" }}>
                         <span
                           className={"mr-auto"}
@@ -296,10 +268,6 @@ const ViewBasket = ({ show, setViewBasket }) => {
                     </li>
                   ))}
                 </ul>
-                {/*                  
-                  <Typography variant="subtitle1" color="textSecondary">
-                  <span className="font-weight-bold">Placed On:</span> {newDate.getDate()}-{newDate.getMonth()+1}-{newDate.getFullYear()};
-                </Typography> */}
               </CardContent>
             </div>
           </Card>
@@ -332,69 +300,17 @@ const ViewBasket = ({ show, setViewBasket }) => {
                   Please note your mode of payment will be communicated with the
                   Seller and you will pay directly to them upon receipt of your order
                 </span>
-
-                <li
-                  className={"list-group-item mt-2 p-2"}
-                  style={{ color: "grey", fontSize: "14px" }}
-                >
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend" className={"mt-1"}>
-                      Please Select Mode of Payment
-                    </FormLabel>
-                    <RadioGroup
-                      aria-label="paymentMethod"
-                      name="paymentMethod"
-                      value={value}
-                      onChange={handleChange}
-                    >
-                      <div className={"row"}>
-                        <FormControlLabel
-                          className={"col-7"}
-                          value="cash"
-                          control={<GreenRadio />}
-                          label="Cash on Delivery"
-                        />{" "}
-                        <img
-                          src={icon2}
-                          width="50"
-                          height="40"
-                          className={"offset-1 offset-md-2 col-3 col-md-2"}
-                          alt="icon"
-                        />
-                      </div>
-                      <div className={"row"}>
-                        <FormControlLabel
-                          className={"col-7"}
-                          value="transfer"
-                          control={<GreenRadio />}
-                          label="Transfer on Delivery"
-                        />
-                        <img
-                          src={icon1}
-                          width="50"
-                          height="35"
-                          className={"offset-1 offset-md-2 col-3 col-md-2"}
-                          alt="icon"
-                        />
-                      </div>
-                      <div className={"row"}>
-                        <FormControlLabel
-                          className={"col-7"}
-                          value="pos"
-                          control={<GreenRadio />}
-                          label="Debit Card on Delivery"
-                        />
-                        <img
-                          src="https://image.flaticon.com/icons/svg/81/81230.svg"
-                          width="50"
-                          height="40"
-                          className={"offset-1 offset-md-2 col-3 col-md-2"}
-                          alt="icon"
-                        />
-                      </div>
-                    </RadioGroup>
-                  </FormControl>
-                </li>
+                {owners.map((ownerId) => {
+                  const ownerItem = items.filter((item) => item.userID === ownerId);
+                  return (
+                    <PaymentChoice
+                      owner={ownerItem.ownerDetails}
+                      handlePaymentChange={(paymentMode) =>
+                        handlePaymentModeChange(ownerId, paymentMode)
+                      }
+                    />
+                  );
+                })}
               </CardContent>
             </Card>
           </div>
@@ -445,4 +361,4 @@ const ViewBasket = ({ show, setViewBasket }) => {
   );
 };
 
-export default ViewBasket;
+export default React.memo(ViewBasket);

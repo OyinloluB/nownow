@@ -38,7 +38,7 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance < 3)
+    .filter((user) => user.distance < 100)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 60);
 };
@@ -160,8 +160,6 @@ const Home = () => {
   //   });
   // }
   // //  end of address
-
-  console.log(users);
 
   const setFirstTimeStatus = () => {
     dispatch(updateFirstTimerStatus());

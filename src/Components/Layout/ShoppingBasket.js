@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ViewBasket from "./ViewBasket";
 
-const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
+const ShoppingBasket = ({ user, show, setShowBasket }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const { user: loggedInUser } = useSelector((state) => state.auth);
   const dispacth = useDispatch();
@@ -34,64 +34,85 @@ const ShoppingBasket = ({ user, show, setShowBasket, alertShow }) => {
 
   const handleCheckout = () => {
     handleAddToCart();
-    setViewBasket(true)
-  }
+    setViewBasket(true);
+  };
 
   return (
     <>
       <ViewBasket show={viewBasket} setViewBasket={setViewBasket} />
       <Modal show={show} onHide={handleClose}>
         <div className="d-flex  text-justify font-weight-bold">
-          <p className="mr-auto m-2" style={{fontSize: '15px'}}>Buy from {user.name} </p>
-          <ClearIcon style={{margin: '10px'}} onClick = { handleClose } />
+          <p className="mr-auto m-2" style={{ fontSize: "15px" }}>
+            Buy from {user.name}{" "}
+          </p>
+          <ClearIcon style={{ margin: "10px" }} onClick={handleClose} />
         </div>
-          <Modal.Header style={{backgroundColor: '#AADAFF', fontSize: '11px', fontWeight: 'bold'}}>
-            <InfoIcon style={{fontSize: '14px'}}/> Note that the empties for all Returnable Glass Bottled Brands attract an extra cost of &#8358; 1,000 per case, if you do not purchase the item with your own empty case. Empty cost not applicable to cans. 
-           
-          </Modal.Header>
-            { user.type==='distributor' && loggedInUser.type==='poc'? (
-                <p className={'text-justify font-weight-bold text-danger text-center p-1'} style={{fontSize: '12px'}}>Please note that for orders of 80 cases and above, you will get at wholesale price</p>
-            ):null }
+        <Modal.Header
+          style={{
+            backgroundColor: "#AADAFF",
+            fontSize: "11px",
+            fontWeight: "bold",
+          }}
+        >
+          <InfoIcon style={{ fontSize: "14px" }} /> Note that the empties for all
+          Returnable Glass Bottled Brands attract an extra cost of &#8358; 1,000 per
+          case, if you do not purchase the item with your own empty case. Empty cost
+          not applicable to cans.
+        </Modal.Header>
+        {user.type === "distributor" && loggedInUser.type === "poc" ? (
+          <p
+            className={"text-justify font-weight-bold text-danger text-center p-1"}
+            style={{ fontSize: "12px" }}
+          >
+            Please note that for orders of 80 cases and above, you will get at
+            wholesale price
+          </p>
+        ) : null}
 
-          <Modal.Body>
-            <ul className={'list-group'}>
+        <Modal.Body>
+          <ul className={"list-group"}>
             {user.products.map((product, i) => (
               <StoreItem
                 key={i}
-                product={{ ...product, ownerType: user.type }}
+                product={{
+                  ...product,
+                  ownerType: user.type,
+                  ownerDetails: { name: user.name, payment: user.payment },
+                }}
                 userId={user.userID}
                 userName={user.name}
                 selectedProducts={selectedProducts}
                 setProducts={memoSetProducts}
               />
             ))}
-            </ul>
-          </Modal.Body>
-          <Modal.Footer>
-         
-        <Button
-          onClick={handleAddToCart}
-          style={{
-            backgroundColor: '#480D0C',
-            border: "none",
-            width: '47%'
-          }}
-        >
-          Add to Cart<AddShoppingCartIcon />
-        </Button>
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={handleAddToCart}
+            style={{
+              backgroundColor: "#480D0C",
+              border: "none",
+              width: "47%",
+            }}
+          >
+            Add to Cart
+            <AddShoppingCartIcon />
+          </Button>
 
-        <Button
-          onClick={handleCheckout}
-          style={{
-            backgroundColor: "green",
-            border: "none",
-            width: '47%',
-          }}
-        >
-            Checkout<ShoppingCartIcon />
-        </Button>
-      </Modal.Footer>
-    </Modal>
+          <Button
+            onClick={handleCheckout}
+            style={{
+              backgroundColor: "green",
+              border: "none",
+              width: "47%",
+            }}
+          >
+            Checkout
+            <ShoppingCartIcon />
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

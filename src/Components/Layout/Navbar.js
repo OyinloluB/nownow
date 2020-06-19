@@ -57,10 +57,12 @@ export default function Navbar({ showDeliveryModal }) {
     receivedOrdersCount,
     deliveredOrdersCount,
   } = useSelector((state) => {
+    const cartItems = [...state.cart.items];
+    const itemOwners = new Set(cartItems.map(item => item.userID));
     return {
       isAuthenticated: state.auth.isAuthenticated,
       user: state.auth.user,
-      cartItemsCount: state.cart.items.length,
+      cartItemsCount: itemOwners.size,
       receivedOrdersCount: state.order.receivedOrders.filter(
         (order) => order.status === "new"
       ).length,

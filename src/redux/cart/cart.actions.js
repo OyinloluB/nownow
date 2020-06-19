@@ -16,6 +16,11 @@ export const clearFromCart = (item) => ({
     payload: item
 });
 
+export const setCartItems = (items) => ({
+    type: CartActionTypes.SET_ITEMS,
+    payload: items
+});
+
 const makeOrderStart = () => ({
     type: CartActionTypes.MAKE_ORDER_START
 });

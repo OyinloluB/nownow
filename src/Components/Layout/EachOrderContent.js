@@ -18,8 +18,6 @@ const EachOrderContent = ({ order, setOrder }) => {
     timeDiff = deliveryDate.getTime() - new Date().getTime();
   }
 
-  console.log(order.user);
-
   let orderUser = {};
 
   if (order.user) {
