@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import {
   Radio,
@@ -24,7 +24,9 @@ const GreenRadio = withStyles({
 })((props) => <Radio color="default" {...props} />);
 
 const PaymentChoice = ({ owner, handlePaymentChange }) => {
+  const [choice, setChoice] = useState('');
   const handleChange = (e) => {
+    setChoice(e.target.value);
     handlePaymentChange(e.target.value);
   };
   return (
@@ -39,7 +41,7 @@ const PaymentChoice = ({ owner, handlePaymentChange }) => {
         <RadioGroup
           aria-label="paymentMethod"
           name="paymentMethod"
-          value={""}
+          value={choice}
           onChange={handleChange}
         >
           {owner.payment.cash ? (
