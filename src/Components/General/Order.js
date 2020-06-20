@@ -45,8 +45,8 @@ const Order = () => {
     status: "new",
   });
   const [switchReceived, setSwitchReceived] = useState("d-block");
-  const [ opa1, setOpa1 ] = useState("grey");
-  const [ opa2, setOpa2 ] = useState("");
+  const [ opa1, setOpa1 ] = useState("");
+  const [ opa2, setOpa2 ] = useState("grey");
   const [switchSent, setSwitchSent] = useState("d-none");
 
   useEffect(() => {
@@ -73,16 +73,16 @@ const Order = () => {
         setSwitchReceived("d-block");
         setSwitchSent("d-none");
         setOrderStatus({ type: "Newly Received", status: "new" });
-        setOpa2("")
-        setOpa1("grey")
+        setOpa2("grey")
+        setOpa1("")
         break;
 
       case "sent":
         setSwitchReceived("d-none");
         setSwitchSent("d-block");
         setOrderStatus({ type: "Newly Sent", status: "new" });
-        setOpa2("grey");
-        setOpa1("");
+        setOpa2("");
+        setOpa1("grey");
         break;
       default:
         return;
