@@ -30,7 +30,7 @@ const OrderIntro = ({ item, status }) => {
                   style={{
                     listStyle: "none",
                     paddingLeft: "0rem",
-                    fontSize: "14px",
+                    fontSize: "13px",
                   }}
                 >
                   <li>
@@ -59,9 +59,9 @@ const OrderIntro = ({ item, status }) => {
                       day: "numeric",
                     })}
                   </li>
-                  <li>
+                  <li style={{whiteSpace: 'nowrap'}}>
                     <b>Status: </b>
-                    {status}
+                    { status==='new'? 'Awaiting Confirmation' : status }
                   </li>
                 </ul>
               </Card.Text>

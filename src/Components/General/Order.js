@@ -196,7 +196,7 @@ const Order = () => {
               justifyContent: "space-around",
             }}
           >
-            <div className="col-8  font-weight-bold">{orderStatus.type}</div>
+            <div className="col-8  font-weight-bold">{orderStatus.type === 'Newly Sent' || orderStatus.type==='Newly Received'? 'Awaiting Confirmation':orderStatus.type}</div>
 
             <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggle
