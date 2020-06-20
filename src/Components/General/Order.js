@@ -217,7 +217,7 @@ const Order = () => {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: "Awaiting Confirmation",
+                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
                       status: "new",
                     })
                   }
