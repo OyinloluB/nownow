@@ -19,6 +19,7 @@ const StarRating = ({ rateOrder, setShowRating, close }) => {
         flexDirection: "column",
         alignItems: "center",
         padding: "1.5rem",
+        marginTop: "20px"
       }}
     >
       <Box component="fieldset" mb={3} borderColor="transparent">

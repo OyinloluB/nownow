@@ -35,12 +35,12 @@ const DeliveryCard = ({ order }) => {
   };
   return open ? (
     showRating ? (
-      <StarRating rateOrder={handleRating} close={() => setOpen(false)} />
+      <StarRating rateOrder={handleRating} close={() => setOpen(false)}/>
     ) : (
       <div className={["p-3", classes.container].join(" ")}>
         <div style={{ padding: "1rem 1rem 0rem 1rem", borderBottom: "none" }}>
           <h3
-            style={{ fontSize: "16px", borderBottom: "1px solid grey" }}
+            style={{ fontSize: "13px", borderBottom: "1px solid grey" }}
             className={"text-center font-weight-bold "}
           >
             Confirm Delivery from {order.owner.name}

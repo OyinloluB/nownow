@@ -217,13 +217,13 @@ const Order = () => {
                 <DropdownItem
                   onClick={() =>
                     setOrderStatus({
-                      type: `Newly ${switchSent === "d-none" ? "Received" : "Sent"}`,
+                      type: "Awaiting Confirmation",
                       status: "new",
                     })
                   }
                 >
                   <ReceiptIcon className="mr-3" />
-                  {`Newly ${switchSent === "d-none" ? "Received" : "Sent"}`}
+                  {"Awaiting Confirmation"}
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem

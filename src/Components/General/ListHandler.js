@@ -107,7 +107,9 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                   color: '#45130F',
                   fontWeight: 'bold',
                   backgroundColor: i === 0 ?  color1  :  color2,
-                  border: '1px solid grey'
+                  border: '1px solid grey',
+                  fontSize: "15px",
+                  whiteSpace: "nowrap"
                 }}
                 className={"p-1 pt-3 pb-3 p-md-3"}
                 onClick={() => handleType(userType) }

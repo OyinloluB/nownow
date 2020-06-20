@@ -60,7 +60,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "2vh auto",
+        margin: "10vh auto",
       }}
     >
       <Form onSubmit={handleSubmit}>
@@ -71,6 +71,7 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
             border: "1px solid grey",
             padding: "4px",
             borderRadius: "4px",
+            fontSize: "13px"
           }}
         >
           Select the Products you sell and set your Selling Price
