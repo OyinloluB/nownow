@@ -14,6 +14,7 @@ import UserInfo from "./Components/AccountForms/User/UserInfo";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import StatusModal from "./Components/Modals/StatusModal";
 import DeliveryCard from "./Components/Modals/DeliveryCard";
+import Footer from "./Components/Layout/Footer";
 
 import {
   fetchBulkBreakers,
@@ -99,6 +100,7 @@ function App() {
         />
         <Route exact path="/signin" component={UserSignIn} />
       </Switch>
+      <Footer />
     </>
   );
 }

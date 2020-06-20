@@ -76,7 +76,7 @@ const SearchLocation = () => {
         >
           <TextField
             id="standard-basic"
-            label="Search for nearby stores"
+            label="Search for nearby locations"
             onChange={handleChange}
           />
           <button
@@ -88,10 +88,10 @@ const SearchLocation = () => {
               border: "1px solid #b11917",
               color: "white",
               marginTop: "3vh",
-              paddingBottom: "2vh",
+              // paddingBottom: "2vh",
             }}
           >
-            Find nearby locations
+            Find nearby stores
           </button>
         </form>
       </Card.Body>

@@ -98,8 +98,8 @@ const Home = () => {
             const address = await getCoordinatesAddress(
               user.latitude,
               user.longitude
-            );
-            user.address = address
+              );
+              user.address = address
               ? address
               : "Not Available, contact through mobile number";
           }

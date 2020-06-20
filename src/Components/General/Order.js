@@ -45,8 +45,8 @@ const Order = () => {
     status: "new",
   });
   const [switchReceived, setSwitchReceived] = useState("d-block");
-  const [ opa1, setOpa1 ] = useState(0.85);
-  const [ opa2, setOpa2 ] = useState(0.85);
+  const [ opa1, setOpa1 ] = useState("grey");
+  const [ opa2, setOpa2 ] = useState("");
   const [switchSent, setSwitchSent] = useState("d-none");
 
   useEffect(() => {
@@ -73,16 +73,16 @@ const Order = () => {
         setSwitchReceived("d-block");
         setSwitchSent("d-none");
         setOrderStatus({ type: "Newly Received", status: "new" });
-        setOpa2(0.85)
-        setOpa1(0.7)
+        setOpa2("")
+        setOpa1("grey")
         break;
 
       case "sent":
         setSwitchReceived("d-none");
         setSwitchSent("d-block");
         setOrderStatus({ type: "Newly Sent", status: "new" });
-        setOpa2(0.7);
-        setOpa1(0.85);
+        setOpa2("grey");
+        setOpa1("");
         break;
       default:
         return;
@@ -106,17 +106,18 @@ const Order = () => {
             flexWrap: "wrap",
           }}
         >
-          <h6
+          <button
             className={`col-md-${user.type !== "distributor" ? "6" : "12"}`}
             style={{
               textAlign: "center",
               padding: "12px 4px 12px 4px",
               cursor: "pointer",
-              backgroundColor: "green",
-              color: "#fff",
+              backgroundColor: opa1,
+              color: '#45130F',
+              border: '1px solid grey',
               width: '50%',
               fontSize: '15px',
-              opacity:  opa1
+              fontWeight: 'bold'
             }}
             onClick={() => {
               setCurrentOrder({ items: [] });
@@ -124,10 +125,10 @@ const Order = () => {
             }}
           >
             <GetAppIcon style={{fontSize: '13px'}} /> Received Orders
-          </h6>
+          </button>
 
           {user.type !== "distributor" ? (
-            <h6
+            <button
               className="col-md-6"
               onClick={() => {
                 setCurrentOrder({ items: [] });
@@ -138,14 +139,15 @@ const Order = () => {
                 cursor: "pointer",
                 padding: "12px 4px 12px 4px",
                 fontSize: '13px',
-                backgroundColor: "#B11917",
-                color: "#fff",
-                width: '50%',
-                opacity: opa2
+                backgroundColor: opa2,
+                color: '#45130F',
+                border: '1px solid grey',
+                fontWeight: 'bold',
+                width: '50%'
               }}
             >
               <PublishIcon style={{fontSize: '16px'}} /> Orders I Placed
-            </h6>
+            </button>
           ) : null}
         </div>
         <br />
