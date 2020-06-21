@@ -10,22 +10,35 @@ const ReceivedOrders = ({
   setCurrentOrder,
   handleStatusUpdate,
 }) => {
-  
+  const totalQuantity = currentOrder.items.reduce(
+    (acc, item) => acc + item.quantity,
+    0
+  );
+  const filterOrders = (order) => {
+    if(orderStatus.status === "all"){
+      return true;
+    } else if (orderStatus.status === "delivered"){
+      return order.status === "delivered" || order.status === "confirmed";
+    } else {
+      return orderStatus.status === order.status;
+    }
+  }
   return (
     <div className={switchReceived}>
       {currentOrder.items.length > 0
         ? currentOrder.items.map((item) => {
             return (
-              <OrderIntro key={item._id} item={item} status={currentOrder.status} />
+              <OrderIntro
+                key={item._id}
+                item={item}
+                status={currentOrder.status}
+                totalQuantity={totalQuantity}
+              />
             );
           })
         : receivedOrders.length > 0
         ? receivedOrders
-            .filter((order) =>
-              orderStatus.status === "all"
-                ? true
-                : orderStatus.status === order.status
-            )
+            .filter((order) => filterOrders(order))
             .map((order) => {
               return (
                 <EachOrderContent

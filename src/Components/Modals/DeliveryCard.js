@@ -7,7 +7,7 @@ import classes from "./DeliveryCard.module.css";
 import ConfirmDeliveryItem from "./ConfirmDeliveryItem";
 import StarRating from "../Layout/StarRating";
 
-import { updateOrderStatus, rateOrder } from "../../redux/order/order.actions";
+import { updateOrder } from "../../redux/order/order.actions";
 
 const DeliveryCard = ({ order }) => {
   const [open, setOpen] = useState(true);
@@ -16,7 +16,7 @@ const DeliveryCard = ({ order }) => {
 
   const handleConfirmOrder = (confirmed) => {
     const status = confirmed ? "confirmed" : "delayed";
-    dispatch(updateOrderStatus(order._id, status))
+    dispatch(updateOrder(order._id, {status}))
       .then(() => {
         if (confirmed) {
           setShowRating(true);
@@ -27,15 +27,17 @@ const DeliveryCard = ({ order }) => {
       .catch((err) => console.log(err));
   };
 
-  const handleRating = (rating) => {
-    // console.log(rating);
-    dispatch(rateOrder(order._id, rating))
+  const handleRating = (rating, comment) => {
+    dispatch(updateOrder(order._id, {review: {rating, comment}}))
       .then(() => setOpen(false))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setOpen(false);
+      });
   };
   return open ? (
     showRating ? (
-      <StarRating rateOrder={handleRating} close={() => setOpen(false)}/>
+      <StarRating rateOrder={handleRating} />
     ) : (
       <div className={["p-3", classes.container].join(" ")}>
         <div style={{ padding: "1rem 1rem 0rem 1rem", borderBottom: "none" }}>

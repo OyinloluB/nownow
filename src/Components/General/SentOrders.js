@@ -10,6 +10,15 @@ const SentOrders = ({
   orderStatus,
   handleStatusUpdate,
 }) => {
+  const filterOrders = (order) => {
+    if(orderStatus.status === "all"){
+      return true;
+    } else if (orderStatus.status === "delivered"){
+      return order.status === "delivered" || order.status === "confirmed";
+    } else {
+      return orderStatus.status === order.status;
+    }
+  }
   return (
     <div className={switchSent}>
       {currentOrder.items.length > 0
@@ -20,11 +29,7 @@ const SentOrders = ({
           })
         : sentOrders.length > 0
         ? sentOrders
-            .filter((order) =>
-              orderStatus.status === "all"
-                ? true
-                : orderStatus.status === order.status
-            )
+            .filter((order) => filterOrders(order))
             .map((order) => {
               return (
                 <EachOrderContent

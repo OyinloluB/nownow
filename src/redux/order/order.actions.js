@@ -65,68 +65,34 @@ export const fetchSentOrders = () => {
   };
 };
 
-const updateOrderStatusStart = () => ({
-  type: OrderActionTypes.UPDATE_ORDER_STATUS_START,
+const updateOrderStart = () => ({
+  type: OrderActionTypes.UPDATE_ORDER_START,
 });
 
-const updateOrderStatusSuccess = () => ({
-  type: OrderActionTypes.UPDATE_ORDER_STATUS_SUCCESS,
+const updateOrderSuccess = () => ({
+  type: OrderActionTypes.UPDATE_ORDER_SUCCESS,
 });
 
-const updateOrderStatusFailure = (error) => ({
-  type: OrderActionTypes.UPDATE_ORDER_STATUS_FAILURE,
+const updateOrderFailure = (error) => ({
+  type: OrderActionTypes.UPDATE_ORDER_FAILURE,
   payload: error,
 });
 
-export const updateOrderStatus = (orderId, status) => {
+export const updateOrder = (orderId, update) => {
   return (dispatch) => {
     return new Promise(async (resolve, reject) => {
-      dispatch(updateOrderStatusStart());
+      dispatch(updateOrderStart());
       try {
-        const response = await axios.patch(`/Order/${orderId}`, { status });
+        const response = await axios.patch(`/Order/${orderId}`, update);
         const { data } = response;
         if (data.success) {
-          dispatch(updateOrderStatusSuccess());
+          dispatch(updateOrderSuccess());
         } else {
-          dispatch(updateOrderStatusFailure(data));
+          dispatch(updateOrderFailure(data));
         }
         resolve(data.success);
       } catch (error) {
-        dispatch(updateOrderStatusFailure(error));
-        reject(error);
-      }
-    });
-  };
-};
-
-const rateOrderStart = () => ({
-  type: OrderActionTypes.RATE_ORDER_START,
-});
-
-const rateOrderSuccess = () => ({
-  type: OrderActionTypes.RATE_ORDER_SUCCESS,
-});
-
-const rateOrderFailure = (error) => ({
-  type: OrderActionTypes.RATE_ORDER_FAILURE,
-  payload: error,
-});
-
-export const rateOrder = (orderId, rating) => {
-  return (dispatch) => {
-    return new Promise(async (resolve, reject) => {
-      dispatch(rateOrderStart());
-      try {
-        const response = await axios.patch(`/Order/${orderId}`, { rating });
-        const { data } = response;
-        if (data.success) {
-          dispatch(rateOrderSuccess());
-        } else {
-          dispatch(rateOrderFailure(data));
-        }
-        resolve(data.success);
-      } catch (error) {
-        dispatch(rateOrderFailure(error));
+        dispatch(updateOrderFailure(error));
         reject(error);
       }
     });

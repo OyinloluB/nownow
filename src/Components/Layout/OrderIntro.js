@@ -1,14 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Row, Col, Card } from "react-bootstrap";
 
-const OrderIntro = ({ item, status }) => {
+const OrderIntro = ({ item, status, totalQuantity }) => {
+  const { user } = useSelector((state) => state.auth);
+  const multiple = totalQuantity < 80 && user.type === "poc" ? 1.026 : 1;
+
   return (
     <div>
       <Card style={{ width: "100" }}>
         <Card.Body>
           <Row
             style={{
-              // paddingBottom: "4px",
               padding: "4px",
             }}
           >
@@ -43,12 +46,16 @@ const OrderIntro = ({ item, status }) => {
                   </li>
                   <li>
                     <b>Cost: </b>
-                    {`${item.quantity * item.details.price}`}
+                    {`${item.quantity * item.details.price * multiple}`}
                   </li>
 
                   <li>
                     <b>Mode of Payment: </b>
-                    { item.details.paymentMode==='pos'? 'Debit Card' : item.details.paymentMode==='transfer'? 'Transfer' : 'Cash' }
+                    {item.details.paymentMode === "pos"
+                      ? "Debit Card"
+                      : item.details.paymentMode === "transfer"
+                      ? "Transfer"
+                      : "Cash"}
                   </li>
                   <li>
                     <b>Placed On: </b>
@@ -59,9 +66,9 @@ const OrderIntro = ({ item, status }) => {
                       day: "numeric",
                     })}
                   </li>
-                  <li style={{whiteSpace: 'nowrap'}}>
+                  <li style={{ whiteSpace: "nowrap" }}>
                     <b>Status: </b>
-                    { status==='new'? 'Awaiting Confirmation' : status }
+                    {status === "new" ? "Awaiting Confirmation" : status}
                   </li>
                 </ul>
               </Card.Text>
