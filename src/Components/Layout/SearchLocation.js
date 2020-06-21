@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SearchLocation = () => {
+const SearchLocation = (userType) => {
   const [search, setSearch] = useState("");
   const [show, setShow] = useState("d-block");
   const classes = useStyles();
@@ -28,7 +28,7 @@ const SearchLocation = () => {
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
-
+  // console.log(userType.userType)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const coordinates = await getAddressCoordinates(search);
@@ -47,18 +47,23 @@ const SearchLocation = () => {
             <VisibilityOffIcon />
           </div>
 
-          <div className={'d-flex'} style={{color: "grey"}}>
+          { userType.userType !== "distributor"? 
+           (<div className={'d-flex'} style={{color: "grey"}}>
             <span className={'mr-auto font-weight-bold'}>Distributor</span>
             <span><img src="https://static.thenounproject.com/png/462-200.png" alt="" width="20" height="20" /></span>
-          </div>
-          <div className={'d-flex font-weight-bold'} style={{color: "grey"}}>
+          </div>) : null }
+
+          { userType.userType !== "bulkbreaker"? 
+          (<div className={'d-flex'} style={{color: "grey"}}>
             <span className={'mr-auto'}>Bulkbreaker</span>
             <span><img src="https://iconsetc.com/icons-watermarks/simple-green/raphael/raphael_location/raphael_location_simple-green_512x512.png" alt="" width="20" height="20" /></span>
-          </div>
-          <div className={'d-flex font-weight-bold pb-1'} style={{color: "grey", borderBottom: '1px solid grey'}}>
+          </div>) : null }
+
+          { userType.userType !== "poc"? 
+          (<div className={'d-flex'} style={{color: "grey", borderBottom: '1px solid grey'}}>
             <span className={'mr-auto'}>Retail Store</span>
             <span><img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" alt="" width="20" height="20" /></span>
-          </div>
+          </div>) : null }
         </div> 
 
         <div className={ show === 'd-none'? 'd-block d-flex':'d-none' } style={{color: "green"}} onClick={()=> setShow('d-block')} >

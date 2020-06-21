@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
-import Logo1 from "../../assets/logo4.jpg";
+import Logo1 from "../../assets/logo5.jpg";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +38,7 @@ export default function Footer() {
             src={Logo1}
             alt="ibplc-logo"
             style={{ cursor: "not-allowed", borderRadius: '3px', whiteSpace: 'nowrap' }}
-            width="100"
+            height="40"
             className={'d-none d-md-block'}
         />
         <span

@@ -53,7 +53,7 @@ const Home = () => {
     distributors: [],
     bulkbreakers: [],
   });
-
+  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -87,85 +87,97 @@ const Home = () => {
     });
   }, [pocs, distributors, bulkbreakers, coordinates]);
 
-  useEffect(() => {
-    const fetchAddress = async (storeUsers, type) => {
-      try {
-        const updatedUsers = [];
-        for await (const user of storeUsers) {
-          if (user.latitude === 0) {
-            user.address = "Not Available, contact through mobile number";
-          } else {
-            const address = await getCoordinatesAddress(
-              user.latitude,
-              user.longitude
-              );
-              user.address = address
-              ? address
-              : "Not Available, contact through mobile number";
-          }
-          updatedUsers.push(user);
-        }
-        setUsers((prevUsers) => ({
-          ...prevUsers,
-          [type]: [...updatedUsers],
-        }));
-      } catch (error) {
-        console.log("Error Fetching Addresses: ", error);
-      }
-    };
-    if (users.distributors.length !== 0) {
-      fetchAddress(users.distributors, "distributors");
-    }
-    if (users.bulkbreakers.length !== 0) {
-      fetchAddress(users.bulkbreakers, "bulkbreakers");
-    }
-    if (users.pocs.length !== 0) {
-      fetchAddress(users.pocs, "pocs");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [users.distributors.length, users.distributors.length, users.pocs.length]);
+  // useEffect(() => {
+  //   const fetchAddress = async (storeUsers, type) => {
+  //     try {
+  //       const updatedUsers = [];
+  //       for await (const user of storeUsers) {
+  //         if (user.latitude === 0) {
+  //           user.address = "Not Available, contact through mobile number";
+  //         } else {
+  //           const address = await getCoordinatesAddress(
+  //             user.latitude,
+  //             user.longitude
+  //             );
+  //             user.address = address
+  //             ? address
+  //             : "Not Available, contact through mobile number";
+  //         }
+  //         updatedUsers.push(user);
+  //       }
+  //       setUsers((prevUsers) => ({
+  //         ...prevUsers,
+  //         [type]: [...updatedUsers],
+  //       }));
+  //     } catch (error) {
+  //       console.log("Error Fetching Addresses: ", error);
+  //     }
+  //   };
+  //   if (users.distributors.length !== 0) {
+  //     fetchAddress(users.distributors, "distributors");
+  //   }
+  //   if (users.bulkbreakers.length !== 0) {
+  //     fetchAddress(users.bulkbreakers, "bulkbreakers");
+  //   }
+  //   if (users.pocs.length !== 0) {
+  //     fetchAddress(users.pocs, "pocs");
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [users.distributors.length, users.distributors.length, users.pocs.length]);
 
-  // // function being called from check
-  // function address(dat) {
-  //   //  pushing the logger coordinate into the array
-  //   dat.push({
-  //     latitude: coordinates.lat,
-  //     longitude: coordinates.lng,
-  //     mapUrl:
-  //       "https://thumbs.gfycat.com/EnchantingFinishedAplomadofalcon-max-1mb.gif",
-  //   });
-  //   // start mapping through
-  //   dat.map((data) => {
-  //     if (data.latitude === 0) {
-  //       user.address = "Not Available, contact through mobile number";
-  //     }
-  //     // start fetching if coordinate exists
-  //     else {
-  //       // display loading while fetching progresses
-  //       data.address = "Loading...";
-  //       // fetching kick starts
-  //       fetch(
-  //         "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-  //           data.latitude +
-  //           "," +
-  //           data.longitude +
-  //           "&key=" +
-  //           API_KEY
-  //       )
-  //         .then((response) => response.json())
-  //         .then((responseJson) => {
-  //           if (responseJson.results.length > 1) {
-  //             // forcing the fetched address into the users data
-  //             data.address = responseJson.results[0].formatted_address;
-  //           } else {
-  //             data.address = "Loading...";
-  //           }
-  //         })
-  //         .catch((error) => console.log("error"));
-  //     }
-  //   });
-  // }
-  // //  end of address
+  // checking if type of user is used
+  if(users.distributors.length !== 0) {
+    address(users.distributors)
+  }
+  if(users.bulkbreakers.length !== 0) {
+    address(users.bulkbreakers)
+  }
+  if(users.pocs.length !== 0) {
+    address(users.pocs)
+  }
+//  end of check
+
+  // function being called from check
+  function address(dat) {
+    //  pushing the logger coordinate into the array
+    dat.push({
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
+      mapUrl:
+        "https://thumbs.gfycat.com/EnchantingFinishedAplomadofalcon-max-1mb.gif",
+    });
+    // start mapping through
+    dat.map((data) => {
+      if (data.latitude === 0) {
+        user.address = "Not Available, contact through mobile number";
+      }
+      // start fetching if coordinate exists
+      else {
+        // display loading while fetching progresses
+        data.address = "Loading...";
+        // fetching kick starts
+        fetch(
+          "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+            data.latitude +
+            "," +
+            data.longitude +
+            "&key=" +
+            API_KEY
+        )
+          .then((response) => response.json())
+          .then((responseJson) => {
+            if (responseJson.results.length > 1) {
+              // forcing the fetched address into the users data
+              data.address = responseJson.results[0].formatted_address;
+            } else {
+              data.address = "Loading...";
+            }
+          })
+          .catch((error) => console.log("error"));
+      }
+    });
+  }
+  //  end of address
 
   const setFirstTimeStatus = () => {
     dispatch(updateFirstTimerStatus());
@@ -208,7 +220,7 @@ const Home = () => {
             <AllOutIcon /> View Customers
           </button>
         ) : null}
-        {isAuthenticated ? <SearchLocation /> : null}
+        {isAuthenticated ? <SearchLocation userType={user.type} /> : null}
       </div>
     </>
   );

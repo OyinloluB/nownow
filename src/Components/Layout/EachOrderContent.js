@@ -92,7 +92,7 @@ const EachOrderContent = ({ order, setOrder }) => {
         <p style={{ color: "#B11917", fontSize: "12px" }}>
           {order.status === "new" && timeDiff > 0 ? (
             <>
-              <b>Time left: </b>{" "}
+              <b>Time left to delivery: </b>{" "}
               <DateCountdown
                 dateTo={deliveryDate.toISOString()}
                 locales={["year", "month", "day", "hr", "min", "sec"]}

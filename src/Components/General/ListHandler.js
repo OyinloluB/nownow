@@ -203,7 +203,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                                 ? "Inactive"
                                 : user.confirmed === false
                                 ? "Offline"
-                                : "Available"}
+                                : "Online"}
                             </span>
                           </span>
                         </span>
