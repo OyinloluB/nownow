@@ -100,7 +100,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
   };
 
   const handleIncrement = (item) => {
-    dispatch(addToCart(item));
+    dispatch(addToCart({...item, quantity: 1}));
   };
 
   const handleDecrement = (item) => {

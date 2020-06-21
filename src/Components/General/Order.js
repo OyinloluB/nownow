@@ -22,7 +22,7 @@ import ReceivdOrders from "./ReceivedOrders";
 import SentOrders from "./SentOrders";
 
 import {
-  updateOrderStatus,
+  updateOrder,
   fetchSentOrders,
   fetchReceivedOrders,
 } from "../../redux/order/order.actions";
@@ -59,7 +59,7 @@ const Order = () => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
 
   const handleStatusUpdate = (status) => {
-    dispatch(updateOrderStatus(currentOrder._id, status))
+    dispatch(updateOrder(currentOrder._id, {status}))
       .then(() => {
         window.location.reload();
       })
@@ -228,7 +228,7 @@ const Order = () => {
                 <DropdownItem divider />
                 <DropdownItem
                   onClick={() =>
-                    setOrderStatus({ type: "Delivered", status: "confirmed" })
+                    setOrderStatus({ type: "Delivered", status: "delivered" })
                   }
                 >
                   <DoneIcon className="mr-3" />

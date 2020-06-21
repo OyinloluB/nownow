@@ -11,8 +11,7 @@ const orderReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case OrderActionTypes.FETCH_RECEIVED_ORDERS_START:
     case OrderActionTypes.FETCH_SENT_ORDERS_START:
-    case OrderActionTypes.UPDATE_ORDER_STATUS_START:
-    case OrderActionTypes.RATE_ORDER_START:
+    case OrderActionTypes.UPDATE_ORDER_START:
       return {
         ...state,
         loading: true,
@@ -31,8 +30,7 @@ const orderReducer = (state = INITIAL_STATE, action) => {
           loading: false,
           error: null,
         };
-    case OrderActionTypes.UPDATE_ORDER_STATUS_SUCCESS:
-    case OrderActionTypes.RATE_ORDER_SUCCESS:
+    case OrderActionTypes.UPDATE_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -40,8 +38,7 @@ const orderReducer = (state = INITIAL_STATE, action) => {
       };
     case OrderActionTypes.FETCH_RECEIVED_ORDERS_FAILURE:
     case OrderActionTypes.FETCH_SENT_ORDERS_FAILURE:
-    case OrderActionTypes.UPDATE_ORDER_STATUS_FAILURE:
-    case OrderActionTypes.RATE_ORDER_FAILURE:
+    case OrderActionTypes.UPDATE_ORDER_FAILURE:
       return {
         ...state,
         error: action.payload,
