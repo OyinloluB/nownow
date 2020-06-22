@@ -127,7 +127,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
             );
           })}
         </div>
-        <Modal.Body style={{ maxHeight: "80vh", overflowY: "scroll" }}>
+        <Modal.Body style={{ maxHeight: "70vh", overflowY: "scroll" }}>
           <ul
             style={{
               paddingLeft: "0rem",

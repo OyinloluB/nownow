@@ -38,7 +38,7 @@ const modifyUsers = (users, coordinates) => {
         lng: user.longitude,
       }),
     }))
-    .filter((user) => user.distance < 3)
+    .filter((user) => user.distance <= 2)
     .sort((userA, userB) => userA.distance - userB.distance)
     .slice(0, 60);
 };
