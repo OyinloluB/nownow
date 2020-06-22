@@ -178,7 +178,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                             {`Distance: ${
                               user.distance < 1
                                 ? `${Math.floor(user.distance * 1000)} m`
-                                : `${Math.floor(user.distance)} km`
+                                : `${user.distance.toFixed(2)} km`
                             } `}
                             <LocalShippingIcon
                               style={{

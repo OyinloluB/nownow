@@ -86,7 +86,7 @@ const UserInfo = () => {
     [submitted, user, dispatch, history]
   );
 
-  useEffect(() => {console.log(contactModeDetails)
+  useEffect(() => {
     updateInfo(
       productsDetails,
       homeDeliveryDetails,
@@ -109,6 +109,7 @@ const UserInfo = () => {
       <ProductsPricing
         setCurrentPage={setCurrentPage}
         setProductsDetails={setProductsDetails}
+        productsDetails = { productsDetails }
       />
     );
   } else if (currentPage === 2) {
