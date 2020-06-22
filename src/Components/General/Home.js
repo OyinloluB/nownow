@@ -137,25 +137,20 @@ const Home = () => {
   }
 //  end of check
 
-  // function being called from check
   function address(dat) {
-    //  pushing the logger coordinate into the array
     dat.push({
       latitude: coordinates.lat,
       longitude: coordinates.lng,
       mapUrl:
         "https://thumbs.gfycat.com/EnchantingFinishedAplomadofalcon-max-1mb.gif",
     });
-    // start mapping through
+
     dat.map((data) => {
       if (data.latitude === 0) {
         user.address = "Not Available, contact through mobile number";
       }
-      // start fetching if coordinate exists
       else {
-        // display loading while fetching progresses
-        data.address = "Loading...";
-        // fetching kick starts
+        user.address = "Loading..If issue persists, toggle between the 'Sell to buttons' to load addresses";
         fetch(
           "https://maps.googleapis.com/maps/api/geocode/json?address=" +
             data.latitude +
@@ -167,10 +162,9 @@ const Home = () => {
           .then((response) => response.json())
           .then((responseJson) => {
             if (responseJson.results.length > 1) {
-              // forcing the fetched address into the users data
               data.address = responseJson.results[0].formatted_address;
             } else {
-              data.address = "Loading...";
+              data.address = "Address not Found";
             }
           })
           .catch((error) => console.log("error"));

@@ -20,8 +20,8 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const [userType, setUserType] = useState(userTypes[0]);
   const [selectedUser, setSelectedUser] = useState({ products: [] });
   const [showBasket, setShowBasket] = useState(false);
-  const [color1, setColor1] = useState("");
-  const [color2, setColor2] = useState("grey");
+  const [color1, setColor1] = useState("grey");
+  const [color2, setColor2] = useState("");
 
   useEffect(() => {
     const closeUsers = Object.keys(propUsers)
@@ -33,12 +33,12 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const handleType = (userType) => {
       setUserType(userType); 
       if(userType==='poc' || (userType==="bulkbreaker" && loggedInUser.type==='poc') ) {
-        setColor2("");
-        setColor1("grey");
-      }
-      else if(userType="distributor" || (userType==="bulkbreaker" && loggedInUser.type==='distributor')) {
         setColor2("grey");
         setColor1("");
+      }
+      else if(userType="distributor" || (userType==="bulkbreaker" && loggedInUser.type==='distributor')) {
+        setColor2("");
+        setColor1("grey");
       }      
   }
 
@@ -182,10 +182,10 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                             } `}
                             <LocalShippingIcon
                               style={{
-                                fontSize: 20,
+                                fontSize: 15,
                                 visibility: user.delivery ? "visible" : "hidden",
                               }}
-                              className={"offset-2"}
+                              // className={"offset-1"}
                             />
                             <br />
                             <span

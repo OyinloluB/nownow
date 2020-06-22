@@ -109,7 +109,6 @@ const UserInfo = () => {
       <ProductsPricing
         setCurrentPage={setCurrentPage}
         setProductsDetails={setProductsDetails}
-        productsDetails = { productsDetails }
       />
     );
   } else if (currentPage === 2) {

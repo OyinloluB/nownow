@@ -1,0 +1,16 @@
+.stem {
+    border: 1px solid grey;
+    min-height: 180px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+  }
+  
+  @media screen and (max-width: 420px) {
+    .stem {
+        min-height: 220px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 5px;
+    }
+  }

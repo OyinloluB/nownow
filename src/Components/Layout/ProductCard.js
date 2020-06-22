@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Row } from "react-bootstrap";
 import ShowPricing from "../AccountForms/Prompts/ShowPricing";
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import "./ProductCard.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,7 @@ const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
         setMaxPriceAlert={setMaxPriceAlert}
       />
 
-      <div className={classes.root} onClick={() => setShowContent(true)} style={{border: '1px solid grey',minHeight: '230px',paddingLeft: '15px', paddingRight: '15px', borderRadius: '5px'}}>
+      <div className={[classes.root, "stem"].join(" ")} onClick={() => setShowContent(true)} >
         <Row className={classes.details}>
           {product.image ? (
             <>
@@ -55,7 +56,7 @@ const ProductCard = ({ product, handleInputChange, setMaxPriceAlert }) => {
               />
               <p
                 style={{
-                  fontSize: "14px",
+                  fontSize: "13px",
                   textAlign: "center",
                   fontWeight: 'bold',
                   padding:'5px'
