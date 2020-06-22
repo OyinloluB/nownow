@@ -11,6 +11,7 @@ import Navbar from "./Components/Layout/Navbar";
 import Home from "./Components/General/Home";
 import Order from "./Components/General/Order";
 import UserInfo from "./Components/AccountForms/User/UserInfo";
+import ForgetPassword from "./Components/AccountForms/User/ForgetPassword";
 import UserSignIn from "./Components/AccountForms/User/UserSignIn";
 import StatusModal from "./Components/Modals/StatusModal";
 import DeliveryCard from "./Components/Modals/DeliveryCard";
@@ -86,6 +87,7 @@ function App() {
         <Route exact path="/terms" component={Terms} />
         <Route exact path="/return" component={ReturnPolicy} />
         <Route exact path="/privacy" component={Privacy} />
+        <Route exact path="/forgetPassword" component={ForgetPassword} />
         <ProtectedRoute
           exact
           path="/orders"

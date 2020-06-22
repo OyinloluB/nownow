@@ -252,7 +252,7 @@ const UserSignIn = () => {
             >
               <LockIcon style={{ fontSize: "16px" }} />
               Forgot Password?{" "}
-              <Link to="/" style={{ color: "#B11917" }}>
+              <Link to="/forgetPassword" style={{ color: "#B11917" }}>
                 {" "}
                 click here.{" "}
               </Link>
