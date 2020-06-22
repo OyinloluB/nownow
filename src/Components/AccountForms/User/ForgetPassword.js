@@ -52,7 +52,8 @@ export default function ForgetPassword() {
             if(list.data[0].phone === mobile) {
                 axios.post("/Distributor/forgotPassword", { userId, mobile })
                 .then((data)=>{
-                    console.log(data)
+                    console.log(data);
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`)
                 })
                 .catch((error)=> console.log(error));
             }
@@ -69,7 +70,8 @@ export default function ForgetPassword() {
             if(list.data[0].phone === mobile) {
                 axios.post("/Bulkbreaker/setPassword", { userId, mobile })
                 .then((data)=>{
-                    console.log(data)
+                    console.log(data);
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`)
                 })
                 .catch((error)=> console.log(error))
             }
@@ -87,7 +89,8 @@ export default function ForgetPassword() {
             if(list.data[0].phone === mobile) {
                 axios.post("/Poc/setPassword", { userId, mobile })
                 .then((data)=>{
-                    console.log(data)
+                    console.log(data);
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`);
                 })
                 .catch((error)=> console.log(error))
             }
