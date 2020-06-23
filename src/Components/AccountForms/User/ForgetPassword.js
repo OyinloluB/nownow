@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ForgetPassword() {
   const classes = useStyles();
-  const [notice, setNotice] = ("");
+  const [notice, setNotice] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export default function ForgetPassword() {
                 axios.post("/Distributor/forgotPassword", { userId, mobile })
                 .then((data)=>{
                     console.log(data);
-                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`)
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`)
                 })
                 .catch((error)=> console.log(error));
             }
@@ -71,7 +71,7 @@ export default function ForgetPassword() {
                 axios.post("/Bulkbreaker/setPassword", { userId, mobile })
                 .then((data)=>{
                     console.log(data);
-                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`)
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`)
                 })
                 .catch((error)=> console.log(error))
             }
@@ -90,7 +90,7 @@ export default function ForgetPassword() {
                 axios.post("/Poc/setPassword", { userId, mobile })
                 .then((data)=>{
                     console.log(data);
-                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on sign In below to continue.`);
+                    setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`);
                 })
                 .catch((error)=> console.log(error))
             }
