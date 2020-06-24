@@ -68,7 +68,7 @@ export default function ForgetPassword() {
         axios.get(`/Bulkbreaker/User/${userId}`).then((list) => {
 
             if(list.data[0].phone === mobile) {
-                axios.post("/Bulkbreaker/setPassword", { userId, mobile })
+                axios.post("/Bulkbreaker/forgotPassword", { userId, mobile })
                 .then((data)=>{
                     console.log(data);
                     setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`)
@@ -87,7 +87,7 @@ export default function ForgetPassword() {
         axios.get(`/Poc/User/${userId}`).then((list) => {
 
             if(list.data[0].phone === mobile) {
-                axios.post("/Poc/setPassword", { userId, mobile })
+                axios.post("/Poc/forgotPassword", { userId, mobile })
                 .then((data)=>{
                     console.log(data);
                     setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`);
