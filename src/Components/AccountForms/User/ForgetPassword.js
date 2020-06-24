@@ -63,7 +63,7 @@ export default function ForgetPassword() {
             
         });
     }
-    else if(userId.slice(0, 1)=== "BB") {
+    else if(userId.slice(0, 2)=== "BB") {
         
         axios.get(`/Bulkbreaker/User/${userId}`).then((list) => {
 
@@ -82,7 +82,7 @@ export default function ForgetPassword() {
         });
 
     }
-    else if(userId.value.slice(0, 1)=== "RT") {
+    else if(userId.value.slice(0, 2)=== "RT") {
 
         axios.get(`/Poc/User/${userId}`).then((list) => {
 
