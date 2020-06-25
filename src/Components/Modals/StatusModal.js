@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-
+import UserGuide from "../Carosel/UserGuide";
 import axios from "../../helpers/axios-client";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,34 +28,83 @@ const useStyles = makeStyles((theme) => ({
 const StatusModal = ({ open, setOpen, callback, comingFrom }) => {
   const user = useSelector((state) => state.auth.user);
   const [colorYes, setColorYes] = useState("green");
+  const [myStatus, setMyStatus] = useState("");
   const [colorNo, setColorNo] = useState("#B11917");
+  const [ readUserGuide, setReadUserGuide ] = useState(false);
 
   const classes = useStyles();
 
   const toggleStatus = async (status) => {
     if (status) {
       setColorYes("grey");
-    } else {
-      setColorNo("grey");
-    }
-    try {
-      let userTypeRoute;
-      if (user.type === "distributor") {
-        userTypeRoute = "Distributor";
-      } else if (user.type === "bulkbreaker") {
-        userTypeRoute = "BulkBreaker";
-      } else if (user.type === "poc") {
-        userTypeRoute = "Poc";
+      if(comingFrom==='login') {
+        setMyStatus(status);
+        setReadUserGuide(true);
       }
-      await axios.patch(`/${userTypeRoute}/${user.id}`, { confirmed: status });
-      setOpen(false);
-      if(callback) callback();
-    } catch (error) {
-      console.log("Error updating status", error);
+      else {
+        try {
+            let userTypeRoute;
+            if (user.type === "distributor") {
+              userTypeRoute = "Distributor";
+            } else if (user.type === "bulkbreaker") {
+              userTypeRoute = "BulkBreaker";
+            } else if (user.type === "poc") {
+              userTypeRoute = "Poc";
+            }
+            await axios.patch(`/${userTypeRoute}/${user.id}`, { confirmed: status });
+            setOpen(false);
+            if(callback) callback();
+          } catch (error) {
+            console.log("Error updating status", error);
+          }
+      }
+    }
+    else {
+      setColorNo("grey");
+      if(comingFrom==='login') {
+        setMyStatus(status);
+        setReadUserGuide(true);
+      }
+      else {
+        try {
+          let userTypeRoute;
+          if (user.type === "distributor") {
+            userTypeRoute = "Distributor";
+          } else if (user.type === "bulkbreaker") {
+            userTypeRoute = "BulkBreaker";
+          } else if (user.type === "poc") {
+            userTypeRoute = "Poc";
+          }
+          await axios.patch(`/${userTypeRoute}/${user.id}`, { confirmed: status });
+          setOpen(false);
+          if(callback) callback();
+        } catch (error) {
+          console.log("Error updating status", error);
+        }
+      }
     }
   };
 
+  // const setMe = () => {
+  //   try {
+  //     let userTypeRoute;
+  //     if (user.type === "distributor") {
+  //       userTypeRoute = "Distributor";
+  //     } else if (user.type === "bulkbreaker") {
+  //       userTypeRoute = "BulkBreaker";
+  //     } else if (user.type === "poc") {
+  //       userTypeRoute = "Poc";
+  //     }
+  //     await axios.patch(`/${userTypeRoute}/${user.id}`, { confirmed: status });
+  //     setOpen(false);
+  //     if(callback) callback();
+  //   } catch (error) {
+  //     console.log("Error updating status", error);
+  //   }
+  // }
+
   return (
+    <>
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
@@ -64,10 +113,12 @@ const StatusModal = ({ open, setOpen, callback, comingFrom }) => {
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 5000,
+        timeout: 2000,
       }}
     >
+
       <Fade in={open}>
+        { readUserGuide? <UserGuide setReadUserGuide={setReadUserGuide} setOpen={setOpen} callback={callback} user={user} myStatus={myStatus} /> : 
         <div className={classes.paper}>
           <div
             className={"text-light text-center"}
@@ -101,9 +152,11 @@ const StatusModal = ({ open, setOpen, callback, comingFrom }) => {
               </button>
             </div>
           </div>
-        </div>
+        </div>}
       </Fade>
+
     </Modal>
+    </>
   );
 };
 

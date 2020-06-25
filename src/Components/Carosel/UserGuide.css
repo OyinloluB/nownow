@@ -1,0 +1,12 @@
+.image {
+    max-height: 680px;
+    min-width: 450px;
+  }
+  
+  @media screen and (max-width: 420px) {
+    .image {
+        max-height: 630px;
+        min-width: 100%;
+    }
+  }
+  

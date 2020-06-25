@@ -138,37 +138,39 @@ function Terms() {
                 will be provided. For Sales: Upload the brands/SKUs, quantity
                 and selling price of products you have available. Failure to set
                 a selling price will result in default price display by IB Plc.
+                <br />
+                <br />
                 For Purchases: Select a seller to purchase from and input the
                 Brands/SKUs and quantity you wish to purchase, proceed to check
                 out or continue shopping.
-              </p>
-              <p>
-                6. <b>Further Conditions:</b>
-                <br />
-                <br /> a. Participant shall ensure delivery of the ordered
-                products directly to the buyer’s stated address.
                 <br />
                 <br />
-                b. Participants shall ensure payment is received on delivery of
+                a. Participant shall ensure delivery of the ordered products directly 
+                to the buyer’s stated address. 
+                b. Participants shall ensure payment is received on delivery of 
                 products at the buyer’s address.
+
               </p>
               <p>
-                7. <b>Participant Notifications:</b>
+                6. <b>Participant Notifications:</b>
                 <br />
-                 Each Participant will be contacted via the email address
-                provided whenever orders and purchases are made on their
-                account. The email will contain a confirmation that an order or
+                <br /> Each Participant will be contacted via the email address provided 
+                whenever orders and 
+                purchases are made on their account. The email will contain a confirmation 
+                that an order or 
                 sale was concluded and include the details.
+                <br />
+                <br />
               </p>
               <p>
-                IB Plc does not guarantee that the functions or content
-                contained in the webshop and in transactions conducted on the
-                platform will be uninterrupted or error free, that the defects
-                will be corrected or that the server that makes it available is
-                free of viruses or other harmful components.
+                7. IB Plc does not guarantee that the functions or content contained in the 
+                webshop and in transactions conducted on the platform will be uninterrupted 
+                or error free, that the defects will be corrected or that the server that 
+                makes it available is free of viruses or other harmful components.
               </p>
+              
               <p>
-                IB Plc reserves the right to reject orders which, in its
+                8. IB Plc reserves the right to reject orders which, in its
                 reasonable opinion:
                 <br />
                 <br />
@@ -187,7 +189,7 @@ function Terms() {
                 e. is linked to any suspicious or fraudulent activity.
               </p>
               <p>
-                10. <b>Intellectual Property Ownership</b>
+                9. <b>Intellectual Property Ownership</b>
                 <br />
                 <br />
                 Unless otherwise noted, all text, content and documents on the
@@ -207,15 +209,16 @@ function Terms() {
                 the Platform, are registered and/or common law trade names,
                 trademarks or service marks of IB Plc.
               </p>
+              
               <p>
-                11. Where an act, omission, event or circumstance occurs which
+                10. Where an act, omission, event or circumstance occurs which
                 is beyond the reasonable control of IB Plc which prevents IB Plc
                 from complying with these Terms & Conditions, IB Plc will not be
                 liable for any failure to perform or delay in performing its
                 obligations.
               </p>
               <p>
-                12. Any and all personal data supplied for the during
+                11. Any and all personal data supplied for the during
                 registration will be used solely for the purpose of this webapp
                 by IB Plc unless your positive consent has been obtained for use
                 in another purpose and/or for disclosure to a third party. Your
@@ -224,19 +227,19 @@ function Terms() {
                 <a href="https://nownow.com">https://nownow.com</a>.
               </p>
               <p>
-                13. You agree to indemnify and hold IB Plc, our affiliates,
+                12. You agree to indemnify and hold IB Plc, our affiliates,
                 officers, directors, agents and/or employees, as the case may
                 be, free from any claim or demand, including reasonable legal
                 fees, related to your breach of these Terms & Conditions.
               </p>
               <p>
-                14. These Terms & Conditions are governed by Laws of Federal
+                13. These Terms & Conditions are governed by Laws of Federal
                 Republic of Nigeria and their interpretation and application
                 will be subject to the exclusive jurisdiction of the courts of
                 Nigeria.
               </p>
               <p>
-                15. Any controversy, claim or dispute arising out of or relating
+                14. Any controversy, claim or dispute arising out of or relating
                 to these Terms and Conditions will be referred to and finally
                 settled by private and confidential binding arbitration before a
                 single arbitrator held in Nigeria in English and governed by
@@ -251,7 +254,7 @@ function Terms() {
                 equitable relief through the courts.
               </p>
               <p>
-                16. If any provisions of these Terms & Conditions are judged to
+                15. If any provisions of these Terms & Conditions are judged to
                 be invalid, illegal or unenforceable, this will not affect or
                 impact the continuation in full force and effect of the
                 remainder of the provisions.

@@ -54,7 +54,9 @@ function Privacy() {
                 <br />
                 Ikoyi-Lagos
                 <br />
-                E-mail: consumer.helpline@ab-inbev.com
+                E-mail: ibshopnowsup
+                <br />
+                Phone: 09062800131
               </p>
               <p>
                 3.{" "}
@@ -63,6 +65,9 @@ function Privacy() {
                   It Is Collected
                 </b>
                 <br />
+                <br />
+                By using this webapp, you consent to the collection, gathering, 
+                storage and processing of your personal data. 
                 <br />
                 We collect personal information of our users in two ways:
                 <br />
@@ -125,10 +130,10 @@ function Privacy() {
                 protection, please do not hesitate to contact us.
               </p>
               <p>
-                5. <b>Cookies Cookies</b>
+                5. <b>Cookies</b>
                 <br />
                 <br />
-                are small pieces of data being placed on the hard drive of a
+                Cookies are small pieces of data being placed on the hard drive of a
                 visitor’s device. With the help of cookies, you can store
                 information for a certain period of time and identify the user’s
                 device. For a better user guidance and an individual
@@ -458,9 +463,9 @@ function Privacy() {
                 <br />
                 <br />
                 Thank you for visiting our website.
-                <br /> Effective Date: This policy was last updated on 14 April,
+                <br /> Effective Date: This policy was last updated on 19 May,
                 2020.
-                <br /> www.naijabarrescue.comPlease Drink Responsibly
+                {/* <br /> www.naijabarrescue.comPlease Drink Responsibly */}
                 <br /> © 2020, AB InBev UK Limited, all rights reserved
               </p>
             </div>
