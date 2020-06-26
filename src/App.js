@@ -26,6 +26,7 @@ import { fetchReceivedOrders, fetchSentOrders } from "./redux/order/order.action
 
 import axios from "./helpers/axios-client";
 import { ProtectedRoute } from "./helpers/routes";
+import UserGuide from "./Components/Carosel/UserGuide";
 
 function App() {
   const { user, isAuthenticated, eligible, deliveredOrders } = useSelector(
@@ -40,6 +41,7 @@ function App() {
   );
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [ readUserGuide, setReadUserGuide ] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -77,6 +79,11 @@ function App() {
       <Navbar />
       {/* promp to set your store open/close */}
       <StatusModal open={open} setOpen={setOpen} comingFrom="login" />
+      { isAuthenticated? 
+      <div style={{ position: 'absolute', zIndex: 1 }} className={ readUserGuide? 'd-block offset-1 offset-md-4':'d-none'}>
+        <UserGuide setReadUserGuide={setReadUserGuide} userType={user.type} />
+      </div>
+      : null}
       <Cookie />
       {!eligible ? <Eligible /> : null}
       {deliveredOrders.map((order) => {

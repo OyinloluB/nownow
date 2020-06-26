@@ -22,29 +22,14 @@ import  p_guide4  from "../../assets/p_guide4.jpg";
 import  p_guide5  from "../../assets/p_guide5.jpg";
 import  p_guide6  from "../../assets/p_guide6.jpg";
 import CancelIcon from '@material-ui/icons/Cancel';
-import axios from "../../helpers/axios-client";
 
-function UserGuide({props,setReadUserGuide, setOpen, callback, user, myStatus}) {
+function UserGuide({props, setReadUserGuide, userType}) {
 
     function handleClose() {
-        try {
-            let userTypeRoute;
-            if (user.type === "distributor") {
-                userTypeRoute = "Distributor";
-            } else if (user.type === "bulkbreaker") {
-                userTypeRoute = "BulkBreaker";
-            } else if (user.type === "poc") {
-                userTypeRoute = "Poc";
-            }
-            axios.patch(`/${userTypeRoute}/${user.id}`, { confirmed: myStatus });
-            setOpen(false);
-            if(callback) callback();
-        } catch (error) {
-            console.log("Error updating status", error);
-        }
         setReadUserGuide(false);
     }
-    if (user.type === 'distributor') {
+    
+    if (userType === 'distributor') {
         var items = [
             { image: d_guide1 },
             { image: d_guide2 },
@@ -55,7 +40,7 @@ function UserGuide({props,setReadUserGuide, setOpen, callback, user, myStatus}) 
         ]
     }
 
-    else if(user.type === 'bulkbreaker') {
+    else if(userType === 'bulkbreaker') {
         var items = [
             { image: b_guide1 },
             { image: b_guide2 },
@@ -66,7 +51,7 @@ function UserGuide({props,setReadUserGuide, setOpen, callback, user, myStatus}) 
         ]
     }
 
-    else if(user.type === 'poc') {
+    else if(userType === 'poc') {
         var items = [
             { image: p_guide1 },
             { image: p_guide2 },
@@ -81,7 +66,7 @@ function UserGuide({props,setReadUserGuide, setOpen, callback, user, myStatus}) 
     return (
         <div>
            <CancelIcon  onClick={handleClose}  style={{backgroundColor: "#B11917", color: "white", fontSize: "30px", position: 'relative', top: '18px', zIndex: 1, left: "6%"}}/>
-            <Carousel autoPlay={false}>
+            <Carousel autoPlay={false} animation='slide'>
                 {
                     items.map( item => <Item item={item} /> )
                 }
