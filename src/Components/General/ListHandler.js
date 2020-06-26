@@ -12,7 +12,7 @@ import ShoppingBasket from "../Layout/ShoppingBasket";
 const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
   const { user: loggedInUser, coordinates } = useSelector((state) => state.auth);
 
-  const userTypes = ["distributor", "bulkbreaker", "poc"].filter(
+  const userTypes = ["bulkbreaker", "distributor", "poc"].filter(
     (userType) => !(loggedInUser.type === userType)
   );
 
@@ -111,7 +111,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                   fontSize: "15px",
                   whiteSpace: "nowrap"
                 }}
-                className={"p-1 pt-3 pb-3 p-md-3"}
+                className={"p-1 pt-2 pb-2 p-md-2"}
                 onClick={() => handleType(userType) }
               >
                 {userType === "distributor"
