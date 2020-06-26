@@ -157,10 +157,11 @@ const UserSignIn = () => {
       maxWidth="sm"
       style={{
         overflow: "auto",
-        margin: "3vh auto 0vh auto",
         borderRadius: "6px",
         maxWidth: "900px",
+        margin: "0vh auto 0vh auto"
       }}
+      className={'mt-md-5'}
     >
       <CicAgentContact show={show} closeModal={ () => setShow(false) }/>
 
@@ -199,7 +200,7 @@ const UserSignIn = () => {
               
               <Form.Label
                 style={{ color: "grey" }}
-                className={"mt-3 font-weight-bold"}
+                className={"mt-1 mt-md-3 font-weight-bold"}
               >
                 Enter Your Customer Code
               </Form.Label>
@@ -234,7 +235,7 @@ const UserSignIn = () => {
             </div>
 
             <Form.Group controlId="formBasicPassword" className={showUserPas}>
-              <Form.Label className={"mt-4 font-weight-bold"}>
+              <Form.Label className={"mt-1 mt-md-4 font-weight-bold"}>
                 Password
               </Form.Label>
               <Form.Control
