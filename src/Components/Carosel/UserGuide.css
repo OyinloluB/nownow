@@ -1,6 +1,7 @@
 .image {
-    max-height: 550px;
-    min-width: 360px;
+    max-height: 520px;
+    min-width: 340px;
+    margin-top: 20px;
   }
   
   @media screen and (max-width: 420px) {

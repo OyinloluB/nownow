@@ -65,7 +65,7 @@ function UserGuide({props, setReadUserGuide, userType}) {
  
     return (
         <div>
-           <CancelIcon  onClick={handleClose}  style={{backgroundColor: "#B11917", color: "white", fontSize: "30px", position: 'relative', top: '18px', zIndex: 1, left: "6%"}}/>
+           <CancelIcon  onClick={handleClose}  style={{backgroundColor: "#B11917", color: "white", fontSize: "30px", position: 'relative', top: '38px', zIndex: 1, left: "6%"}}/>
             <Carousel autoPlay={false} animation='slide'>
                 {
                     items.map( item => <Item item={item} /> )
