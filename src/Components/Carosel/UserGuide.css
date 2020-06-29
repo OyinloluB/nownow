@@ -2,12 +2,13 @@
     max-height: 520px;
     min-width: 340px;
     margin-top: 20px;
+    border-radius: 6px;
   }
   
   @media screen and (max-width: 420px) {
     .image {
         max-height: 550px;
-        min-width: 120%;
+        width: 100%;
     }
   }
   

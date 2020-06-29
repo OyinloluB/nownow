@@ -25,11 +25,19 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
 
     // getting 70% of recommended price
     var minRecPrice = (70/100)*recPrice
-    var maxRecPrice = (150/100)*recPrice
+    var maxRecPrice = (130/100)*recPrice
 
     const updatedProducts = products.map((product) => {
       
-      (e.target.value < minRecPrice || e.target.value > maxRecPrice)? setMaxPriceAlert('disabled') : setMaxPriceAlert('');
+      if(e.target.value < minRecPrice) {
+        setMaxPriceAlert('low');
+      } 
+      else if(e.target.value > maxRecPrice) {
+        setMaxPriceAlert('high');
+      }
+      else {
+        setMaxPriceAlert('');
+      }
       
       if (product._id === productId) {
         product.price = e.target.value;

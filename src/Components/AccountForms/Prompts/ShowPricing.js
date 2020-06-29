@@ -39,7 +39,7 @@ const ShowPricing = ({ show, setShowContent, product, handleInputChange, setMaxP
                 required
               />
             </Form.Group>
-            <span className={'text-center'} style={{fontWeight: 'bold', fontSize: '12px', color: '#B11917'}}>{ setMaxPriceAlert === '' ? '': 'Your Price is below/beyond the Recommended Price' }</span>
+            <span className={'text-center'} style={{fontWeight: 'bold', fontSize: '12px', color: '#B11917'}}>{ setMaxPriceAlert === 'low' ? 'You have entered an amount with no margin for profit': setMaxPriceAlert === 'high'? 'You have entered an amount that would not be competitive in the market' : '' }</span>
           </div>
         </div>
       </Modal.Body>

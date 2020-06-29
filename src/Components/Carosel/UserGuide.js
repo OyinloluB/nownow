@@ -19,7 +19,6 @@ import  p_guide1  from "../../assets/p_guide1.jpg";
 import  p_guide2  from "../../assets/p_guide2.jpg";
 import  p_guide3  from "../../assets/p_guide3.jpg";
 import  p_guide4  from "../../assets/p_guide4.jpg";
-import  p_guide5  from "../../assets/p_guide5.jpg";
 import  p_guide6  from "../../assets/p_guide6.jpg";
 import CancelIcon from '@material-ui/icons/Cancel';
 
@@ -57,7 +56,6 @@ function UserGuide({props, setReadUserGuide, userType}) {
             { image: p_guide2 },
             { image: p_guide3 },
             { image: p_guide4 },
-            { image: p_guide5 },
             { image: p_guide6 },
         ]
     }
@@ -65,8 +63,8 @@ function UserGuide({props, setReadUserGuide, userType}) {
  
     return (
         <div>
-           <CancelIcon  onClick={handleClose}  style={{backgroundColor: "#B11917", color: "white", fontSize: "30px", position: 'relative', top: '38px', zIndex: 1, left: "6%"}}/>
-            <Carousel autoPlay={false} animation='slide'>
+           <CancelIcon  onClick={handleClose}  style={{backgroundColor: "#B11917", color: "white", fontSize: "30px", position: 'relative', top: '55px', zIndex: 1, backgroundRadius: '5px', cursor: 'pointer'}} className={'float-right mr-1'}/>
+            <Carousel autoPlay={false}>
                 {
                     items.map( item => <Item item={item} /> )
                 }

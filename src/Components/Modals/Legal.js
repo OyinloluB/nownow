@@ -33,18 +33,23 @@ export const Legal = ({ show, setShow }) => {
             <Link to="/return">Return Policy </Link>
             and <Link to="privacy">Privacy Policy</Link>
           </p>
-          <button
-            onClick={() => setShow(false)}
-            style={{
-              padding: "10px",
-              width: "15%",
-              background: "white",
-              border: "none",
-            }}
-          >
-            I Accept
-          </button>
+         
         </Modal.Body>
+        <Modal.Footer
+
+          onClick={() => setShow(false)}
+          style={{
+            padding: "10px",
+            width: "60%",
+            background: "white",
+            border: "none",
+            color: '#B11917',
+            cursor: 'pointer'
+          }}
+          
+        >
+          <span className={'font-weight-bold'}>I Accept</span>
+        </Modal.Footer>
       </Modal>
     </>
   );

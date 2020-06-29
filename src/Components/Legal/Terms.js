@@ -30,7 +30,7 @@ function Terms() {
       >
         <div>
           <div>
-            <h2>PRIVACY POLICY AND COOKIES</h2>
+            <h2>Terms of Use</h2>
             <div>
               <p>
                 Welcome to the NowNow webapp (the ‘webapp’). These terms and

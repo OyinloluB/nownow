@@ -65,7 +65,7 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
               <Grid item>
                 <AntSwitch checked={checked.indexOf("cash") !== -1} onChange={handleToggle("cash")} name="cash" />
               </Grid>
-              <Grid item style={{fontSize: '10px'}}>On</Grid>
+              <Grid item style={{fontSize: '8px'}}>On</Grid>
             </Grid>
           </Typography>
         </ListItem>
@@ -74,7 +74,7 @@ const PaymentModeOption = ({ checked, handleToggle }) => {
         <ListItemText id="switch-list-label-pos" primary="POS" />
           <Typography component="div">
             <Grid component="label" container alignItems="center" spacing={1}>
-              <Grid item style={{fontSize: '10px'}}>Off</Grid>
+              <Grid item style={{fontSize: '8px'}}>Off</Grid>
               <Grid item>
                 <AntSwitch checked={checked.indexOf("pos") !== -1} onChange={handleToggle("pos")} name="pos" />
               </Grid>
