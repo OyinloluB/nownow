@@ -6,8 +6,16 @@ import { useHistory } from "react-router-dom";
 function Terms() {
   const history = useHistory();
   return (
-    <div>
-      <p
+ 
+      <Container
+        maxWidth="sm"
+        style={{
+          overflow: "auto",
+          margin: "8vh auto 10vh auto",
+        }}
+      >
+        <div>
+        <p
         onClick={() => {
           history.push("/");
         }}
@@ -21,14 +29,6 @@ function Terms() {
         <ArrowBackIcon />
         Back Home
       </p>
-      <Container
-        maxWidth="sm"
-        style={{
-          overflow: "auto",
-          margin: "8vh auto 10vh auto",
-        }}
-      >
-        <div>
           <div>
             <h2>Terms of Use</h2>
             <div>
@@ -109,7 +109,7 @@ function Terms() {
                 <br />
                 a. Go to{" "}
                 <span>
-                  <a href="https://nownow.com">https://nownow.com</a>
+                  <a href="https://ibshopnow.com">https://IbShopNow.com</a>
                 </span>{" "}
                 and identify your trading account from the verified list created
                 by the Sponsor. Activate your account by entering your email
@@ -263,7 +263,6 @@ function Terms() {
           </div>
         </div>
       </Container>
-    </div>
   );
 }
 
