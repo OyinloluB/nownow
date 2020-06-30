@@ -22,7 +22,10 @@ import {
   fetchPocs,
   fetchDistributors,
 } from "./redux/user/user.actions";
-import { fetchReceivedOrders, fetchSentOrders } from "./redux/order/order.actions";
+import {
+  fetchReceivedOrders,
+  fetchSentOrders,
+} from "./redux/order/order.actions";
 
 import axios from "./helpers/axios-client";
 import { ProtectedRoute } from "./helpers/routes";
@@ -41,7 +44,7 @@ function App() {
   );
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [ readUserGuide, setReadUserGuide ] = useState(true);
+  const [readUserGuide, setReadUserGuide] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -79,12 +82,23 @@ function App() {
       <Navbar />
       {/* promp to set your store open/close */}
       <StatusModal open={open} setOpen={setOpen} comingFrom="login" />
-      { isAuthenticated? 
-      <div style={{ position: 'absolute', top: '50%', left: '50%',transform: 'translate(-50%, -50%)', zIndex: 1, display: "flex",
-      alignItems: "center", justifyContent: "center", }} className={ readUserGuide? 'd-block':'d-none'}>
-        <UserGuide setReadUserGuide={setReadUserGuide} userType={user.type} />
-      </div>
-      : null}
+      {isAuthenticated ? (
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          className={readUserGuide ? "d-block" : "d-none"}
+        >
+          <UserGuide setReadUserGuide={setReadUserGuide} userType={user.type} />
+        </div>
+      ) : null}
       <Cookie />
       {!eligible ? <Eligible /> : null}
       {deliveredOrders.map((order) => {

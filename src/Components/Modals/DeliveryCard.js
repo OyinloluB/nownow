@@ -16,7 +16,7 @@ const DeliveryCard = ({ order }) => {
 
   const handleConfirmOrder = (confirmed) => {
     const status = confirmed ? "confirmed" : "delayed";
-    dispatch(updateOrder(order._id, {status}))
+    dispatch(updateOrder(order._id, { status }))
       .then(() => {
         if (confirmed) {
           setShowRating(true);
@@ -28,7 +28,7 @@ const DeliveryCard = ({ order }) => {
   };
 
   const handleRating = (rating, comment) => {
-    dispatch(updateOrder(order._id, {review: {rating, comment}}))
+    dispatch(updateOrder(order._id, { review: { rating, comment } }))
       .then(() => setOpen(false))
       .catch((err) => {
         console.log(err);
@@ -62,7 +62,10 @@ const DeliveryCard = ({ order }) => {
         </div>
         <div>
           <div
-            style={{ padding: "0.4rem 0.25rem", justifyContent: "space-between" }}
+            style={{
+              padding: "0.4rem 0.25rem",
+              justifyContent: "space-between",
+            }}
           >
             <p
               style={{ fontSize: "15px", color: "#B11917" }}
@@ -74,16 +77,23 @@ const DeliveryCard = ({ order }) => {
               <Button
                 variant="success"
                 onClick={() => handleConfirmOrder(true)}
-                style={{ width: "50%" }}
+                style={{ width: "100%" }}
               >
-                Yes
+                Yes, goods received in full and in good condition
+              </Button>
+              <Button
+                variant="success"
+                onClick={() => handleConfirmOrder(true)}
+                style={{ width: "100%", backgroundColor: "rgb(127, 31, 36)" }}
+              >
+                Received, but with some issues
               </Button>
               <Button
                 variant="danger"
                 onClick={() => handleConfirmOrder(false)}
-                style={{ marginLeft: "10px", width: "45%" }}
+                style={{ width: "100%" }}
               >
-                No
+                No, goods not received at all
               </Button>
             </div>
           </div>
