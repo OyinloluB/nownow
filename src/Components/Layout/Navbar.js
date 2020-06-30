@@ -69,6 +69,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   const logOut = () => {
+    localStorage.setItem('userguide', true);
     dispatch(logout());
   };
 

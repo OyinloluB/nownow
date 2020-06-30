@@ -69,7 +69,7 @@ const ShoppingBasket = ({ user, show, setShowBasket }) => {
           </p>
         ) : null}
 
-        <Modal.Body>
+        <Modal.Body style={{ maxHeight: "55vh", overflowY: "scroll" }}>
           <ul className={"list-group"}>
             {user.products.map((product, i) => (
               <StoreItem

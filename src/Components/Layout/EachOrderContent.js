@@ -42,7 +42,7 @@ const EachOrderContent = ({ order, setOrder }) => {
         justifyContent: "space-between",
         borderBottom: "1px solid rgb(223, 223, 223)",
         paddingBottom: "9px",
-        padding: "4px",
+        padding: "4px"
       }}
     >
       <div>
@@ -107,6 +107,10 @@ const EachOrderContent = ({ order, setOrder }) => {
               />
             </>
           ) : null}
+        </p>
+        <p style={{ color: "black", fontSize: "12px", width: '160px' }}>
+          <b>Address:</b>{" "}
+            { orderUser.address }
         </p>
       </div>
     </div>

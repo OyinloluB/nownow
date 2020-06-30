@@ -40,16 +40,10 @@ function Terms() {
               If you believe there is a defect in the product(s) you purchased, please call our Consumer 
               Care Line on +2349062800131 or send an e-mail to Ibshopnowsupport@ng.ab-inbev.com
               to notify us of your intention to return the product(s). 
-              Conditions constitutes your acceptance of those changes.
-              </p>
               <p>
-              When we receive your notification of return, you will be directed on how the product(s) 
-              will be retrieved.
+              When we receive your notification of return, you will be directed on how the product(s) will be retrieved.
               </p>
-              <p>
-              We accept returns within 5 days from the date the product(s) was purchased. All returns will be 
-              replaced with the same brand that was purchased (no cash refunds).
-               
+              We accept returns within 5 days from the date the product(s) was purchased. All returns will be replaced with the same brand that was purchased (no cash refunds). 
               </p>
               <p>
               Upon receipt of the returned product(s), we will fully examine it and notify you via e-mail, within 

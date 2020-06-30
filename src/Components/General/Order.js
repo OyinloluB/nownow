@@ -36,6 +36,8 @@ const Order = () => {
       sentOrders: state.order.sentOrders,
     };
   });
+  
+  const { REACT_APP_GOOGLE_MAP_API_KEY: API_KEY } = process.env;
   const dispatch = useDispatch();
 
   const [currentOrder, setCurrentOrder] = useState({ items: [] });
@@ -48,6 +50,54 @@ const Order = () => {
   const [ opa1, setOpa1 ] = useState("grey");
   const [ opa2, setOpa2 ] = useState("");
   const [switchSent, setSwitchSent] = useState("d-none");
+  // address into order
+  if(receivedOrders.length > 0) {
+
+    for (let i = 0; i < receivedOrders.length; i++) {
+      fetch(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          receivedOrders[i].user.latitude +
+          "," +
+          receivedOrders[i].user.longitude +
+          "&key=" +
+          API_KEY
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if (responseJson.results.length > 1) {
+            receivedOrders[i].user.address = responseJson.results[0].formatted_address;
+          } else {
+            receivedOrders[i].user.address = "Address not Found";
+          }
+        })
+        .catch((error) => console.log("error"));
+    }
+  } 
+
+  else if(sentOrders.length > 0) {
+
+    for (let i = 0; i < sentOrders.length; i++) {
+      fetch(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          sentOrders[i].owner.latitude +
+          "," +
+          sentOrders[i].owner.longitude +
+          "&key=" +
+          API_KEY
+      )
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if (responseJson.results.length > 1) {
+            sentOrders[i].owner.address = responseJson.results[0].formatted_address;
+          } else {
+            sentOrders[i].owner.address = "Address not Found";
+          }
+        })
+        .catch((error) => console.log("error"));
+    }
+
+  };
+
 
   useEffect(() => {
     dispatch(fetchReceivedOrders());
@@ -88,7 +138,7 @@ const Order = () => {
         return;
     }
   };
-
+  
   return (
     <>
       <Container
@@ -96,7 +146,7 @@ const Order = () => {
         maxWidth="sm"
         style={{
           overflow: "auto",
-          margin: "10vh auto 0vh auto",
+          margin: "10vh auto 40vh auto",
           height: "100vh",
         }}
       >

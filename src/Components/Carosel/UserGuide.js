@@ -25,6 +25,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 function UserGuide({props, setReadUserGuide, userType}) {
 
     function handleClose() {
+        localStorage.setItem('userguide', false);
         setReadUserGuide(false);
     }
     

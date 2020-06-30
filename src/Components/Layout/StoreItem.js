@@ -93,11 +93,11 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts, userName })
           className={classes.cover}
         />
         <div
-          className={"col-4 ml-auto col-7 font-weight-bold"}
+          className={"ml-auto col-8 font-weight-bold"}
           style={{ fontSize: "13px", color: "#b11917" }}
         >
           {product.brand} ({product.sku}) {product.volume}
-          <div style={{ color: "grey", fontWeight: "bold" }} className={"d-flex"}>
+          <div style={{ color: "grey", fontWeight: "bold" }} className={"d-flex mt-1"}>
             Price per Case <span className={"ml-auto"}>&#8358; {product.price}</span>
           </div>
           <div
@@ -124,7 +124,7 @@ const StoreItem = ({ userId, product, setProducts, selectedProducts, userName })
                 <input
                   type="number"
                   value={Number(quantity) === 0 ? "" : Number(quantity)}
-                  className={"col-4 col-md-5 p-0 mt-2"}
+                  className={"col-4 col-md-5 p-0 mt-1"}
                   name="qty"
                   onChange={handleChange}
                   style={{ maxHeight: "20px" }}

@@ -41,7 +41,7 @@ function App() {
   );
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [ readUserGuide, setReadUserGuide ] = useState(true);
+  const [ readUserGuide, setReadUserGuide ] = useState(localStorage.getItem('userguide'));
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -81,7 +81,7 @@ function App() {
       <StatusModal open={open} setOpen={setOpen} comingFrom="login" />
       { isAuthenticated? 
       <div style={{ position: 'absolute', top: '50%', left: '50%',transform: 'translate(-50%, -50%)', zIndex: 1, display: "flex",
-      alignItems: "center", justifyContent: "center", }} className={ readUserGuide? 'd-block':'d-none'}>
+      alignItems: "center", justifyContent: "center", }} className={ readUserGuide === 'true' ? 'd-block':'d-none'}>
         <UserGuide setReadUserGuide={setReadUserGuide} userType={user.type} />
       </div>
       : null}
