@@ -90,7 +90,7 @@ const EachOrderContent = ({ order, setOrder }) => {
           <b>Request made:</b> {timeString}
         </p>
         <p style={{ color: "#B11917", fontSize: "12px" }}>
-          {order.status === "new" && timeDiff > 0 ? (
+          {order.status === "new" || order.status === "processing"  && timeDiff > 0 ? (
             <>
               <b>Time left to delivery: </b>{" "}
               <DateCountdown
