@@ -71,8 +71,6 @@ function UserGuide({props, setReadUserGuide, userType}) {
             </Carousel>
         </div>
     )
-    
-
 }
 
 function Item(props)

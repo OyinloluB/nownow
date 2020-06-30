@@ -6,21 +6,7 @@ import { useHistory } from "react-router-dom";
 function Privacy() {
   const history = useHistory();
   return (
-    <div>
-      <p
-        onClick={() => {
-          history.push("/");
-        }}
-        style={{
-          padding: "10px",
-          fontSize: "12px",
-          cursor: "pointer",
-          color: "#b11917",
-        }}
-      >
-        <ArrowBackIcon />
-        Back Home
-      </p>
+      
       <Container
         maxWidth="sm"
         style={{
@@ -29,6 +15,20 @@ function Privacy() {
         }}
       >
         <div>
+        <p
+          onClick={() => {
+            history.push("/");
+          }}
+          style={{
+            padding: "10px",
+            fontSize: "12px",
+            cursor: "pointer",
+            color: "#b11917",
+          }}
+        >
+          <ArrowBackIcon />
+          Back Home
+        </p>
           <div>
             <h2>PRIVACY POLICY AND COOKIES</h2>
             <div>
@@ -54,9 +54,9 @@ function Privacy() {
                 <br />
                 Ikoyi-Lagos
                 <br />
-                E-mail: ibshopnowsup
+                E-mail: Ibshopnowsupport@ng.ab-inbev.com
                 <br />
-                Phone: 09062800131
+                Phone: +2349062800131
               </p>
               <p>
                 3.{" "}
@@ -472,7 +472,6 @@ function Privacy() {
           </div>
         </div>
       </Container>
-    </div>
   );
 }
 

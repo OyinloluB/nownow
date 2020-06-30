@@ -6,21 +6,7 @@ import { useHistory } from "react-router-dom";
 function Terms() {
   const history = useHistory();
   return (
-    <div>
-      <p
-        onClick={() => {
-          history.push("/");
-        }}
-        style={{
-          padding: "10px",
-          fontSize: "12px",
-          cursor: "pointer",
-          color: "#b11917",
-        }}
-      >
-        <ArrowBackIcon />
-        Back Home
-      </p>
+      
       <Container
         maxWidth="sm"
         style={{
@@ -29,6 +15,20 @@ function Terms() {
         }}
       >
         <div>
+        <p
+          onClick={() => {
+            history.push("/");
+          }}
+          style={{
+            padding: "10px",
+            fontSize: "12px",
+            cursor: "pointer",
+            color: "#b11917",
+          }}
+        >
+        <ArrowBackIcon />
+        Back Home
+      </p>
           <div>
             <h2>RETURN POLICY</h2>
             <div>
@@ -38,8 +38,8 @@ function Terms() {
               </p>
               <p>
               If you believe there is a defect in the product(s) you purchased, please call our Consumer 
-              Care Line on +234 (0) 700 600 7000 or send an e-mail to -----------------------
-              @ng.ab-inbev.com to notify us of your intention to return the product(s). 
+              Care Line on +2349062800131 or send an e-mail to Ibshopnowsupport@ng.ab-inbev.com
+              to notify us of your intention to return the product(s). 
               Conditions constitutes your acceptance of those changes.
               </p>
               <p>
@@ -69,7 +69,6 @@ function Terms() {
           </div>
         </div>
       </Container>
-    </div>
   );
 }
 
