@@ -84,7 +84,7 @@ const DeliveryCard = ({ order }) => {
               <Button
                 variant="success"
                 onClick={() => handleConfirmOrder(true)}
-                style={{ width: "100%", backgroundColor: "rgb(127, 31, 36)" }}
+                style={{ width: "100%", backgroundColor: "rgb(244, 156, 0)" }}
               >
                 Received, but with some issues
               </Button>
