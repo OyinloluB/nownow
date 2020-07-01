@@ -69,12 +69,14 @@ const ViewBasket = ({ show, setViewBasket }) => {
       (acc, item) => acc + item.quantity,
       0
     );
-    const multiple = totalQuantity < 80 && user.type==='poc' ? 1.026 : 1;
+    const multiple = totalQuantity < 80 && user.type === "poc" ? 1.026 : 1;
     const totalPrice = state.cart.items.reduce((currentTotal, item) => {
       return currentTotal + Math.floor(item.price * multiple * item.quantity);
     }, 0);
-    const itemOwners = Array.from(new Set(state.cart.items.map((item) => item.userID)));
-    
+    const itemOwners = Array.from(
+      new Set(state.cart.items.map((item) => item.userID))
+    );
+
     return {
       items: state.cart.items,
       total: totalPrice,
@@ -100,7 +102,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
   };
 
   const handleIncrement = (item) => {
-    dispatch(addToCart({...item, quantity: 1}));
+    dispatch(addToCart({ ...item, quantity: 1 }));
   };
 
   const handleDecrement = (item) => {
@@ -191,12 +193,7 @@ const ViewBasket = ({ show, setViewBasket }) => {
                         24-48 Hours
                       </span>
                     </div>
-                  </li>
-                  {items.map((product) => (
-                    <li
-                      className={"list-group-item m-0 p-2"}
-                      style={{ color: "grey", fontSize: "14px" }}
-                    >
+                    {items.map((product) => (
                       <div className={"d-flex"}>
                         <span className={"mr-auto"}>Order From</span>
                         <span
@@ -206,6 +203,13 @@ const ViewBasket = ({ show, setViewBasket }) => {
                           {product.userName}
                         </span>
                       </div>
+                    ))}
+                  </li>
+                  {items.map((product) => (
+                    <li
+                      className={"list-group-item m-0 p-2"}
+                      style={{ color: "grey", fontSize: "14px" }}
+                    >
                       <div className={"d-flex"}>
                         <span className={"mr-auto"}>Unit Price</span>
                         <span
@@ -262,7 +266,9 @@ const ViewBasket = ({ show, setViewBasket }) => {
                               style={{ fontSize: "13px", fontWeight: "bold" }}
                             />
                           </IconButton>
-                          <span style={{ padding: "7px" }}>{product.quantity}</span>
+                          <span style={{ padding: "7px" }}>
+                            {product.quantity}
+                          </span>
                           <IconButton
                             aria-label="add"
                             onClick={() => handleIncrement(product)}
@@ -309,10 +315,13 @@ const ViewBasket = ({ show, setViewBasket }) => {
                   style={{ fontSize: "13px", color: "#B11917" }}
                 >
                   Please note your mode of payment will be communicated with the
-                  Seller and you will pay directly to them upon receipt of your order
+                  Seller and you will pay directly to them upon receipt of your
+                  order
                 </span>
                 {owners.map((ownerId) => {
-                  const ownerItem = items.filter((item) => item.userID === ownerId)[0];
+                  const ownerItem = items.filter(
+                    (item) => item.userID === ownerId
+                  )[0];
 
                   return (
                     <PaymentChoice
@@ -338,7 +347,10 @@ const ViewBasket = ({ show, setViewBasket }) => {
                   <span className={"mr-auto text-success"}>
                     Your Order has been successfully placed!
                   </span>
-                  <CloseIcon onClick={handleClose} style={{ cursor: "pointer" }} />
+                  <CloseIcon
+                    onClick={handleClose}
+                    style={{ cursor: "pointer" }}
+                  />
                 </li>
               </CardContent>
             </Card>
