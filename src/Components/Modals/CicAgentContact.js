@@ -9,11 +9,24 @@ const CicAgentContact = ({show, closeModal}) => {
         <Modal.Header>
           <Modal.Title style={{fontSize: '17px'}} className={'offset-2 offset-md-3'} >CIC Agent Contact Summary</Modal.Title>
         </Modal.Header>
+        
         <Modal.Body className={'text-center text-dark text-justify font-weight-bold'} style={{fontSize: '13px', color: '#B11917'}}>You can reach our CIC Agent for the type of support you need</Modal.Body>
         <address style={{fontSize: "9", textAlign: "center", fontWeight: 'bold' }}> Contact Email: <br />
         <a style={{fontWeight: 'bold', color: '#b11917', fontSize: '12px'}} href="mailto:Ibshopnowsupport@ng.ab-inbev.com" target="_blank">Ibshopnowsupport@ng.ab-inbev.com</a></address>
         <span style={{fontSize: "9", textAlign: "center", fontWeight: 'bold' }}> Mobile Number: <a href="tel:+2349062800131" style={{fontWeight: 'bold', color: '#b11917'}}>+2349062800131</a></span>
         
+        <p 
+          style={{ 
+            color: 'grey',
+            fontSize: '12px',
+            fontWeight: 'bold'
+          }} 
+          className={'text-center p-3'}
+          >
+          Kindly note that our Telephone channel & Email operate between 
+          8am & 5pm Mondays - Fridays and 9am to 4pm on Saturdays
+          </p>
+
         <Modal.Footer className={'row'}>
           <Button
             onClick={closeModal}
