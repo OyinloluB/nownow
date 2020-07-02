@@ -28,7 +28,6 @@ const SearchLocation = (userType) => {
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
-  // console.log(userType.userType)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const coordinates = await getAddressCoordinates(search);

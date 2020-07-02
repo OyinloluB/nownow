@@ -98,7 +98,7 @@ export const authenticateBulkBreaker = (ID, password) => {
       try {
         const response = await axios.post("/Bulkbreaker/login", { ID, password });
         const { data } = response;
-        if(data.success){console.log(data)
+        if(data.success){
           dispatch(authenticateBulkBreakerSuccess(data.bulkBreaker));
         } else {
           throw data;

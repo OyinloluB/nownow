@@ -66,7 +66,7 @@ export const fetchDistributors = () => {
     try {
       const response = await axios.get("/Distributor");
       const { data } = response;
-      // console.log(data)
+      
       dispatch(fetchDistributorsSuccess(data));
     } catch (error) {
       dispatch(fetchDistributorsFailure(error));

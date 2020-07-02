@@ -92,12 +92,11 @@ const UserInfo = () => {
       paymentModeDetails,
       contactModeDetails
     );
-
   }, [submitted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
+
     setCurrentPage(user.type === "poc" ? 2 : 1);
   };
 
