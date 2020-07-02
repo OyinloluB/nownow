@@ -255,7 +255,7 @@ const ListHandler = ({ show, closeModal, users: propUsers, resetCenter }) => {
                                     ? closeModal()
                                     : setShowBasket(false);
                                 }}
-                                // do not display shopping basket on pocs for bulkbreaker
+                                
                                 className={
                                   user.type === "poc" &&
                                   loggedInUser.type === "bulkbreaker"

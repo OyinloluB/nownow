@@ -24,18 +24,15 @@ const ContactModePrompt = ({
   const handleChangeWhatsapp = (e) => {
     setWhatsapp(!whatsapp);
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
-    console.log(contactDetails);
   };
 
   const handleChangePhone = (e) => {
     setPhoneCall(!phoneCall);
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
-    console.log(contactDetails);
   };
 
   const handleChange = (e) => {
     setContactDetails({ ...contactDetails, [e.target.name]: e.target.value });
-    console.log(contactDetails);
   };
 
   const previous = () => {
@@ -43,9 +40,7 @@ const ContactModePrompt = ({
   };
 
   const handleSubmit = (e) => {
-    // console.log(contactDetails)
     e.preventDefault();
-    console.log("Submitted");
     setContactModeDetails({
       ...contactDetails,
     });
@@ -54,7 +49,6 @@ const ContactModePrompt = ({
 
   return (
     <>
-      {/* <Legal show={showLegal} setShow={setShowLegal} /> */}
       <Container
         maxWidth="sm"
         style={{
@@ -160,7 +154,6 @@ const ContactModePrompt = ({
                   placeholder="Phone Number"
                   name="whatsapp"
                   onChange={handleChange}
-                  // readOnly={readOnly_}
                 />
               </Form.Group>
             </Modal.Body>

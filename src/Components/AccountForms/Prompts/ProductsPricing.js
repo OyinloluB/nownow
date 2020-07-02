@@ -57,7 +57,6 @@ const ProductsPricing = ({ setCurrentPage, setProductsDetails }) => {
     if (selectedProducts.length < 1) {
       alert("Please select a product");
     } else {
-      console.log("Submitted");
       setProductsDetails([...selectedProducts]);
       setCurrentPage(2);
     }

@@ -54,7 +54,6 @@ const AntSwitch = withStyles((theme) => ({
 
 const PaymentModeOption = ({ checked, handleToggle }) => {
   const classes = useStyles();
-  // console.log(handleToggle)
   return (
     <List className={classes.root}>
       <ListItem className={'d-flex'}>

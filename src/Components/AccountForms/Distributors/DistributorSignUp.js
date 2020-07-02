@@ -23,12 +23,6 @@ export const DistributorSignUp = () => {
       contactModeDetails
     ) => {
       if (submitted) {
-        console.log({
-          pricing: pricingDetails,
-          homeDelivery: homeDeliveryDetails,
-          paymentMode: paymentModeDetails,
-          contactMode: contactModeDetails,
-        });
       }
     },
     [submitted]
@@ -46,7 +40,6 @@ export const DistributorSignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
     setCurrentPage(1);
   };
 

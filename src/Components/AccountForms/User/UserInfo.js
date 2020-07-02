@@ -77,10 +77,9 @@ const UserInfo = () => {
         }
         updateUserPromise
           .then(() => {
-            console.log("User Updated");
             history.push("/");
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.error(err));
       }
     },
     [submitted, user, dispatch, history]
@@ -93,7 +92,7 @@ const UserInfo = () => {
       paymentModeDetails,
       contactModeDetails
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [submitted]);
 
   const handleSubmit = (e) => {

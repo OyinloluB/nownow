@@ -125,7 +125,3 @@ const EligibilityWrapper = () => {
   );
 };
 export default EligibilityWrapper;
-
-// if its null then ask.
-// if true then dont show
-// if false then show error page

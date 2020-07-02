@@ -19,18 +19,18 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
             if(type==="distributor"){
               axios.patch(`/Distributor/${userID}`, { password: password, activated: true}).then(list=>{
                 window.location.reload(false);
-              }).catch(error=>console.log(error))
+              }).catch(error=>console.error(error))
             }
           
-            else if(type==="bulkbreaker"){console.log({userID});
+            else if(type==="bulkbreaker"){
                 axios.patch(`/BulkBreaker/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false); 
-                }).catch(error=>console.log(error))
+                }).catch(error=>console.error(error))
             }
             else if(type==="poc"){
                 axios.patch(`/Poc/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false);
-                }).catch(error=>console.log(error))
+                }).catch(error=>console.error(error))
             }
         }
     }
@@ -67,7 +67,6 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
           </Form.Group>
 
           <Button
-            // type="submit"
             style={{
               backgroundColor: "#b11917",
               border: "none",

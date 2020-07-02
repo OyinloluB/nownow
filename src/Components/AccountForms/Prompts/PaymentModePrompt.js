@@ -20,7 +20,6 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
     }
 
     setChecked(newChecked);
-    console.log(checked)
   };
 
   const previous = () => {
@@ -29,7 +28,6 @@ const PaymentModePrompt = ({ setCurrentPage, setPaymentModeDetails }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
     setPaymentModeDetails({
       cash: checked.includes("cash") ? true : false,
       pos: checked.includes("pos") ? true : false,

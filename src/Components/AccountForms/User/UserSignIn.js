@@ -115,8 +115,6 @@ const UserSignIn = () => {
     else {
       setNotice("UserId not valid!")
     }
-    // setShowUserId('d-none');
-    // setShowUserPas('d-block');
   };
 
   const handleSubmit = (e) => {
@@ -212,8 +210,8 @@ const UserSignIn = () => {
                 required
               />
             </Form.Group>
-            {/* <span className={"text-danger text-center font-weight-bold mt-1 offset-2 offset-md-1"}>{notice}</span> */}
-            {/* resetPassword */}
+            
+            
             <div className={resetPassword}>
               <KeyboardBackspaceIcon onClick={ goBack } style={{ cursor: 'pointer', marginBottom: '-40px' }}/>
               <ResetPassword

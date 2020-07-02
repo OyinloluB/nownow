@@ -11,7 +11,6 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
     setHomeDeliveryDetails(homeDelivery);
     setCurrentPage(3);
   };
@@ -76,20 +75,14 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
                 width: "30%",
                 marginRight: "10px",
               }}
-              onClick = {
-                toggleColorYes
-                // setHomeDelivery(true)
-              }
+              onClick = {toggleColorYes}
             >
               Yes
             </button>
             <button
               type="button"
               className={'btn'}
-              onClick={
-                // setHomeDelivery(false),
-                toggleColorNo
-              }
+              onClick={toggleColorNo}
               style={{
                 backgroundColor: noColor,
                 border: "1px solid #b11917",

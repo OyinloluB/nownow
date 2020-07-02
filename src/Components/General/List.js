@@ -24,7 +24,6 @@ class List extends Component {
 
   handleList = ({ users }) => {
     var user_data = this.props.users;
-    // console.log(user_data)
     this.setState({
       modalSwitch: true,
       user_data: user_data,

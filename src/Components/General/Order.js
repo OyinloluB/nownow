@@ -70,7 +70,7 @@ const Order = () => {
             receivedOrders[i].user.address = "Address not Found";
           }
         })
-        .catch((error) => console.log("error"));
+        .catch((error) => console.error("error"));
     }
   } 
 
@@ -93,7 +93,7 @@ const Order = () => {
             sentOrders[i].owner.address = "Address not Found";
           }
         })
-        .catch((error) => console.log("error"));
+        .catch((error) => console.error("error"));
     }
 
   };
@@ -113,7 +113,7 @@ const Order = () => {
       .then(() => {
         window.location.reload();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   // handling button switch order

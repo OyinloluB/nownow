@@ -87,45 +87,7 @@ const Home = () => {
     });
   }, [pocs, distributors, bulkbreakers, coordinates]);
 
-  // useEffect(() => {
-  //   const fetchAddress = async (storeUsers, type) => {
-  //     try {
-  //       const updatedUsers = [];
-  //       for await (const user of storeUsers) {
-  //         if (user.latitude === 0) {
-  //           user.address = "Not Available, contact through mobile number";
-  //         } else {
-  //           const address = await getCoordinatesAddress(
-  //             user.latitude,
-  //             user.longitude
-  //             );
-  //             user.address = address
-  //             ? address
-  //             : "Not Available, contact through mobile number";
-  //         }
-  //         updatedUsers.push(user);
-  //       }
-  //       setUsers((prevUsers) => ({
-  //         ...prevUsers,
-  //         [type]: [...updatedUsers],
-  //       }));
-  //     } catch (error) {
-  //       console.log("Error Fetching Addresses: ", error);
-  //     }
-  //   };
-  //   if (users.distributors.length !== 0) {
-  //     fetchAddress(users.distributors, "distributors");
-  //   }
-  //   if (users.bulkbreakers.length !== 0) {
-  //     fetchAddress(users.bulkbreakers, "bulkbreakers");
-  //   }
-  //   if (users.pocs.length !== 0) {
-  //     fetchAddress(users.pocs, "pocs");
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [users.distributors.length, users.distributors.length, users.pocs.length]);
 
-  // checking if type of user is used
   if(users.distributors.length !== 0) {
     address(users.distributors)
   }
@@ -135,7 +97,6 @@ const Home = () => {
   if(users.pocs.length !== 0) {
     address(users.pocs)
   }
-//  end of check
 
   function address(dat) {
     dat.push({
@@ -171,7 +132,6 @@ const Home = () => {
       }
     });
   }
-  //  end of address
 
   const setFirstTimeStatus = () => {
     dispatch(updateFirstTimerStatus());

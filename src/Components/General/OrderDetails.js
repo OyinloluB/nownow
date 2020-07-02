@@ -19,7 +19,7 @@ class OrderDetails extends Component {
     return (
       <React.Fragment>
         {
-          // isAuthenticated ? (
+  
           <>
             <div className="mt-4" style={{ background: "#b11917" }}>
               <div
@@ -56,7 +56,7 @@ class OrderDetails extends Component {
               </div>
             </div>
           </>
-          // ) : ('history.push('/)')
+
         }
       </React.Fragment>
     );

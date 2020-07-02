@@ -77,16 +77,15 @@ const UserInfo = () => {
         }
         updateUserPromise
           .then(() => {
-            console.log("User Updated");
             history.push("/");
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.error(err));
       }
     },
     [submitted, user, dispatch, history]
   );
 
-  useEffect(() => {console.log(contactModeDetails)
+  useEffect(() => {
     updateInfo(
       productsDetails,
       homeDeliveryDetails,
@@ -98,7 +97,6 @@ const UserInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
     setCurrentPage(user.type === "poc" ? 2 : 1);
   };
 
