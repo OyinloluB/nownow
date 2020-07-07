@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 import Container from "@material-ui/core/Container";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 
-const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
-  const [homeDelivery, setHomeDelivery] = useState(false);
-  const [ noColor, setColorNo ] = useState('#fff');
-  const [ yesColor, setColorYes ] = useState('#fff');
+const HomeDeliveryPrompt = ({
+  setCurrentPage,
+  setHomeDeliveryDetails,
+  homeDeliveryDetails,
+}) => {
+  const [homeDelivery, setHomeDelivery] = useState(homeDeliveryDetails);
+  const [noColor, setColorNo] = useState("#fff");
+  const [yesColor, setColorYes] = useState("#fff");
+
+  useEffect(() => {
+    if (homeDelivery) {
+      setColorNo("#fff");
+      setColorYes("#28A745");
+    } else {
+      setColorYes("#fff");
+      setColorNo("#B11917");
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,19 +29,19 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
     setCurrentPage(3);
   };
 
-   const toggleColorYes = (e) =>{
-     setColorNo("#fff");
-     setColorYes("#28A745");
-     e.target.style.color = "white";
-      setHomeDelivery(true)
+  const toggleColorYes = (e) => {
+    setColorNo("#fff");
+    setColorYes("#28A745");
+    e.target.style.color = "white";
+    setHomeDelivery(true);
   };
-  const toggleColorNo = (e) =>{
+  const toggleColorNo = (e) => {
     e.preventDefault();
     setColorYes("#fff");
-    setColorNo("#B11917")
-     e.target.style.color = "white";
-    setHomeDelivery(false)
-  }
+    setColorNo("#B11917");
+    e.target.style.color = "white";
+    setHomeDelivery(false);
+  };
 
   const previous = () => {
     setCurrentPage(1);
@@ -42,28 +56,43 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
       }}
     >
       <Form onSubmit={handleSubmit}>
-      <p style={{fontSize: '10px', borderRadius: '4px', backgroundColor: '#AADAFF', fontWeight: 'bold'}} className={'text-center text-justify p-1'}>
-          Please note your customers will be able to see that you can deliver to them or not when placing their order
-      </p>
-    
+        <p
+          style={{
+            fontSize: "10px",
+            borderRadius: "4px",
+            backgroundColor: "#AADAFF",
+            fontWeight: "bold",
+          }}
+          className={"text-center text-justify p-1"}
+        >
+          Please note your customers will be able to see that you can deliver to
+          them or not when placing their order
+        </p>
+
         <Modal.Dialog>
           <Modal.Header
             style={{
               backgroundColor: "#b11917",
             }}
-          > 
-            <Modal.Title style={{ color: "white", fontSize: "16px" }} className={'text-center'}>
-              <KeyboardBackspaceIcon className="mr-4" style={{cursor: "pointer"}} onClick={previous} />
+          >
+            <Modal.Title
+              style={{ color: "white", fontSize: "16px" }}
+              className={"text-center"}
+            >
+              <KeyboardBackspaceIcon
+                className="mr-4"
+                style={{ cursor: "pointer" }}
+                onClick={previous}
+              />
               <LocalShippingIcon style={{ color: "white", fontSize: 25 }} />
-              &nbsp;
-               Do you deliver products to your customers?
+              &nbsp; Do you deliver products to your customers?
             </Modal.Title>
           </Modal.Header>
 
-          <Modal.Body className={'d-flex'}>
+          <Modal.Body className={"d-flex"}>
             <button
               type="button"
-              className={'btn mr-auto'}
+              className={"btn mr-auto"}
               style={{
                 backgroundColor: yesColor,
                 paddding: "25px",
@@ -71,22 +100,22 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
                 border: "1px solid #28A745",
                 borderRadius: "5px",
                 fontWeight: "bold",
-                color: yesColor==="#28A745"? "#fff" : "#28A745",
+                color: yesColor === "#28A745" ? "#fff" : "#28A745",
                 width: "30%",
                 marginRight: "10px",
               }}
-              onClick = {toggleColorYes}
+              onClick={toggleColorYes}
             >
               Yes
             </button>
             <button
               type="button"
-              className={'btn'}
+              className={"btn"}
               onClick={toggleColorNo}
               style={{
                 backgroundColor: noColor,
                 border: "1px solid #b11917",
-                color: noColor==='#fff'? "#B11917" : "#fff",
+                color: noColor === "#fff" ? "#B11917" : "#fff",
                 width: "30%",
               }}
             >
@@ -107,7 +136,12 @@ const HomeDeliveryPrompt = ({ setCurrentPage, setHomeDeliveryDetails }) => {
               Next
             </Button>
           </Modal.Footer>
-          <span style={{color: '#b11917', fontSize: '13px', fontWeight: 'bold'}} className={'offset-5'}>Setup 2 of 4</span>
+          <span
+            style={{ color: "#b11917", fontSize: "13px", fontWeight: "bold" }}
+            className={"offset-5"}
+          >
+            Setup 2 of 4
+          </span>
         </Modal.Dialog>
       </Form>
     </Container>

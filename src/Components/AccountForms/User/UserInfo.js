@@ -115,6 +115,7 @@ const UserInfo = () => {
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
           setHomeDeliveryDetails={setHomeDeliveryDetails}
+          homeDeliveryDetails={homeDeliveryDetails}
         />
       </div>
     );
@@ -124,6 +125,7 @@ const UserInfo = () => {
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
           setPaymentModeDetails={setPaymentModeDetails}
+          paymentModeDetails={paymentModeDetails}
         />
       </div>
     );
@@ -133,6 +135,7 @@ const UserInfo = () => {
         <ContactModePrompt
           setCurrentPage={setCurrentPage}
           setContactModeDetails={setContactModeDetails}
+          contactModeDetails={contactModeDetails}
           setSubmitted={setSubmitted}
         />
       </div>
