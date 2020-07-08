@@ -92,12 +92,11 @@ const UserInfo = () => {
       paymentModeDetails,
       contactModeDetails
     );
-
   }, [submitted]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted");
+
     setCurrentPage(user.type === "poc" ? 2 : 1);
   };
 
@@ -116,6 +115,7 @@ const UserInfo = () => {
         <HomeDeliveryPrompt
           setCurrentPage={setCurrentPage}
           setHomeDeliveryDetails={setHomeDeliveryDetails}
+          homeDeliveryDetails={homeDeliveryDetails}
         />
       </div>
     );
@@ -125,6 +125,7 @@ const UserInfo = () => {
         <PaymentModePrompt
           setCurrentPage={setCurrentPage}
           setPaymentModeDetails={setPaymentModeDetails}
+          paymentModeDetails={paymentModeDetails}
         />
       </div>
     );
@@ -134,6 +135,7 @@ const UserInfo = () => {
         <ContactModePrompt
           setCurrentPage={setCurrentPage}
           setContactModeDetails={setContactModeDetails}
+          contactModeDetails={contactModeDetails}
           setSubmitted={setSubmitted}
         />
       </div>

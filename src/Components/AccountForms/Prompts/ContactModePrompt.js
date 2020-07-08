@@ -11,11 +11,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 const ContactModePrompt = ({
   setCurrentPage,
   setContactModeDetails,
+  contactModeDetails,
   setSubmitted,
 }) => {
   // const [checked, setChecked] = React.useState(true);
 
-  const [contactDetails, setContactDetails] = useState({});
+  const [contactDetails, setContactDetails] = useState({
+    ...contactModeDetails,
+  });
   const [phoneCall, setPhoneCall] = useState(true);
   const [whatsapp, setWhatsapp] = useState(true);
 
@@ -66,7 +69,8 @@ const ContactModePrompt = ({
             }}
             className={"text-center text-justify"}
           >
-            Please note that you can select one or both modes of contact which your customers will be able to contact you
+            Please note that you can select one or both modes of contact which
+            your customers will be able to contact you
           </p>
 
           <Modal.Dialog>
@@ -110,7 +114,10 @@ const ContactModePrompt = ({
                     className={"mt-2"}
                     style={{ color: "#b11917", fontSize: 18 }}
                   />
-                  <span className={'mt-2'} style={{fontSize: '13px'}}> &nbsp; By Phone</span>
+                  <span className={"mt-2"} style={{ fontSize: "13px" }}>
+                    {" "}
+                    &nbsp; By Phone
+                  </span>
                 </Form.Label>
                 <Form.Control
                   style={{
@@ -144,7 +151,10 @@ const ContactModePrompt = ({
                     className={"mt-2"}
                     style={{ color: "#b11917", fontSize: 18 }}
                   />
-                  <span className={'mt-2'} style={{fontSize: '13px'}}> &nbsp; By WhatsApp</span>
+                  <span className={"mt-2"} style={{ fontSize: "13px" }}>
+                    {" "}
+                    &nbsp; By WhatsApp
+                  </span>
                 </Form.Label>
                 <Form.Control
                   style={{

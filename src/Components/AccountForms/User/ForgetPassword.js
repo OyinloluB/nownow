@@ -90,7 +90,7 @@ export default function ForgetPassword() {
                 .then((data)=>{
                     setNotice(`Your new password has been sent to this number: ${mobile}, kindly click on Sign In button below to continue.`);
                 })
-                .catch((error)=> console.log(error))
+                .catch((error)=> setNotice(error))
             }
             else {
                 setNotice("Mobile Number not compatible with UserId");

@@ -31,7 +31,6 @@ const DeliveryCard = ({ order }) => {
     dispatch(updateOrder(order._id, { review: { rating, comment } }))
       .then(() => setOpen(false))
       .catch((err) => {
-        console.log(err);
         setOpen(false);
       });
   };

@@ -127,7 +127,6 @@ const ViewBasket = ({ show, setViewBasket }) => {
     dispatch(setCartItems(updatedItems));
     dispatch(makeOrder())
       .then(() => {
-        console.log("Order Made");
         handleClick({ vertical: "top", horizontal: "right" });
         setSuccess("d-block");
         setToggleChekoutOption("d-none");
@@ -137,7 +136,6 @@ const ViewBasket = ({ show, setViewBasket }) => {
         setSuccess("d-none");
         setToggleChekoutOption("d-block");
         setTogglePaymentOption("d-none");
-        console.log(err);
       });
   };
 
