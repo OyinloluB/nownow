@@ -17,18 +17,18 @@ const ResetPassword = ({ userID, setResetPassword , type}) => {
         else {
             let password = pwd.password;
             if(type==="distributor"){
-              axios.patch(`/Distributor/${userID}`, { password: password, activated: true}).then(list=>{
+              axios.patch(`/Distributor/changepassword/${userID}`, { password: password, activated: true}).then(list=>{
                 window.location.reload(false);
               }).catch(error=>console.error(error))
             }
           
             else if(type==="bulkbreaker"){
-                axios.patch(`/BulkBreaker/${userID}`, { password: password, activated: true }).then(list=>{
+                axios.patch(`/BulkBreaker/changepassword/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false); 
                 }).catch(error=>console.error(error))
             }
             else if(type==="poc"){
-                axios.patch(`/Poc/${userID}`, { password: password, activated: true }).then(list=>{
+                axios.patch(`/Poc/changepassword/${userID}`, { password: password, activated: true }).then(list=>{
                     window.location.reload(false);
                 }).catch(error=>console.error(error))
             }
