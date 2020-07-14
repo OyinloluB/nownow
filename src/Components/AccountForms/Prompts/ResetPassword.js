@@ -83,7 +83,6 @@ const ResetPassword = ({ userID, setResetPassword, type }) => {
           placeholder="Enter New Password"
           name="password"
           handleChange={handleChange}
-          required
         />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
@@ -95,7 +94,6 @@ const ResetPassword = ({ userID, setResetPassword, type }) => {
           placeholder="Confirm New Password"
           name="cpassword"
           handleChange={handleChange}
-          required
         />
       </Form.Group>
 
